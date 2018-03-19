@@ -1,0 +1,511 @@
+
+#define _GNU_SOURCE
+#include <time.h>
+#include <stdlib.h>
+#include <stdio.h>
+#include <string.h>
+#include <stdint.h>
+#include <stdarg.h>
+#include <unistd.h>
+#include <sys/errno.h>
+
+#include "util.h"
+#include "dbug.h"
+#include "cJSON.h"
+#include "dbdriver.h"
+
+EXEC SQL INCLUDE sqlda;
+EXEC SQL INCLUDE sqlca;
+EXEC SQL INCLUDE sqlcpr;
+EXEC SQL INCLUDE sqlapr;
+
+SQLDA *bind_dp;
+SQLDA *select_dp;
+
+static void dbSetErrorWithErrno(error_info *error, int errorno)
+{
+	if(!error) return;
+
+	error->ecode = errorno;
+	snprintf(error->errstr, sizeof(error->errstr), "%s", strerror(error->ecode));
+}
+
+static void dbSetError(error_info *error, const char *fmt, ...)
+{
+	if(!error) return;
+
+	error->ecode = errno;
+	va_list vp;
+	va_start(vp, fmt);
+	vsnprintf(error->errstr, sizeof(error->errstr), fmt, vp);
+	va_end(vp);
+}
+
+static void dbSetORAError(error_info *error)
+{
+	char stm[512] = "";
+	unsigned char message[512] = "";
+	size_t sqlfc = 0, stmlen = 512, message_length = 0, buffer_size = 512;
+
+	if(!error) return;
+
+	sqlgls(stm, &stmlen, &sqlfc);
+	sqlglm(message, &buffer_size, &message_length);
+
+	rtrim((unsigned char*)message, message_length);
+	if(message[strlen((char*)message)-1] == 0x0a)
+		message[strlen((char*)message)-1] = 0x0;
+
+	error->ecode = SQLCODE;
+	snprintf(error->errstr, sizeof(error->errstr), "%s", message);
+}
+
+static int isSelectStatment(char *stmt)
+{
+	static char select[] = "SELECT";
+
+	if(strncasecmp(select, stmt, strlen(select)))
+		return 0;
+	return 1;
+}
+
+static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
+{
+	DBUG_ENTER(__func__);
+
+	if ((bind_dp = SQLSQLDAAlloc(SQL_SINGLE_RCTX, max_col_cnt,
+					max_vname_len, max_iname_len)) == (SQLDA *) 0)
+	{
+		dbSetError(hstmt->error, "Cannot allocate memory for bind descriptor.");
+		DBUG_RETURN(DBO_FAIL); 
+	}
+
+	if ((select_dp = SQLSQLDAAlloc (SQL_SINGLE_RCTX, max_col_cnt,
+					max_vname_len, max_iname_len)) == (SQLDA *) 0)
+	{
+		dbSetError(hstmt->error, "Cannot allocate memory for select descriptor.");
+		DBUG_RETURN(DBO_FAIL); 
+	}
+
+	int i;
+	select_dp->N = max_col_cnt;
+	for(i = 0; i < max_col_cnt; i++)
+	{
+		bind_dp->I[i]   = (short*) malloc(sizeof(short));
+		select_dp->I[i] = (short*) malloc(sizeof(short));
+		bind_dp->V[i]   = (char *) malloc(sizeof(char));
+		select_dp->V[i] = (char *) malloc(sizeof(char));
+	}
+
+	DBUG_RETURN(DBO_SUCC); 
+}
+
+/*
+static int runNonQueryStatment(DBDriver *driver, char *statment)
+{
+	EXEC SQL BEGIN DECLARE SECTION;
+	varchar caSqlStmt[ORA_MAX_SQL_LEN];
+	EXEC SQL END DECLARE SECTION;
+
+	caSqlStmt.len = sprintf((char*)caSqlStmt.arr, "%s", statment);
+	EXEC SQL EXECUTE IMMEDIATE :caSqlStmt;
+	if(SQLCODE != IAPSUCC)
+	{
+		dbSetORAError(driver);
+		EXEC SQL ROLLBACK WORK;
+		return(IAPFAIL);
+	}
+	else
+	{
+		EXEC SQL COMMIT WORK;
+		if(SQLCODE != IAPSUCC)
+		{
+			dbSetORAError(driver);
+			return(IAPSUCC);
+		}
+	}
+
+	dbSetErrorWithErrno(driver, 0);
+	return(IAPSUCC);
+}
+*/
+
+static int Proc_db_connect(HDBC hdbc)
+{
+	DBUG_ENTER(__func__);
+
+	EXEC SQL BEGIN DECLARE SECTION;
+	varchar     dbpwd[21];
+	varchar     dbuserid[21];
+	EXEC SQL END DECLARE SECTION;
+
+	if(hdbc == NULL)
+		DBUG_RETURN(RETURN_INVALID);
+
+	DBUG_PRINT(__func__, ("LINE:%d DBOPENDATABASE BEGIN!!!",__LINE__));
+
+	strcpy((char*)dbuserid.arr, hdbc->username);
+	dbuserid.len = strlen(hdbc->username);
+	strcpy((char*)dbpwd.arr, hdbc->password);
+	dbpwd.len = strlen(hdbc->password);
+
+	EXEC SQL CONNECT :dbuserid IDENTIFIED BY :dbpwd;
+	if( SQLCODE != IAPSUCC )
+	{
+		dbSetORAError(hdbc->error);
+		DBUG_PRINT(__func__, ("LINE:%d CONNECT TO DB ERROR & DBOPENDATABASE END!!!",__LINE__));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_PRINT(__func__, ("LINE:%d DB_LOGIN SUCCESSFULLY END!!!",__LINE__));
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBConnectInitialize(HDBC *hdbc)
+{
+	DBUG_ENTER(__func__);
+
+	if(hdbc == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
+	*hdbc = malloc(sizeof(connection));
+	if(*hdbc == NULL) {
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	(*hdbc)->error = malloc(sizeof(error_info));
+	if((*hdbc)->error == NULL) {
+		mFree(hdbc);
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBConnectFinished(HDBC hdbc)
+{
+	DBUG_ENTER(__func__);
+
+	if(hdbc == NULL)
+		DBUG_RETURN(RETURN_INVALID);
+
+	mFree(hdbc->error);
+	mFree(hdbc);
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBConnect(HDBC hdbc, char *username, char *password, char *database)
+{
+	DBUG_ENTER(__func__);
+
+	if(hdbc == NULL || username == NULL || password == NULL)
+		DBUG_RETURN(RETURN_INVALID);
+	
+	sprintf(hdbc->username, "%s", username);
+	sprintf(hdbc->password, "%s", password);
+	sprintf(hdbc->database, "%s", database?database:"");
+
+	if(Proc_db_connect(hdbc) != RETURN_SUCCESS)
+	{
+		DBUG_PRINT(__func__, ("%s", hdbc->error->errstr));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBDisconnect(HDBC hdbc)
+{
+	DBUG_ENTER(__func__);
+
+	if(hdbc == NULL)
+		DBUG_RETURN(RETURN_INVALID);
+
+	EXEC SQL COMMIT WORK RELEASE;
+	if( SQLCODE != IAPSUCC )
+	{
+		dbSetORAError(hdbc->error);
+
+		DBUG_PRINT(__func__, ("LINE:%d DBCLOSEDATABASE END UNSUCCESSFULLY!!!The uncommitted transaction hasn't committed!!!",__LINE__));
+		DBUG_PRINT(__func__, ("%s", hdbc->error->errstr));
+
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_PRINT(__func__, ("LINE:%d DBCLOSEDATABASE SUCCESSFULLY END!!!",__LINE__));
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+#if 0 
+static int fetchQueryStatmentResult(DBDriver *driver);
+int DBExecute(DBDriver *driver, char *statment)
+{
+	DBUG_ENTER(__func__);
+
+	int i;
+	struct Cprivate *priv = NULL;
+	SQLDA *bind_dp = NULL;
+	SQLDA *select_dp = NULL;
+
+	EXEC SQL BEGIN DECLARE SECTION;
+	char caSqlStmt[ORA_MAX_SQL_LEN];
+	EXEC SQL VAR caSqlStmt IS STRING(ORA_MAX_SQL_LEN);
+	EXEC SQL END DECLARE SECTION;
+
+	if(driver == NULL)
+		DBUG_RETURN(DBO_FAIL);
+
+	priv = (struct Cprivate*)driver->statment;
+	sprintf(caSqlStmt, "%s", statment);
+
+	//
+	// If is Non query sql statment
+	// execute immediate and return
+	//
+	if( ! isSelectStatment(caSqlStmt))
+	{
+		driver->sqltype = 0;
+		if(IAPSUCC != runNonQueryStatment(driver, statment))
+		{
+			DBUG_PRINT("runNonQueryStatment", ("%s", driver->errstr));
+			DBUG_RETURN(DBO_FAIL);
+		}
+		//
+		// generate non query sql json response
+		//
+		DBUG_RETURN(DBO_SUCC);
+	}
+
+	//
+	// Query sql statment shuld be prepare and descript before execute
+	//
+	if(allocDescriptors(driver, ORA_SQL_MAX_ITEM_NUM, ORA_COLUMN_NAME_LEN, ORA_INDICATE_NAME_LEN) != 0)
+	{
+		DBUG_PRINT("allocDescriptors", ("%s", driver->errstr));
+		DBUG_RETURN(DBO_FAIL);
+	}
+
+	bind_dp = priv->bind_dp;
+	select_dp = priv->select_dp;
+
+	EXEC SQL PREPARE S FROM :caSqlStmt;
+	EXEC SQL DECLARE C CURSOR FOR S;
+	EXEC SQL OPEN C USING DESCRIPTOR bind_dp;
+
+	if(SQLCODE != IAPSUCC)
+	{
+		dbSetORAError(driver);
+		DBUG_RETURN(DBO_FAIL);
+	}
+
+	if(IAPSUCC != fetchQueryStatmentResult(driver))
+	{
+		DBUG_PRINT("fetchQueryStatmentResult", ("%s", driver->errstr));
+	}
+
+	for (i = 0; i < ORA_SQL_MAX_ITEM_NUM; i++)
+	{
+		if (bind_dp->V[i] != (char *) 0)
+			mFree(bind_dp->V[i]);
+		mFree(bind_dp->I[i]);
+		if (select_dp->V[i] != (char *) 0)
+			mFree(select_dp->V[i]);
+		mFree(select_dp->I[i]);
+	}
+	SQLSQLDAFree(SQL_SINGLE_RCTX, bind_dp);
+	SQLSQLDAFree(SQL_SINGLE_RCTX, select_dp);
+	EXEC SQL CLOSE C;
+
+	priv->bind_dp = NULL;
+	priv->select_dp = NULL;
+
+	if(driver->ecode)
+		DBUG_RETURN(DBO_FAIL);
+	DBUG_RETURN(DBO_SUCC);
+}
+
+static int allocEnoughSpaceForField(db_reader *reader)
+{
+	int i, null, precision, scale;
+	struct Cprivate *priv = (struct Cprivate*)reader->statment;
+
+	SQLDA *sqlda = priv->select_dp;
+
+	for (i = 0; i < sqlda->F; i++)
+	{
+		SQLColumnNullCheck (SQL_SINGLE_RCTX,
+				(unsigned short*)&(sqlda->T[i]), (unsigned short*)&(sqlda->T[i]), &null);
+		priv->fields[i].type = sqlda->T[i];
+
+		switch (sqlda->T[i])
+		{
+			case ORA_SQL_FIELD_TYPE_VCHAR2 :
+			case ORA_SQL_FIELD_TYPE_CHAR :
+				break;
+
+			case ORA_SQL_FIELD_TYPE_NUMBER :
+				SQLNumberPrecV6 (SQL_SINGLE_RCTX,
+						(unsigned int*)&(sqlda->L[i]), &precision, &scale);
+				// XXX: maybe wrong in this way
+				if(precision>0 || scale>0)
+					sqlda->L[i] = precision+scale+(scale>0?1:0);
+				else
+					sqlda->L[i] = 24;
+				sqlda->T[i] = 1;
+				break;
+
+			case ORA_SQL_FIELD_TYPE_LONG :
+				sqlda->L[i] = 240;
+				break;
+
+			case ORA_SQL_FIELD_TYPE_ROWID :
+				sqlda->L[i] = 18;
+				break;
+
+			case ORA_SQL_FIELD_TYPE_DATE :
+				sqlda->L[i] = 9;
+				sqlda->T[i] = 1;
+				break;
+
+			case ORA_SQL_FIELD_TYPE_RAW :
+				break;
+
+			case ORA_SQL_FIELD_TYPE_LRAW :
+				sqlda->L[i] = 240;
+				break;
+		}
+
+		if (sqlda->T[i] != ORA_SQL_FIELD_TYPE_LRAW &&
+				sqlda->T[i] != ORA_SQL_FIELD_TYPE_NUMBER)
+			sqlda->T[i] = ORA_SQL_FIELD_TYPE_VCHAR2;
+
+		if (sqlda->T[i] == ORA_SQL_FIELD_TYPE_NUMBER)
+			sqlda->T[i] = scale ? ORA_SQL_FIELD_TYPE_FLOAT : ORA_SQL_FIELD_TYPE_INTEGER;
+
+		priv->fields[i].length = sqlda->L[i];
+		priv->fields[i].name_length = sqlda->C[i];
+		priv->fields[i].name = malloc(priv->fields[i].name_length + 1);
+		sprintf((char*)priv->fields[i].name, "%.*s",
+				priv->fields[i].name_length, sqlda->S[i]);
+
+		sqlda->V[i] = realloc(sqlda->V[i], sqlda->L[i] + 1);
+	}
+
+	return(IAPSUCC);
+}
+
+int fetchQueryStatmentResult(DBDriver *driver)
+{
+	DBUG_ENTER(__func__);
+
+	int i;
+	char value[4000];
+	struct Cprivate *priv = driver->statment;
+
+	cJSON *root = cJSON_CreateObject();
+	cJSON *field = cJSON_CreateArray();
+	cJSON *result = cJSON_CreateArray();
+
+	SQLDA *select_dp = priv->select_dp;
+	select_dp->N = ORA_SQL_MAX_ITEM_NUM;
+
+	EXEC SQL DESCRIBE SELECT LIST FOR S INTO select_dp;
+	if (select_dp->F < 0)
+	{
+		dbSetError(driver, "Too many select-list items(%d), maximum is %d\n",
+				-(select_dp->F), ORA_SQL_MAX_ITEM_NUM);
+		DBUG_RETURN(IAPFAIL);
+	}
+
+	select_dp->N = select_dp->F;
+
+	priv->field_count = select_dp->N;
+	priv->fields = malloc(sizeof(Cfield)*priv->field_count);
+	if(priv->fields == NULL)
+	{
+		dbSetErrorWithErrno(driver, ENOMEM);
+		DBUG_RETURN(IAPFAIL);
+	}
+
+	allocEnoughSpaceForField(driver);
+
+	for(i=0; i<priv->field_count; i++)
+	{
+		cJSON *object = cJSON_CreateObject();
+		cJSON_AddItemToObject(object, "name",
+				cJSON_CreateString((char*)priv->fields[i].name));
+		cJSON_AddItemToObject(object, "type", cJSON_CreateNumber(priv->fields[i].type));
+		cJSON_AddItemToObject(object, "capacity",
+				cJSON_CreateNumber(priv->fields[i].length));
+
+		cJSON_AddItemToArray(field, object);
+	}
+
+	for (;sqlca.sqlerrd[2]<ORA_MAX_ROW_COUNT;)
+	{
+		EXEC SQL FETCH C USING DESCRIPTOR select_dp;
+		if(SQLCODE==1403)
+		{
+			break;
+		}
+		else if(SQLCODE<0)
+		{
+			priv->row_count = 0x0;
+			dbSetORAError(driver);
+			DBUG_RETURN(IAPFAIL);
+		}
+
+		cJSON *row = cJSON_CreateArray();
+		for (i = 0; i < select_dp->F; i++)
+		{
+			memset(value, 0x0, sizeof(value));
+
+			if (*select_dp->I[i] >= 0)
+			{
+				memcpy(value, select_dp->V[i], select_dp->L[i]);
+				rtrim((unsigned char*)value, select_dp->L[i]);
+
+				if(priv->fields[i].type != ORA_SQL_FIELD_TYPE_VCHAR2 &&
+						select_dp->T[i]==ORA_SQL_FIELD_TYPE_VCHAR2)
+				{
+					ltrim((unsigned char*)value, select_dp->L[i]);
+					cJSON_AddItemToArray(row, cJSON_CreateNumber(strtoll(value, NULL, 10)));
+				}
+				else
+				{
+					cJSON_AddItemToArray(row, cJSON_CreateString(value));
+				}
+			}
+			else
+			{
+				cJSON_AddItemToArray(row, cJSON_CreateNull());
+			}
+		}
+		cJSON_AddItemToArray(result, row);
+	}
+	priv->row_count = sqlca.sqlerrd[2];
+
+	cJSON_AddItemToObject(root, "app", cJSON_CreateString("oracle client"));
+	cJSON_AddItemToObject(root, "type", cJSON_CreateString("response"));
+	cJSON_AddItemToObject(root, "sqltype", cJSON_CreateString("select"));
+	cJSON_AddItemToObject(root, "eflag",
+			driver->ecode?cJSON_CreateFalse():cJSON_CreateTrue());
+	cJSON_AddItemToObject(root, "message",
+			driver->ecode?cJSON_CreateString(driver->errstr):cJSON_CreateString("OK"));
+	cJSON_AddItemToObject(root, "pid", cJSON_CreateNumber(getpid()));
+	cJSON_AddItemToObject(root, "timestamp", cJSON_CreateNumber(time(NULL)));
+	cJSON_AddItemToObject(root, "fields", cJSON_CreateNumber(priv->field_count));
+	cJSON_AddItemToObject(root, "rows", cJSON_CreateNumber(priv->row_count));
+
+	cJSON_AddItemToObject(root, "field", field);
+	cJSON_AddItemToObject(root, "result", result);
+
+	driver->json_string = cJSON_PrintUnformatted(root);
+	cJSON_free(root);
+
+	DBUG_RETURN(IAPSUCC);
+}
+#endif 

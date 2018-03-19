@@ -1,0 +1,13 @@
+提供9个接口：
+
+DBConnectInitialize(HDBC *hdbc);
+
+DBConnect();
+DBDisconnect();
+
+SQLExecute();
+SQLRelease();
+
+结果集：
+JSON串
+字段个数，结果集合记录数，错误信息，

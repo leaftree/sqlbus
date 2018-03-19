@@ -1,0 +1,805 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AUTO	dbug/dbug.c	182;"	d	file:
+AUTOS_REVERSE	dbug/dbug.c	204;"	d	file:
+BOOLEAN	dbug/dbug.c	/^typedef int BOOLEAN;$/;"	t	file:
+BOOLEAN	dbug/dbug.c	173;"	d	file:
+BaseName	dbug/dbug.c	/^BaseName(const char *pathname)$/;"	f	file:	signature:(const char *pathname)
+BaseName	dbug/dbug.c	/^static char *BaseName(const char *pathname);$/;"	p	file:	signature:(const char *pathname)
+C	ora.c	/^  \/* ub2*   *\/ short     *C; \/* Ptr to Arr of current lengths of var. names *\/$/;"	m	struct:SQLDA	file:	access:public
+CODE_STATE	dbug/dbug.c	/^CODE_STATE;$/;"	t	typeref:struct:st_code_state	file:
+Cfield	ora.c	/^typedef struct Cfield$/;"	s	file:
+Cfield	ora.c	/^} Cfield;$/;"	t	typeref:struct:Cfield	file:
+Cfield	ora.pc	/^typedef struct Cfield$/;"	s	file:
+Cfield	ora.pc	/^} Cfield;$/;"	t	typeref:struct:Cfield	file:
+Cfield::length	ora.c	/^	uint16_t length;$/;"	m	struct:Cfield	file:	access:public
+Cfield::length	ora.pc	/^	uint16_t length;$/;"	m	struct:Cfield	file:	access:public
+Cfield::name	ora.c	/^	unsigned char *name;$/;"	m	struct:Cfield	file:	access:public
+Cfield::name	ora.pc	/^	unsigned char *name;$/;"	m	struct:Cfield	file:	access:public
+Cfield::name_length	ora.c	/^	uint16_t name_length;$/;"	m	struct:Cfield	file:	access:public
+Cfield::name_length	ora.pc	/^	uint16_t name_length;$/;"	m	struct:Cfield	file:	access:public
+Cfield::type	ora.c	/^	uint8_t type;$/;"	m	struct:Cfield	file:	access:public
+Cfield::type	ora.pc	/^	uint8_t type;$/;"	m	struct:Cfield	file:	access:public
+ChangeOwner	dbug/dbug.c	/^ChangeOwner(char *pathname)$/;"	f	file:	signature:(char *pathname)
+ChangeOwner	dbug/dbug.c	/^static void ChangeOwner(char *pathname);$/;"	p	file:	signature:(char *pathname)
+ChangeOwner	dbug/dbug.c	365;"	d	file:
+Clock	dbug/dbug.c	/^Clock()$/;"	f	file:	signature:()
+Clock	dbug/dbug.c	/^static unsigned long Clock(void);$/;"	p	file:	signature:(void)
+CloseFile	dbug/dbug.c	/^CloseFile(FILE * fp)$/;"	f	file:	signature:(FILE * fp)
+CloseFile	dbug/dbug.c	/^static void CloseFile(FILE * fp);$/;"	p	file:	signature:(FILE * fp)
+Cprivate	ora.c	/^typedef struct Cprivate$/;"	s	file:
+Cprivate	ora.c	/^} Cprivate;$/;"	t	typeref:struct:Cprivate	file:
+Cprivate	ora.pc	/^typedef struct Cprivate$/;"	s	file:
+Cprivate	ora.pc	/^} Cprivate;$/;"	t	typeref:struct:Cprivate	file:
+Cprivate::bind_dp	ora.c	/^	SQLDA *bind_dp;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::bind_dp	ora.pc	/^	SQLDA *bind_dp;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::field_count	ora.c	/^	uint16_t field_count;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::field_count	ora.pc	/^	uint16_t field_count;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::fields	ora.c	/^	Cfield *fields;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::fields	ora.pc	/^	Cfield *fields;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::row_count	ora.c	/^	uint32_t row_count;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::row_count	ora.pc	/^	uint32_t row_count;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::select_dp	ora.c	/^	SQLDA *select_dp;$/;"	m	struct:Cprivate	file:	access:public
+Cprivate::select_dp	ora.pc	/^	SQLDA *select_dp;$/;"	m	struct:Cprivate	file:	access:public
+DBAPI_ASYNC	db.h	52;"	d
+DBAPI_CLIENT	db.h	55;"	d
+DBAPI_SERVER	db.h	56;"	d
+DBAPI_SYNC	db.h	53;"	d
+DBAPI_TIMEO	db.h	54;"	d
+DBAPPExecute	db.h	/^int DBAPPExecute(DBHandle *handle, char *stmt);$/;"	p	signature:(DBHandle *handle, char *stmt)
+DBAPPExecute	redisop.c	/^int DBAPPExecute(DBHandle *handle, char *stmt)$/;"	f	signature:(DBHandle *handle, char *stmt)
+DBAPPFree	db.h	/^DBHandle *DBAPPFree(DBHandle *handle);$/;"	p	signature:(DBHandle *handle)
+DBAPPInit	redisop.c	/^static DBHandle *DBAPPInit(int flag, va_list arg)$/;"	f	file:	signature:(int flag, va_list arg)
+DBClientInit	db.h	/^DBHandle *DBClientInit(int flag, ...);$/;"	p	signature:(int flag, ...)
+DBClientInit	redisop.c	/^DBHandle *DBClientInit(int flag, ...)$/;"	f	signature:(int flag, ...)
+DBClientSendRequest	redisop.c	/^int DBClientSendRequest(DBHandle *handle, char *stmt)$/;"	f	signature:(DBHandle *handle, char *stmt)
+DBCloseConnection	dbdriver.h	/^int DBCloseConnection(DBDriver *driver);$/;"	p	signature:(DBDriver *driver)
+DBCloseConnection	ora.c	/^int DBCloseConnection(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+DBCloseConnection	ora.pc	/^int DBCloseConnection(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+DBConnection	dbdriver.h	/^int DBConnection(DBDriver *driver);$/;"	p	signature:(DBDriver *driver)
+DBConnection	ora.c	/^int DBConnection(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+DBConnection	ora.pc	/^int DBConnection(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+DBDriver	dbdriver.h	/^} DBDriver;$/;"	t	typeref:struct:__DBDriver
+DBExecute	dbdriver.h	/^int DBExecute(DBDriver *driver, char *statment);$/;"	p	signature:(DBDriver *driver, char *statment)
+DBExecute	ora.c	/^int DBExecute(DBDriver *driver, char *statment)$/;"	f	signature:(DBDriver *driver, char *statment)
+DBExecute	ora.pc	/^int DBExecute(DBDriver *driver, char *statment)$/;"	f	signature:(DBDriver *driver, char *statment)
+DBHDBC	dbdriver.h	/^typedef void* DBHDBC;$/;"	t
+DBHEnvNew	dbdriver.h	/^DBDriver *DBHEnvNew(char *db, char *user, char *password);$/;"	p	signature:(char *db, char *user, char *password)
+DBHEnvNew	ora.c	/^DBDriver *DBHEnvNew(char *db, char *user, char *password)$/;"	f	signature:(char *db, char *user, char *password)
+DBHEnvNew	ora.pc	/^DBDriver *DBHEnvNew(char *db, char *user, char *password)$/;"	f	signature:(char *db, char *user, char *password)
+DBHSTMT	dbdriver.h	/^typedef void* DBHSTMT;$/;"	t
+DBHSTMT	tags	/^DBHSTMT	dbdriver.h	\/^typedef void* DBHSTMT;$\/;"	t$/;"	t	file:
+DBHandle	db.h	/^} DBHandle;$/;"	t	typeref:struct:__DBHandle
+DBO_FAIL	dbdriver.h	27;"	d
+DBO_FAIL	dbdriver.h	31;"	d
+DBO_SUCC	dbdriver.h	28;"	d
+DBO_SUCC	dbdriver.h	30;"	d
+DBReleaseHEnv	dbdriver.h	/^int DBReleaseHEnv(DBDriver **driver);$/;"	p	signature:(DBDriver **driver)
+DBReleaseHEnv	ora.c	/^int DBReleaseHEnv(DBDriver **driver)$/;"	f	signature:(DBDriver **driver)
+DBReleaseHEnv	ora.pc	/^int DBReleaseHEnv(DBDriver **driver)$/;"	f	signature:(DBDriver **driver)
+DBServerInit	db.h	/^DBHandle *DBServerInit(int flag, ...);$/;"	p	signature:(int flag, ...)
+DBServerInit	redisop.c	/^DBHandle *DBServerInit(int flag, ...)$/;"	f	signature:(int flag, ...)
+DBServerRecvRequest	redisop.c	/^int DBServerRecvRequest(DBHandle *handle)$/;"	f	signature:(DBHandle *handle)
+DBServerSendReponse	redisop.c	/^int DBServerSendReponse(DBHandle *handle)$/;"	f	signature:(DBHandle *handle)
+DBStmtFree	dbdriver.h	/^int DBStmtFree(DBDriver *driver);$/;"	p	signature:(DBDriver *driver)
+DBStmtFree	ora.c	/^int DBStmtFree(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+DBStmtFree	ora.pc	/^int DBStmtFree(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+DBUGOpenFile	dbug/dbug.c	/^DBUGOpenFile(const char *name, int append)$/;"	f	file:	signature:(const char *name, int append)
+DBUGOpenFile	dbug/dbug.c	/^static void DBUGOpenFile(const char *name, int append);$/;"	p	file:	signature:(const char *name, int append)
+DBUG_DUMP	dbug/inc/dbug.h	125;"	d
+DBUG_DUMP	dbug/inc/dbug.h	147;"	d
+DBUG_ENTER	dbug/inc/dbug.h	111;"	d
+DBUG_ENTER	dbug/inc/dbug.h	136;"	d
+DBUG_EXECUTE	dbug/inc/dbug.h	117;"	d
+DBUG_EXECUTE	dbug/inc/dbug.h	139;"	d
+DBUG_FILE	dbug/inc/dbug.h	122;"	d
+DBUG_FILE	dbug/inc/dbug.h	144;"	d
+DBUG_IN_USE	dbug/inc/dbug.h	126;"	d
+DBUG_IN_USE	dbug/inc/dbug.h	148;"	d
+DBUG_LEAVE	dbug/inc/dbug.h	114;"	d
+DBUG_LONGJMP	dbug/inc/dbug.h	124;"	d
+DBUG_LONGJMP	dbug/inc/dbug.h	146;"	d
+DBUG_OFF	dbug/dbug.c	95;"	d	file:
+DBUG_OFF	dbug/doc/main.c	2;"	d	file:
+DBUG_ON	dbug/doc/example.c	8;"	d	file:
+DBUG_POP	dbug/inc/dbug.h	120;"	d
+DBUG_POP	dbug/inc/dbug.h	142;"	d
+DBUG_PRINT	dbug/inc/dbug.h	118;"	d
+DBUG_PRINT	dbug/inc/dbug.h	140;"	d
+DBUG_PROCESS	dbug/inc/dbug.h	121;"	d
+DBUG_PROCESS	dbug/inc/dbug.h	143;"	d
+DBUG_PUSH	dbug/inc/dbug.h	119;"	d
+DBUG_PUSH	dbug/inc/dbug.h	141;"	d
+DBUG_RETURN	dbug/inc/dbug.h	115;"	d
+DBUG_RETURN	dbug/inc/dbug.h	137;"	d
+DBUG_SETJMP	dbug/inc/dbug.h	123;"	d
+DBUG_SETJMP	dbug/inc/dbug.h	145;"	d
+DBUG_VOID_RETURN	dbug/inc/dbug.h	116;"	d
+DBUG_VOID_RETURN	dbug/inc/dbug.h	138;"	d
+DBUG_my_pthread_mutex_lock_FILE	dbug/inc/dbug.h	129;"	d
+DBUG_my_pthread_mutex_lock_FILE	dbug/inc/dbug.h	151;"	d
+DBUG_my_pthread_mutex_unlock_FILE	dbug/inc/dbug.h	130;"	d
+DBUG_my_pthread_mutex_unlock_FILE	dbug/inc/dbug.h	152;"	d
+DEBUGGER_OFF	dbug/inc/dbug.h	127;"	d
+DEBUGGER_OFF	dbug/inc/dbug.h	149;"	d
+DEBUGGER_ON	dbug/inc/dbug.h	128;"	d
+DEBUGGER_ON	dbug/inc/dbug.h	150;"	d
+DEBUGGING	dbug/dbug.c	160;"	d	file:
+DEBUG_ON	dbug/dbug.c	148;"	d	file:
+DEPTH_ON	dbug/dbug.c	151;"	d	file:
+DateStamp	dbug/dbug.c	/^struct DateStamp$/;"	s	file:
+DateStamp::ds_Days	dbug/dbug.c	/^    long ds_Days;					   \/* is incredibly ugly without splitting this *\/$/;"	m	struct:DateStamp	file:	access:public
+DateStamp::ds_Minute	dbug/dbug.c	/^    long ds_Minute;					   \/* off into a separate file *\/$/;"	m	struct:DateStamp	file:	access:public
+DateStamp::ds_Tick	dbug/dbug.c	/^    long ds_Tick;$/;"	m	struct:DateStamp	file:	access:public
+DbugExit	dbug/dbug.c	/^DbugExit(const char *why)$/;"	f	file:	signature:(const char *why)
+DbugExit	dbug/dbug.c	/^static void DbugExit(const char *why);$/;"	p	file:	signature:(const char *why)
+DbugMalloc	dbug/dbug.c	/^DbugMalloc(int size)$/;"	f	file:	signature:(int size)
+DbugMalloc	dbug/dbug.c	/^static char *DbugMalloc(int size);$/;"	p	file:	signature:(int size)
+Delay	dbug/dbug.c	/^Delay(int ticks)$/;"	f	file:	signature:(int ticks)
+Delay	dbug/dbug.c	/^IMPORT int Delay();					   \/* Pause for given number of ticks *\/$/;"	p	file:	signature:()
+Delay	dbug/dbug.c	/^static int Delay(int ticks);$/;"	p	file:	signature:(int ticks)
+Delay	dbug/dbug.c	373;"	d	file:
+DelayArg	dbug/dbug.c	/^DelayArg(int value)$/;"	f	file:	signature:(int value)
+DelayArg	dbug/dbug.c	/^static int DelayArg(int value);$/;"	p	file:	signature:(int value)
+DoPrefix	dbug/dbug.c	/^DoPrefix(uint _line_)$/;"	f	file:	signature:(uint _line_)
+DoPrefix	dbug/dbug.c	/^static void DoPrefix(uint line);$/;"	p	file:	signature:(uint line)
+DoProfile	dbug/dbug.c	/^DoProfile()$/;"	f	file:	signature:()
+DoProfile	dbug/dbug.c	/^static BOOLEAN DoProfile(void);$/;"	p	file:	signature:(void)
+DoTrace	dbug/dbug.c	/^DoTrace(CODE_STATE * state)$/;"	f	file:	signature:(CODE_STATE * state)
+DoTrace	dbug/dbug.c	/^static BOOLEAN DoTrace(CODE_STATE * state);$/;"	p	file:	signature:(CODE_STATE * state)
+EOS	dbug/dbug.c	131;"	d	file:
+ERR_ABORT	dbug/dbug.c	349;"	d	file:
+ERR_CHOWN	dbug/dbug.c	350;"	d	file:
+ERR_CLOSE	dbug/dbug.c	348;"	d	file:
+ERR_MISSING_RETURN	dbug/dbug.c	346;"	d	file:
+ERR_OPEN	dbug/dbug.c	347;"	d	file:
+EXISTS	dbug/dbug.c	356;"	d	file:
+EXISTS	dbug/dbug.c	358;"	d	file:
+EXISTS	dbug/dbug.c	361;"	d	file:
+EXPORT	dbug/dbug.c	181;"	d	file:
+F	ora.c	/^  \/* sb4    *\/ int        F; \/* Number of variables found by DESCRIBE       *\/$/;"	m	struct:SQLDA	file:	access:public
+F	ora.c	218;"	d	file:
+FALSE	dbug/dbug.c	/^    FALSE = 0,$/;"	e	enum:__anon4	file:
+FILE_ON	dbug/dbug.c	149;"	d	file:
+FLUSH_ON_WRITE	dbug/dbug.c	157;"	d	file:
+FN_LIBCHAR	dbug/dbug.c	112;"	d	file:
+FN_REFLEN	dbug/dbug.c	113;"	d	file:
+FreeList	dbug/dbug.c	/^FreeList(struct link *linkp)$/;"	f	file:	signature:(struct link *linkp)
+FreeList	dbug/dbug.c	/^static void FreeList(struct link *linkp);$/;"	p	file:	signature:(struct link *linkp)
+GenCrc16	util.c	/^unsigned short GenCrc16(char *pDataIn, int iLenIn )$/;"	f	signature:(char *pDataIn, int iLenIn )
+GenCrc16	util.h	/^unsigned short GenCrc16(char *pDataIn, int iLenIn );$/;"	p	signature:(char *pDataIn, int iLenIn )
+HZ	dbug/dbug.c	1873;"	d	file:
+Hanoi	dbug/doc/example.c	/^void  Hanoi(int n, char *pDishA, char *pDishB, char *pDishC)$/;"	f	signature:(int n, char *pDishA, char *pDishB, char *pDishC)
+Hanoi	dbug/doc/example.c	/^void  Hanoi(int n, char *pDishA, char *pDishB, char *pDishC);$/;"	p	file:	signature:(int n, char *pDishA, char *pDishB, char *pDishC)
+I	ora.c	/^  \/* sb2**  *\/ short    **I; \/* Ptr to Arr of addresses of indicator vars   *\/$/;"	m	struct:SQLDA	file:	access:public
+IAPFAIL	ora.c	/^static const int IAPFAIL = 1403;$/;"	v	file:
+IAPFTL	ora.c	/^static const int IAPFTL  = 535;$/;"	v	file:
+IAPSUCC	ora.c	/^static const int IAPSUCC = 0;$/;"	v	file:
+IH	dbug/libdbug.so	/^¨IH€Á,Â@/;"	v
+IH	libdbug.so	/^¨IH€Á,Â@/;"	v
+IMPORT	dbug/dbug.c	180;"	d	file:
+INDENT	dbug/dbug.c	138;"	d	file:
+InList	dbug/dbug.c	/^InList(struct link *linkp, const char *cp)$/;"	f	file:	signature:(struct link *linkp, const char *cp)
+InList	dbug/dbug.c	/^static BOOLEAN InList(struct link *linkp, const char *cp);$/;"	p	file:	signature:(struct link *linkp, const char *cp)
+Indent	dbug/dbug.c	/^Indent(int indent)$/;"	f	file:	signature:(int indent)
+Indent	dbug/dbug.c	/^static void Indent(int indent);$/;"	p	file:	signature:(int indent)
+L	ora.c	/^  \/* ub4*   *\/ int       *L; \/* Ptr to Arr of lengths of buffers            *\/$/;"	m	struct:SQLDA	file:	access:public
+L	ora.c	225;"	d	file:
+LINE_ON	dbug/dbug.c	150;"	d	file:
+ListParse	dbug/dbug.c	/^ListParse(char *ctlp)$/;"	f	file:	signature:(char *ctlp)
+ListParse	dbug/dbug.c	/^static struct link *ListParse(char *ctlp);$/;"	p	file:	signature:(char *ctlp)
+M	ora.c	/^  \/* ub2*   *\/ short     *M; \/* Ptr to Arr of max lengths of var. names     *\/$/;"	m	struct:SQLDA	file:	access:public
+MAXDEPTH	dbug/dbug.c	139;"	d	file:
+N	ora.c	/^  \/* ub4    *\/ int        N; \/* Descriptor size in number of entries        *\/$/;"	m	struct:SQLDA	file:	access:public
+NUMBER_ON	dbug/dbug.c	153;"	d	file:
+NullS	dbug/dbug.c	114;"	d	file:
+O	dbug/doc/monty.doc	/^O,logfile   - As in "o,logfile", but do a close and reopen each time anything$/;"	v
+ORA_COLUMN_NAME_LEN	ora.c	704;"	d	file:
+ORA_COLUMN_NAME_LEN	ora.pc	38;"	d	file:
+ORA_INDICATE_NAME_LEN	ora.c	705;"	d	file:
+ORA_INDICATE_NAME_LEN	ora.pc	39;"	d	file:
+ORA_MAX_ROW_COUNT	ora.c	707;"	d	file:
+ORA_MAX_ROW_COUNT	ora.pc	41;"	d	file:
+ORA_MAX_SQL_LEN	ora.c	701;"	d	file:
+ORA_MAX_SQL_LEN	ora.pc	35;"	d	file:
+ORA_SQL_FIELD_TYPE_CHAR	ora.c	699;"	d	file:
+ORA_SQL_FIELD_TYPE_CHAR	ora.pc	33;"	d	file:
+ORA_SQL_FIELD_TYPE_DATE	ora.c	696;"	d	file:
+ORA_SQL_FIELD_TYPE_DATE	ora.pc	30;"	d	file:
+ORA_SQL_FIELD_TYPE_FLOAT	ora.c	691;"	d	file:
+ORA_SQL_FIELD_TYPE_FLOAT	ora.pc	25;"	d	file:
+ORA_SQL_FIELD_TYPE_INTEGER	ora.c	690;"	d	file:
+ORA_SQL_FIELD_TYPE_INTEGER	ora.pc	24;"	d	file:
+ORA_SQL_FIELD_TYPE_LONG	ora.c	693;"	d	file:
+ORA_SQL_FIELD_TYPE_LONG	ora.pc	27;"	d	file:
+ORA_SQL_FIELD_TYPE_LRAW	ora.c	698;"	d	file:
+ORA_SQL_FIELD_TYPE_LRAW	ora.pc	32;"	d	file:
+ORA_SQL_FIELD_TYPE_NUMBER	ora.c	689;"	d	file:
+ORA_SQL_FIELD_TYPE_NUMBER	ora.pc	23;"	d	file:
+ORA_SQL_FIELD_TYPE_RAW	ora.c	697;"	d	file:
+ORA_SQL_FIELD_TYPE_RAW	ora.pc	31;"	d	file:
+ORA_SQL_FIELD_TYPE_ROWID	ora.c	695;"	d	file:
+ORA_SQL_FIELD_TYPE_ROWID	ora.pc	29;"	d	file:
+ORA_SQL_FIELD_TYPE_STRING	ora.c	692;"	d	file:
+ORA_SQL_FIELD_TYPE_STRING	ora.pc	26;"	d	file:
+ORA_SQL_FIELD_TYPE_VCHAR	ora.c	694;"	d	file:
+ORA_SQL_FIELD_TYPE_VCHAR	ora.pc	28;"	d	file:
+ORA_SQL_FIELD_TYPE_VCHAR2	ora.c	688;"	d	file:
+ORA_SQL_FIELD_TYPE_VCHAR2	ora.pc	22;"	d	file:
+ORA_SQL_MAX_ITEM_NUM	ora.c	703;"	d	file:
+ORA_SQL_MAX_ITEM_NUM	ora.pc	37;"	d	file:
+OpenProfile	dbug/dbug.c	/^OpenProfile(const char *name)$/;"	f	file:	signature:(const char *name)
+OpenProfile	dbug/dbug.c	/^static FILE *OpenProfile(const char *name);$/;"	p	file:	signature:(const char *name)
+PID_ON	dbug/dbug.c	155;"	d	file:
+PRINTBUF	dbug/dbug.c	137;"	d	file:
+PRI_L	db.h	75;"	d
+PRI_R	db.h	74;"	d
+PROCESS_ON	dbug/dbug.c	152;"	d	file:
+PROFILE_ON	dbug/dbug.c	154;"	d	file:
+PROFILING	dbug/dbug.c	161;"	d	file:
+PROF_EFMT	dbug/dbug.c	199;"	d	file:
+PROF_FILE	dbug/dbug.c	198;"	d	file:
+PROF_SFMT	dbug/dbug.c	200;"	d	file:
+PROF_XFMT	dbug/dbug.c	201;"	d	file:
+PushState	dbug/dbug.c	/^PushState()$/;"	f	file:	signature:()
+PushState	dbug/dbug.c	/^static void PushState(void);$/;"	p	file:	signature:(void)
+REGISTER	dbug/dbug.c	183;"	d	file:
+RedisAuth	redisop.c	/^int RedisAuth(redisContext *redis, char *password)$/;"	f	signature:(redisContext *redis, char *password)
+RedisConnection	redisop.c	/^redisContext *RedisConnection(char *host, unsigned short int port, unsigned int timeo)$/;"	f	signature:(char *host, unsigned short int port, unsigned int timeo)
+S	ora.c	/^  \/* text** *\/ char     **S; \/* Ptr to Arr of variable name pointers        *\/$/;"	m	struct:SQLDA	file:	access:public
+S	ora.c	222;"	d	file:
+SANITY_CHECK_ON	dbug/dbug.c	156;"	d	file:
+SQLAPR	ora.c	584;"	d	file:
+SQLCA	ora.c	320;"	d	file:
+SQLCDAFromResultSetCursor	ora.c	634;"	d	file:
+SQLCDAToResultSetCursor	ora.c	660;"	d	file:
+SQLCODE	ora.c	134;"	d	file:
+SQLColumnNullCheck	ora.c	412;"	d	file:
+SQLDA	ora.c	/^struct SQLDA {$/;"	s	file:
+SQLDA	ora.c	/^typedef struct SQLDA SQLDA;$/;"	t	typeref:struct:SQLDA	file:
+SQLDA::C	ora.c	/^  \/* ub2*   *\/ short     *C; \/* Ptr to Arr of current lengths of var. names *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::F	ora.c	/^  \/* sb4    *\/ int        F; \/* Number of variables found by DESCRIBE       *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::I	ora.c	/^  \/* sb2**  *\/ short    **I; \/* Ptr to Arr of addresses of indicator vars   *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::L	ora.c	/^  \/* ub4*   *\/ int       *L; \/* Ptr to Arr of lengths of buffers            *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::M	ora.c	/^  \/* ub2*   *\/ short     *M; \/* Ptr to Arr of max lengths of var. names     *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::N	ora.c	/^  \/* ub4    *\/ int        N; \/* Descriptor size in number of entries        *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::S	ora.c	/^  \/* text** *\/ char     **S; \/* Ptr to Arr of variable name pointers        *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::T	ora.c	/^  \/* sb2*   *\/ short     *T; \/* Ptr to Arr of types of buffers              *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::V	ora.c	/^  \/* text** *\/ char     **V; \/* Ptr to Arr of addresses of main variables   *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::X	ora.c	/^  \/* text** *\/ char     **X; \/* Ptr to Arr of ind. var. name pointers       *\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::Y	ora.c	/^  \/* ub2*   *\/ short     *Y; \/* Ptr to Arr of max lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDA::Z	ora.c	/^  \/* ub2*   *\/ short     *Z; \/* Ptr to Arr of cur lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
+SQLDAGetNamed	ora.c	615;"	d	file:
+SQLDA_	ora.c	212;"	d	file:
+SQLErrorGetText	ora.c	408;"	d	file:
+SQLExtProcError	ora.c	/^extern void SQLExtProcError( void*, char*, size_t );$/;"	p	file:	signature:( void*, char*, size_t )
+SQLExtProcError	ora.c	/^extern void SQLExtProcError(\/*_ void*, char*, size_t _*\/);$/;"	p	file:	signature:( )
+SQLGetStride	ora.c	421;"	d	file:
+SQLLDAGetCurrent	ora.c	590;"	d	file:
+SQLNumberPrecV6	ora.c	415;"	d	file:
+SQLNumberPrecv7	ora.c	417;"	d	file:
+SQLPRO	ora.c	395;"	d	file:
+SQLRowidGet	ora.c	/^extern void SQLRowidGet(\/*_ void*, OCIRowid **urid _*\/);$/;"	p	file:	signature:( )
+SQLSQLDAAlloc	ora.c	255;"	d	file:
+SQLSQLDAFree	ora.c	257;"	d	file:
+SQLStmtGetText	ora.c	410;"	d	file:
+SQLVarcharGetLength	ora.c	419;"	d	file:
+SQL_CONTEXT	ora.c	/^typedef void * SQL_CONTEXT;$/;"	t	file:
+SQL_CRSR	ora.c	4;"	d	file:
+SQL_CURSOR	ora.c	/^  typedef struct sql_cursor SQL_CURSOR;$/;"	t	typeref:struct:sql_cursor	file:
+SQL_ERROR	ora.c	402;"	d	file:
+SQL_FIELD_TYPE_DATE	dbdriver.h	21;"	d
+SQL_FIELD_TYPE_DOBULE	dbdriver.h	20;"	d
+SQL_FIELD_TYPE_INTEGER	dbdriver.h	19;"	d
+SQL_FIELD_TYPE_STRING	dbdriver.h	18;"	d
+SQL_MAX_ITEM_NUM	dbdriver.h	15;"	d
+SQL_MAX_SQL_LEN	dbdriver.h	16;"	d
+SQL_MSG_LEN	dbdriver.h	14;"	d
+SQL_SINGLE_RCTX	ora.c	405;"	d	file:
+SQL_SUCCESS	ora.c	401;"	d	file:
+SQL_TYPE_NONE_QUERY	dbdriver.h	24;"	d
+SQL_TYPE_QUERY	dbdriver.h	23;"	d
+STREQ	dbug/dbug.c	162;"	d	file:
+StrDup	dbug/dbug.c	/^StrDup(const char *str)$/;"	f	file:	signature:(const char *str)
+StrDup	dbug/dbug.c	/^static char *StrDup(const char *str);$/;"	p	file:	signature:(const char *str)
+T	ora.c	/^  \/* sb2*   *\/ short     *T; \/* Ptr to Arr of types of buffers              *\/$/;"	m	struct:SQLDA	file:	access:public
+T	ora.c	215;"	d	file:
+THR_my_pthread_mutex_lock_dbug	dbug/dbug.c	/^pthread_mutex_t THR_my_pthread_mutex_lock_dbug;$/;"	v
+TRACE_ON	dbug/dbug.c	147;"	d	file:
+TRACING	dbug/dbug.c	159;"	d	file:
+TRUE	dbug/dbug.c	/^    TRUE = (!FALSE)$/;"	e	enum:__anon4	file:
+V	ora.c	/^  \/* text** *\/ char     **V; \/* Ptr to Arr of addresses of main variables   *\/$/;"	m	struct:SQLDA	file:	access:public
+VARCHAR	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	t	typeref:struct:__anon1	file:
+WRITABLE	dbug/dbug.c	362;"	d	file:
+Writable	dbug/dbug.c	/^Writable(char *pathname)$/;"	f	file:	signature:(char *pathname)
+Writable	dbug/dbug.c	/^static BOOLEAN Writable(char *pathname);$/;"	p	file:	signature:(char *pathname)
+Writable	dbug/dbug.c	359;"	d	file:
+X	ora.c	/^  \/* text** *\/ char     **X; \/* Ptr to Arr of ind. var. name pointers       *\/$/;"	m	struct:SQLDA	file:	access:public
+Y	ora.c	/^  \/* ub2*   *\/ short     *Y; \/* Ptr to Arr of max lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
+Y	ora.c	229;"	d	file:
+Z	ora.c	/^  \/* ub2*   *\/ short     *Z; \/* Ptr to Arr of cur lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
+_DBUG_START_CONDITION_	dbug/dbug.c	122;"	d	file:
+_DBUG_START_CONDITION_	dbug/dbug.c	124;"	d	file:
+_GNU_SOURCE	ora.c	154;"	d	file:
+_GNU_SOURCE	ora.pc	2;"	d	file:
+_VARARGS	dbug/dbug.c	111;"	d	file:
+__DBDRIVER_H__	dbdriver.h	12;"	d
+__DBDriver	dbdriver.h	/^typedef struct __DBDriver$/;"	s
+__DBDriver::connection	dbdriver.h	/^	DBHDBC connection; \/\/ reserve$/;"	m	struct:__DBDriver	access:public
+__DBDriver::database	dbdriver.h	/^	char database[64];$/;"	m	struct:__DBDriver	access:public
+__DBDriver::ecode	dbdriver.h	/^	int ecode; \/\/ Error number code$/;"	m	struct:__DBDriver	access:public
+__DBDriver::errstr	dbdriver.h	/^	char errstr[SQL_MSG_LEN];$/;"	m	struct:__DBDriver	access:public
+__DBDriver::hostname	dbdriver.h	/^	char hostname[64];$/;"	m	struct:__DBDriver	access:public
+__DBDriver::json_string	dbdriver.h	/^	char *json_string;$/;"	m	struct:__DBDriver	access:public
+__DBDriver::password	dbdriver.h	/^	char password[64];$/;"	m	struct:__DBDriver	access:public
+__DBDriver::sqlstmt	dbdriver.h	/^	char sqlstmt[SQL_MAX_SQL_LEN];$/;"	m	struct:__DBDriver	access:public
+__DBDriver::sqltype	dbdriver.h	/^	int sqltype; \/\/ Zero:NonQuery !Zero:Query$/;"	m	struct:__DBDriver	access:public
+__DBDriver::statment	dbdriver.h	/^	DBHSTMT statment;$/;"	m	struct:__DBDriver	access:public
+__DBDriver::user	dbdriver.h	/^	char user[64];$/;"	m	struct:__DBDriver	access:public
+__DBHandle	db.h	/^typedef struct __DBHandle {$/;"	s
+__DBHandle::app	db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::crc16	db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::errstr	db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
+__DBHandle::idx	db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::json_string	db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::more	db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::oper_timeout	db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::ora	db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::priority	db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::recv_channel	db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::redis	db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::root	db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::rset	db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::send_channel	db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::sync	db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::timestamp	db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
+__DB_H__	db.h	12;"	d
+__UTIL_H__	util.h	12;"	d
+__anon1::arr	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon1	file:	access:public
+__anon1::len	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon1	file:	access:public
+__anon2::arr	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon2	file:	access:public
+__anon2::len	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon2	file:	access:public
+_db_doprnt_	dbug/dbug.c	/^_db_doprnt_(const char *format, ...)$/;"	f	signature:(const char *format, ...)
+_db_doprnt_	dbug/dbug.c	/^void _db_doprnt_(const char *format, ...);$/;"	p	file:	signature:(const char *format, ...)
+_db_doprnt_	dbug/inc/dbug.h	/^    extern void _db_doprnt_(const char *format, ...);$/;"	p	signature:(const char *format, ...)
+_db_dump_	dbug/dbug.c	/^_db_dump_(uint _line_, const char *keyword, const char *memory, uint length)$/;"	f	signature:(uint _line_, const char *keyword, const char *memory, uint length)
+_db_dump_	dbug/dbug.c	/^void _db_dump_(uint _line_, const char *keyword, const char *memory, uint length);$/;"	p	file:	signature:(uint _line_, const char *keyword, const char *memory, uint length)
+_db_dump_	dbug/inc/dbug.h	/^    extern void _db_dump_(uint _line_, const char *keyword,$/;"	p	signature:(uint _line_, const char *keyword, const char *memory, uint length)
+_db_enter_	dbug/dbug.c	/^_db_enter_(const char *_func_,$/;"	f	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***_sframep_ __attribute__ ((unused)))
+_db_enter_	dbug/dbug.c	/^void _db_enter_(const char *_func_, const char *_file_, uint _line_,$/;"	p	file:	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***)
+_db_enter_	dbug/inc/dbug.h	/^    extern void _db_enter_(const char *_func_, const char *_file_,$/;"	p	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***)
+_db_fp_	dbug/dbug.c	/^FILE *_db_fp_ = (FILE *) 0;				   \/* Output stream, default stderr *\/$/;"	v
+_db_keyword_	dbug/dbug.c	/^_db_keyword_(const char *keyword)$/;"	f	signature:(const char *keyword)
+_db_keyword_	dbug/dbug.c	/^int _db_keyword_(const char *keyword);$/;"	p	file:	signature:(const char *keyword)
+_db_keyword_	dbug/inc/dbug.h	/^    extern int _db_keyword_(const char *keyword);$/;"	p	signature:(const char *keyword)
+_db_lock_file	dbug/dbug.c	/^_db_lock_file()$/;"	f	signature:()
+_db_lock_file	dbug/dbug.c	/^void _db_lock_file(void);$/;"	p	file:	signature:(void)
+_db_lock_file	dbug/inc/dbug.h	/^    extern void _db_lock_file(void);$/;"	p	signature:(void)
+_db_longjmp_	dbug/dbug.c	/^_db_longjmp_()$/;"	f	signature:()
+_db_longjmp_	dbug/dbug.c	/^void _db_longjmp_(void);$/;"	p	file:	signature:(void)
+_db_longjmp_	dbug/inc/dbug.h	/^    extern void _db_longjmp_(void);$/;"	p	signature:(void)
+_db_on_	dbug/dbug.c	/^BOOLEAN _db_on_ = FALSE;				   \/* TRUE if debugging currently on *\/$/;"	v
+_db_pargs_	dbug/dbug.c	/^_db_pargs_(uint _line_, const char *keyword)$/;"	f	signature:(uint _line_, const char *keyword)
+_db_pargs_	dbug/dbug.c	/^void _db_pargs_(uint _line_, const char *keyword);$/;"	p	file:	signature:(uint _line_, const char *keyword)
+_db_pargs_	dbug/inc/dbug.h	/^    extern void _db_pargs_(uint _line_, const char *keyword);$/;"	p	signature:(uint _line_, const char *keyword)
+_db_pfp_	dbug/dbug.c	/^FILE *_db_pfp_ = (FILE *) 0;				   \/* Profile stream, 'dbugmon.out' *\/$/;"	v
+_db_pon_	dbug/dbug.c	/^BOOLEAN _db_pon_ = FALSE;				   \/* TRUE if profile currently on *\/$/;"	v
+_db_pop_	dbug/dbug.c	/^_db_pop_()$/;"	f	signature:()
+_db_pop_	dbug/dbug.c	/^void _db_pop_(void);$/;"	p	file:	signature:(void)
+_db_pop_	dbug/inc/dbug.h	/^    extern void _db_pop_(void);$/;"	p	signature:(void)
+_db_process_	dbug/dbug.c	/^char *_db_process_ = (char *) "dbug";			   \/* Pointer to process name; argv[0] *\/$/;"	v
+_db_push_	dbug/dbug.c	/^_db_push_(const char *control)$/;"	f	signature:(const char *control)
+_db_push_	dbug/dbug.c	/^void _db_push_(const char *control);$/;"	p	file:	signature:(const char *control)
+_db_push_	dbug/inc/dbug.h	/^    extern void _db_push_(const char *control);$/;"	p	signature:(const char *control)
+_db_return_	dbug/dbug.c	/^_db_return_(uint _line_,$/;"	f	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
+_db_return_	dbug/dbug.c	/^void _db_return_(uint _line_, const char **_sfunc_,$/;"	p	file:	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
+_db_return_	dbug/inc/dbug.h	/^    extern void _db_return_(uint _line_, const char **_sfunc_,$/;"	p	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
+_db_setjmp_	dbug/dbug.c	/^_db_setjmp_()$/;"	f	signature:()
+_db_setjmp_	dbug/dbug.c	/^void _db_setjmp_(void);$/;"	p	file:	signature:(void)
+_db_setjmp_	dbug/inc/dbug.h	/^    extern void _db_setjmp_(void);$/;"	p	signature:(void)
+_db_unlock_file	dbug/dbug.c	/^_db_unlock_file()$/;"	f	signature:()
+_db_unlock_file	dbug/dbug.c	/^void _db_unlock_file(void);$/;"	p	file:	signature:(void)
+_db_unlock_file	dbug/inc/dbug.h	/^    extern void _db_unlock_file(void);$/;"	p	signature:(void)
+_dbug_h	dbug/inc/dbug.h	76;"	d
+_dig_vec	dbug/dbug.c	/^char _dig_vec[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";$/;"	v
+_no_db_	dbug/dbug.c	/^BOOLEAN _no_db_ = FALSE;				   \/* TRUE if no debugging at all *\/$/;"	v
+_sanity	dbug/dbug.c	/^IMPORT int _sanity(const char *file, uint line);$/;"	p	file:	signature:(const char *file, uint line)
+adtmode	ora.c	/^  unsigned short adtmode; $/;"	m	struct:sqladts	file:	access:public
+adtnum	ora.c	/^  unsigned short adtnum;  $/;"	m	struct:sqladts	file:	access:public
+adttvn	ora.c	/^  sqltvn adttvn[1];       $/;"	m	struct:sqladts	file:	access:public
+adtvsn	ora.c	/^  unsigned int adtvsn; $/;"	m	struct:sqladts	file:	access:public
+allocDescriptors	ora.c	/^static int allocDescriptors(db_reader *reader, int max_col_cnt, int max_vname_len, int max_iname_len)$/;"	f	file:	signature:(db_reader *reader, int max_col_cnt, int max_vname_len, int max_iname_len)
+allocDescriptors	ora.pc	/^static int allocDescriptors(db_reader *reader, int max_col_cnt, int max_vname_len, int max_iname_len)$/;"	f	file:	signature:(db_reader *reader, int max_col_cnt, int max_vname_len, int max_iname_len)
+allocEnoughSpaceForField	ora.c	/^static int allocEnoughSpaceForField(db_reader *reader)$/;"	f	file:	signature:(db_reader *reader)
+allocEnoughSpaceForField	ora.pc	/^static int allocEnoughSpaceForField(db_reader *reader)$/;"	f	file:	signature:(db_reader *reader)
+ap	dbug/dbug.c	/^     va_list ap;$/;"	v
+app	db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
+arr	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon1	file:	access:public
+arr	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon2	file:	access:public
+arrsiz	ora.c	/^   unsigned int   arrsiz;$/;"	m	struct:sqlexd	file:	access:public
+begin	dbug/dbug.c	/^static struct DateStamp begin;$/;"	v	typeref:struct:DateStamp	file:
+bind_dp	ora.c	/^	SQLDA *bind_dp;$/;"	m	struct:Cprivate	file:	access:public
+bind_dp	ora.pc	/^	SQLDA *bind_dp;$/;"	m	struct:Cprivate	file:	access:public
+bool_t	dbug/dbug.c	/^bool_t;$/;"	t	typeref:enum:__anon4	file:
+code_state	dbug/dbug.c	/^code_state(void)$/;"	f	file:	signature:(void)
+code_state	dbug/dbug.c	415;"	d	file:
+connection	dbdriver.h	/^	DBHDBC connection; \/\/ reserve$/;"	m	struct:__DBDriver	access:public
+crc16	db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
+cud	ora.c	/^      const short *cud;$/;"	m	struct:sqlexd	file:	access:public
+curocn	ora.c	/^    unsigned int curocn;$/;"	m	struct:sql_cursor	file:	access:public
+database	dbdriver.h	/^	char database[64];$/;"	m	struct:__DBDriver	access:public
+dbSetError	ora.c	/^static void dbSetError(db_reader *reader, const char *fmt, ...)$/;"	f	file:	signature:(db_reader *reader, const char *fmt, ...)
+dbSetError	ora.pc	/^static void dbSetError(db_reader *reader, const char *fmt, ...)$/;"	f	file:	signature:(db_reader *reader, const char *fmt, ...)
+dbSetErrorWithErrno	ora.c	/^static void dbSetErrorWithErrno(db_reader *reader, int error)$/;"	f	file:	signature:(db_reader *reader, int error)
+dbSetErrorWithErrno	ora.pc	/^static void dbSetErrorWithErrno(db_reader *reader, int error)$/;"	f	file:	signature:(db_reader *reader, int error)
+dbSetORAError	ora.c	/^static void dbSetORAError(db_reader *reader)$/;"	f	file:	signature:(db_reader *reader)
+dbSetORAError	ora.pc	/^static void dbSetORAError(db_reader *reader)$/;"	f	file:	signature:(db_reader *reader)
+db_reader	ora.c	/^typedef DBDriver db_reader;$/;"	t	file:
+db_reader	ora.pc	/^typedef DBDriver db_reader;$/;"	t	file:
+dbapp_gen_error_response_json_string	redisop.c	/^int dbapp_gen_error_response_json_string(DBHandle *handle, DBDriver *driver)$/;"	f	signature:(DBHandle *handle, DBDriver *driver)
+dbapp_gen_request_json_string	redisop.c	/^int dbapp_gen_request_json_string(DBHandle *handle, char *stmt)$/;"	f	signature:(DBHandle *handle, char *stmt)
+dbapp_recv_redis	redisop.c	/^int dbapp_recv_redis(DBHandle *handle)$/;"	f	signature:(DBHandle *handle)
+dbapp_write_redis	redisop.c	/^int dbapp_write_redis(DBHandle *handle)$/;"	f	signature:(DBHandle *handle)
+dbug_flush	dbug/dbug.c	/^dbug_flush(CODE_STATE * state)$/;"	f	file:	signature:(CODE_STATE * state)
+dbug_flush	dbug/dbug.c	/^static void dbug_flush(CODE_STATE *);$/;"	p	file:	signature:(CODE_STATE *)
+defaultOperTimeOut	db.h	66;"	d
+defaultQueue	db.h	61;"	d
+defaultReadChannelPriority	db.h	77;"	d
+defaultRedisHandle	redisop.c	/^redisContext *defaultRedisHandle = NULL;$/;"	v
+defaultSendChannelPriority	db.h	76;"	d
+delay	dbug/dbug.c	/^    uint delay;						   \/* Delay after each output line *\/$/;"	m	struct:state	file:	access:public
+ds_Days	dbug/dbug.c	/^    long ds_Days;					   \/* is incredibly ugly without splitting this *\/$/;"	m	struct:DateStamp	file:	access:public
+ds_Minute	dbug/dbug.c	/^    long ds_Minute;					   \/* off into a separate file *\/$/;"	m	struct:DateStamp	file:	access:public
+ds_Tick	dbug/dbug.c	/^    long ds_Tick;$/;"	m	struct:DateStamp	file:	access:public
+ecode	dbdriver.h	/^	int ecode; \/\/ Error number code$/;"	m	struct:__DBDriver	access:public
+elapsed	dbug/dbug.c	/^static struct DateStamp elapsed;$/;"	v	typeref:struct:DateStamp	file:
+errstr	db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
+errstr	dbdriver.h	/^	char errstr[SQL_MSG_LEN];$/;"	m	struct:__DBDriver	access:public
+exiterr	ora.c	/^extern int exiterr( \/*_ char* _*\/ );$/;"	p	file:	signature:( )
+exiterr	ora.c	/^extern int exiterr( unsigned char* );$/;"	p	file:	signature:( unsigned char* )
+fetchQueryStatmentResult	ora.c	/^int fetchQueryStatmentResult(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+fetchQueryStatmentResult	ora.c	/^static int fetchQueryStatmentResult(DBDriver *driver);$/;"	p	file:	signature:(DBDriver *driver)
+fetchQueryStatmentResult	ora.pc	/^int fetchQueryStatmentResult(DBDriver *driver)$/;"	f	signature:(DBDriver *driver)
+fetchQueryStatmentResult	ora.pc	/^static int fetchQueryStatmentResult(DBDriver *driver);$/;"	p	file:	signature:(DBDriver *driver)
+field_count	ora.c	/^	uint16_t field_count;$/;"	m	struct:Cprivate	file:	access:public
+field_count	ora.pc	/^	uint16_t field_count;$/;"	m	struct:Cprivate	file:	access:public
+fields	ora.c	/^	Cfield *fields;$/;"	m	struct:Cprivate	file:	access:public
+fields	ora.pc	/^	Cfield *fields;$/;"	m	struct:Cprivate	file:	access:public
+file	dbug/dbug.c	/^    const char *file;					   \/* Name of current user file *\/$/;"	m	struct:st_code_state	file:	access:public
+file	dbug/doc/readme.prof	/^A second program (analyze) reads this file, and produces a report on$/;"	v
+fillen	ora.c	/^  unsigned short fillen;$/;"	m	struct:sqlcxp	file:	access:public
+filnam	ora.c	/^           char  filnam[7];$/;"	m	struct:sqlcxp	file:	access:public
+first_clock	dbug/dbug.c	/^static int first_clock = TRUE;$/;"	v	file:
+flags	dbug/dbug.c	/^    int flags;						   \/* Current state flags *\/$/;"	m	struct:state	file:	access:public
+format	dbug/dbug.c	/^     char *format;$/;"	v
+format	tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append ;" to lines\/$/;"	v
+framep	dbug/dbug.c	/^    char **framep;					   \/* Pointer to current frame *\/$/;"	m	struct:st_code_state	file:	access:public
+func	dbug/dbug.c	/^    const char *func;					   \/* Name of current user function *\/$/;"	m	struct:st_code_state	file:	access:public
+functions	dbug/dbug.c	/^    struct link *functions;				   \/* List of functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+hostname	dbdriver.h	/^	char hostname[64];$/;"	m	struct:__DBDriver	access:public
+iappfo	ora.c	/^extern int iappfo( \/*_ char*, char*, unsigned int _*\/ );$/;"	p	file:	signature:( )
+iappfo	ora.c	/^extern int iappfo( unsigned char*, unsigned char*, size_t );$/;"	p	file:	signature:( unsigned char*, unsigned char*, size_t )
+iapprs	ora.c	/^extern int iapprs( \/*_ char* _*\/ );      $/;"	p	file:	signature:( )
+iapprs	ora.c	/^extern int iapprs( unsigned char* );      $/;"	p	file:	signature:( unsigned char* )
+idx	db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
+init_dbug_state	dbug/dbug.c	/^init_dbug_state(void)$/;"	f	file:	signature:(void)
+init_dbug_state	dbug/dbug.c	414;"	d	file:
+init_done	dbug/dbug.c	/^static my_bool init_done = FALSE;			   \/* Set to TRUE when initialization done *\/$/;"	v	file:
+isSelectStatment	ora.c	/^static int isSelectStatment(char *stmt)$/;"	f	file:	signature:(char *stmt)
+isSelectStatment	ora.pc	/^static int isSelectStatment(char *stmt)$/;"	f	file:	signature:(char *stmt)
+iters	ora.c	/^   unsigned int   iters;$/;"	m	struct:sqlexd	file:	access:public
+jmpfile	dbug/dbug.c	/^    const char *jmpfile;				   \/* Remember current file for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
+jmpfunc	dbug/dbug.c	/^    const char *jmpfunc;				   \/* Remember current function for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
+jmplevel	dbug/dbug.c	/^    int jmplevel;					   \/* Remember nesting level at setjmp () *\/$/;"	m	struct:st_code_state	file:	access:public
+json_string	db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
+json_string	dbdriver.h	/^	char *json_string;$/;"	m	struct:__DBDriver	access:public
+keywords	dbug/dbug.c	/^    struct link *keywords;				   \/* List of debug keywords *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+len	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon1	file:	access:public
+len	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon2	file:	access:public
+length	ora.c	/^	uint16_t length;$/;"	m	struct:Cfield	file:	access:public
+length	ora.pc	/^	uint16_t length;$/;"	m	struct:Cfield	file:	access:public
+level	dbug/dbug.c	/^    int level;						   \/* Current function nesting level *\/$/;"	m	struct:st_code_state	file:	access:public
+lineno	dbug/dbug.c	/^    int lineno;						   \/* Current debugger output line number *\/$/;"	m	struct:st_code_state	file:	access:public
+link	dbug/dbug.c	/^struct link$/;"	s	file:
+link::next_link	dbug/dbug.c	/^    struct link *next_link;				   \/* Pointer to the next link *\/$/;"	m	struct:link	typeref:struct:link::link	file:	access:public
+link::str	dbug/dbug.c	/^    char *str;						   \/* Pointer to link's contents *\/$/;"	m	struct:link	file:	access:public
+locked	dbug/dbug.c	/^    int locked;						   \/* If locked with _db_lock_file *\/$/;"	m	struct:st_code_state	file:	access:public
+ltrim	util.c	/^void ltrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
+ltrim	util.h	/^void ltrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
+mFree	ora.c	710;"	d	file:
+mFree	ora.c	712;"	d	file:
+mFree	ora.pc	44;"	d	file:
+mFree	ora.pc	46;"	d	file:
+mFree	redisop.c	15;"	d	file:
+mFree	redisop.c	17;"	d	file:
+magic	ora.c	/^    unsigned int magic;$/;"	m	struct:sql_cursor	file:	access:public
+main	client.c	/^int main()$/;"	f	signature:()
+main	dbug/doc/example.c	/^int main (void)$/;"	f	signature:(void)
+main	server.c	/^int main()$/;"	f	signature:()
+max	dbug/dbug.c	164;"	d	file:
+maxdepth	dbug/dbug.c	/^    int maxdepth;					   \/* Current maximum trace depth *\/$/;"	m	struct:state	file:	access:public
+min	dbug/dbug.c	163;"	d	file:
+more	db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
+my_bool	dbug/dbug.c	109;"	d	file:
+name	dbug/dbug.c	/^    char name[FN_REFLEN];				   \/* Name of output file *\/$/;"	m	struct:state	file:	access:public
+name	ora.c	/^	unsigned char *name;$/;"	m	struct:Cfield	file:	access:public
+name	ora.pc	/^	unsigned char *name;$/;"	m	struct:Cfield	file:	access:public
+name_length	ora.c	/^	uint16_t name_length;$/;"	m	struct:Cfield	file:	access:public
+name_length	ora.pc	/^	uint16_t name_length;$/;"	m	struct:Cfield	file:	access:public
+next_link	dbug/dbug.c	/^    struct link *next_link;				   \/* Pointer to the next link *\/$/;"	m	struct:link	typeref:struct:link::link	file:	access:public
+next_state	dbug/dbug.c	/^    struct state *next_state;				   \/* Next state in the list *\/$/;"	m	struct:state	typeref:struct:state::state	file:	access:public
+occurs	ora.c	/^   unsigned int   occurs;$/;"	m	struct:sqlexd	file:	access:public
+offset	ora.c	/^   unsigned int   offset;$/;"	m	struct:sqlexd	file:	access:public
+oper_timeout	db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
+ora	db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
+out_file	dbug/dbug.c	/^    FILE *out_file;					   \/* Current output stream *\/$/;"	m	struct:state	file:	access:public
+p_functions	dbug/dbug.c	/^    struct link *p_functions;				   \/* List of profiled functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+password	dbdriver.h	/^	char password[64];$/;"	m	struct:__DBDriver	access:public
+priority	db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
+processes	dbug/dbug.c	/^    struct link *processes;				   \/* List of process names *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+prof_file	dbug/dbug.c	/^    FILE *prof_file;					   \/* Current profiling stream *\/$/;"	m	struct:state	file:	access:public
+pthread_mutex_lock	dbug/dbug.c	416;"	d	file:
+pthread_mutex_unlock	dbug/dbug.c	417;"	d	file:
+ptr1	ora.c	/^    void *ptr1;$/;"	m	struct:sql_cursor	file:	access:public
+ptr2	ora.c	/^    void *ptr2;$/;"	m	struct:sql_cursor	file:	access:public
+recv_channel	db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
+redis	db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
+return_if_fail	db.h	29;"	d
+return_val_if_fail	db.h	35;"	d
+root	db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
+row_count	ora.c	/^	uint32_t row_count;$/;"	m	struct:Cprivate	file:	access:public
+row_count	ora.pc	/^	uint32_t row_count;$/;"	m	struct:Cprivate	file:	access:public
+rport	server.c	/^const static int rport = 6379;$/;"	v	file:
+rset	db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
+rtrim	util.c	/^void rtrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
+rtrim	util.h	/^void rtrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
+runNonQueryStatment	ora.c	/^static int runNonQueryStatment(DBDriver *driver, char *statment)$/;"	f	file:	signature:(DBDriver *driver, char *statment)
+runNonQueryStatment	ora.pc	/^static int runNonQueryStatment(DBDriver *driver, char *statment)$/;"	f	file:	signature:(DBDriver *driver, char *statment)
+select_dp	ora.c	/^	SQLDA *select_dp;$/;"	m	struct:Cprivate	file:	access:public
+select_dp	ora.pc	/^	SQLDA *select_dp;$/;"	m	struct:Cprivate	file:	access:public
+selerr	ora.c	/^   unsigned short selerr;$/;"	m	struct:sqlexd	file:	access:public
+send_channel	db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
+sqadto	ora.c	/^   unsigned short  sqadto[4];$/;"	m	struct:sqlexd	file:	access:public
+sqcmod	ora.c	/^   unsigned int   sqcmod;$/;"	m	struct:sqlexd	file:	access:public
+sqfmod	ora.c	/^   unsigned int   sqfmod;$/;"	m	struct:sqlexd	file:	access:public
+sqfoff	ora.c	/^            int   sqfoff;$/;"	m	struct:sqlexd	file:	access:public
+sqharc	ora.c	/^   unsigned long  *sqharc[4];$/;"	m	struct:sqlexd	file:	access:public
+sqharm	ora.c	/^   unsigned long  sqharm[4];$/;"	m	struct:sqlexd	file:	access:public
+sqhstl	ora.c	/^   unsigned long  sqhstl[4];$/;"	m	struct:sqlexd	file:	access:public
+sqhsts	ora.c	/^            int   sqhsts[4];$/;"	m	struct:sqlexd	file:	access:public
+sqhstv	ora.c	/^   unsigned char  *sqhstv[4];$/;"	m	struct:sqlexd	file:	access:public
+sqinds	ora.c	/^            int   sqinds[4];$/;"	m	struct:sqlexd	file:	access:public
+sqindv	ora.c	/^            short *sqindv[4];$/;"	m	struct:sqlexd	file:	access:public
+sql_context	ora.c	/^typedef void * sql_context;$/;"	t	file:
+sql_cursor	ora.c	/^  struct sql_cursor$/;"	s	file:
+sql_cursor	ora.c	/^  typedef struct sql_cursor sql_cursor;$/;"	t	typeref:struct:sql_cursor	file:
+sql_cursor::curocn	ora.c	/^    unsigned int curocn;$/;"	m	struct:sql_cursor	file:	access:public
+sql_cursor::magic	ora.c	/^    unsigned int magic;$/;"	m	struct:sql_cursor	file:	access:public
+sql_cursor::ptr1	ora.c	/^    void *ptr1;$/;"	m	struct:sql_cursor	file:	access:public
+sql_cursor::ptr2	ora.c	/^    void *ptr2;$/;"	m	struct:sql_cursor	file:	access:public
+sqlabc	ora.c	/^         \/* b4  *\/ int     sqlabc;$/;"	m	struct:sqlca	file:	access:public
+sqladt	ora.c	/^static struct sqladts sqladt = {$/;"	v	typeref:struct:sqladts	file:
+sqladtp	ora.c	/^   sqladts *sqladtp;$/;"	m	struct:sqlexd	file:	access:public
+sqladts	ora.c	/^struct sqladts$/;"	s	file:
+sqladts	ora.c	/^typedef struct sqladts sqladts;$/;"	t	typeref:struct:sqladts	file:
+sqladts::adtmode	ora.c	/^  unsigned short adtmode; $/;"	m	struct:sqladts	file:	access:public
+sqladts::adtnum	ora.c	/^  unsigned short adtnum;  $/;"	m	struct:sqladts	file:	access:public
+sqladts::adttvn	ora.c	/^  sqltvn adttvn[1];       $/;"	m	struct:sqladts	file:	access:public
+sqladts::adtvsn	ora.c	/^  unsigned int adtvsn; $/;"	m	struct:sqladts	file:	access:public
+sqlald	ora.c	/^extern struct SQLDA *sqlald( \/*_ int, size_t, size_t _*\/ );$/;"	p	file:	signature:( )
+sqlald	ora.c	/^extern struct SQLDA *sqlald( int, size_t, size_t );$/;"	p	file:	signature:( int, size_t, size_t )
+sqlaldt	ora.c	/^extern struct SQLDA *sqlaldt( void*, int, size_t, size_t );$/;"	p	file:	signature:( void*, int, size_t, size_t )
+sqlaldt	ora.c	/^extern struct SQLDA *sqlaldt(\/*_ void*, int, size_t, size_t _*\/ );$/;"	p	file:	signature:( )
+sqlapr	ora.pc	/^EXEC SQL INCLUDE sqlapr;$/;"	v
+sqlbuft	ora.c	/^extern void sqlbuft(void **, char *);$/;"	p	file:	signature:(void **, char *)
+sqlca	ora.c	/^SQLCA_STORAGE_CLASS struct sqlca sqlca$/;"	v	typeref:struct:sqlca
+sqlca	ora.c	/^struct   sqlca$/;"	s	file:
+sqlca	ora.pc	/^EXEC SQL INCLUDE sqlca;$/;"	v
+sqlca::__anon3::sqlerrmc	ora.c	/^           \/* ub1 *\/ char           sqlerrmc[70];$/;"	m	struct:sqlca::__anon3	file:	access:public
+sqlca::__anon3::sqlerrml	ora.c	/^           \/* ub2 *\/ unsigned short sqlerrml;$/;"	m	struct:sqlca::__anon3	file:	access:public
+sqlca::sqlabc	ora.c	/^         \/* b4  *\/ int     sqlabc;$/;"	m	struct:sqlca	file:	access:public
+sqlca::sqlcaid	ora.c	/^         \/* ub1 *\/ char    sqlcaid[8];$/;"	m	struct:sqlca	file:	access:public
+sqlca::sqlcode	ora.c	/^         \/* b4  *\/ int     sqlcode;$/;"	m	struct:sqlca	file:	access:public
+sqlca::sqlerrd	ora.c	/^         \/* b4  *\/ int     sqlerrd[6];$/;"	m	struct:sqlca	file:	access:public
+sqlca::sqlerrm	ora.c	/^           } sqlerrm;$/;"	m	struct:sqlca	typeref:struct:sqlca::__anon3	file:	access:public
+sqlca::sqlerrp	ora.c	/^         \/* ub1 *\/ char    sqlerrp[8];$/;"	m	struct:sqlca	file:	access:public
+sqlca::sqlext	ora.c	/^         \/* ub1 *\/ char    sqlext[8];$/;"	m	struct:sqlca	file:	access:public
+sqlca::sqlwarn	ora.c	/^         \/* ub1 *\/ char    sqlwarn[8];$/;"	m	struct:sqlca	file:	access:public
+sqlcaid	ora.c	/^         \/* ub1 *\/ char    sqlcaid[8];$/;"	m	struct:sqlca	file:	access:public
+sqlcda	ora.c	/^void sqlcda( Cda_Def *cda, dvoid *cur, sword *retval );$/;"	p	file:	signature:( Cda_Def *cda, dvoid *cur, sword *retval )
+sqlcdat	ora.c	/^void sqlcdat(dvoid *sqluga, Cda_Def *cda, dvoid *cur, sword *retval );$/;"	p	file:	signature:(dvoid *sqluga, Cda_Def *cda, dvoid *cur, sword *retval )
+sqlcincr	ora.c	/^   unsigned int   sqlcincr;$/;"	m	struct:sqlexd	file:	access:public
+sqlclu	ora.c	/^extern void sqlclu( \/*_ struct SQLDA* _*\/);$/;"	p	file:	signature:( )
+sqlclu	ora.c	/^extern void sqlclu( struct SQLDA*);$/;"	p	file:	signature:( struct SQLDA*)
+sqlclut	ora.c	/^extern void sqlclut( void*, struct SQLDA*);$/;"	p	file:	signature:( void*, struct SQLDA*)
+sqlclut	ora.c	/^extern void sqlclut(\/*_ void*, struct SQLDA* _*\/);$/;"	p	file:	signature:( )
+sqlcmax	ora.c	/^   unsigned int   sqlcmax;$/;"	m	struct:sqlexd	file:	access:public
+sqlcmin	ora.c	/^   unsigned int   sqlcmin;$/;"	m	struct:sqlexd	file:	access:public
+sqlcnowait	ora.c	/^   unsigned int   sqlcnowait;$/;"	m	struct:sqlexd	file:	access:public
+sqlcode	ora.c	/^         \/* b4  *\/ int     sqlcode;$/;"	m	struct:sqlca	file:	access:public
+sqlcpr	ora.pc	/^EXEC SQL INCLUDE sqlcpr;$/;"	v
+sqlctimeout	ora.c	/^   unsigned int   sqlctimeout;$/;"	m	struct:sqlexd	file:	access:public
+sqlctx	ora.c	/^static unsigned int sqlctx = 4771;$/;"	v	file:
+sqlcud0	ora.c	/^static const short sqlcud0[] =$/;"	v	file:
+sqlcur	ora.c	/^void sqlcur( dvoid *cur, Cda_Def *cda, sword *retval );$/;"	p	file:	signature:( dvoid *cur, Cda_Def *cda, sword *retval )
+sqlcurt	ora.c	/^void sqlcurt(dvoid *sqluga, dvoid *cur, Cda_Def *cda, sword *retval );$/;"	p	file:	signature:(dvoid *sqluga, dvoid *cur, Cda_Def *cda, sword *retval )
+sqlcx2t	ora.c	/^extern void sqlcx2t(void **, unsigned int *,$/;"	p	file:	signature:(void **, unsigned int *, struct sqlexd *, const struct sqlcxp *)
+sqlcxp	ora.c	/^struct sqlcxp$/;"	s	file:
+sqlcxp::fillen	ora.c	/^  unsigned short fillen;$/;"	m	struct:sqlcxp	file:	access:public
+sqlcxp::filnam	ora.c	/^           char  filnam[7];$/;"	m	struct:sqlcxp	file:	access:public
+sqlcxt	ora.c	/^extern void sqlcxt (void **, unsigned int *,$/;"	p	file:	signature:(void **, unsigned int *, struct sqlexd *, const struct sqlcxp *)
+sqlda	ora.pc	/^EXEC SQL INCLUDE sqlda;$/;"	v
+sqlerrd	ora.c	/^         \/* b4  *\/ int     sqlerrd[6];$/;"	m	struct:sqlca	file:	access:public
+sqlerrm	ora.c	/^           } sqlerrm;$/;"	m	struct:sqlca	typeref:struct:sqlca::__anon3	file:	access:public
+sqlerrmc	ora.c	/^           \/* ub1 *\/ char           sqlerrmc[70];$/;"	m	struct:sqlca::__anon3	file:	access:public
+sqlerrml	ora.c	/^           \/* ub2 *\/ unsigned short sqlerrml;$/;"	m	struct:sqlca::__anon3	file:	access:public
+sqlerrp	ora.c	/^         \/* ub1 *\/ char    sqlerrp[8];$/;"	m	struct:sqlca	file:	access:public
+sqlest	ora.c	/^   unsigned char  *sqlest;$/;"	m	struct:sqlexd	file:	access:public
+sqlety	ora.c	/^   unsigned short sqlety;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd	ora.c	/^static struct sqlexd {$/;"	s	file:
+sqlexd::arrsiz	ora.c	/^   unsigned int   arrsiz;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::cud	ora.c	/^      const short *cud;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::iters	ora.c	/^   unsigned int   iters;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::occurs	ora.c	/^   unsigned int   occurs;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::offset	ora.c	/^   unsigned int   offset;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::selerr	ora.c	/^   unsigned short selerr;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqadto	ora.c	/^   unsigned short  sqadto[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqcmod	ora.c	/^   unsigned int   sqcmod;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqfmod	ora.c	/^   unsigned int   sqfmod;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqfoff	ora.c	/^            int   sqfoff;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqharc	ora.c	/^   unsigned long  *sqharc[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqharm	ora.c	/^   unsigned long  sqharm[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqhstl	ora.c	/^   unsigned long  sqhstl[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqhsts	ora.c	/^            int   sqhsts[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqhstv	ora.c	/^   unsigned char  *sqhstv[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqinds	ora.c	/^            int   sqinds[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqindv	ora.c	/^            short *sqindv[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqladtp	ora.c	/^   sqladts *sqladtp;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlcincr	ora.c	/^   unsigned int   sqlcincr;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlcmax	ora.c	/^   unsigned int   sqlcmax;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlcmin	ora.c	/^   unsigned int   sqlcmin;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlcnowait	ora.c	/^   unsigned int   sqlcnowait;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlctimeout	ora.c	/^   unsigned int   sqlctimeout;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlest	ora.c	/^   unsigned char  *sqlest;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlety	ora.c	/^   unsigned short sqlety;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqltdsp	ora.c	/^   sqltdss *sqltdsp;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqlvsn	ora.c	/^   unsigned long  sqlvsn;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqpadto	ora.c	/^   unsigned short  *sqpadto;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqparc	ora.c	/^   unsigned long  **sqparc;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqparm	ora.c	/^   unsigned long  *sqparm;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqphsl	ora.c	/^   unsigned long  *sqphsl;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqphss	ora.c	/^            int   *sqphss;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqphsv	ora.c	/^   unsigned char  **sqphsv;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqpind	ora.c	/^            short **sqpind;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqpins	ora.c	/^            int   *sqpins;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqptdso	ora.c	/^   unsigned short  *sqptdso;$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::sqtdso	ora.c	/^   unsigned short  sqtdso[4];$/;"	m	struct:sqlexd	file:	access:public
+sqlexd::stmt	ora.c	/^      const char  *stmt;$/;"	m	struct:sqlexd	file:	access:public
+sqlext	ora.c	/^         \/* ub1 *\/ char    sqlext[8];$/;"	m	struct:sqlca	file:	access:public
+sqlfpn	ora.c	/^static const struct sqlcxp sqlfpn =$/;"	v	typeref:struct:sqlcxp	file:
+sqlglm	ora.c	/^extern void sqlglm( \/*_ char*, size_t*, size_t* _*\/ );$/;"	p	file:	signature:( )
+sqlglm	ora.c	/^extern void sqlglm( unsigned char*, size_t*, size_t* );$/;"	p	file:	signature:( unsigned char*, size_t*, size_t* )
+sqlglmt	ora.c	/^extern void sqlglmt( void*, unsigned char*, size_t*, size_t* ); $/;"	p	file:	signature:( void*, unsigned char*, size_t*, size_t* )
+sqlglmt	ora.c	/^extern void sqlglmt(\/*_ void*, char*, size_t*, size_t* _*\/ ); $/;"	p	file:	signature:( )
+sqlgls	ora.c	/^extern void sqlgls( \/*_ char*, size_t*, size_t* _*\/);$/;"	p	file:	signature:( )
+sqlgls	ora.c	/^extern void sqlgls( char*, size_t*, size_t* );$/;"	p	file:	signature:( char*, size_t*, size_t* )
+sqlglst	ora.c	/^extern void sqlglst( void*, char*, size_t*, size_t* );$/;"	p	file:	signature:( void*, char*, size_t*, size_t* )
+sqlglst	ora.c	/^extern void sqlglst(\/*_ void*, char*, size_t*, size_t* _*\/);$/;"	p	file:	signature:( )
+sqlgs2t	ora.c	/^extern void sqlgs2t(void **, char *);$/;"	p	file:	signature:(void **, char *)
+sqliem	ora.c	/^extern void sqliem( \/*_ char*, int* _*\/ );$/;"	p	file:	signature:( )
+sqliem	ora.c	/^extern void sqliem( unsigned char*, signed int* );$/;"	p	file:	signature:( unsigned char*, signed int* )
+sqliem	ora.c	/^extern void sqliem(unsigned char *, signed int *);$/;"	p	file:	signature:(unsigned char *, signed int *)
+sqliemt	ora.c	/^extern void sqliemt( void*, unsigned char*, signed int*);$/;"	p	file:	signature:( void*, unsigned char*, signed int*)
+sqliemt	ora.c	/^extern void sqliemt(\/*_ void*, char*, int* _*\/ );$/;"	p	file:	signature:( )
+sqlld2	ora.c	/^void sqlld2( Lda_Def *lda, text *hname, sb4 *hnamel );$/;"	p	file:	signature:( Lda_Def *lda, text *hname, sb4 *hnamel )
+sqlld2t	ora.c	/^void sqlld2t( dvoid *sqluga, Lda_Def *lda, text *hname, sb4 *hnamel );$/;"	p	file:	signature:( dvoid *sqluga, Lda_Def *lda, text *hname, sb4 *hnamel )
+sqllda	ora.c	/^void sqllda( Lda_Def *lda );$/;"	p	file:	signature:( Lda_Def *lda )
+sqlldat	ora.c	/^void sqlldat(dvoid *sqluga, Lda_Def *lda );$/;"	p	file:	signature:(dvoid *sqluga, Lda_Def *lda )
+sqlnul	ora.c	/^extern void sqlnul( \/*_ unsigned short*, unsigned short*, int* _*\/ );$/;"	p	file:	signature:( )
+sqlnul	ora.c	/^extern void sqlnul( unsigned short*, unsigned short*, int* );$/;"	p	file:	signature:( unsigned short*, unsigned short*, int* )
+sqlnult	ora.c	/^extern void sqlnult( void*, unsigned short*, unsigned short*, int*);$/;"	p	file:	signature:( void*, unsigned short*, unsigned short*, int*)
+sqlnult	ora.c	/^extern void sqlnult(\/*_ void*, unsigned short*, unsigned short*, int* _*\/ );$/;"	p	file:	signature:( )
+sqlorat	ora.c	/^extern void sqlorat(void **, unsigned int *, void *);$/;"	p	file:	signature:(void **, unsigned int *, void *)
+sqlpr2	ora.c	/^extern void sqlpr2( \/*_ unsigned int*, int*, int* _*\/);$/;"	p	file:	signature:( )
+sqlpr2	ora.c	/^extern void sqlpr2( unsigned int*, int*, int*);$/;"	p	file:	signature:( unsigned int*, int*, int*)
+sqlpr2t	ora.c	/^extern void sqlpr2t( void*, unsigned int*, int*, int*);$/;"	p	file:	signature:( void*, unsigned int*, int*, int*)
+sqlpr2t	ora.c	/^extern void sqlpr2t(\/*_ void*, unsigned int*, int*, int* _*\/);$/;"	p	file:	signature:( )
+sqlprc	ora.c	/^extern void sqlprc( \/*_ unsigned int*, int*, int* _*\/ );$/;"	p	file:	signature:( )
+sqlprc	ora.c	/^extern void sqlprc( unsigned int*, int*, int* );$/;"	p	file:	signature:( unsigned int*, int*, int* )
+sqlprct	ora.c	/^extern void sqlprct( void*, unsigned int*, int*, int*);$/;"	p	file:	signature:( void*, unsigned int*, int*, int*)
+sqlprct	ora.c	/^extern void sqlprct(\/*_ void*, unsigned int*, int*, int* _*\/ );$/;"	p	file:	signature:( )
+sqlstm	ora.c	/^} sqlstm = {12,4};$/;"	v	typeref:struct:sqlexd	file:
+sqlstmt	dbdriver.h	/^	char sqlstmt[SQL_MAX_SQL_LEN];$/;"	m	struct:__DBDriver	access:public
+sqlstrd	ora.c	/^extern void sqlstrd(\/*_ ub1 *, ub1 *, size_t _*\/);  $/;"	p	file:	signature:( )
+sqlstrdt	ora.c	/^extern void sqlstrdt(\/*_ void *, ub1 *, ub1 *, size_t _*\/);$/;"	p	file:	signature:( )
+sqltds	ora.c	/^static struct sqltdss sqltds =$/;"	v	typeref:struct:sqltdss	file:
+sqltdsp	ora.c	/^   sqltdss *sqltdsp;$/;"	m	struct:sqlexd	file:	access:public
+sqltdss	ora.c	/^struct sqltdss$/;"	s	file:
+sqltdss	ora.c	/^typedef struct sqltdss sqltdss;$/;"	t	typeref:struct:sqltdss	file:
+sqltdss::tdsnum	ora.c	/^  unsigned short tdsnum; $/;"	m	struct:sqltdss	file:	access:public
+sqltdss::tdsval	ora.c	/^  unsigned char *tdsval[1]; $/;"	m	struct:sqltdss	file:	access:public
+sqltdss::tdsvsn	ora.c	/^  unsigned int tdsvsn; $/;"	m	struct:sqltdss	file:	access:public
+sqltvn	ora.c	/^struct sqltvn$/;"	s	file:
+sqltvn	ora.c	/^typedef struct sqltvn sqltvn;$/;"	t	typeref:struct:sqltvn	file:
+sqltvn::tvnnm	ora.c	/^  unsigned char *tvnnm;$/;"	m	struct:sqltvn	file:	access:public
+sqltvn::tvnnml	ora.c	/^  unsigned short tvnnml; $/;"	m	struct:sqltvn	file:	access:public
+sqltvn::tvnsnm	ora.c	/^  unsigned char *tvnsnm;$/;"	m	struct:sqltvn	file:	access:public
+sqltvn::tvnsnml	ora.c	/^  unsigned short tvnsnml;$/;"	m	struct:sqltvn	file:	access:public
+sqltvn::tvnvsn	ora.c	/^  unsigned char *tvnvsn; $/;"	m	struct:sqltvn	file:	access:public
+sqltvn::tvnvsnl	ora.c	/^  unsigned short tvnvsnl; $/;"	m	struct:sqltvn	file:	access:public
+sqltype	dbdriver.h	/^	int sqltype; \/\/ Zero:NonQuery !Zero:Query$/;"	m	struct:__DBDriver	access:public
+sqlvcp	ora.c	/^extern void sqlvcp( \/*_ unsigned int *, unsigned int * _*\/);$/;"	p	file:	signature:( )
+sqlvcp	ora.c	/^extern void sqlvcp( unsigned int*, unsigned int* );$/;"	p	file:	signature:( unsigned int*, unsigned int* )
+sqlvcpt	ora.c	/^extern void sqlvcpt( void*, unsigned int*, unsigned int*);$/;"	p	file:	signature:( void*, unsigned int*, unsigned int*)
+sqlvcpt	ora.c	/^extern void sqlvcpt(\/*_ void*, unsigned int *, unsigned int * _*\/);$/;"	p	file:	signature:( )
+sqlvsn	ora.c	/^   unsigned long  sqlvsn;$/;"	m	struct:sqlexd	file:	access:public
+sqlwarn	ora.c	/^         \/* ub1 *\/ char    sqlwarn[8];$/;"	m	struct:sqlca	file:	access:public
+sqpadto	ora.c	/^   unsigned short  *sqpadto;$/;"	m	struct:sqlexd	file:	access:public
+sqparc	ora.c	/^   unsigned long  **sqparc;$/;"	m	struct:sqlexd	file:	access:public
+sqparm	ora.c	/^   unsigned long  *sqparm;$/;"	m	struct:sqlexd	file:	access:public
+sqphsl	ora.c	/^   unsigned long  *sqphsl;$/;"	m	struct:sqlexd	file:	access:public
+sqphss	ora.c	/^            int   *sqphss;$/;"	m	struct:sqlexd	file:	access:public
+sqphsv	ora.c	/^   unsigned char  **sqphsv;$/;"	m	struct:sqlexd	file:	access:public
+sqpind	ora.c	/^            short **sqpind;$/;"	m	struct:sqlexd	file:	access:public
+sqpins	ora.c	/^            int   *sqpins;$/;"	m	struct:sqlexd	file:	access:public
+sqptdso	ora.c	/^   unsigned short  *sqptdso;$/;"	m	struct:sqlexd	file:	access:public
+sqtdso	ora.c	/^   unsigned short  sqtdso[4];$/;"	m	struct:sqlexd	file:	access:public
+st_code_state	dbug/dbug.c	/^typedef struct st_code_state$/;"	s	file:
+st_code_state::file	dbug/dbug.c	/^    const char *file;					   \/* Name of current user file *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::framep	dbug/dbug.c	/^    char **framep;					   \/* Pointer to current frame *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::func	dbug/dbug.c	/^    const char *func;					   \/* Name of current user function *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::jmpfile	dbug/dbug.c	/^    const char *jmpfile;				   \/* Remember current file for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::jmpfunc	dbug/dbug.c	/^    const char *jmpfunc;				   \/* Remember current function for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::jmplevel	dbug/dbug.c	/^    int jmplevel;					   \/* Remember nesting level at setjmp () *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::level	dbug/dbug.c	/^    int level;						   \/* Current function nesting level *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::lineno	dbug/dbug.c	/^    int lineno;						   \/* Current debugger output line number *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::locked	dbug/dbug.c	/^    int locked;						   \/* If locked with _db_lock_file *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::u_keyword	dbug/dbug.c	/^    const char *u_keyword;				   \/* Keyword for current macro *\/$/;"	m	struct:st_code_state	file:	access:public
+st_code_state::u_line	dbug/dbug.c	/^    uint u_line;					   \/* User source code line number *\/$/;"	m	struct:st_code_state	file:	access:public
+stack	dbug/dbug.c	/^static struct state *stack = 0;$/;"	v	typeref:struct:state	file:
+state	dbug/dbug.c	/^struct state$/;"	s	file:
+state::delay	dbug/dbug.c	/^    uint delay;						   \/* Delay after each output line *\/$/;"	m	struct:state	file:	access:public
+state::flags	dbug/dbug.c	/^    int flags;						   \/* Current state flags *\/$/;"	m	struct:state	file:	access:public
+state::functions	dbug/dbug.c	/^    struct link *functions;				   \/* List of functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+state::keywords	dbug/dbug.c	/^    struct link *keywords;				   \/* List of debug keywords *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+state::maxdepth	dbug/dbug.c	/^    int maxdepth;					   \/* Current maximum trace depth *\/$/;"	m	struct:state	file:	access:public
+state::name	dbug/dbug.c	/^    char name[FN_REFLEN];				   \/* Name of output file *\/$/;"	m	struct:state	file:	access:public
+state::next_state	dbug/dbug.c	/^    struct state *next_state;				   \/* Next state in the list *\/$/;"	m	struct:state	typeref:struct:state::state	file:	access:public
+state::out_file	dbug/dbug.c	/^    FILE *out_file;					   \/* Current output stream *\/$/;"	m	struct:state	file:	access:public
+state::p_functions	dbug/dbug.c	/^    struct link *p_functions;				   \/* List of profiled functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+state::processes	dbug/dbug.c	/^    struct link *processes;				   \/* List of process names *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+state::prof_file	dbug/dbug.c	/^    FILE *prof_file;					   \/* Current profiling stream *\/$/;"	m	struct:state	file:	access:public
+state::sub_level	dbug/dbug.c	/^    int sub_level;					   \/* Sub this from code_state->level *\/$/;"	m	struct:state	file:	access:public
+static_code_state	dbug/dbug.c	/^static CODE_STATE static_code_state = { 0, 0, "?func", "?file", NULL, 0, NULL,$/;"	v	file:
+static_strtok	dbug/dbug.c	/^static char *static_strtok(char *s1, char chr);$/;"	p	file:	signature:(char *s1, char chr)
+static_strtok	dbug/dbug.c	/^static_strtok(char *s1, char separator)$/;"	f	file:	signature:(char *s1, char separator)
+statment	dbdriver.h	/^	DBHSTMT statment;$/;"	m	struct:__DBDriver	access:public
+stmt	ora.c	/^      const char  *stmt;$/;"	m	struct:sqlexd	file:	access:public
+str	dbug/dbug.c	/^    char *str;						   \/* Pointer to link's contents *\/$/;"	m	struct:link	file:	access:public
+stream	dbug/dbug.c	/^     FILE *stream;$/;"	v
+sub_level	dbug/dbug.c	/^    int sub_level;					   \/* Sub this from code_state->level *\/$/;"	m	struct:state	file:	access:public
+sync	db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
+tdsnum	ora.c	/^  unsigned short tdsnum; $/;"	m	struct:sqltdss	file:	access:public
+tdsval	ora.c	/^  unsigned char *tdsval[1]; $/;"	m	struct:sqltdss	file:	access:public
+tdsvsn	ora.c	/^  unsigned int tdsvsn; $/;"	m	struct:sqltdss	file:	access:public
+times	dbug/doc/readme.prof	/^sum total of all the times, etc.$/;"	v
+timestamp	db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
+tvnnm	ora.c	/^  unsigned char *tvnnm;$/;"	m	struct:sqltvn	file:	access:public
+tvnnml	ora.c	/^  unsigned short tvnnml; $/;"	m	struct:sqltvn	file:	access:public
+tvnsnm	ora.c	/^  unsigned char *tvnsnm;$/;"	m	struct:sqltvn	file:	access:public
+tvnsnml	ora.c	/^  unsigned short tvnsnml;$/;"	m	struct:sqltvn	file:	access:public
+tvnvsn	ora.c	/^  unsigned char *tvnvsn; $/;"	m	struct:sqltvn	file:	access:public
+tvnvsnl	ora.c	/^  unsigned short tvnvsnl; $/;"	m	struct:sqltvn	file:	access:public
+type	ora.c	/^	uint8_t type;$/;"	m	struct:Cfield	file:	access:public
+type	ora.pc	/^	uint8_t type;$/;"	m	struct:Cfield	file:	access:public
+u_keyword	dbug/dbug.c	/^    const char *u_keyword;				   \/* Keyword for current macro *\/$/;"	m	struct:st_code_state	file:	access:public
+u_line	dbug/dbug.c	/^    uint u_line;					   \/* User source code line number *\/$/;"	m	struct:st_code_state	file:	access:public
+user	dbdriver.h	/^	char user[64];$/;"	m	struct:__DBDriver	access:public
+varchar	ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	t	typeref:struct:__anon2	file:
+wCRC16Table	util.c	/^static unsigned int  wCRC16Table[256] = {$/;"	v	file:
+write	dbug/doc/readme.prof	/^the code that I write, it isn't necessary.  If you have any good ideas,$/;"	v
+x4	dbug/doc/dbug	/^ELF/;"	v
