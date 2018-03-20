@@ -11,6 +11,8 @@
 #include "dbug.h"
 #include "driver_manager.h"
 
+#define xprint(ptr) ({if(ptr==NULL){printf("[%s(%d)-%s] %s is null\n", __FILE__, __LINE__, __func__, #ptr);}})
+
 /**
  * DBEnvInitialize - 初始化数据库连接环境
  *
@@ -30,7 +32,6 @@ int DBEnvInitialize(HENV *henv, char *catalog)
 	if(env == NULL) {
 		return(RETURN_FAILURE);
 	}
-	*henv = env;
 
 	config_t *config = malloc(sizeof(config_t));
 	if(config == NULL) {
@@ -46,6 +47,7 @@ int DBEnvInitialize(HENV *henv, char *catalog)
 
 	env->connect_counter = 0;
 	env->config = config;
+	*henv = env;
 
 	return(RETURN_SUCCESS);
 }
@@ -92,6 +94,13 @@ int DBConnectInitialize(HENV henv, HDBC *hdbc)
 	{
 		return(RETURN_FAILURE);
 	}
+	HDM driver = malloc(sizeof(driver_manager));
+	if(driver == NULL)
+	{
+		mFree(*hdbc);
+		return(RETURN_FAILURE);
+	}
+	(*hdbc)->driver = driver;
 	(*hdbc)->environment = henv;
 
 	return(RETURN_SUCCESS);
@@ -133,6 +142,7 @@ int DBConnectFinished(HDBC hdbc)
 static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 {
 	config_t *config = hdbc->environment->config;
+	xprint(config);
 
 	if(username != NULL) {
 		sprintf(hdbc->username, "%s", username);
@@ -161,6 +171,7 @@ static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *passw
 	}
 
 	if(get_config_value(config, dsn, "driver", hdbc->catalog) != RETURN_SUCCESS) {
+			DBUG_PRINT(__func__, ("dsn=%s hdbc->catalog=%s", dsn, hdbc->catalog));
 		return(RETURN_FAILURE);
 	}
 
@@ -183,18 +194,26 @@ static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *passw
 int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 {
 	DBUG_ENTER(__func__);
+	connection *dbc = (connection*)hdbc;
+	environment *env = (environment*)dbc->environment;
+	config_t *config = (config_t*)env->config;
 
-	DBUG_PRINT(__func__, ("SOURCE_CODE_INFO:FILE=%s LINE=%d", __FILE__, __LINE__));
-	if(hdbc == NULL || hdbc->environment == NULL || hdbc->environment->config == NULL || hdbc->driver == NULL || dsn == NULL)
+	xprint(dbc);
+	xprint(env);
+	xprint(config);
+	xprint(hdbc->driver);
+	xprint(dsn);
+
+	if(hdbc == NULL || hdbc->environment == NULL || hdbc->environment->config == NULL || dsn == NULL)
+	{
 		DBUG_RETURN(RETURN_FAILURE);
+	}
 
-	DBUG_PRINT(__func__, ("SOURCE_CODE_INFO:FILE=%s LINE=%d", __FILE__, __LINE__));
 	if(RETURN_SUCCESS != get_connection_info(hdbc, dsn, username, password, database))
 	{
 		DBUG_PRINT(__func__, ("get_connection_info fail"));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
-	DBUG_PRINT(__func__, ("SOURCE_CODE_INFO:FILE=%s LINE=%d", __FILE__, __LINE__));
 
 	DBUG_PRINT(__func__, ("dsn=%s-username=%s-password=%s-database=%s", dsn, username, password, database?database:"null"));
 
@@ -203,10 +222,80 @@ int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *databa
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
+	if(RETURN_SUCCESS != SQLBUS_CONNECT_INIT(hdbc))
+	{
+		DBUG_PRINT(__func__, ("SQLBUS_CONNECT_INIT fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	if(RETURN_SUCCESS != SQLBUS_CONNECT(hdbc, username, password, database))
+	{
+		DBUG_PRINT(__func__, ("SQLBUS_CONNECT fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
-int DBDisconnect(void *ptr)
+/**
+ * DBDisconnect - 断开与数据库的连接，并卸载驱动
+ *
+ * @hdbc: 数据库连接句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者断开连接失败
+ *  RETURN_SUCCESS: 成功断开连接
+ */
+int DBDisconnect(HDBC hdbc)
 {
-	return 0;
+	DBUG_ENTER(__func__);
+
+	if(hdbc == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
+	if(RETURN_SUCCESS != SQLBUS_DISCONNECT(hdbc))
+	{
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	unload_driver(hdbc->driver);
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
+{
+	DBUG_ENTER(__func__);
+
+	if(hdbc == NULL || hstmt == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
+	*hstmt = malloc(sizeof(statement));
+	if(*hstmt == NULL)
+	{
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+	(*hstmt)->connection = hdbc;
+
+	if(RETURN_SUCCESS != SQLBUS_STMT_INIT(hdbc, *hstmt))
+	{
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBStmtFinished(HSTMT hstmt)
+{
+	DBUG_ENTER(__func__);
+
+	if(hstmt == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
+	if(RETURN_SUCCESS != SQLBUS_STMT_FREE(hstmt))
+	{
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_RETURN(RETURN_SUCCESS);
 }

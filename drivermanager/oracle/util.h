@@ -13,10 +13,19 @@
 
 #include <stdlib.h>
 
+#ifndef __PAGE_SIZE
+# define __PAGE_SIZE (sysconf(_SC_PAGE_SIZE))
+#endif
+#ifndef aligned
+# define aligned(size, align) (roundup(size, align))
+#endif
+
+# define pagesize_aligned(size) aligned(size, __PAGE_SIZE)
+
 __BEGIN_DECLS
 
-void rtrim(unsigned char *str, int len);
-void ltrim(unsigned char *str, int len);
+void rtrim(char *str, int len);
+void ltrim(char *str, int len);
 
 __END_DECLS
 

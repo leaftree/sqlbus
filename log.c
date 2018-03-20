@@ -65,7 +65,6 @@ int log_write(st_log_meta *meta, enum log_level level,
 	va_list ap;
 	int size = 0;
 	int retval = 0;
-	char iso8061[64] = "";
 	char buffer[16*1024] = "";
 
 	static const char * const errmsg[] = {

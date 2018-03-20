@@ -341,8 +341,8 @@ static int parase_conf_file(config_t *conf)
 	char line[512] = "";
 	char section_name[256] = "";
 
-	conf_pair_t *pair;
-	conf_section_t *section;
+	conf_pair_t *pair = NULL;
+	conf_section_t *section = NULL;
 
 	if(conf == NULL || conf->fp == NULL)
 		return(RETURN_FAILURE);
@@ -381,6 +381,7 @@ static int parase_conf_file(config_t *conf)
 
 		append_pair_to_section(section, pair);
 	}
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -542,4 +543,55 @@ int get_config_value(const config_t *conf, char *section, char *key, char *value
 
 	sprintf(value, "%s", pair->value);
 	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+/**
+ * xprint_config_all - 打印全部配置内容
+ *
+ * @cfg: 配置内容列表
+ */
+int xprint_config_all(const config_t *cfg)
+{
+	printf("=================================================================\n");
+	printf("测试打开配置列表内容 开始\n");
+	if(cfg == NULL)
+	{
+		printf("%s parameter is invalid\n", __func__);
+		goto end;
+	}
+	printf("File:%s\n", cfg->file);
+
+	conf_section_t *section = cfg->section;
+	if(section == NULL)
+	{
+		printf("%s Have no section info\n", __func__);
+		goto end;
+	}
+
+	while(section)
+	{
+		printf("Section name:%s\n", section->name);
+
+		conf_pair_t *pair = section->pair;
+		if(pair == NULL)
+		{
+			printf("Section %s Have no key-value pair\n", section->name);
+			section = section->next;
+			continue;
+		}
+
+		while(pair)
+		{
+			printf("   Pair name:%s\n", pair->name);
+			printf("   Pair value:%s\n", pair->value);
+			pair = pair->next;
+		}
+		printf("--------Section %s End--------\n", section->name);
+		section = section->next;
+	}
+end:
+	printf("测试打开配置列表内容 结束\n");
+	printf("=================================================================\n");
+
+	return 0;
 }

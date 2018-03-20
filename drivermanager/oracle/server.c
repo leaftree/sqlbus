@@ -16,9 +16,8 @@
 #include <limits.h>
 #include <signal.h>
 
-#include <hiredis.h>
-#include "cJSON.h"
-#include "db.h"
+#include "dbug.h"
+#include "dbdriver.h"
 
 const static int rport = 6379;
 
@@ -38,6 +37,16 @@ int main()
 	if(RETURN_SUCCESS != DBConnect(hdbc, "fzlc50db@afc", "fzlc50db", NULL))
 	{
 		DBUG_PRINT("Connect to database fail", ("%s", hdbc->error->errstr));
+		DBUG_RETURN(-1);
+	}
+
+	HSTMT hstmt = NULL;
+	DBStmtInitialize(hdbc, &hstmt);
+	if(RETURN_SUCCESS != DBExecute(hstmt, "select * from basi_station_info"))
+	//if(RETURN_SUCCESS != DBExecute(hstmt, "update basi_station_info set location_number='0' where station_id = '0200'"))
+	{
+		DBUG_PRINT("execute fail", ("%s", hstmt->error->errstr));
+		DBUG_PRINT("ORA_SQL_EXEC_RESULT_CODE_FAILURE", ("%d", hstmt->result_code));
 		DBUG_RETURN(-1);
 	}
 

@@ -136,17 +136,24 @@ typedef struct { unsigned short len; unsigned char arr[1]; } varchar;
 /* cud (compilation unit data) array */
 static const short sqlcud0[] =
 {12,4130,852,0,0,
-5,0,0,0,0,0,27,152,0,0,4,4,0,1,0,1,9,0,0,1,9,0,0,1,10,0,0,1,10,0,0,
-36,0,0,2,0,0,30,226,0,0,0,0,0,1,0,
+5,0,0,1,0,0,24,161,0,0,1,1,0,1,0,1,9,0,0,
+24,0,0,2,0,0,31,170,0,0,0,0,0,1,0,
+39,0,0,3,0,0,29,175,0,0,0,0,0,1,0,
+54,0,0,0,0,0,27,215,0,0,4,4,0,1,0,1,9,0,0,1,9,0,0,1,10,0,0,1,10,0,0,
+85,0,0,5,0,0,30,324,0,0,0,0,0,1,0,
+100,0,0,6,0,0,17,461,0,0,1,1,0,1,0,1,5,0,0,
+119,0,0,6,0,0,11,463,0,0,1,1,0,1,0,1,32,0,0,
+138,0,0,6,0,0,15,503,0,0,0,0,0,1,0,
+153,0,0,6,0,0,20,662,0,0,1,1,0,1,0,3,32,0,0,
+172,0,0,6,0,0,14,698,0,0,1,0,0,1,0,2,32,0,0,
 };
 
 
 #line 1 "ora.pc"
 
-#define _GNU_SOURCE
 #include <time.h>
-#include <stdlib.h>
 #include <stdio.h>
+#include <stdlib.h>
 #include <string.h>
 #include <stdint.h>
 #include <stdarg.h>
@@ -155,7 +162,6 @@ static const short sqlcud0[] =
 
 #include "util.h"
 #include "dbug.h"
-#include "cJSON.h"
 #include "dbdriver.h"
 
 /* EXEC SQL INCLUDE sqlda;
@@ -675,11 +681,20 @@ void sqlcurt(dvoid *sqluga, dvoid *cur, Cda_Def *cda, sword *retval );
 
 #endif /* SQLAPR */
 
-#line 21 "ora.pc"
+#line 19 "ora.pc"
 
-SQLDA *bind_dp;
-SQLDA *select_dp;
+static SQLDA *bind_dp;
+static SQLDA *select_dp;
 
+/**
+ * dbSetErrorWithErrno - 使用GLibc全局变量errno设置错误信息
+ *
+ * @error: 错误信息结构
+ * @errorno: 错误编号
+ *
+ * return value:
+ *  No return value
+ */
 static void dbSetErrorWithErrno(error_info *error, int errorno)
 {
 	if(!error) return;
@@ -688,6 +703,15 @@ static void dbSetErrorWithErrno(error_info *error, int errorno)
 	snprintf(error->errstr, sizeof(error->errstr), "%s", strerror(error->ecode));
 }
 
+/**
+ * dbSetError - 设置错误信息，格式类似sprintf
+ *
+ * @fmt: 信息格式
+ * @...: 可变参数项
+ *
+ * return value:
+ *  No return value
+ */
 static void dbSetError(error_info *error, const char *fmt, ...)
 {
 	if(!error) return;
@@ -699,18 +723,26 @@ static void dbSetError(error_info *error, const char *fmt, ...)
 	va_end(vp);
 }
 
+/**
+ * dbSetORAError - 获取Oracle错误信息
+ *
+ * @error: 错误信息结构
+ *
+ * return value:
+ *  No return value
+ */
 static void dbSetORAError(error_info *error)
 {
 	char stm[512] = "";
-	unsigned char message[512] = "";
+	char message[512] = "";
 	size_t sqlfc = 0, stmlen = 512, message_length = 0, buffer_size = 512;
 
 	if(!error) return;
 
 	sqlgls(stm, &stmlen, &sqlfc);
-	sqlglm(message, &buffer_size, &message_length);
+	sqlglm((unsigned char *)message, &buffer_size, &message_length);
 
-	rtrim((unsigned char*)message, message_length);
+	rtrim(message, message_length);
 	if(message[strlen((char*)message)-1] == 0x0a)
 		message[strlen((char*)message)-1] = 0x0;
 
@@ -718,6 +750,17 @@ static void dbSetORAError(error_info *error)
 	snprintf(error->errstr, sizeof(error->errstr), "%s", message);
 }
 
+/**
+ * isSelectStatment - 判断一个字符串是否为Query类型SQL
+ *
+ * @stmt: 待检查的字符串
+ *
+ * @isSelectStatment不进行严格检查，即不检查SQL语法，只判断前1个Token
+ *
+ * return value:
+ *  0: 不是QUERY类型SQL
+ *  1: 是QUERY类型SQL
+ */
 static int isSelectStatment(char *stmt)
 {
 	static char select[] = "SELECT";
@@ -727,6 +770,18 @@ static int isSelectStatment(char *stmt)
 	return 1;
 }
 
+/**
+ * allocDescriptors - 为指示变量和存储数据的变量申请空间
+ *
+ * @hstmt: SQL语句执行的句柄
+ * @max_col_cnt: 最大列数或者是最大的宿主变量数
+ * @max_vname_len: 列名的最大长度
+ * @max_iname_len: 指示变量名的最大长度
+ *
+ * return value:
+ *  RETURN_FAILURE: 分配空间失败
+ *  RETURN_SUCCESS: 分配空间成功
+ */
 static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
 {
 	DBUG_ENTER(__func__);
@@ -735,14 +790,14 @@ static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int
 					max_vname_len, max_iname_len)) == (SQLDA *) 0)
 	{
 		dbSetError(hstmt->error, "Cannot allocate memory for bind descriptor.");
-		DBUG_RETURN(DBO_FAIL); 
+		DBUG_RETURN(RETURN_FAILURE); 
 	}
 
 	if ((select_dp = SQLSQLDAAlloc (SQL_SINGLE_RCTX, max_col_cnt,
 					max_vname_len, max_iname_len)) == (SQLDA *) 0)
 	{
 		dbSetError(hstmt->error, "Cannot allocate memory for select descriptor.");
-		DBUG_RETURN(DBO_FAIL); 
+		DBUG_RETURN(RETURN_FAILURE); 
 	}
 
 	int i;
@@ -755,56 +810,220 @@ static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int
 		select_dp->V[i] = (char *) malloc(sizeof(char));
 	}
 
-	DBUG_RETURN(DBO_SUCC); 
+	DBUG_RETURN(RETURN_SUCCESS); 
 }
 
-/*
-static int runNonQueryStatment(DBDriver *driver, char *statment)
+/**
+ * runNonQueryStatment - 执行一个非QUERY类型语句
+ *
+ * @hstmt: SQL语句执行的句柄
+ * @statement: 待执行的SQL语句
+ *
+ * return value:
+ *  IAPFAIL: 执行失败，或者执行成功但提交失败
+ *  IAPSUCC: 执行成功
+ */
+static int runNonQueryStatment(HSTMT hstmt, char *statement)
 {
-	EXEC SQL BEGIN DECLARE SECTION;
-	varchar caSqlStmt[ORA_MAX_SQL_LEN];
-	EXEC SQL END DECLARE SECTION;
+	/* EXEC SQL BEGIN DECLARE SECTION; */ 
+#line 154 "ora.pc"
 
-	caSqlStmt.len = sprintf((char*)caSqlStmt.arr, "%s", statment);
-	EXEC SQL EXECUTE IMMEDIATE :caSqlStmt;
+	/* varchar caSqlStmt[ORA_MAX_SQL_LEN]; */ 
+struct { unsigned short len; unsigned char arr[3000]; } caSqlStmt;
+#line 155 "ora.pc"
+
+	/* EXEC SQL END DECLARE SECTION; */ 
+#line 156 "ora.pc"
+
+
+	hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_SUCCESS;
+
+	caSqlStmt.len = sprintf((char*)caSqlStmt.arr, "%s", statement);
+	/* EXEC SQL EXECUTE IMMEDIATE :caSqlStmt; */ 
+#line 161 "ora.pc"
+
+{
+#line 161 "ora.pc"
+ struct sqlexd sqlstm;
+#line 161 "ora.pc"
+ sqlstm.sqlvsn = 12;
+#line 161 "ora.pc"
+ sqlstm.arrsiz = 1;
+#line 161 "ora.pc"
+ sqlstm.sqladtp = &sqladt;
+#line 161 "ora.pc"
+ sqlstm.sqltdsp = &sqltds;
+#line 161 "ora.pc"
+ sqlstm.stmt = "";
+#line 161 "ora.pc"
+ sqlstm.iters = (unsigned int  )1;
+#line 161 "ora.pc"
+ sqlstm.offset = (unsigned int  )5;
+#line 161 "ora.pc"
+ sqlstm.cud = sqlcud0;
+#line 161 "ora.pc"
+ sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 161 "ora.pc"
+ sqlstm.sqlety = (unsigned short)4352;
+#line 161 "ora.pc"
+ sqlstm.occurs = (unsigned int  )0;
+#line 161 "ora.pc"
+ sqlstm.sqhstv[0] = (unsigned char  *)&caSqlStmt;
+#line 161 "ora.pc"
+ sqlstm.sqhstl[0] = (unsigned long )3002;
+#line 161 "ora.pc"
+ sqlstm.sqhsts[0] = (         int  )0;
+#line 161 "ora.pc"
+ sqlstm.sqindv[0] = (         short *)0;
+#line 161 "ora.pc"
+ sqlstm.sqinds[0] = (         int  )0;
+#line 161 "ora.pc"
+ sqlstm.sqharm[0] = (unsigned long )0;
+#line 161 "ora.pc"
+ sqlstm.sqadto[0] = (unsigned short )0;
+#line 161 "ora.pc"
+ sqlstm.sqtdso[0] = (unsigned short )0;
+#line 161 "ora.pc"
+ sqlstm.sqphsv = sqlstm.sqhstv;
+#line 161 "ora.pc"
+ sqlstm.sqphsl = sqlstm.sqhstl;
+#line 161 "ora.pc"
+ sqlstm.sqphss = sqlstm.sqhsts;
+#line 161 "ora.pc"
+ sqlstm.sqpind = sqlstm.sqindv;
+#line 161 "ora.pc"
+ sqlstm.sqpins = sqlstm.sqinds;
+#line 161 "ora.pc"
+ sqlstm.sqparm = sqlstm.sqharm;
+#line 161 "ora.pc"
+ sqlstm.sqparc = sqlstm.sqharc;
+#line 161 "ora.pc"
+ sqlstm.sqpadto = sqlstm.sqadto;
+#line 161 "ora.pc"
+ sqlstm.sqptdso = sqlstm.sqtdso;
+#line 161 "ora.pc"
+ sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 161 "ora.pc"
+}
+
+#line 161 "ora.pc"
+
 	if(SQLCODE != IAPSUCC)
 	{
-		dbSetORAError(driver);
-		EXEC SQL ROLLBACK WORK;
+		if(SQLCODE == 1403)
+			hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND;
+		else
+			hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
+
+		dbSetORAError(hstmt->error);
+		/* EXEC SQL ROLLBACK WORK; */ 
+#line 170 "ora.pc"
+
+{
+#line 170 "ora.pc"
+  struct sqlexd sqlstm;
+#line 170 "ora.pc"
+  sqlstm.sqlvsn = 12;
+#line 170 "ora.pc"
+  sqlstm.arrsiz = 1;
+#line 170 "ora.pc"
+  sqlstm.sqladtp = &sqladt;
+#line 170 "ora.pc"
+  sqlstm.sqltdsp = &sqltds;
+#line 170 "ora.pc"
+  sqlstm.iters = (unsigned int  )1;
+#line 170 "ora.pc"
+  sqlstm.offset = (unsigned int  )24;
+#line 170 "ora.pc"
+  sqlstm.cud = sqlcud0;
+#line 170 "ora.pc"
+  sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 170 "ora.pc"
+  sqlstm.sqlety = (unsigned short)4352;
+#line 170 "ora.pc"
+  sqlstm.occurs = (unsigned int  )0;
+#line 170 "ora.pc"
+  sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 170 "ora.pc"
+}
+
+#line 170 "ora.pc"
+
 		return(IAPFAIL);
 	}
 	else
 	{
-		EXEC SQL COMMIT WORK;
+		/* EXEC SQL COMMIT WORK; */ 
+#line 175 "ora.pc"
+
+{
+#line 175 "ora.pc"
+  struct sqlexd sqlstm;
+#line 175 "ora.pc"
+  sqlstm.sqlvsn = 12;
+#line 175 "ora.pc"
+  sqlstm.arrsiz = 1;
+#line 175 "ora.pc"
+  sqlstm.sqladtp = &sqladt;
+#line 175 "ora.pc"
+  sqlstm.sqltdsp = &sqltds;
+#line 175 "ora.pc"
+  sqlstm.iters = (unsigned int  )1;
+#line 175 "ora.pc"
+  sqlstm.offset = (unsigned int  )39;
+#line 175 "ora.pc"
+  sqlstm.cud = sqlcud0;
+#line 175 "ora.pc"
+  sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 175 "ora.pc"
+  sqlstm.sqlety = (unsigned short)4352;
+#line 175 "ora.pc"
+  sqlstm.occurs = (unsigned int  )0;
+#line 175 "ora.pc"
+  sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 175 "ora.pc"
+}
+
+#line 175 "ora.pc"
+
 		if(SQLCODE != IAPSUCC)
 		{
-			dbSetORAError(driver);
-			return(IAPSUCC);
+			dbSetORAError(hstmt->error);
+			return(IAPFAIL);
 		}
 	}
 
-	dbSetErrorWithErrno(driver, 0);
+	dbSetErrorWithErrno(hstmt->error, 0);
 	return(IAPSUCC);
 }
-*/
 
+/**
+ * Proc_db_connect - 连接登录数据库
+ *
+ * @hdbc: 连接句柄
+ *
+ * return value
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: 登录失败
+ *  RETURN_SUCCESS: 登录成功
+ */
 static int Proc_db_connect(HDBC hdbc)
 {
 	DBUG_ENTER(__func__);
 
 	/* EXEC SQL BEGIN DECLARE SECTION; */ 
-#line 137 "ora.pc"
+#line 200 "ora.pc"
 
 	/* varchar     dbpwd[21]; */ 
 struct { unsigned short len; unsigned char arr[21]; } dbpwd;
-#line 138 "ora.pc"
+#line 201 "ora.pc"
 
 	/* varchar     dbuserid[21]; */ 
 struct { unsigned short len; unsigned char arr[21]; } dbuserid;
-#line 139 "ora.pc"
+#line 202 "ora.pc"
 
 	/* EXEC SQL END DECLARE SECTION; */ 
-#line 140 "ora.pc"
+#line 203 "ora.pc"
 
 
 	if(hdbc == NULL)
@@ -818,97 +1037,97 @@ struct { unsigned short len; unsigned char arr[21]; } dbuserid;
 	dbpwd.len = strlen(hdbc->password);
 
 	/* EXEC SQL CONNECT :dbuserid IDENTIFIED BY :dbpwd; */ 
-#line 152 "ora.pc"
+#line 215 "ora.pc"
 
 {
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  struct sqlexd sqlstm;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlvsn = 12;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.arrsiz = 4;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqladtp = &sqladt;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqltdsp = &sqltds;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.iters = (unsigned int  )10;
-#line 152 "ora.pc"
- sqlstm.offset = (unsigned int  )5;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
+ sqlstm.offset = (unsigned int  )54;
+#line 215 "ora.pc"
  sqlstm.cud = sqlcud0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlest = (unsigned char  *)&sqlca;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlety = (unsigned short)4352;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.occurs = (unsigned int  )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqhstv[0] = (unsigned char  *)&dbuserid;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqhstl[0] = (unsigned long )23;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqhsts[0] = (         int  )23;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqindv[0] = (         short *)0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqinds[0] = (         int  )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqharm[0] = (unsigned long )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqadto[0] = (unsigned short )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqtdso[0] = (unsigned short )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqhstv[1] = (unsigned char  *)&dbpwd;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqhstl[1] = (unsigned long )23;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqhsts[1] = (         int  )23;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqindv[1] = (         short *)0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqinds[1] = (         int  )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqharm[1] = (unsigned long )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqadto[1] = (unsigned short )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqtdso[1] = (unsigned short )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqphsv = sqlstm.sqhstv;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqphsl = sqlstm.sqhstl;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqphss = sqlstm.sqhsts;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqpind = sqlstm.sqindv;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqpins = sqlstm.sqinds;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqparm = sqlstm.sqharm;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqparc = sqlstm.sqharc;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqpadto = sqlstm.sqadto;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqptdso = sqlstm.sqtdso;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlcmax = (unsigned int )100;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlcmin = (unsigned int )2;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlcincr = (unsigned int )1;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlctimeout = (unsigned int )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlstm.sqlcnowait = (unsigned int )0;
-#line 152 "ora.pc"
+#line 215 "ora.pc"
  sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
-#line 152 "ora.pc"
+#line 215 "ora.pc"
 }
 
-#line 152 "ora.pc"
+#line 215 "ora.pc"
 
 	if( SQLCODE != IAPSUCC )
 	{
@@ -922,12 +1141,22 @@ struct { unsigned short len; unsigned char arr[21]; } dbuserid;
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * DBConnectInitialize - 连接数据库句柄初始化
+ *
+ * @hdbc: 句柄
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: 分配内存空间失败
+ *  RETURN_SUCCESS: 初始化成功
+ */
 int DBConnectInitialize(HDBC *hdbc)
 {
 	DBUG_ENTER(__func__);
 
 	if(hdbc == NULL)
-		DBUG_RETURN(RETURN_FAILURE);
+		DBUG_RETURN(RETURN_INVALID);
 
 	*hdbc = malloc(sizeof(connection));
 	if(*hdbc == NULL) {
@@ -943,6 +1172,15 @@ int DBConnectInitialize(HDBC *hdbc)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * DBConnectFinished - 数据库连接句柄使用结束，翻译资源
+ *
+ * @hdbc: 句柄
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_SUCCESS: 释放资源成功
+ */
 int DBConnectFinished(HDBC hdbc)
 {
 	DBUG_ENTER(__func__);
@@ -956,13 +1194,26 @@ int DBConnectFinished(HDBC hdbc)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * DBConnect - 数据库连接
+ *
+ * @hdbc: 连接句柄
+ * @username: 数据库用户
+ * @password: 数据库用户密码
+ * @database: 数据库实例
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: 连接登录失败
+ *  RETURN_SUCCESS: 登录数据库成功
+ */
 int DBConnect(HDBC hdbc, char *username, char *password, char *database)
 {
 	DBUG_ENTER(__func__);
 
 	if(hdbc == NULL || username == NULL || password == NULL)
 		DBUG_RETURN(RETURN_INVALID);
-	
+
 	sprintf(hdbc->username, "%s", username);
 	sprintf(hdbc->password, "%s", password);
 	sprintf(hdbc->database, "%s", database?database:"");
@@ -976,6 +1227,16 @@ int DBConnect(HDBC hdbc, char *username, char *password, char *database)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * DBDisconnect - 断开数据库连接
+ *
+ * @hdbc: 连接句柄
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: 断开连接失败
+ *  RETURN_SUCCESS: 断开连接成功
+ */
 int DBDisconnect(HDBC hdbc)
 {
 	DBUG_ENTER(__func__);
@@ -984,37 +1245,37 @@ int DBDisconnect(HDBC hdbc)
 		DBUG_RETURN(RETURN_INVALID);
 
 	/* EXEC SQL COMMIT WORK RELEASE; */ 
-#line 226 "ora.pc"
+#line 324 "ora.pc"
 
 {
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  struct sqlexd sqlstm;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.sqlvsn = 12;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.arrsiz = 4;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.sqladtp = &sqladt;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.sqltdsp = &sqltds;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.iters = (unsigned int  )1;
-#line 226 "ora.pc"
- sqlstm.offset = (unsigned int  )36;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
+ sqlstm.offset = (unsigned int  )85;
+#line 324 "ora.pc"
  sqlstm.cud = sqlcud0;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.sqlest = (unsigned char  *)&sqlca;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.sqlety = (unsigned short)4352;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlstm.occurs = (unsigned int  )0;
-#line 226 "ora.pc"
+#line 324 "ora.pc"
  sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
-#line 226 "ora.pc"
+#line 324 "ora.pc"
 }
 
-#line 226 "ora.pc"
+#line 324 "ora.pc"
 
 	if( SQLCODE != IAPSUCC )
 	{
@@ -1031,108 +1292,385 @@ int DBDisconnect(HDBC hdbc)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
-#if 0 
-static int fetchQueryStatmentResult(DBDriver *driver);
-int DBExecute(DBDriver *driver, char *statment)
+/**
+ * DBStmtInitialize - 数据库操纵句柄初始化
+ *
+ * @hdbc: 数据库连接句柄
+ * @hstmt: 数据库操纵句柄
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: 内存申请失败
+ *  RETURN_SUCCESS: 句柄初始化成功
+ */
+int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 {
 	DBUG_ENTER(__func__);
 
-	int i;
-	struct Cprivate *priv = NULL;
-	SQLDA *bind_dp = NULL;
-	SQLDA *select_dp = NULL;
+	if(hdbc == NULL || hstmt == NULL)
+		DBUG_RETURN(RETURN_INVALID);
 
-	EXEC SQL BEGIN DECLARE SECTION;
+	*hstmt = malloc(sizeof(statement));
+	if(*hstmt == NULL)
+	{
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	error_info *err = malloc(sizeof(error_info));
+	if(err == NULL)
+	{
+		mFree(*hstmt);
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	(*hstmt)->table = NULL;
+	(*hstmt)->hdbc = hdbc;
+	(*hstmt)->error = err;
+	(*hstmt)->statement = NULL;
+	(*hstmt)->max_row_count = ORA_MAX_ROW_COUNT;
+	(*hstmt)->row_count = 0;
+	(*hstmt)->table_size = 0;
+	(*hstmt)->map_size = 0;
+	(*hstmt)->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+/**
+ * DBStmtFinished - 数据库操纵句柄使用结束，释放资源
+ *
+ * @hstmt: 操纵句柄
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_SUCCESS: 释放成功
+ */
+int DBStmtFinished(HSTMT hstmt)
+{
+	DBUG_ENTER(__func__);
+
+	if(hstmt == NULL)
+		DBUG_RETURN(RETURN_INVALID);
+
+	hstmt->hdbc = NULL;
+	mFree(hstmt->error);
+	mFree(hstmt->table);
+	mFree(hstmt);
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+static int releaseDescriptors(int max_item);
+static int fetchQueryStatmentResult(HSTMT hstmt);
+
+/**
+ * DBExecute - 执行SQL语句
+ *
+ * @hstmt: 数据库操纵句柄
+ * @statement: SQL语句
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: SQL执行失败
+ *  RETURN_SUCCESS: SQL执行成功
+ */
+int DBExecute(HSTMT hstmt, char *statement)
+{
+	DBUG_ENTER(__func__);
+
+	/* EXEC SQL BEGIN DECLARE SECTION; */ 
+#line 422 "ora.pc"
+
 	char caSqlStmt[ORA_MAX_SQL_LEN];
-	EXEC SQL VAR caSqlStmt IS STRING(ORA_MAX_SQL_LEN);
-	EXEC SQL END DECLARE SECTION;
+	/* EXEC SQL VAR caSqlStmt IS STRING(ORA_MAX_SQL_LEN); */ 
+#line 424 "ora.pc"
 
-	if(driver == NULL)
-		DBUG_RETURN(DBO_FAIL);
+	/* EXEC SQL END DECLARE SECTION; */ 
+#line 425 "ora.pc"
 
-	priv = (struct Cprivate*)driver->statment;
-	sprintf(caSqlStmt, "%s", statment);
 
+	if(hstmt == NULL || statement == NULL)
+		DBUG_RETURN(RETURN_INVALID);
+
+	sprintf(caSqlStmt, "%s", statement);
+
+	//******************************************************************
 	//
-	// If is Non query sql statment
-	// execute immediate and return
+	// If is Non query sql statement, execute immediate and return
 	//
+	//******************************************************************
 	if( ! isSelectStatment(caSqlStmt))
 	{
-		driver->sqltype = 0;
-		if(IAPSUCC != runNonQueryStatment(driver, statment))
+		hstmt->statement_type = SQL_TYPE_NONE_QUERY;
+		if(IAPSUCC != runNonQueryStatment(hstmt, statement))
 		{
-			DBUG_PRINT("runNonQueryStatment", ("%s", driver->errstr));
-			DBUG_RETURN(DBO_FAIL);
+			DBUG_RETURN(RETURN_FAILURE);
 		}
-		//
-		// generate non query sql json response
-		//
-		DBUG_RETURN(DBO_SUCC);
+		DBUG_RETURN(RETURN_SUCCESS);
 	}
 
+	//******************************************************************
 	//
-	// Query sql statment shuld be prepare and descript before execute
+	// Query sql statement shuld be prepare and descript before execute
 	//
-	if(allocDescriptors(driver, ORA_SQL_MAX_ITEM_NUM, ORA_COLUMN_NAME_LEN, ORA_INDICATE_NAME_LEN) != 0)
+	//******************************************************************
+
+	hstmt->statement_type = SQL_TYPE_QUERY;
+
+	if(allocDescriptors(hstmt, ORA_SQL_MAX_ITEM_NUM, ORA_COLUMN_NAME_LEN, ORA_INDICATE_NAME_LEN) != 0)
 	{
-		DBUG_PRINT("allocDescriptors", ("%s", driver->errstr));
-		DBUG_RETURN(DBO_FAIL);
+		DBUG_PRINT("allocDescriptors", ("%s", hstmt->error->errstr));
+		DBUG_RETURN(RETURN_FAILURE);
 	}
 
-	bind_dp = priv->bind_dp;
-	select_dp = priv->select_dp;
+	/* EXEC SQL PREPARE S FROM :caSqlStmt; */ 
+#line 461 "ora.pc"
 
-	EXEC SQL PREPARE S FROM :caSqlStmt;
-	EXEC SQL DECLARE C CURSOR FOR S;
-	EXEC SQL OPEN C USING DESCRIPTOR bind_dp;
+{
+#line 461 "ora.pc"
+ struct sqlexd sqlstm;
+#line 461 "ora.pc"
+ sqlstm.sqlvsn = 12;
+#line 461 "ora.pc"
+ sqlstm.arrsiz = 4;
+#line 461 "ora.pc"
+ sqlstm.sqladtp = &sqladt;
+#line 461 "ora.pc"
+ sqlstm.sqltdsp = &sqltds;
+#line 461 "ora.pc"
+ sqlstm.stmt = "";
+#line 461 "ora.pc"
+ sqlstm.iters = (unsigned int  )1;
+#line 461 "ora.pc"
+ sqlstm.offset = (unsigned int  )100;
+#line 461 "ora.pc"
+ sqlstm.cud = sqlcud0;
+#line 461 "ora.pc"
+ sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 461 "ora.pc"
+ sqlstm.sqlety = (unsigned short)4352;
+#line 461 "ora.pc"
+ sqlstm.occurs = (unsigned int  )0;
+#line 461 "ora.pc"
+ sqlstm.sqhstv[0] = (unsigned char  *)caSqlStmt;
+#line 461 "ora.pc"
+ sqlstm.sqhstl[0] = (unsigned long )3000;
+#line 461 "ora.pc"
+ sqlstm.sqhsts[0] = (         int  )0;
+#line 461 "ora.pc"
+ sqlstm.sqindv[0] = (         short *)0;
+#line 461 "ora.pc"
+ sqlstm.sqinds[0] = (         int  )0;
+#line 461 "ora.pc"
+ sqlstm.sqharm[0] = (unsigned long )0;
+#line 461 "ora.pc"
+ sqlstm.sqadto[0] = (unsigned short )0;
+#line 461 "ora.pc"
+ sqlstm.sqtdso[0] = (unsigned short )0;
+#line 461 "ora.pc"
+ sqlstm.sqphsv = sqlstm.sqhstv;
+#line 461 "ora.pc"
+ sqlstm.sqphsl = sqlstm.sqhstl;
+#line 461 "ora.pc"
+ sqlstm.sqphss = sqlstm.sqhsts;
+#line 461 "ora.pc"
+ sqlstm.sqpind = sqlstm.sqindv;
+#line 461 "ora.pc"
+ sqlstm.sqpins = sqlstm.sqinds;
+#line 461 "ora.pc"
+ sqlstm.sqparm = sqlstm.sqharm;
+#line 461 "ora.pc"
+ sqlstm.sqparc = sqlstm.sqharc;
+#line 461 "ora.pc"
+ sqlstm.sqpadto = sqlstm.sqadto;
+#line 461 "ora.pc"
+ sqlstm.sqptdso = sqlstm.sqtdso;
+#line 461 "ora.pc"
+ sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 461 "ora.pc"
+}
+
+#line 461 "ora.pc"
+
+	/* EXEC SQL DECLARE C CURSOR FOR S; */ 
+#line 462 "ora.pc"
+
+	/* EXEC SQL OPEN C USING DESCRIPTOR bind_dp; */ 
+#line 463 "ora.pc"
+
+{
+#line 463 "ora.pc"
+ struct sqlexd sqlstm;
+#line 463 "ora.pc"
+ sqlstm.sqlvsn = 12;
+#line 463 "ora.pc"
+ sqlstm.arrsiz = 4;
+#line 463 "ora.pc"
+ sqlstm.sqladtp = &sqladt;
+#line 463 "ora.pc"
+ sqlstm.sqltdsp = &sqltds;
+#line 463 "ora.pc"
+ sqlstm.stmt = "";
+#line 463 "ora.pc"
+ sqlstm.iters = (unsigned int  )1;
+#line 463 "ora.pc"
+ sqlstm.offset = (unsigned int  )119;
+#line 463 "ora.pc"
+ sqlstm.selerr = (unsigned short)1;
+#line 463 "ora.pc"
+ sqlstm.cud = sqlcud0;
+#line 463 "ora.pc"
+ sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 463 "ora.pc"
+ sqlstm.sqlety = (unsigned short)4352;
+#line 463 "ora.pc"
+ sqlstm.occurs = (unsigned int  )0;
+#line 463 "ora.pc"
+ sqlstm.sqcmod = (unsigned int )0;
+#line 463 "ora.pc"
+ sqlstm.sqhstv[0] = (unsigned char  *)bind_dp;
+#line 463 "ora.pc"
+ sqlstm.sqhstl[0] = (unsigned long )0;
+#line 463 "ora.pc"
+ sqlstm.sqhsts[0] = (         int  )0;
+#line 463 "ora.pc"
+ sqlstm.sqindv[0] = (         short *)0;
+#line 463 "ora.pc"
+ sqlstm.sqinds[0] = (         int  )0;
+#line 463 "ora.pc"
+ sqlstm.sqharm[0] = (unsigned long )0;
+#line 463 "ora.pc"
+ sqlstm.sqadto[0] = (unsigned short )0;
+#line 463 "ora.pc"
+ sqlstm.sqtdso[0] = (unsigned short )0;
+#line 463 "ora.pc"
+ sqlstm.sqphsv = sqlstm.sqhstv;
+#line 463 "ora.pc"
+ sqlstm.sqphsl = sqlstm.sqhstl;
+#line 463 "ora.pc"
+ sqlstm.sqphss = sqlstm.sqhsts;
+#line 463 "ora.pc"
+ sqlstm.sqpind = sqlstm.sqindv;
+#line 463 "ora.pc"
+ sqlstm.sqpins = sqlstm.sqinds;
+#line 463 "ora.pc"
+ sqlstm.sqparm = sqlstm.sqharm;
+#line 463 "ora.pc"
+ sqlstm.sqparc = sqlstm.sqharc;
+#line 463 "ora.pc"
+ sqlstm.sqpadto = sqlstm.sqadto;
+#line 463 "ora.pc"
+ sqlstm.sqptdso = sqlstm.sqtdso;
+#line 463 "ora.pc"
+ sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 463 "ora.pc"
+}
+
+#line 463 "ora.pc"
+
 
 	if(SQLCODE != IAPSUCC)
 	{
-		dbSetORAError(driver);
-		DBUG_RETURN(DBO_FAIL);
+		dbSetORAError(hstmt->error);
+		releaseDescriptors(ORA_SQL_MAX_ITEM_NUM);
+		DBUG_RETURN(RETURN_FAILURE);
 	}
 
-	if(IAPSUCC != fetchQueryStatmentResult(driver))
+	if(IAPSUCC != fetchQueryStatmentResult(hstmt))
 	{
-		DBUG_PRINT("fetchQueryStatmentResult", ("%s", driver->errstr));
+		DBUG_PRINT("fetchQueryStatmentResult", ("%s", hstmt->error->errstr));
 	}
 
-	for (i = 0; i < ORA_SQL_MAX_ITEM_NUM; i++)
+	releaseDescriptors(ORA_SQL_MAX_ITEM_NUM);
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+/**
+ * releaseDescriptors - 释放指示变量和存储数据变量空间
+ *
+ * @max_item: 变量最大个数
+ *
+ * return value:
+ *  IAPSUCC: 只返回成功，不应该出错
+ */
+/*STATIC*/ int releaseDescriptors(int max_item)
+{
+	DBUG_ENTER(__func__);
+	int i;
+	for (i = 0; i < max_item; i++)
 	{
-		if (bind_dp->V[i] != (char *) 0)
+		if(bind_dp->V[i] != NULL)
 			mFree(bind_dp->V[i]);
 		mFree(bind_dp->I[i]);
-		if (select_dp->V[i] != (char *) 0)
+		if(select_dp->V[i] != NULL)
 			mFree(select_dp->V[i]);
 		mFree(select_dp->I[i]);
 	}
+
 	SQLSQLDAFree(SQL_SINGLE_RCTX, bind_dp);
 	SQLSQLDAFree(SQL_SINGLE_RCTX, select_dp);
-	EXEC SQL CLOSE C;
+	/* EXEC SQL CLOSE C; */ 
+#line 503 "ora.pc"
 
-	priv->bind_dp = NULL;
-	priv->select_dp = NULL;
-
-	if(driver->ecode)
-		DBUG_RETURN(DBO_FAIL);
-	DBUG_RETURN(DBO_SUCC);
+{
+#line 503 "ora.pc"
+ struct sqlexd sqlstm;
+#line 503 "ora.pc"
+ sqlstm.sqlvsn = 12;
+#line 503 "ora.pc"
+ sqlstm.arrsiz = 4;
+#line 503 "ora.pc"
+ sqlstm.sqladtp = &sqladt;
+#line 503 "ora.pc"
+ sqlstm.sqltdsp = &sqltds;
+#line 503 "ora.pc"
+ sqlstm.iters = (unsigned int  )1;
+#line 503 "ora.pc"
+ sqlstm.offset = (unsigned int  )138;
+#line 503 "ora.pc"
+ sqlstm.cud = sqlcud0;
+#line 503 "ora.pc"
+ sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 503 "ora.pc"
+ sqlstm.sqlety = (unsigned short)4352;
+#line 503 "ora.pc"
+ sqlstm.occurs = (unsigned int  )0;
+#line 503 "ora.pc"
+ sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 503 "ora.pc"
 }
 
-static int allocEnoughSpaceForField(db_reader *reader)
+#line 503 "ora.pc"
+
+
+	bind_dp = NULL;
+	select_dp = NULL;
+	DBUG_RETURN(IAPSUCC);
+}
+
+/**
+ * allocEnoughSpaceForField - 为存储字段信息申请足够的空间
+ *
+ * @hstmt: 操纵句柄
+ *
+ * return value:
+ *  IAPSUCC: 执行成功
+ */
+static int allocEnoughSpaceForField(HSTMT hstmt)
 {
+	DBUG_ENTER(__func__);
+
 	int i, null, precision, scale;
-	struct Cprivate *priv = (struct Cprivate*)reader->statment;
+	field_attr *field = hstmt->table->field;
 
-	SQLDA *sqlda = priv->select_dp;
-
-	for (i = 0; i < sqlda->F; i++)
+	for (i = 0; i < select_dp->F; i++)
 	{
 		SQLColumnNullCheck (SQL_SINGLE_RCTX,
-				(unsigned short*)&(sqlda->T[i]), (unsigned short*)&(sqlda->T[i]), &null);
-		priv->fields[i].type = sqlda->T[i];
+				(unsigned short*)&(select_dp->T[i]), (unsigned short*)&(select_dp->T[i]), &null);
+		field[i].type = select_dp->T[i];
 
-		switch (sqlda->T[i])
+		switch (select_dp->T[i])
 		{
 			case ORA_SQL_FIELD_TYPE_VCHAR2 :
 			case ORA_SQL_FIELD_TYPE_CHAR :
@@ -1140,117 +1678,317 @@ static int allocEnoughSpaceForField(db_reader *reader)
 
 			case ORA_SQL_FIELD_TYPE_NUMBER :
 				SQLNumberPrecV6 (SQL_SINGLE_RCTX,
-						(unsigned int*)&(sqlda->L[i]), &precision, &scale);
-				// XXX: maybe wrong in this way
+						(unsigned int*)&(select_dp->L[i]), &precision, &scale);
+
 				if(precision>0 || scale>0)
-					sqlda->L[i] = precision+scale+(scale>0?1:0);
+					select_dp->L[i] = precision+scale+(scale>0?1:0);
 				else
-					sqlda->L[i] = 24;
-				sqlda->T[i] = 1;
+					select_dp->L[i] = 24;
+				select_dp->T[i] = 1;
 				break;
 
 			case ORA_SQL_FIELD_TYPE_LONG :
-				sqlda->L[i] = 240;
+				select_dp->L[i] = 240;
 				break;
 
 			case ORA_SQL_FIELD_TYPE_ROWID :
-				sqlda->L[i] = 18;
+				select_dp->L[i] = 18;
 				break;
 
 			case ORA_SQL_FIELD_TYPE_DATE :
-				sqlda->L[i] = 9;
-				sqlda->T[i] = 1;
+				select_dp->L[i] = 9;
+				select_dp->T[i] = 1;
 				break;
 
 			case ORA_SQL_FIELD_TYPE_RAW :
 				break;
 
 			case ORA_SQL_FIELD_TYPE_LRAW :
-				sqlda->L[i] = 240;
+				select_dp->L[i] = 240;
 				break;
 		}
 
-		if (sqlda->T[i] != ORA_SQL_FIELD_TYPE_LRAW &&
-				sqlda->T[i] != ORA_SQL_FIELD_TYPE_NUMBER)
-			sqlda->T[i] = ORA_SQL_FIELD_TYPE_VCHAR2;
+		if (select_dp->T[i] != ORA_SQL_FIELD_TYPE_LRAW &&
+				select_dp->T[i] != ORA_SQL_FIELD_TYPE_NUMBER)
+			select_dp->T[i] = ORA_SQL_FIELD_TYPE_VCHAR2;
 
-		if (sqlda->T[i] == ORA_SQL_FIELD_TYPE_NUMBER)
-			sqlda->T[i] = scale ? ORA_SQL_FIELD_TYPE_FLOAT : ORA_SQL_FIELD_TYPE_INTEGER;
+		if (select_dp->T[i] == ORA_SQL_FIELD_TYPE_NUMBER)
+			select_dp->T[i] = scale ? ORA_SQL_FIELD_TYPE_FLOAT : ORA_SQL_FIELD_TYPE_INTEGER;
 
-		priv->fields[i].length = sqlda->L[i];
-		priv->fields[i].name_length = sqlda->C[i];
-		priv->fields[i].name = malloc(priv->fields[i].name_length + 1);
-		sprintf((char*)priv->fields[i].name, "%.*s",
-				priv->fields[i].name_length, sqlda->S[i]);
+		field[i].capacity = select_dp->L[i];
+		snprintf((char*)field[i].name, strlen((char*)field[i].name), "%.*s", select_dp->C[i], select_dp->S[i]);
 
-		sqlda->V[i] = realloc(sqlda->V[i], sqlda->L[i] + 1);
+		hstmt->table_size += select_dp->L[i];
+		select_dp->V[i] = realloc(select_dp->V[i], select_dp->L[i] + 1);
 	}
 
-	return(IAPSUCC);
+	DBUG_RETURN(IAPSUCC);
 }
 
-int fetchQueryStatmentResult(DBDriver *driver)
+/**
+ * newTableInfo - 创建表属性(字段信息)空间
+ *
+ * @fields: 表的列数
+ *
+ * return value:
+ *  NULL: 内存不足，申请空间失败
+ *  !(NULL): 创建成功
+ */
+static table_info *newTableInfo(int fields)
+{
+	table_info *table = malloc(sizeof(table_info));
+	if(table == NULL)
+		return(NULL);
+
+	table->field = malloc(sizeof(field_attr)*fields);
+	if(table->field == NULL)
+	{
+		mFree(table);
+		return(NULL);
+	}
+
+	table->table_name[0] = 0;
+	table->fields = fields;
+
+	return(table);
+}
+
+/**
+ * allocFixedSpaceForResultSet - 申请大块内存用于存储SELECT返回结果
+ *
+ * @hstmt: 数据库操作句柄
+ *
+ * return value:
+ *  RETURN_INVALID: 参数无效
+ *  RETURN_FAILURE: 申请空间失败
+ *  RETURN_SUCCESS: 申请成功
+ */
+static int allocFixedSpaceForResultSet(HSTMT hstmt)
+{
+	if(hstmt == NULL)
+		return(RETURN_INVALID);
+
+	hstmt->map_size = hstmt->table_size * hstmt->max_row_count;
+	hstmt->result = malloc(hstmt->map_size);
+	if(hstmt->result == NULL)
+	{
+		dbSetError(hstmt->error, "Allocate memory(size=%d) fail. %s", hstmt->map_size, strerror(ENOMEM));
+		return(RETURN_FAILURE);
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * fetchQueryStatmentResult - 获取查询语句结果
+ *
+ * @hstmt: 操作句柄
+ *
+ * 执行返回成功时，还应该检查@hstmt的成员@result_code的值，
+ * 当其值为ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND时表示找不到记录
+ *
+ * return value:
+ *  IAPFAIL: 参数无效或获取数据失败
+ *  IAPSUCC: 获取数据成功
+ */
+/*STATIC*/ int fetchQueryStatmentResult(HSTMT hstmt)
 {
 	DBUG_ENTER(__func__);
 
 	int i;
+	int offset = 0;
 	char value[4000];
-	struct Cprivate *priv = driver->statment;
 
-	cJSON *root = cJSON_CreateObject();
-	cJSON *field = cJSON_CreateArray();
-	cJSON *result = cJSON_CreateArray();
+	if(hstmt == NULL)
+		DBUG_RETURN(IAPFAIL);
 
-	SQLDA *select_dp = priv->select_dp;
 	select_dp->N = ORA_SQL_MAX_ITEM_NUM;
 
-	EXEC SQL DESCRIBE SELECT LIST FOR S INTO select_dp;
+	/* EXEC SQL DESCRIBE SELECT LIST FOR S INTO select_dp; */ 
+#line 662 "ora.pc"
+
+{
+#line 662 "ora.pc"
+ struct sqlexd sqlstm;
+#line 662 "ora.pc"
+ sqlstm.sqlvsn = 12;
+#line 662 "ora.pc"
+ sqlstm.arrsiz = 4;
+#line 662 "ora.pc"
+ sqlstm.sqladtp = &sqladt;
+#line 662 "ora.pc"
+ sqlstm.sqltdsp = &sqltds;
+#line 662 "ora.pc"
+ sqlstm.iters = (unsigned int  )1;
+#line 662 "ora.pc"
+ sqlstm.offset = (unsigned int  )153;
+#line 662 "ora.pc"
+ sqlstm.cud = sqlcud0;
+#line 662 "ora.pc"
+ sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 662 "ora.pc"
+ sqlstm.sqlety = (unsigned short)4352;
+#line 662 "ora.pc"
+ sqlstm.occurs = (unsigned int  )0;
+#line 662 "ora.pc"
+ sqlstm.sqhstv[0] = (unsigned char  *)select_dp;
+#line 662 "ora.pc"
+ sqlstm.sqhstl[0] = (unsigned long )0;
+#line 662 "ora.pc"
+ sqlstm.sqhsts[0] = (         int  )0;
+#line 662 "ora.pc"
+ sqlstm.sqindv[0] = (         short *)0;
+#line 662 "ora.pc"
+ sqlstm.sqinds[0] = (         int  )0;
+#line 662 "ora.pc"
+ sqlstm.sqharm[0] = (unsigned long )0;
+#line 662 "ora.pc"
+ sqlstm.sqadto[0] = (unsigned short )0;
+#line 662 "ora.pc"
+ sqlstm.sqtdso[0] = (unsigned short )0;
+#line 662 "ora.pc"
+ sqlstm.sqphsv = sqlstm.sqhstv;
+#line 662 "ora.pc"
+ sqlstm.sqphsl = sqlstm.sqhstl;
+#line 662 "ora.pc"
+ sqlstm.sqphss = sqlstm.sqhsts;
+#line 662 "ora.pc"
+ sqlstm.sqpind = sqlstm.sqindv;
+#line 662 "ora.pc"
+ sqlstm.sqpins = sqlstm.sqinds;
+#line 662 "ora.pc"
+ sqlstm.sqparm = sqlstm.sqharm;
+#line 662 "ora.pc"
+ sqlstm.sqparc = sqlstm.sqharc;
+#line 662 "ora.pc"
+ sqlstm.sqpadto = sqlstm.sqadto;
+#line 662 "ora.pc"
+ sqlstm.sqptdso = sqlstm.sqtdso;
+#line 662 "ora.pc"
+ sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 662 "ora.pc"
+}
+
+#line 662 "ora.pc"
+
 	if (select_dp->F < 0)
 	{
-		dbSetError(driver, "Too many select-list items(%d), maximum is %d\n",
+		dbSetError(hstmt->error, "Too many select-list items(%d), maximum is %d\n",
 				-(select_dp->F), ORA_SQL_MAX_ITEM_NUM);
 		DBUG_RETURN(IAPFAIL);
 	}
 
 	select_dp->N = select_dp->F;
 
-	priv->field_count = select_dp->N;
-	priv->fields = malloc(sizeof(Cfield)*priv->field_count);
-	if(priv->fields == NULL)
+	hstmt->table = newTableInfo(select_dp->N);
+	if(hstmt->table == NULL)
 	{
-		dbSetErrorWithErrno(driver, ENOMEM);
+		dbSetErrorWithErrno(hstmt->error, ENOMEM);
 		DBUG_RETURN(IAPFAIL);
 	}
 
-	allocEnoughSpaceForField(driver);
-
-	for(i=0; i<priv->field_count; i++)
+	//******************************************************************
+	//
+	// @allocEnoughSpaceForField must be called before
+	// @allocFixedSpaceForResultSet, because it'll size how much memory
+	// for one row.
+	//
+	//******************************************************************
+	if(IAPSUCC != allocEnoughSpaceForField(hstmt))
 	{
-		cJSON *object = cJSON_CreateObject();
-		cJSON_AddItemToObject(object, "name",
-				cJSON_CreateString((char*)priv->fields[i].name));
-		cJSON_AddItemToObject(object, "type", cJSON_CreateNumber(priv->fields[i].type));
-		cJSON_AddItemToObject(object, "capacity",
-				cJSON_CreateNumber(priv->fields[i].length));
+		DBUG_RETURN(IAPFAIL);
+	}
 
-		cJSON_AddItemToArray(field, object);
+	if(RETURN_SUCCESS != allocFixedSpaceForResultSet(hstmt))
+	{
+		DBUG_RETURN(IAPFAIL);
 	}
 
 	for (;sqlca.sqlerrd[2]<ORA_MAX_ROW_COUNT;)
 	{
-		EXEC SQL FETCH C USING DESCRIPTOR select_dp;
+		/* EXEC SQL FETCH C USING DESCRIPTOR select_dp; */ 
+#line 698 "ora.pc"
+
+{
+#line 698 "ora.pc"
+  struct sqlexd sqlstm;
+#line 698 "ora.pc"
+  sqlstm.sqlvsn = 12;
+#line 698 "ora.pc"
+  sqlstm.arrsiz = 4;
+#line 698 "ora.pc"
+  sqlstm.sqladtp = &sqladt;
+#line 698 "ora.pc"
+  sqlstm.sqltdsp = &sqltds;
+#line 698 "ora.pc"
+  sqlstm.iters = (unsigned int  )1;
+#line 698 "ora.pc"
+  sqlstm.offset = (unsigned int  )172;
+#line 698 "ora.pc"
+  sqlstm.selerr = (unsigned short)1;
+#line 698 "ora.pc"
+  sqlstm.cud = sqlcud0;
+#line 698 "ora.pc"
+  sqlstm.sqlest = (unsigned char  *)&sqlca;
+#line 698 "ora.pc"
+  sqlstm.sqlety = (unsigned short)4352;
+#line 698 "ora.pc"
+  sqlstm.occurs = (unsigned int  )0;
+#line 698 "ora.pc"
+  sqlstm.sqfoff = (         int )0;
+#line 698 "ora.pc"
+  sqlstm.sqfmod = (unsigned int )2;
+#line 698 "ora.pc"
+  sqlstm.sqhstv[0] = (unsigned char  *)select_dp;
+#line 698 "ora.pc"
+  sqlstm.sqhstl[0] = (unsigned long )0;
+#line 698 "ora.pc"
+  sqlstm.sqhsts[0] = (         int  )0;
+#line 698 "ora.pc"
+  sqlstm.sqindv[0] = (         short *)0;
+#line 698 "ora.pc"
+  sqlstm.sqinds[0] = (         int  )0;
+#line 698 "ora.pc"
+  sqlstm.sqharm[0] = (unsigned long )0;
+#line 698 "ora.pc"
+  sqlstm.sqadto[0] = (unsigned short )0;
+#line 698 "ora.pc"
+  sqlstm.sqtdso[0] = (unsigned short )0;
+#line 698 "ora.pc"
+  sqlstm.sqphsv = sqlstm.sqhstv;
+#line 698 "ora.pc"
+  sqlstm.sqphsl = sqlstm.sqhstl;
+#line 698 "ora.pc"
+  sqlstm.sqphss = sqlstm.sqhsts;
+#line 698 "ora.pc"
+  sqlstm.sqpind = sqlstm.sqindv;
+#line 698 "ora.pc"
+  sqlstm.sqpins = sqlstm.sqinds;
+#line 698 "ora.pc"
+  sqlstm.sqparm = sqlstm.sqharm;
+#line 698 "ora.pc"
+  sqlstm.sqparc = sqlstm.sqharc;
+#line 698 "ora.pc"
+  sqlstm.sqpadto = sqlstm.sqadto;
+#line 698 "ora.pc"
+  sqlstm.sqptdso = sqlstm.sqtdso;
+#line 698 "ora.pc"
+  sqlcxt((void **)0, &sqlctx, &sqlstm, &sqlfpn);
+#line 698 "ora.pc"
+}
+
+#line 698 "ora.pc"
+
 		if(SQLCODE==1403)
 		{
 			break;
 		}
 		else if(SQLCODE<0)
 		{
-			priv->row_count = 0x0;
-			dbSetORAError(driver);
+			dbSetORAError(hstmt->error);
 			DBUG_RETURN(IAPFAIL);
 		}
 
-		cJSON *row = cJSON_CreateArray();
 		for (i = 0; i < select_dp->F; i++)
 		{
 			memset(value, 0x0, sizeof(value));
@@ -1258,46 +1996,33 @@ int fetchQueryStatmentResult(DBDriver *driver)
 			if (*select_dp->I[i] >= 0)
 			{
 				memcpy(value, select_dp->V[i], select_dp->L[i]);
-				rtrim((unsigned char*)value, select_dp->L[i]);
+				rtrim(value, select_dp->L[i]);
 
-				if(priv->fields[i].type != ORA_SQL_FIELD_TYPE_VCHAR2 &&
+				if(hstmt->table->field[i].type != ORA_SQL_FIELD_TYPE_VCHAR2 &&
 						select_dp->T[i]==ORA_SQL_FIELD_TYPE_VCHAR2)
 				{
-					ltrim((unsigned char*)value, select_dp->L[i]);
-					cJSON_AddItemToArray(row, cJSON_CreateNumber(strtoll(value, NULL, 10)));
+					ltrim(value, select_dp->L[i]);
 				}
-				else
-				{
-					cJSON_AddItemToArray(row, cJSON_CreateString(value));
-				}
+				memcpy(hstmt->result+offset, value, strlen(value));
+				memset(hstmt->result+offset+strlen(value), 0x0, select_dp->L[i] - strlen(value));
 			}
 			else
 			{
-				cJSON_AddItemToArray(row, cJSON_CreateNull());
+				memset(hstmt->result+offset, 0x0, select_dp->L[i]);
 			}
+			offset += select_dp->L[i];
 		}
-		cJSON_AddItemToArray(result, row);
 	}
-	priv->row_count = sqlca.sqlerrd[2];
+	hstmt->row_count = sqlca.sqlerrd[2];
 
-	cJSON_AddItemToObject(root, "app", cJSON_CreateString("oracle client"));
-	cJSON_AddItemToObject(root, "type", cJSON_CreateString("response"));
-	cJSON_AddItemToObject(root, "sqltype", cJSON_CreateString("select"));
-	cJSON_AddItemToObject(root, "eflag",
-			driver->ecode?cJSON_CreateFalse():cJSON_CreateTrue());
-	cJSON_AddItemToObject(root, "message",
-			driver->ecode?cJSON_CreateString(driver->errstr):cJSON_CreateString("OK"));
-	cJSON_AddItemToObject(root, "pid", cJSON_CreateNumber(getpid()));
-	cJSON_AddItemToObject(root, "timestamp", cJSON_CreateNumber(time(NULL)));
-	cJSON_AddItemToObject(root, "fields", cJSON_CreateNumber(priv->field_count));
-	cJSON_AddItemToObject(root, "rows", cJSON_CreateNumber(priv->row_count));
-
-	cJSON_AddItemToObject(root, "field", field);
-	cJSON_AddItemToObject(root, "result", result);
-
-	driver->json_string = cJSON_PrintUnformatted(root);
-	cJSON_free(root);
+	if(hstmt->row_count == 0)
+	{
+		hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND;
+	}
+	else
+	{
+		hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_SUCCESS;
+	}
 
 	DBUG_RETURN(IAPSUCC);
 }
-#endif 

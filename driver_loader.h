@@ -11,10 +11,12 @@
 #ifndef __DRIVER_LOADER_H__
 #define __DRIVER_LOADER_H__
 
-#define DB_CONNECTINITIALIZE 1
-#define DB_CONNECTFINISHED 2
-#define DB_CONNECT 3
-#define DB_DISCONNECT 4
+#define DB_CONNECT_INITIALIZE  1
+#define DB_CONNECT_FINISHED    2
+#define DB_CONNECT             3
+#define DB_DISCONNECT          4
+#define DB_STMT_INITIALIZE     5
+#define DB_STMT_FINISHED       6
 
 typedef struct driver_func
 {
@@ -26,7 +28,7 @@ typedef struct driver_manager
 {
 	char *driver_name;
 	void *dl_handle;
-	driver_func *func;
+	driver_func *functions;
 	char errstr[128];
 } driver_manager, *HDM;
 

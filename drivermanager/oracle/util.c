@@ -10,18 +10,18 @@
 
 #include "util.h"
 
-void rtrim(unsigned char *str, int len)
+void rtrim(char *str, int len)
 {
-	unsigned char *end = str+len;
+	char *end = str+len;
 
 	while(end>=str && (*end==0x20||*end==0x0))
 		*end-- = 0;
 }
 
-void ltrim(unsigned char *str, int len)
+void ltrim(char *str, int len)
 {
 	int size = len;
-	unsigned char *start = str;
+	char *start = str;
 
 	str[len] = 0;
 
@@ -32,4 +32,17 @@ void ltrim(unsigned char *str, int len)
 	while(size-- && *start) *str++ = *start++;
 
 	while(*str) *str++ = 0;
+}
+#include <stdio.h>
+#include <stdarg.h>
+
+int dump_pointer(char *file, char *fmt, ...)
+{
+	FILE *stream = fopen(file, "a+");
+	va_list ap;
+	va_start(ap, fmt);
+	vfprintf(stream, fmt, ap);
+	va_end(ap);
+	fclose(stream);
+	return 0;
 }

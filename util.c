@@ -38,18 +38,18 @@ int make_iso8061_timestamp(char *buffer)
 			timev.tv_usec);
 }
 
-void rtrim(unsigned char *str, int len)
+void rtrim(char *str, int len)
 {
-	unsigned char *end = str+len;
+	char *end = str+len;
 
 	while(end>=str && (*end==0x20||*end==0x0||*end==0x0a||*end==0x0d))
 		*end-- = 0;
 }
 
-void ltrim(unsigned char *str, int len)
+void ltrim(char *str, int len)
 {
 	int size = len;
-	unsigned char *start = str;
+	char *start = str;
 
 	str[len] = 0;
 

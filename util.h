@@ -37,14 +37,14 @@ int make_iso8061_timestamp(char *buffer);
  * @str: 需要删除空白符的字符串
  * @len: @str的长度
  */
-void rtrim(unsigned char *str, int len);
+void rtrim(char *str, int len);
 
 /**
  * ltrim - 删除@str左边的空白符
  * @str: 需要删除空白符的字符串
  * @len: @str的长度
  */
-void ltrim(unsigned char *str, int len);
+void ltrim(char *str, int len);
 
 __END_DECLS
 

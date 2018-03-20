@@ -148,6 +148,11 @@ conf_pair_t *get_config_pair(const conf_section_t *section, char *name);
  */
 int get_config_value(const config_t *conf, char *section, char *key, char *value);
 
+/**
+ * 测试使用
+ */
+int xprint_config_all(const config_t *cfg);
+
 __END_DECLS
 
 #endif /* __CONFIG_LOADER_H__ */

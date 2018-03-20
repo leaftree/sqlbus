@@ -23,10 +23,12 @@
  * driver_func_template - 默认模板接口
  */
 static driver_func driver_func_template[] = {
-	[DB_CONNECTINITIALIZE] = {"DBConnectInitialize", NULL},
-	[DB_CONNECTFINISHED  ] = {"DBConnectFinished"  , NULL},
-	//[DB_CONNECT          ] = {"DBConnect"          , NULL},
-	[DB_DISCONNECT       ] = {"DBDisconnect"       , NULL},
+	[DB_CONNECT_INITIALIZE] = {"DBConnectInitialize", NULL},
+	[DB_CONNECT_FINISHED  ] = {"DBConnectFinished"  , NULL},
+	[DB_CONNECT           ] = {"DBConnect"          , NULL},
+	[DB_DISCONNECT        ] = {"DBDisconnect"       , NULL},
+	[DB_STMT_INITIALIZE   ] = {"DBStmtInitialize"   , NULL},
+	[DB_STMT_FINISHED     ] = {"DBStmtFinished"     , NULL},
 };
 
 /**
@@ -42,6 +44,9 @@ static int open_driver(driver_manager *driver)
 {
 	DBUG_ENTER(__func__);
 
+	if(driver == NULL || driver->driver_name == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
 	driver->dl_handle = dlopen(driver->driver_name, RTLD_LAZY);
 	if(driver->dl_handle == NULL)
 	{
@@ -50,22 +55,22 @@ static int open_driver(driver_manager *driver)
 	}
 
 	dlerror();
-	driver->func = malloc(sizeof(driver_func_template));
-	if(driver->func == NULL)
+	driver->functions = malloc(sizeof(driver_func_template));
+	if(driver->functions == NULL)
 	{
 		sprintf(driver->errstr, "%s", strerror(errno));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
-	memcpy(driver->func, &driver_func_template, sizeof(driver_func_template));
+	memcpy(driver->functions, &driver_func_template, sizeof(driver_func_template));
 
 	int i=0;
 	for(i=0; i<sizeof(driver_func_template)/sizeof(driver_func_template[0]); i++)
 	{
-		if(driver->func[i].name == NULL)
+		if(driver->functions[i].name == NULL)
 			continue;
 
-		driver->func[i].func = dlsym(driver->dl_handle, driver->func[i].name);
-		if (driver->func[i].func == NULL)
+		driver->functions[i].func = dlsym(driver->dl_handle, driver->functions[i].name);
+		if (driver->functions[i].func == NULL)
 		{
 			sprintf(driver->errstr, "%s", dlerror());
 			DBUG_RETURN(RETURN_FAILURE);
@@ -116,7 +121,7 @@ int unload_driver(driver_manager *driver)
 		DBUG_RETURN(RETURN_FAILURE);
 
 	mFree(driver->driver_name);
-	mFree(driver->func);
+	mFree(driver->functions);
 	dlclose(driver->dl_handle);
 	driver->errstr[0] = 0;
 

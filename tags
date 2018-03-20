@@ -23,43 +23,52 @@ Clock	third/dbug/dbug.c	/^Clock()$/;"	f	file:	signature:()
 Clock	third/dbug/dbug.c	/^static unsigned long Clock(void);$/;"	p	file:	signature:(void)
 CloseFile	third/dbug/dbug.c	/^CloseFile(FILE * fp)$/;"	f	file:	signature:(FILE * fp)
 CloseFile	third/dbug/dbug.c	/^static void CloseFile(FILE * fp);$/;"	p	file:	signature:(FILE * fp)
-DBAPI_ASYNC	drivermanager/oracle/db.h	44;"	d
-DBAPI_CLIENT	drivermanager/oracle/db.h	47;"	d
-DBAPI_SERVER	drivermanager/oracle/db.h	48;"	d
-DBAPI_SYNC	drivermanager/oracle/db.h	45;"	d
-DBAPI_TIMEO	drivermanager/oracle/db.h	46;"	d
-DBAPPExecute	drivermanager/oracle/db.h	/^int DBAPPExecute(DBHandle *handle, char *stmt);$/;"	p	signature:(DBHandle *handle, char *stmt)
-DBAPPFree	drivermanager/oracle/db.h	/^DBHandle *DBAPPFree(DBHandle *handle);$/;"	p	signature:(DBHandle *handle)
-DBClientInit	drivermanager/oracle/db.h	/^DBHandle *DBClientInit(int flag, ...);$/;"	p	signature:(int flag, ...)
+DBAPI_ASYNC	db.h	44;"	d
+DBAPI_CLIENT	db.h	47;"	d
+DBAPI_SERVER	db.h	48;"	d
+DBAPI_SYNC	db.h	45;"	d
+DBAPI_TIMEO	db.h	46;"	d
+DBAPPExecute	db.h	/^int DBAPPExecute(DBHandle *handle, char *stmt);$/;"	p	signature:(DBHandle *handle, char *stmt)
+DBAPPFree	db.h	/^DBHandle *DBAPPFree(DBHandle *handle);$/;"	p	signature:(DBHandle *handle)
+DBClientInit	db.h	/^DBHandle *DBClientInit(int flag, ...);$/;"	p	signature:(int flag, ...)
 DBConnect	driver_manager.c	/^int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database)$/;"	f	signature:(HDBC hdbc, char *dsn, char *username, char *password, char *database)
-DBConnect	driver_manager.h	/^int DBConnect(HDBC hdbc, char *dsn);$/;"	p	signature:(HDBC hdbc, char *dsn)
+DBConnect	driver_manager.h	/^int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database);$/;"	p	signature:(HDBC hdbc, char *dsn, char *username, char *password, char *database)
+DBConnect	drivermanager/oracle/dbdriver.h	/^int DBConnect(HDBC hdbc, char *username, char *password, char *database);$/;"	p	signature:(HDBC hdbc, char *username, char *password, char *database)
 DBConnect	drivermanager/oracle/ora.c	/^int DBConnect(HDBC hdbc, char *username, char *password, char *database)$/;"	f	signature:(HDBC hdbc, char *username, char *password, char *database)
 DBConnect	drivermanager/oracle/ora.pc	/^int DBConnect(HDBC hdbc, char *username, char *password, char *database)$/;"	f	signature:(HDBC hdbc, char *username, char *password, char *database)
 DBConnectFinished	driver_manager.c	/^int DBConnectFinished(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBConnectFinished	driver_manager.h	/^int DBConnectFinished(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
+DBConnectFinished	drivermanager/oracle/dbdriver.h	/^int DBConnectFinished(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
 DBConnectFinished	drivermanager/oracle/ora.c	/^int DBConnectFinished(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBConnectFinished	drivermanager/oracle/ora.pc	/^int DBConnectFinished(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBConnectInitialize	driver_manager.c	/^int DBConnectInitialize(HENV henv, HDBC *hdbc)$/;"	f	signature:(HENV henv, HDBC *hdbc)
 DBConnectInitialize	driver_manager.h	/^int DBConnectInitialize(HENV henv, HDBC *hdbc);$/;"	p	signature:(HENV henv, HDBC *hdbc)
+DBConnectInitialize	drivermanager/oracle/dbdriver.h	/^int DBConnectInitialize(HDBC *hdbc);$/;"	p	signature:(HDBC *hdbc)
 DBConnectInitialize	drivermanager/oracle/ora.c	/^int DBConnectInitialize(HDBC *hdbc)$/;"	f	signature:(HDBC *hdbc)
 DBConnectInitialize	drivermanager/oracle/ora.pc	/^int DBConnectInitialize(HDBC *hdbc)$/;"	f	signature:(HDBC *hdbc)
-DBDisconnect	driver_manager.c	/^int DBDisconnect(void *ptr)$/;"	f	signature:(void *ptr)
-DBDisconnect	driver_manager.h	/^int DBDisconnect(void *ptr);$/;"	p	signature:(void *ptr)
+DBDisconnect	driver_manager.c	/^int DBDisconnect(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
+DBDisconnect	driver_manager.h	/^int DBDisconnect(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
+DBDisconnect	drivermanager/oracle/dbdriver.h	/^int DBDisconnect(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
 DBDisconnect	drivermanager/oracle/ora.c	/^int DBDisconnect(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBDisconnect	drivermanager/oracle/ora.pc	/^int DBDisconnect(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBEnvFinished	driver_manager.c	/^int DBEnvFinished(HENV henv)$/;"	f	signature:(HENV henv)
 DBEnvFinished	driver_manager.h	/^int DBEnvFinished(HENV henv);$/;"	p	signature:(HENV henv)
 DBEnvInitialize	driver_manager.c	/^int DBEnvInitialize(HENV *henv, char *catalog)$/;"	f	signature:(HENV *henv, char *catalog)
 DBEnvInitialize	driver_manager.h	/^int DBEnvInitialize(HENV *henv, char *catalog);$/;"	p	signature:(HENV *henv, char *catalog)
+DBExecute	drivermanager/oracle/ora.pc	/^int DBExecute(DBDriver *driver, char *statment)$/;"	f	signature:(DBDriver *driver, char *statment)
 DBHDBC	drivermanager/oracle/dbdriver.h	/^typedef void* DBHDBC;$/;"	t
 DBHENV	drivermanager/oracle/dbdriver.h	/^typedef void* DBHENV;$/;"	t
 DBHSTMT	drivermanager/oracle/dbdriver.h	/^typedef void* DBHSTMT;$/;"	t
-DBHandle	drivermanager/oracle/db.h	/^} DBHandle;$/;"	t	typeref:struct:__DBHandle
+DBHandle	db.h	/^} DBHandle;$/;"	t	typeref:struct:__DBHandle
 DBO_FAIL	drivermanager/oracle/dbdriver.h	27;"	d
 DBO_FAIL	drivermanager/oracle/dbdriver.h	31;"	d
 DBO_SUCC	drivermanager/oracle/dbdriver.h	28;"	d
 DBO_SUCC	drivermanager/oracle/dbdriver.h	30;"	d
-DBServerInit	drivermanager/oracle/db.h	/^DBHandle *DBServerInit(int flag, ...);$/;"	p	signature:(int flag, ...)
+DBServerInit	db.h	/^DBHandle *DBServerInit(int flag, ...);$/;"	p	signature:(int flag, ...)
+DBStmtFinished	driver_manager.c	/^int DBStmtFinished(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+DBStmtFinished	driver_manager.h	/^int DBStmtFinished(HSTMT hstmt);$/;"	p	signature:(HSTMT hstmt)
+DBStmtInitialize	driver_manager.c	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)$/;"	f	signature:(HDBC hdbc, HSTMT *hstmt)
+DBStmtInitialize	driver_manager.h	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt);$/;"	p	signature:(HDBC hdbc, HSTMT *hstmt)
 DBUGOpenFile	third/dbug/dbug.c	/^DBUGOpenFile(const char *name, int append)$/;"	f	file:	signature:(const char *name, int append)
 DBUGOpenFile	third/dbug/dbug.c	/^static void DBUGOpenFile(const char *name, int append);$/;"	p	file:	signature:(const char *name, int append)
 DBUG_DUMP	third/dbug/dbug.h	125;"	d
@@ -97,10 +106,11 @@ DBUG_my_pthread_mutex_lock_FILE	third/dbug/dbug.h	151;"	d
 DBUG_my_pthread_mutex_unlock_FILE	third/dbug/dbug.h	130;"	d
 DBUG_my_pthread_mutex_unlock_FILE	third/dbug/dbug.h	152;"	d
 DB_CONNECT	driver_loader.h	16;"	d
-DB_CONNECTFINISHED	driver_loader.h	15;"	d
-DB_CONNECTINITIALIZE	driver_loader.h	14;"	d
+DB_CONNECT_FINISHED	driver_loader.h	15;"	d
+DB_CONNECT_INITIALIZE	driver_loader.h	14;"	d
 DB_DISCONNECT	driver_loader.h	17;"	d
-DB_FUNC_CONNECT	driver_manager.h	47;"	d
+DB_STMT_FINISHED	driver_loader.h	19;"	d
+DB_STMT_INITIALIZE	driver_loader.h	18;"	d
 DEBUGGER_OFF	third/dbug/dbug.h	127;"	d
 DEBUGGER_OFF	third/dbug/dbug.h	149;"	d
 DEBUGGER_ON	third/dbug/dbug.h	128;"	d
@@ -152,14 +162,16 @@ FreeList	third/dbug/dbug.c	/^static void FreeList(struct link *linkp);$/;"	p	fil
 HDBC	driver_manager.h	/^typedef struct connection *HDBC;$/;"	t	typeref:struct:connection
 HDBC	drivermanager/oracle/dbdriver.h	/^}connection, *HDBC;$/;"	t	typeref:struct:connection
 HDM	driver_loader.h	/^} driver_manager, *HDM;$/;"	t	typeref:struct:driver_manager
-HENV	driver_manager.h	/^}environment, *HENV;$/;"	t	typeref:struct:environment
+HENV	driver_manager.h	/^typedef struct environment *HENV;$/;"	t	typeref:struct:environment
 HENV	drivermanager/oracle/dbdriver.h	/^}environment, *HENV;$/;"	t	typeref:struct:environment
-HH	drivermanager/oracle/server.o	/^ELF/;"	v
+HSTMT	driver_manager.h	/^typedef struct statement *HSTMT;$/;"	t	typeref:struct:statement
 HSTMT	drivermanager/oracle/dbdriver.h	/^}statment, *HSTMT;$/;"	t	typeref:struct:statment
 HZ	third/dbug/dbug.c	1898;"	d	file:
 Hanoi	third/dbug/doc/example.c	/^void  Hanoi(int n, char *pDishA, char *pDishB, char *pDishC)$/;"	f	signature:(int n, char *pDishA, char *pDishB, char *pDishC)
 Hanoi	third/dbug/doc/example.c	/^void  Hanoi(int n, char *pDishA, char *pDishB, char *pDishC);$/;"	p	file:	signature:(int n, char *pDishA, char *pDishB, char *pDishC)
 I	drivermanager/oracle/ora.c	/^  \/* sb2**  *\/ short    **I; \/* Ptr to Arr of addresses of indicator vars   *\/$/;"	m	struct:SQLDA	file:	access:public
+I	main.o	/^/;"	v
+I	main.o	/^/;"	v
 IAPFAIL	drivermanager/oracle/ora.c	/^static const int IAPFAIL = 1403;$/;"	v	file:
 IAPFTL	drivermanager/oracle/ora.c	/^static const int IAPFTL  = 535;$/;"	v	file:
 IAPSUCC	drivermanager/oracle/ora.c	/^static const int IAPSUCC = 0;$/;"	v	file:
@@ -209,8 +221,8 @@ OpenProfile	third/dbug/dbug.c	/^OpenProfile(const char *name)$/;"	f	file:	signat
 OpenProfile	third/dbug/dbug.c	/^static FILE *OpenProfile(const char *name);$/;"	p	file:	signature:(const char *name)
 PID_ON	third/dbug/dbug.c	155;"	d	file:
 PRINTBUF	third/dbug/dbug.c	137;"	d	file:
-PRI_L	drivermanager/oracle/db.h	67;"	d
-PRI_R	drivermanager/oracle/db.h	66;"	d
+PRI_L	db.h	67;"	d
+PRI_R	db.h	66;"	d
 PROCESS_ON	third/dbug/dbug.c	152;"	d	file:
 PROFILE_ON	third/dbug/dbug.c	154;"	d	file:
 PROFILING	third/dbug/dbug.c	161;"	d	file:
@@ -232,6 +244,11 @@ S	drivermanager/oracle/ora.c	/^  \/* text** *\/ char     **S; \/* Ptr to Arr of 
 S	drivermanager/oracle/ora.c	214;"	d	file:
 SANITY_CHECK_ON	third/dbug/dbug.c	156;"	d	file:
 SQLAPR	drivermanager/oracle/ora.c	576;"	d	file:
+SQLBUS_CONNECT	driver_manager.h	73;"	d
+SQLBUS_CONNECT_INIT	driver_manager.h	62;"	d
+SQLBUS_DISCONNECT	driver_manager.h	81;"	d
+SQLBUS_STMT_FREE	driver_manager.h	87;"	d
+SQLBUS_STMT_INIT	driver_manager.h	84;"	d
 SQLCA	drivermanager/oracle/ora.c	312;"	d	file:
 SQLCDAFromResultSetCursor	drivermanager/oracle/ora.c	626;"	d	file:
 SQLCDAToResultSetCursor	drivermanager/oracle/ora.c	652;"	d	file:
@@ -286,6 +303,7 @@ StrDup	third/dbug/dbug.c	/^StrDup(const char *str)$/;"	f	file:	signature:(const 
 StrDup	third/dbug/dbug.c	/^static char *StrDup(const char *str);$/;"	p	file:	signature:(const char *str)
 T	drivermanager/oracle/ora.c	/^  \/* sb2*   *\/ short     *T; \/* Ptr to Arr of types of buffers              *\/$/;"	m	struct:SQLDA	file:	access:public
 T	drivermanager/oracle/ora.c	207;"	d	file:
+T	main.o	/^ELF/;"	v
 THR_my_pthread_mutex_lock_dbug	third/dbug/dbug.c	/^pthread_mutex_t THR_my_pthread_mutex_lock_dbug;$/;"	v
 TRACE_ON	third/dbug/dbug.c	147;"	d	file:
 TRACING	third/dbug/dbug.c	159;"	d	file:
@@ -307,24 +325,24 @@ _GNU_SOURCE	drivermanager/oracle/ora.pc	2;"	d	file:
 _VARARGS	third/dbug/dbug.c	111;"	d	file:
 __CONFIG_LOADER_H__	config_loader.h	12;"	d
 __DBDRIVER_H__	drivermanager/oracle/dbdriver.h	12;"	d
-__DBHandle	drivermanager/oracle/db.h	/^typedef struct __DBHandle {$/;"	s
-__DBHandle::app	drivermanager/oracle/db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::crc16	drivermanager/oracle/db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::errstr	drivermanager/oracle/db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
-__DBHandle::idx	drivermanager/oracle/db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::json_string	drivermanager/oracle/db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::more	drivermanager/oracle/db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::oper_timeout	drivermanager/oracle/db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::ora	drivermanager/oracle/db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::priority	drivermanager/oracle/db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::recv_channel	drivermanager/oracle/db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::redis	drivermanager/oracle/db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::root	drivermanager/oracle/db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::rset	drivermanager/oracle/db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::send_channel	drivermanager/oracle/db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::sync	drivermanager/oracle/db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::timestamp	drivermanager/oracle/db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
-__DB_H__	drivermanager/oracle/db.h	12;"	d
+__DBHandle	db.h	/^typedef struct __DBHandle {$/;"	s
+__DBHandle::app	db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::crc16	db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::errstr	db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
+__DBHandle::idx	db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::json_string	db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::more	db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::oper_timeout	db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::ora	db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::priority	db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::recv_channel	db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::redis	db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::root	db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::rset	db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::send_channel	db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::sync	db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
+__DBHandle::timestamp	db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
+__DB_H__	db.h	12;"	d
 __DRIVER_LOADER_H__	driver_loader.h	12;"	d
 __DRIVER_MANAGER_H__	driver_manager.h	12;"	d
 __LOG_H__	log.h	12;"	d
@@ -388,15 +406,15 @@ adtvsn	drivermanager/oracle/ora.c	/^  unsigned int adtvsn; $/;"	m	struct:sqladts
 allocDescriptors	drivermanager/oracle/ora.c	/^static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)$/;"	f	file:	signature:(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
 allocDescriptors	drivermanager/oracle/ora.pc	/^static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)$/;"	f	file:	signature:(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
 ap	third/dbug/dbug.c	/^	va_list ap;$/;"	v
-app	drivermanager/oracle/db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
+app	db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
 append_pair_to_section	config_loader.c	/^static int append_pair_to_section(conf_section_t *section, conf_pair_t *pair)$/;"	f	file:	signature:(conf_section_t *section, conf_pair_t *pair)
 append_section_to_config	config_loader.c	/^static int append_section_to_config(config_t *conf, conf_section_t *section)$/;"	f	file:	signature:(config_t *conf, conf_section_t *section)
 arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon2	file:	access:public
 arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon3	file:	access:public
 arrsiz	drivermanager/oracle/ora.c	/^   unsigned int   arrsiz;$/;"	m	struct:sqlexd	file:	access:public
 begin	third/dbug/dbug.c	/^static struct DateStamp begin;$/;"	v	typeref:struct:DateStamp	file:
-bind_dp	drivermanager/oracle/ora.c	/^SQLDA *bind_dp;$/;"	v
-bind_dp	drivermanager/oracle/ora.pc	/^SQLDA *bind_dp;$/;"	v
+bind_dp	drivermanager/oracle/ora.c	/^static SQLDA *bind_dp;$/;"	v	file:
+bind_dp	drivermanager/oracle/ora.pc	/^static SQLDA *bind_dp;$/;"	v	file:
 bool_t	third/dbug/dbug.c	/^bool_t;$/;"	t	typeref:enum:__anon1	file:
 capacity	drivermanager/oracle/dbdriver.h	/^	uint16_t capacity;$/;"	m	struct:column_attr	access:public
 catalog	driver_manager.h	/^	char catalog[512];$/;"	m	struct:connection	access:public
@@ -428,8 +446,9 @@ configuration::file	config_loader.h	/^	char file[512];$/;"	m	struct:configuratio
 configuration::fp	config_loader.h	/^	FILE *fp;$/;"	m	struct:configuration	access:public
 configuration::section	config_loader.h	/^	conf_section_t *section;$/;"	m	struct:configuration	access:public
 connect_counter	driver_manager.h	/^	int connect_counter;$/;"	m	struct:environment	access:public
-connection	driver_manager.h	/^struct connection$/;"	s
+connection	driver_manager.h	/^	HDBC connection;$/;"	m	struct:statement	access:public
 connection	driver_manager.h	/^typedef struct connection connection;$/;"	t	typeref:struct:connection
+connection	driver_manager.h	/^typedef struct connection$/;"	s
 connection	drivermanager/oracle/dbdriver.h	/^typedef struct connection$/;"	s
 connection	drivermanager/oracle/dbdriver.h	/^}connection, *HDBC;$/;"	t	typeref:struct:connection
 connection::catalog	driver_manager.h	/^	char catalog[512];$/;"	m	struct:connection	access:public
@@ -444,7 +463,8 @@ connection::password	driver_manager.h	/^	char password[64];$/;"	m	struct:connect
 connection::password	drivermanager/oracle/dbdriver.h	/^	char password[64];$/;"	m	struct:connection	access:public
 connection::username	driver_manager.h	/^	char username[64];$/;"	m	struct:connection	access:public
 connection::username	drivermanager/oracle/dbdriver.h	/^	char username[64];$/;"	m	struct:connection	access:public
-crc16	drivermanager/oracle/db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
+connection_t	driver_manager.h	/^}connection_t;$/;"	t	typeref:struct:connection
+crc16	db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
 ctext	config_loader.h	/^	char ctext[128];$/;"	m	struct:conf_pair	access:public
 cud	drivermanager/oracle/ora.c	/^      const short *cud;$/;"	m	struct:sqlexd	file:	access:public
 curocn	drivermanager/oracle/ora.c	/^    unsigned int curocn;$/;"	m	struct:sql_cursor	file:	access:public
@@ -458,10 +478,10 @@ dbSetORAError	drivermanager/oracle/ora.c	/^static void dbSetORAError(error_info 
 dbSetORAError	drivermanager/oracle/ora.pc	/^static void dbSetORAError(error_info *error)$/;"	f	file:	signature:(error_info *error)
 dbug_flush	third/dbug/dbug.c	/^dbug_flush(CODE_STATE * state)$/;"	f	file:	signature:(CODE_STATE * state)
 dbug_flush	third/dbug/dbug.c	/^static void dbug_flush(CODE_STATE *);$/;"	p	file:	signature:(CODE_STATE *)
-defaultOperTimeOut	drivermanager/oracle/db.h	58;"	d
-defaultQueue	drivermanager/oracle/db.h	53;"	d
-defaultReadChannelPriority	drivermanager/oracle/db.h	69;"	d
-defaultSendChannelPriority	drivermanager/oracle/db.h	68;"	d
+defaultOperTimeOut	db.h	58;"	d
+defaultQueue	db.h	53;"	d
+defaultReadChannelPriority	db.h	69;"	d
+defaultSendChannelPriority	db.h	68;"	d
 delay	third/dbug/dbug.c	/^	uint delay;						   \/* Delay after each output line *\/$/;"	m	struct:state	file:	access:public
 dl_handle	driver_loader.h	/^	void *dl_handle;$/;"	m	struct:driver_manager	access:public
 driver	driver_manager.h	/^	HDM driver;$/;"	m	struct:connection	access:public
@@ -477,21 +497,23 @@ driver_manager	driver_loader.h	/^} driver_manager, *HDM;$/;"	t	typeref:struct:dr
 driver_manager::dl_handle	driver_loader.h	/^	void *dl_handle;$/;"	m	struct:driver_manager	access:public
 driver_manager::driver_name	driver_loader.h	/^	char *driver_name;$/;"	m	struct:driver_manager	access:public
 driver_manager::errstr	driver_loader.h	/^	char errstr[128];$/;"	m	struct:driver_manager	access:public
-driver_manager::func	driver_loader.h	/^	driver_func *func;$/;"	m	struct:driver_manager	access:public
+driver_manager::functions	driver_loader.h	/^	driver_func *functions;$/;"	m	struct:driver_manager	access:public
 driver_name	driver_loader.h	/^	char *driver_name;$/;"	m	struct:driver_manager	access:public
+driver_stmt	driver_manager.h	/^	HSTMT driver_stmt;$/;"	m	struct:statement	access:public
 ds_Days	third/dbug/dbug.c	/^	long ds_Days;					   \/* is incredibly ugly without splitting this *\/$/;"	m	struct:DateStamp	file:	access:public
 ds_Minute	third/dbug/dbug.c	/^	long ds_Minute;					   \/* off into a separate file *\/$/;"	m	struct:DateStamp	file:	access:public
 ds_Tick	third/dbug/dbug.c	/^	long ds_Tick;$/;"	m	struct:DateStamp	file:	access:public
 ecode	drivermanager/oracle/dbdriver.h	/^	int ecode;$/;"	m	struct:error_info	access:public
 elapsed	third/dbug/dbug.c	/^static struct DateStamp elapsed;$/;"	v	typeref:struct:DateStamp	file:
 environment	driver_manager.h	/^	HENV environment;$/;"	m	struct:connection	access:public
+environment	driver_manager.h	/^typedef struct environment environment;$/;"	t	typeref:struct:environment
 environment	driver_manager.h	/^typedef struct environment$/;"	s
-environment	driver_manager.h	/^}environment, *HENV;$/;"	t	typeref:struct:environment
 environment	drivermanager/oracle/dbdriver.h	/^typedef struct environment$/;"	s
 environment	drivermanager/oracle/dbdriver.h	/^}environment, *HENV;$/;"	t	typeref:struct:environment
 environment::config	driver_manager.h	/^	config_t *config;$/;"	m	struct:environment	access:public
 environment::connect_counter	driver_manager.h	/^	int connect_counter;$/;"	m	struct:environment	access:public
 environment::error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:environment	access:public
+environment_t	driver_manager.h	/^}environment_t;$/;"	t	typeref:struct:environment
 error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:connection	access:public
 error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:environment	access:public
 error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:statment	access:public
@@ -499,8 +521,8 @@ error_info	drivermanager/oracle/dbdriver.h	/^typedef struct error_info$/;"	s
 error_info	drivermanager/oracle/dbdriver.h	/^}error_info;$/;"	t	typeref:struct:error_info
 error_info::ecode	drivermanager/oracle/dbdriver.h	/^	int ecode;$/;"	m	struct:error_info	access:public
 error_info::errstr	drivermanager/oracle/dbdriver.h	/^	char errstr[512];$/;"	m	struct:error_info	access:public
+errstr	db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
 errstr	driver_loader.h	/^	char errstr[128];$/;"	m	struct:driver_manager	access:public
-errstr	drivermanager/oracle/db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
 errstr	drivermanager/oracle/dbdriver.h	/^	char errstr[512];$/;"	m	struct:error_info	access:public
 exiterr	drivermanager/oracle/ora.c	/^extern int exiterr( \/*_ char* _*\/ );$/;"	p	file:	signature:( )
 exiterr	drivermanager/oracle/ora.c	/^extern int exiterr( unsigned char* );$/;"	p	file:	signature:( unsigned char* )
@@ -521,9 +543,9 @@ format	tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append 
 format	third/dbug/dbug.c	/^	char *format;$/;"	v
 fp	config_loader.h	/^	FILE *fp;$/;"	m	struct:configuration	access:public
 framep	third/dbug/dbug.c	/^	char **framep;					   \/* Pointer to current frame *\/$/;"	m	struct:st_code_state	file:	access:public
-func	driver_loader.h	/^	driver_func *func;$/;"	m	struct:driver_manager	access:public
 func	driver_loader.h	/^	int (*func)();$/;"	m	struct:driver_func	access:public
 func	third/dbug/dbug.c	/^	const char *func;					   \/* Name of current user function *\/$/;"	m	struct:st_code_state	file:	access:public
+functions	driver_loader.h	/^	driver_func *functions;$/;"	m	struct:driver_manager	access:public
 functions	third/dbug/dbug.c	/^	struct link *functions;				   \/* List of functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 get_config_pair	config_loader.c	/^conf_pair_t *get_config_pair(const conf_section_t *section, char *name)$/;"	f	signature:(const conf_section_t *section, char *name)
 get_config_pair	config_loader.h	/^conf_pair_t *get_config_pair(const conf_section_t *section, char *name);$/;"	p	signature:(const conf_section_t *section, char *name)
@@ -538,7 +560,7 @@ iappfo	drivermanager/oracle/ora.c	/^extern int iappfo( \/*_ char*, char*, unsign
 iappfo	drivermanager/oracle/ora.c	/^extern int iappfo( unsigned char*, unsigned char*, size_t );$/;"	p	file:	signature:( unsigned char*, unsigned char*, size_t )
 iapprs	drivermanager/oracle/ora.c	/^extern int iapprs( \/*_ char* _*\/ );      $/;"	p	file:	signature:( )
 iapprs	drivermanager/oracle/ora.c	/^extern int iapprs( unsigned char* );      $/;"	p	file:	signature:( unsigned char* )
-idx	drivermanager/oracle/db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
+idx	db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
 init_dbug_state	third/dbug/dbug.c	/^init_dbug_state(void)$/;"	f	file:	signature:(void)
 init_dbug_state	third/dbug/dbug.c	414;"	d	file:
 init_done	third/dbug/dbug.c	/^static my_bool init_done = FALSE;			   \/* Set to TRUE when initialization done *\/$/;"	v	file:
@@ -551,12 +573,15 @@ iters	drivermanager/oracle/ora.c	/^   unsigned int   iters;$/;"	m	struct:sqlexd	
 jmpfile	third/dbug/dbug.c	/^	const char *jmpfile;				   \/* Remember current file for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
 jmpfunc	third/dbug/dbug.c	/^	const char *jmpfunc;				   \/* Remember current function for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
 jmplevel	third/dbug/dbug.c	/^	int jmplevel;					   \/* Remember nesting level at setjmp () *\/$/;"	m	struct:st_code_state	file:	access:public
-json_string	drivermanager/oracle/db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
+json_string	db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
 keywords	third/dbug/dbug.c	/^	struct link *keywords;				   \/* List of debug keywords *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+l$	driver_loader.o	/^ELF/;"	v
+l$	driver_manager.o	/^ELF/;"	v
 len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon2	file:	access:public
 len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon3	file:	access:public
 level	log.h	/^	int level;     \/* log base level             *\/$/;"	m	struct:st_log_meta	access:public
 level	third/dbug/dbug.c	/^	int level;						   \/* Current function nesting level *\/$/;"	m	struct:st_code_state	file:	access:public
+line	drivermanager/oracle/ora.lis	/^Error at line 243, column 24 in file ora.pc$/;"	v
 lineno	third/dbug/dbug.c	/^	int lineno;						   \/* Current debugger output line number *\/$/;"	m	struct:st_code_state	file:	access:public
 link	third/dbug/dbug.c	/^struct link$/;"	s	file:
 link::next_link	third/dbug/dbug.c	/^	struct link *next_link;				   \/* Pointer to the next link *\/$/;"	m	struct:link	typeref:struct:link::link	file:	access:public
@@ -576,10 +601,10 @@ log_write	log.h	/^int log_write(st_log_meta *meta, enum log_level level,$/;"	p	s
 logger	log.c	/^st_log_meta logger;$/;"	v
 ltrim	drivermanager/oracle/util.c	/^void ltrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
 ltrim	drivermanager/oracle/util.h	/^void ltrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
-ltrim	util.c	/^void ltrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
-ltrim	util.h	/^void ltrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
-mFree	drivermanager/oracle/db.h	29;"	d
-mFree	drivermanager/oracle/db.h	31;"	d
+ltrim	util.c	/^void ltrim(char *str, int len)$/;"	f	signature:(char *str, int len)
+ltrim	util.h	/^void ltrim(char *str, int len);$/;"	p	signature:(char *str, int len)
+mFree	db.h	29;"	d
+mFree	db.h	31;"	d
 mFree	drivermanager/oracle/dbdriver.h	59;"	d
 mFree	drivermanager/oracle/dbdriver.h	61;"	d
 mFree	util.h	22;"	d
@@ -594,7 +619,7 @@ max	third/dbug/dbug.c	164;"	d	file:
 max_row_count	drivermanager/oracle/dbdriver.h	/^	int max_row_count;$/;"	m	struct:statment	access:public
 maxdepth	third/dbug/dbug.c	/^	int maxdepth;					   \/* Current maximum trace depth *\/$/;"	m	struct:state	file:	access:public
 min	third/dbug/dbug.c	163;"	d	file:
-more	drivermanager/oracle/db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
+more	db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
 my_bool	third/dbug/dbug.c	109;"	d	file:
 name	config_loader.h	/^	char name[64];$/;"	m	struct:conf_pair	access:public
 name	config_loader.h	/^	char name[64];$/;"	m	struct:conf_section	access:public
@@ -609,8 +634,8 @@ occurs	drivermanager/oracle/ora.c	/^   unsigned int   occurs;$/;"	m	struct:sqlex
 offset	drivermanager/oracle/ora.c	/^   unsigned int   offset;$/;"	m	struct:sqlexd	file:	access:public
 open_conf_file	config_loader.c	/^static FILE *open_conf_file(char *file)$/;"	f	file:	signature:(char *file)
 open_driver	driver_loader.c	/^static int open_driver(driver_manager *driver)$/;"	f	file:	signature:(driver_manager *driver)
-oper_timeout	drivermanager/oracle/db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
-ora	drivermanager/oracle/db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
+oper_timeout	db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
+ora	db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
 out_file	third/dbug/dbug.c	/^	FILE *out_file;					   \/* Current output stream *\/$/;"	m	struct:state	file:	access:public
 p_functions	third/dbug/dbug.c	/^	struct link *p_functions;				   \/* List of profiled functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 pair	config_loader.h	/^	conf_pair_t *pair;$/;"	m	struct:conf_section	access:public
@@ -618,30 +643,31 @@ pair_new	config_loader.c	/^static conf_pair_t *pair_new(char *name, char *value,
 parase_conf_file	config_loader.c	/^static int parase_conf_file(config_t *conf)$/;"	f	file:	signature:(config_t *conf)
 password	driver_manager.h	/^	char password[64];$/;"	m	struct:connection	access:public
 password	drivermanager/oracle/dbdriver.h	/^	char password[64];$/;"	m	struct:connection	access:public
-priority	drivermanager/oracle/db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
+priority	db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
 processes	third/dbug/dbug.c	/^	struct link *processes;				   \/* List of process names *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 prof_file	third/dbug/dbug.c	/^	FILE *prof_file;					   \/* Current profiling stream *\/$/;"	m	struct:state	file:	access:public
 pthread_mutex_lock	third/dbug/dbug.c	416;"	d	file:
 pthread_mutex_unlock	third/dbug/dbug.c	417;"	d	file:
 ptr1	drivermanager/oracle/ora.c	/^    void *ptr1;$/;"	m	struct:sql_cursor	file:	access:public
 ptr2	drivermanager/oracle/ora.c	/^    void *ptr2;$/;"	m	struct:sql_cursor	file:	access:public
+r	util.o	/^ELF/;"	v
 read_one_line	config_loader.c	/^static int read_one_line(FILE *fp, char *line, int size)$/;"	f	file:	signature:(FILE *fp, char *line, int size)
-recv_channel	drivermanager/oracle/db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
-redis	drivermanager/oracle/db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
-root	drivermanager/oracle/db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
+recv_channel	db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
+redis	db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
+root	db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
 rows	drivermanager/oracle/dbdriver.h	/^	uint32_t rows;$/;"	m	struct:table_info	access:public
 rport	drivermanager/oracle/server.c	/^const static int rport = 6379;$/;"	v	file:
-rset	drivermanager/oracle/db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
+rset	db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
 rtrim	drivermanager/oracle/util.c	/^void rtrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
 rtrim	drivermanager/oracle/util.h	/^void rtrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
-rtrim	util.c	/^void rtrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
-rtrim	util.h	/^void rtrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
+rtrim	util.c	/^void rtrim(char *str, int len)$/;"	f	signature:(char *str, int len)
+rtrim	util.h	/^void rtrim(char *str, int len);$/;"	p	signature:(char *str, int len)
 section	config_loader.h	/^	conf_section_t *section;$/;"	m	struct:configuration	access:public
 section_new	config_loader.c	/^static conf_section_t *section_new(char *name)$/;"	f	file:	signature:(char *name)
-select_dp	drivermanager/oracle/ora.c	/^SQLDA *select_dp;$/;"	v
-select_dp	drivermanager/oracle/ora.pc	/^SQLDA *select_dp;$/;"	v
+select_dp	drivermanager/oracle/ora.c	/^static SQLDA *select_dp;$/;"	v	file:
+select_dp	drivermanager/oracle/ora.pc	/^static SQLDA *select_dp;$/;"	v	file:
 selerr	drivermanager/oracle/ora.c	/^   unsigned short selerr;$/;"	m	struct:sqlexd	file:	access:public
-send_channel	drivermanager/oracle/db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
+send_channel	db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
 separate_key_value_pair	config_loader.c	/^static int separate_key_value_pair(char *string, conf_pair_t **pair)$/;"	f	file:	signature:(char *string, conf_pair_t **pair)
 sqadto	drivermanager/oracle/ora.c	/^   unsigned short  sqadto[4];$/;"	m	struct:sqlexd	file:	access:public
 sqcmod	drivermanager/oracle/ora.c	/^   unsigned int   sqcmod;$/;"	m	struct:sqlexd	file:	access:public
@@ -858,6 +884,11 @@ state::p_functions	third/dbug/dbug.c	/^	struct link *p_functions;				   \/* List
 state::processes	third/dbug/dbug.c	/^	struct link *processes;				   \/* List of process names *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 state::prof_file	third/dbug/dbug.c	/^	FILE *prof_file;					   \/* Current profiling stream *\/$/;"	m	struct:state	file:	access:public
 state::sub_level	third/dbug/dbug.c	/^	int sub_level;					   \/* Sub this from code_state->level *\/$/;"	m	struct:state	file:	access:public
+statement	driver_manager.h	/^typedef struct statement statement;$/;"	t	typeref:struct:statement
+statement	driver_manager.h	/^typedef struct statement$/;"	s
+statement::connection	driver_manager.h	/^	HDBC connection;$/;"	m	struct:statement	access:public
+statement::driver_stmt	driver_manager.h	/^	HSTMT driver_stmt;$/;"	m	struct:statement	access:public
+statement_t	driver_manager.h	/^} statement_t;$/;"	t	typeref:struct:statement
 static_code_state	third/dbug/dbug.c	/^static CODE_STATE static_code_state = { 0, 0, "?func", "?file", NULL, 0, NULL,$/;"	v	file:
 static_strtok	third/dbug/dbug.c	/^static char *static_strtok(char *s1, char chr);$/;"	p	file:	signature:(char *s1, char chr)
 static_strtok	third/dbug/dbug.c	/^static_strtok(char *s1, char separator)$/;"	f	file:	signature:(char *s1, char separator)
@@ -875,7 +906,8 @@ stmt	drivermanager/oracle/ora.c	/^      const char  *stmt;$/;"	m	struct:sqlexd	f
 str	third/dbug/dbug.c	/^	char *str;						   \/* Pointer to link's contents *\/$/;"	m	struct:link	file:	access:public
 stream	third/dbug/dbug.c	/^	FILE *stream;$/;"	v
 sub_level	third/dbug/dbug.c	/^	int sub_level;					   \/* Sub this from code_state->level *\/$/;"	m	struct:state	file:	access:public
-sync	drivermanager/oracle/db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
+sync	db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
+t	main.o	/^ELF/;"	v
 table	drivermanager/oracle/dbdriver.h	/^	table_info *table;$/;"	m	struct:statment	access:public
 table_info	drivermanager/oracle/dbdriver.h	/^typedef struct table_info$/;"	s
 table_info	drivermanager/oracle/dbdriver.h	/^} table_info;$/;"	t	typeref:struct:table_info
@@ -888,8 +920,9 @@ tail	config_loader.h	/^	conf_pair_t *tail;$/;"	m	struct:conf_section	access:publ
 tdsnum	drivermanager/oracle/ora.c	/^  unsigned short tdsnum; $/;"	m	struct:sqltdss	file:	access:public
 tdsval	drivermanager/oracle/ora.c	/^  unsigned char *tdsval[1]; $/;"	m	struct:sqltdss	file:	access:public
 tdsvsn	drivermanager/oracle/ora.c	/^  unsigned int tdsvsn; $/;"	m	struct:sqltdss	file:	access:public
+teH	driver_loader.o	/^ELF/;"	v
 times	third/dbug/doc/readme.prof	/^sum total of all the times, etc.$/;"	v
-timestamp	drivermanager/oracle/db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
+timestamp	db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
 trim_space_character	config_loader.c	/^static int trim_space_character(char *string)$/;"	f	file:	signature:(char *string)
 tvnnm	drivermanager/oracle/ora.c	/^  unsigned char *tvnnm;$/;"	m	struct:sqltvn	file:	access:public
 tvnnml	drivermanager/oracle/ora.c	/^  unsigned short tvnnml; $/;"	m	struct:sqltvn	file:	access:public
@@ -898,6 +931,7 @@ tvnsnml	drivermanager/oracle/ora.c	/^  unsigned short tvnsnml;$/;"	m	struct:sqlt
 tvnvsn	drivermanager/oracle/ora.c	/^  unsigned char *tvnvsn; $/;"	m	struct:sqltvn	file:	access:public
 tvnvsnl	drivermanager/oracle/ora.c	/^  unsigned short tvnvsnl; $/;"	m	struct:sqltvn	file:	access:public
 type	drivermanager/oracle/dbdriver.h	/^	uint8_t type;$/;"	m	struct:column_attr	access:public
+u	driver_manager.o	/^ELF/;"	v
 u_keyword	third/dbug/dbug.c	/^	const char *u_keyword;				   \/* Keyword for current macro *\/$/;"	m	struct:st_code_state	file:	access:public
 u_line	third/dbug/dbug.c	/^	uint u_line;					   \/* User source code line number *\/$/;"	m	struct:st_code_state	file:	access:public
 unload_config	config_loader.c	/^int unload_config(config_t *conf)$/;"	f	signature:(config_t *conf)
@@ -908,6 +942,10 @@ username	driver_manager.h	/^	char username[64];$/;"	m	struct:connection	access:p
 username	drivermanager/oracle/dbdriver.h	/^	char username[64];$/;"	m	struct:connection	access:public
 value	config_loader.h	/^	char value[128];$/;"	m	struct:conf_pair	access:public
 varchar	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	t	typeref:struct:__anon3	file:
+wing	drivermanager/oracle/ora.lis	/^        wing:$/;"	v
 write	third/dbug/doc/readme.prof	/^the code that I write, it isn't necessary.  If you have any good ideas,$/;"	v
 x4	third/dbug/doc/dbug	/^ELF/;"	v
 xcolor	third/dbug/dbug.c	/^static char *xcolor(int level)$/;"	f	file:	signature:(int level)
+xprint	driver_manager.c	14;"	d	file:
+xprint_config_all	config_loader.c	/^int xprint_config_all(const config_t *cfg)$/;"	f	signature:(const config_t *cfg)
+xprint_config_all	config_loader.h	/^int xprint_config_all(const config_t *cfg);$/;"	p	signature:(const config_t *cfg)

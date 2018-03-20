@@ -1,4 +1,4 @@
-CC = gcc -g3 -Wall
+CC = gcc -Wall
 
 CCCOLOR   = "\033[33m"
 LINKCOLOR = "\033[34;1m"
@@ -18,34 +18,37 @@ QUIET_EXEC=$(QUIET_EXE)exec
 QUIET_REMOVE=$(QUIET_RM)rm -f
 QUIET_LINK=$(QUIET_LNK)gcc
 
-ORAINC=$(ORACLE_HOME)/precomp/public
 PROC     = proc
 PROCINC  = INCLUDE=$(ORAINC)
+ORAINC   = $(ORACLE_HOME)/precomp/public
 PROCFLAG = sqlcheck=full def_sqlcode=yes code=ansi_c lines=yes
 
-INC = -I./dbug/inc -I/usr/local/include/cjson
+ALL_LIBS = $(DB_LIBS) $(OS_LIBS)
 
-ALL_LIBS= $(DB_LIBS) $(OS_LIBS)
+LNKLIBS = -lm
 
-CFLAGS += -DDBUG_ON
+ifeq ($(ver), debug)
+CFLAGS += -g3 -DDBUG_ON
+LNKLIBS += -L. -ldbug
+endif
 
-src  = ora.c util.c server.c
+src = ora.c util.c server.c
 serverObj = util.o server.o
 
-lib = hiredis
+LIBSO = libora.so
+PACKAGE = server
+TARGET = $(PACKAGE) $(LIBSO)
 
-target  = server
+all:$(TARGET)
 
-all:$(target) libora.so
+$(PACKAGE):$(serverObj) $(LIBSO)
+	$(QUIET_PROC) $(CFLAGS) $(serverObj) -o $@ $(ALL_LIBS) -lm -L. -lora $(LNKLIBS)
 
-server:$(serverObj) libora.so
-	$(QUIET_PROC) $(CFLAGS) $(serverObj) $(INC) -o $@ -l$(lib) $(ALL_LIBS) -lm -L. -lora
-
-libora.so: ora.o
-	$(QUIET_PROC) $(CFLAGS) $(INC) $< util.o -shared -fPIC -o $@ -l$(lib) $(ALL_LIBS) -L/usr/lib -lm -L. -ldbug
+$(LIBSO): ora.o
+	$(QUIET_PROC) $(CFLAGS) $< util.o -shared -fPIC -o $@ $(ALL_LIBS) $(LNKLIBS)  -L$ORACLE_HOME/lib -lclntsh
 
 ora.c: ora.pc
-	$(PROC) $(PROCINC) $(PROCFLAG) INCLUDE=/usr/local/include/cjson INAME=ora.pc ONAME=ora.c
+	$(PROC) $(PROCINC) $(PROCFLAG) INAME=ora.pc ONAME=ora.c
 
 .c.o:
 	$(QUIET_PROC) $(CFLAGS) $(INC) -I$(ORAINC) -c $*.c -shared -fPIC
@@ -55,6 +58,6 @@ tags:$(src)
 
 .PHONY:clean
 clean:
-	$(QUIET_REMOVE) -f $(target)
+	$(QUIET_REMOVE) -f $(TARGET)
 	$(QUIET_REMOVE) -f core.*
 	$(QUIET_REMOVE) -f *.o

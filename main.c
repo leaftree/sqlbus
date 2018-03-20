@@ -17,6 +17,7 @@
 #include "dbug.h"
 #include "config_loader.h"
 #include "driver_loader.h"
+#include "driver_manager.h"
 
 int main(int argc, char **argv)
 {
@@ -72,31 +73,59 @@ int main(int argc, char **argv)
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
-	void *hdbc = NULL;
+
+	// ---------------------------------------------------------------
+
+	HDBC hdbc = NULL;
+	HENV henv = NULL;
+	HSTMT hstmt = NULL;
+	if(DBEnvInitialize(&henv, "./test.ini") != RETURN_SUCCESS)
+	{
+		DBUG_PRINT("DBEnvInitialize", ("init fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
 	if(DBConnectInitialize(henv, &hdbc) != RETURN_SUCCESS)
-	//if(driver.func[DB_CONNECTINITIALIZE].func(&hdbc) != RETURN_SUCCESS)
 	{
 		DBUG_PRINT("DBConnectInitialize", ("init fail"));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
+	//xprint_config_all(hdbc->environment->config);
+
 	if(DBConnect(hdbc, "oracle", username, password, NULL) != RETURN_SUCCESS)
-	//if(driver.func[DB_CONNECT].func(hdbc, "", username, password, NULL) != RETURN_SUCCESS)
 	{
 		DBUG_PRINT("DBConnect", ("connect fail."));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
-	//if(DBDisconnect(&hdbc) != RETURN_SUCCESS)
-	if(driver.func[DB_DISCONNECT].func(hdbc) != RETURN_SUCCESS)
+	if(DBStmtInitialize(hdbc, &hstmt) != RETURN_SUCCESS)
+	{
+		DBUG_PRINT("DBStmtInitialize", ("init fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+	// execute
+	
+	if(DBStmtFinished(hstmt) != RETURN_SUCCESS)
+	{
+		DBUG_PRINT("DBStmtFree", ("init fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	if(DBDisconnect(hdbc) != RETURN_SUCCESS)
 	{
 		DBUG_PRINT("DBDisconnect", ("Disconnect fail"));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
-	//if(DBConnectFinished(&hdbc) != RETURN_SUCCESS)
-	if(driver.func[DB_CONNECTFINISHED].func(hdbc) != RETURN_SUCCESS)
+	if(DBConnectFinished(hdbc) != RETURN_SUCCESS)
 	{
 		DBUG_PRINT("DBConnectInitialize", ("init fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	if(DBEnvFinished(henv) != RETURN_SUCCESS)
+	{
+		DBUG_PRINT("DBEnvFinished", ("release fail"));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 

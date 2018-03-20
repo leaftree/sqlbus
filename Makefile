@@ -22,6 +22,9 @@ all:sqlbus
 sqlbus:$(OBJECT)
 	$(CC) $(OBJECT) $(CFLAG) $(THIRD_LIBS) -o $@ -ldl
 
+.c.o:
+	$(CC) $(CFLAG) -I. -c $<
+
 .PHONY:clean
 clean:
 	rm -f $(OBJECT) sqlbus
