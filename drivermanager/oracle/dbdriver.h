@@ -128,6 +128,8 @@ typedef struct statement
 	char *statement;
 	int statement_type;
 	int max_row_count;
+	int row_cur_pos;
+	int field_cur_pos;
 	int result_code;
 	connection *hdbc;
 	table_info *table;
@@ -226,6 +228,12 @@ int DBStmtFinished(HSTMT hstmt);
  *  RETURN_SUCCESS: SQL执行成功
  */
 int DBExecute(HSTMT hstmt, char *statement);
+
+int DBGetFieldCount(HSTMT hstmt);
+int DBGetRowCount(HSTMT hstmt);
+
+int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value);
+int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length);
 
 __END_DECLS
 

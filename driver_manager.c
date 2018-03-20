@@ -263,6 +263,16 @@ int DBDisconnect(HDBC hdbc)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * DBStmtInitialize - 初始化数据库操纵句柄
+ *
+ * @hdbc: 数据库连接句柄
+ * @hstmt: 数据库操纵句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者申请资源失败(包括驱动申请资源)
+ *  RETURN_SUCCESS: 初始化成功
+ */
 int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 {
 	DBUG_ENTER(__func__);
@@ -285,6 +295,15 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * DBStmtFinished - 数据库操纵结束，释放资源
+ *
+ * @hstmt: 操作句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者释放失败
+ *  RETURN_SUCCESS: 释放成功
+ */
 int DBStmtFinished(HSTMT hstmt)
 {
 	DBUG_ENTER(__func__);
@@ -293,6 +312,21 @@ int DBStmtFinished(HSTMT hstmt)
 		DBUG_RETURN(RETURN_FAILURE);
 
 	if(RETURN_SUCCESS != SQLBUS_STMT_FREE(hstmt))
+	{
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+int DBExecute(HSTMT hstmt, char *statement)
+{
+	DBUG_ENTER(__func__);
+
+	if(hstmt == NULL || statement == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
+	if(RETURN_SUCCESS != SQLBUS_EXECUTE(hstmt, statement))
 	{
 		DBUG_RETURN(RETURN_FAILURE);
 	}

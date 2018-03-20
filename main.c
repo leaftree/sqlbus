@@ -103,7 +103,14 @@ int main(int argc, char **argv)
 		DBUG_PRINT("DBStmtInitialize", ("init fail"));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
-	// execute
+
+	char sql[] = "select * from basi_station_info";
+	if(DBExecute(hstmt, sql) != RETURN_SUCCESS)
+	{
+		DBUG_PRINT("DBExecute", ("sql execute fail"));
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+		DBUG_PRINT("DBExecute", ("sql execute succ"));
 	
 	if(DBStmtFinished(hstmt) != RETURN_SUCCESS)
 	{

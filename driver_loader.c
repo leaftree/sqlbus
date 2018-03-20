@@ -29,6 +29,7 @@ static driver_func driver_func_template[] = {
 	[DB_DISCONNECT        ] = {"DBDisconnect"       , NULL},
 	[DB_STMT_INITIALIZE   ] = {"DBStmtInitialize"   , NULL},
 	[DB_STMT_FINISHED     ] = {"DBStmtFinished"     , NULL},
+	[DB_STMT_EXECUTE      ] = {"DBExecute"          , NULL},
 };
 
 /**

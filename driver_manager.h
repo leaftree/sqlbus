@@ -37,7 +37,6 @@ typedef void * HDMENV;
 typedef void * HDMDBC;
 typedef void *HDMSTMT;
 
-
 typedef struct connection connection;
 typedef struct connection *HDBC;
 typedef struct connection
@@ -87,11 +86,31 @@ typedef struct statement
 #define SQLBUS_DISCONNECT(hdbc) \
 	(hdbc->driver->functions[DB_DISCONNECT].func)(hdbc)
 
+/**
+ * SQLBUS_STMT_INIT - 初始化操纵句柄
+ *
+ * @hdbc: 数据库连接句柄
+ * @hstmt: 数据库操纵句柄
+ */
 #define SQLBUS_STMT_INIT(hdbc, hstmt) \
 	((hstmt)->connection->driver->functions[DB_STMT_INITIALIZE].func)(hdbc->driver_dbc, &(hstmt)->driver_stmt)
 
+/**
+ * SQLBUS_STMT_FREE - 操纵句柄资源释放
+ *
+ * @hstmt: 数据库操纵句柄
+ */
 #define SQLBUS_STMT_FREE(hstmt) \
 	((hstmt)->connection->driver->functions[DB_STMT_FINISHED].func)((hstmt)->driver_stmt)
+
+/**
+ * SQLBUS_EXECUTE - 执行SQL语句
+ *
+ * @hstmt: 数据库操纵句柄
+ * @statement: SQL语句
+ */
+#define SQLBUS_EXECUTE(hstmt, statement) \
+	((hstmt)->connection->driver->functions[DB_STMT_EXECUTE].func)((hstmt)->driver_stmt, statement)
 
 __BEGIN_DECLS
 

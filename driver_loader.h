@@ -17,6 +17,7 @@
 #define DB_DISCONNECT          4
 #define DB_STMT_INITIALIZE     5
 #define DB_STMT_FINISHED       6
+#define DB_STMT_EXECUTE        7
 
 typedef struct driver_func
 {

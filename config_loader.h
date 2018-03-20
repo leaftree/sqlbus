@@ -18,7 +18,7 @@
 /********************* 配置文件例子 ***********************
 	[Oracle]
 	Descriptor = Oracle Driver of Afc
-	Driver     = ./oracle.so
+	Driver     = ./liboracle.so
 	Server     =
 	Port       =
 	UserName   =

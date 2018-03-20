@@ -23,13 +23,12 @@ PROCINC  = INCLUDE=$(ORAINC)
 ORAINC   = $(ORACLE_HOME)/precomp/public
 PROCFLAG = sqlcheck=full def_sqlcode=yes code=ansi_c lines=yes
 
-ALL_LIBS = $(DB_LIBS) $(OS_LIBS)
-
-LNKLIBS = -lm
+ORALIBS = -L$(ORACLE_HOME)/lib -lclntsh -lsqlplus
+LNKLIBS = -lm $(ORALIBS)
 
 ifeq ($(ver), debug)
 CFLAGS += -g3 -DDBUG_ON
-LNKLIBS += -L. -ldbug
+LNKLIBS += -ldbug
 endif
 
 src = ora.c util.c server.c
@@ -42,10 +41,10 @@ TARGET = $(PACKAGE) $(LIBSO)
 all:$(TARGET)
 
 $(PACKAGE):$(serverObj) $(LIBSO)
-	$(QUIET_PROC) $(CFLAGS) $(serverObj) -o $@ $(ALL_LIBS) -lm -L. -lora $(LNKLIBS)
+	$(QUIET_PROC) $(CFLAGS) $(serverObj) -o $@ -L. -lora $(LNKLIBS)
 
 $(LIBSO): ora.o
-	$(QUIET_PROC) $(CFLAGS) $< util.o -shared -fPIC -o $@ $(ALL_LIBS) $(LNKLIBS)  -L$ORACLE_HOME/lib -lclntsh
+	$(QUIET_PROC) $(CFLAGS) $< util.o -shared -fPIC -o $@ $(LNKLIBS)
 
 ora.c: ora.pc
 	$(PROC) $(PROCINC) $(PROCFLAG) INAME=ora.pc ONAME=ora.c
@@ -61,3 +60,5 @@ clean:
 	$(QUIET_REMOVE) -f $(TARGET)
 	$(QUIET_REMOVE) -f core.*
 	$(QUIET_REMOVE) -f *.o
+	$(QUIET_REMOVE) -f tags
+	$(QUIET_REMOVE) -f ora.lis
