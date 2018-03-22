@@ -72,10 +72,11 @@ reconnect_redis:
 
 		if(sqlbus_parse_request(cycle) != RETURN_SUCCESS)
 		{
+			mFree(cycle->sqlbus->json_string);
 			LOG_ERROR(cycle->logger, "[SQLBUS] Parse request failure.");
-			// free JSON
 			continue;
 		}
+		mFree(cycle->sqlbus->json_string);
 
 		if(DBStmtInitialize(hdbc, &hstmt) != RETURN_SUCCESS)
 		{
@@ -126,7 +127,7 @@ sqlbus_exit:
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
-int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char const *argv[])
+int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
 {
 	enum log_level level = LOG_DEBUG;
 
@@ -352,7 +353,7 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	 */
 	leaf = cJSON_CreateString("SQLBUS-SERVER");
 	cJSON_AddItemToObject(root, "app", leaf);
-	
+
 	/**
 	 * pid
 	 */
@@ -425,7 +426,7 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	array = cJSON_CreateArray();
 	for(i=0; i<rows; i++)
 	{
-	cJSON *farray = cJSON_CreateArray();
+		cJSON *farray = cJSON_CreateArray();
 		DBGetNextRow(hstmt);
 		for(j=0; j<fields; j++)
 		{
@@ -439,10 +440,8 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	cJSON_AddItemToObject(root, "result", array);
 
 	handle->json_string = cJSON_PrintUnformatted(root);
-	if(handle->json_string == NULL)
-		printf("%s\n", "cJSON_GetErrorPtr()");
-	else
-	printf("json_string:%s\n", handle->json_string);
+
+	cJSON_free(root);
 
 	return(RETURN_SUCCESS);
 }

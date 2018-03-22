@@ -120,6 +120,12 @@ typedef struct sqlbus_cycle
 
 __BEGIN_DECLS
 
+int sqlbus_main(sqlbus_cycle_t *cycle);
+int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[]);
+int sqlbus_env_exit(sqlbus_cycle_t *cycle);
+int sqlbus_parse_request(sqlbus_cycle_t *cycle);
+int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt);
+
 __END_DECLS
 
 #endif /* __SQLBUS_H__ */

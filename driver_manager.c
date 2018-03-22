@@ -11,8 +11,6 @@
 #include "dbug.h"
 #include "driver_manager.h"
 
-#define xprint(ptr) ({if(ptr==NULL){printf("[%s(%d)-%s] %s is null\n", __FILE__, __LINE__, __func__, #ptr);}})
-
 /**
  * DBEnvInitialize - 初始化数据库连接环境
  *
@@ -154,7 +152,6 @@ int DBConnectFinalize(HDBC hdbc)
 static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 {
 	config_t *config = hdbc->environment->config;
-	xprint(config);
 
 	if(username != NULL) {
 		sprintf(hdbc->username, "%s", username);
@@ -206,8 +203,8 @@ static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *passw
 int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 {
 	DBUG_ENTER(__func__);
-	connection *dbc = (connection*)hdbc;
-	environment *env = (environment*)dbc->environment;
+	//connection *dbc = (connection*)hdbc;
+	//environment *env = (environment*)dbc->environment;
 	//config_t *config = (config_t*)env->config;
 
 	if(hdbc == NULL || hdbc->environment == NULL || hdbc->environment->config == NULL || dsn == NULL)
@@ -381,7 +378,6 @@ int DBGetFieldCount(HSTMT hstmt, int *counter)
 		DBUG_PRINT(__func__, ("SQLBUS_GET_FIELD_COUNT 失败"));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
-	printf("DBGetFieldCount counter=%d\n", *counter);
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }
@@ -612,7 +608,7 @@ int DBGetErrorMessage(HDMHANDLE handle, int type)
 			buffer = hdbc->error->errstr;
 			buffer_length = &hdbc->error->msg_len;
 
-			if(RETURN_SUCCESS != SQLBUS_GET_DBC_ERROR_MESSAGE(hdbc, type, buffer, capacity, buffer_length))
+			if(RETURN_SUCCESS != SQLBUS_GET_DBC_ERROR_MESSAGE(hdbc, buffer, capacity, buffer_length))
 			{
 				DBUG_PRINT(__func__, ("SQLBUS_GET_ERROR_MESSAGE 失败"));
 				DBUG_RETURN(RETURN_FAILURE);
@@ -627,7 +623,7 @@ int DBGetErrorMessage(HDMHANDLE handle, int type)
 			buffer = hstmt->error->errstr;
 			buffer_length = &hstmt->error->msg_len;
 
-			if(RETURN_SUCCESS != SQLBUS_GET_STMT_ERROR_MESSAGE(hstmt, type, buffer, capacity, buffer_length))
+			if(RETURN_SUCCESS != SQLBUS_GET_STMT_ERROR_MESSAGE(hstmt, buffer, capacity, buffer_length))
 			{
 				DBUG_PRINT(__func__, ("SQLBUS_GET_ERROR_MESSAGE 失败"));
 				DBUG_RETURN(RETURN_FAILURE);

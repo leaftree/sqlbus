@@ -82,8 +82,8 @@ int log_write(sqlbus_log_t *meta, enum log_level level,
 	size += make_iso8061_timestamp(buffer);
 	size += snprintf(buffer+size, 16*1024, " %s ", (char*)errmsg[level]);
 
-	if(level == LOG_DEBUG)
-		size += snprintf(buffer+size, 16*1024, "[%s(%d)-%s]", file, line, func);
+	if(meta->level == LOG_DEBUG)
+		size += snprintf(buffer+size, 16*1024, "[%s(%d)-%s] ", file, line, func);
 
 	va_start(ap, fmt);
 	size += vsnprintf(buffer+size, 16*1024, fmt, ap);

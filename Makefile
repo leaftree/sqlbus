@@ -10,6 +10,24 @@
 #
 #================================================================
 
+CCCOLOR   = "\033[33m"
+LINKCOLOR = "\033[34;1m"
+SRCCOLOR  = "\033[31m"
+RMCOLOR   = "\033[1;31m"
+BINCOLOR  = "\033[37;1m"
+MAKECOLOR = "\033[32;1m"
+ENDCOLOR  = "\033[0m"
+
+QUIET_CC  = @printf '%b %b\n' $(CCCOLOR)CC$(ENDCOLOR) $(SRCCOLOR)$@$(ENDCOLOR) 1>&2;
+QUIET_RM  = @printf '%b %b\n' $(LINKCOLOR)REMOVE$(ENDCOLOR) $(BINCOLOR)$@$(ENDCOLOR) 1>&2;
+QUIET_EXE = @printf '%b %b\n' $(LINKCOLOR)EXEC$(ENDCOLOR) $(BINCOLOR)$@$(ENDCOLOR) 1>&2;
+QUIET_LNK = @printf '%b %b\n' $(LINKCOLOR)LINK$(ENDCOLOR) $(BINCOLOR)$@$(ENDCOLOR) 1>&2;
+
+QUIET_PROC=$(QUIET_CC)$(CC)
+QUIET_EXEC=$(QUIET_EXE)exec
+QUIET_REMOVE=$(QUIET_RM)rm -f
+QUIET_LINK=$(QUIET_LNK)gcc
+
 CC = gcc
 CFLAG = -g -O3 -Wall
 
@@ -29,11 +47,11 @@ endif
 all:sqlbus
 
 sqlbus:$(OBJECT)
-	$(CC) $(OBJECT) $(CFLAGS) $(LNKLIBS) -o $@ $(THIRD_INC)
+	$(QUIET_LINK) $(OBJECT) $(CFLAGS) $(LNKLIBS) -o $@ $(THIRD_INC)
 
 .c.o:
-	$(CC) $(CFLAGS) -I. -c $< $(THIRD_INC)
+	$(QUIET_PROC) $(CFLAGS) -I. -c $< $(THIRD_INC)
 
 .PHONY:clean
 clean:
-	rm -f $(OBJECT) sqlbus app.log
+	$(QUIET_REMOVE) -f $(OBJECT) sqlbus app.log

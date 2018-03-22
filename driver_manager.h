@@ -134,32 +134,97 @@ typedef struct statement
 #define SQLBUS_EXECUTE(hstmt, statement) \
 	((hstmt)->connection->driver->functions[DB_STMT_EXECUTE].func)((hstmt)->driver_stmt, statement)
 
+/**
+ * SQLBUS_GET_FIELD_COUNT - 获取SELECT语句中列的数量
+ *
+ * @hstmt: 数据库操纵句柄
+ * @counter: 列的数量
+ */
 #define SQLBUS_GET_FIELD_COUNT(hstmt, counter) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_FIELD_COUNT].func)((hstmt)->driver_stmt, counter)
 
+/**
+ * SQLBUS_GET_ROW_COUNT - 获取SELECT语句中符合条件的行的数量
+ *
+ * @hstmt: 数据库操纵句柄
+ * @counter: 行的数量
+ */
 #define SQLBUS_GET_ROW_COUNT(hstmt, counter) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_ROW_COUNT].func)((hstmt)->driver_stmt, counter)
 
+/**
+ * SQLBUS_GET_FIELD_NAME - 获取字段名称
+ *
+ * @hstmt: 数据库操纵句柄
+ * @index: 字段位置，即第几个字段
+ * @field: 字段名称
+ */
 #define SQLBUS_GET_FIELD_NAME(hstmt, index, field) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_FIELD_NAME].func)((hstmt)->driver_stmt, index, field)
 
+/**
+ * SQLBUS_GET_FIELD_LENGTH - 获取字段的最大长度
+ *
+ * @hstmt: 数据库操纵句柄
+ * @index: 字段位置，即第几个字段
+ * @length: 字段的最大长度
+ */
 #define SQLBUS_GET_FIELD_LENGTH(hstmt, index, length) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_FIELD_LENGTH].func)((hstmt)->driver_stmt, index, length)
 
-#define SQLBUS_GET_STMT_ERROR_MESSAGE(hstmt, type, buffer, capacity, buffer_length) \
-	((hstmt)->connection->driver->functions[DB_STMT_GET_ERROR_MESSAGE].func)((hstmt)->driver_stmt, type, buffer, capacity, buffer_length)
-
+/**
+ * SQLBUS_FETCH_NEXT_ROW - 获取下一行记录
+ *
+ * @hstmt: 数据库操纵句柄
+ */
 #define SQLBUS_FETCH_NEXT_ROW(hstmt) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_NEXT_ROW].func)((hstmt)->driver_stmt)
 
+/**
+ * SQLBUS_GET_FIELD_VALUE - 获取字段的列值
+ *
+ * @hstmt: 数据库操纵句柄
+ * @value: 字段的值
+ */
 #define SQLBUS_GET_FIELD_VALUE(hstmt, value) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_FIELD_VALUE].func)((hstmt)->driver_stmt, value)
 
+/**
+ * SQLBUS_GET_FIELD_VALUE_IDX - 根据第@row行、第@field行进行获取字段值
+ *
+ * @hstmt: 数据库操纵句柄
+ * @row: 行的位置
+ * @field: 列的位置
+ * @value: 字段的值
+ *
+ * 当@row小于0时，表示获取当前行的数据
+ * 当@field小于0时，表示获取当前列的数据
+ */
 #define SQLBUS_GET_FIELD_VALUE_IDX(hstmt, row, field, value) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_FIELD_VALUE_IDX].func)((hstmt)->driver_stmt, row, field, value)
 
-#define SQLBUS_GET_DBC_ERROR_MESSAGE(hdbc, type, buffer, capacity, buffer_length) \
-	((hdbc)->driver->functions[DB_STMT_GET_ERROR_MESSAGE].func)((hdbc)->driver_dbc, type, buffer, capacity, buffer_length)
+/**
+ * SQLBUS_GET_DBC_ERROR_MESSAGE - 获取数据库连接错误信息
+ *
+ * @hdbc: 数据库连接句柄
+ * @buffer: 存储错误信息的地址
+ * @capacity: @buffer的长度
+ * @buffer_length: 错误消息长度
+ */
+#define SQLBUS_GET_DBC_ERROR_MESSAGE(hdbc, buffer, capacity, buffer_length) \
+	((hdbc)->driver->functions[DB_STMT_GET_ERROR_MESSAGE].func)((hdbc)->driver_dbc, SQLBUS_HANDLE_DBC, buffer, capacity, buffer_length)
+
+/**
+ * SQLBUS_GET_STMT_ERROR_MESSAGE - 获取数据库操纵错误信息
+ *
+ * @hstmt: 数据库操纵句柄
+ * @buffer: 存储错误信息的地址
+ * @capacity: @buffer的长度
+ * @buffer_length: 错误消息长度
+ */
+#define SQLBUS_GET_STMT_ERROR_MESSAGE(hstmt, buffer, capacity, buffer_length) \
+	((hstmt)->connection->driver->functions[DB_STMT_GET_ERROR_MESSAGE].func)((hstmt)->driver_stmt, SQLBUS_HANDLE_STMT, buffer, capacity, buffer_length)
+
 
 __BEGIN_DECLS
 

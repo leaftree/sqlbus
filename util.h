@@ -23,6 +23,8 @@
 #endif
 # define mFree(ptr) do { if(ptr) { free(ptr); ptr = NULL; } }while(0)
 
+#define xprint(ptr) ({if(ptr==NULL){printf("[%s(%d)-%s] %s is null\n", __FILE__, __LINE__, __func__, #ptr);}})
+
 __BEGIN_DECLS
 
 /**
