@@ -93,6 +93,7 @@ int log_write(sqlbus_log_t *meta, enum log_level level,
 
 	DBUG_PRINT("make_iso8061_timestamp", ("%s", buffer));
 
+	errno = 0;
 	retval = write(meta->fd, buffer, size);
 	if(retval <= 0)
 	{
