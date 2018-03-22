@@ -85,6 +85,23 @@ static void dbSetORAError(error_info *error)
 }
 
 /**
+ * dbClearError - 清空错误记录信息
+ *
+ * @error: 错误信息结构
+ *
+ * return value:
+ *  No return value
+ */
+static void dbClearError(error_info *error)
+{
+	if(error == NULL)
+		return;
+
+	error->ecode = 0;
+	memset(error->errstr, 0x0, sizeof(error->errstr));
+}
+
+/**
  * isSelectStatment - 判断一个字符串是否为Query类型SQL
  *
  * @stmt: 待检查的字符串
@@ -266,7 +283,7 @@ int DBConnectInitialize(HDBC *hdbc)
 }
 
 /**
- * DBConnectFinished - 数据库连接句柄使用结束，翻译资源
+ * DBConnectFinalize - 数据库连接句柄使用结束，翻译资源
  *
  * @hdbc: 句柄
  *
@@ -274,7 +291,7 @@ int DBConnectInitialize(HDBC *hdbc)
  *  RETURN_INVALID: 参数无效
  *  RETURN_SUCCESS: 释放资源成功
  */
-int DBConnectFinished(HDBC hdbc)
+int DBConnectFinalize(HDBC hdbc)
 {
 	DBUG_ENTER(__func__);
 
@@ -384,21 +401,24 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
-	(*hstmt)->table = NULL;
 	(*hstmt)->hdbc = hdbc;
 	(*hstmt)->error = err;
+	(*hstmt)->table = NULL;
 	(*hstmt)->statement = NULL;
-	(*hstmt)->max_row_count = ORA_MAX_ROW_COUNT;
+	(*hstmt)->status = 0;
+	(*hstmt)->map_size = 0;
 	(*hstmt)->row_count = 0;
 	(*hstmt)->table_size = 0;
-	(*hstmt)->map_size = 0;
+	(*hstmt)->row_cur_pos = -1;
+	(*hstmt)->field_cur_pos = 0;
+	(*hstmt)->max_row_count = ORA_MAX_ROW_COUNT;
 	(*hstmt)->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
 /**
- * DBStmtFinished - 数据库操纵句柄使用结束，释放资源
+ * DBStmtFinalize - 数据库操纵句柄使用结束，释放资源
  *
  * @hstmt: 操纵句柄
  *
@@ -406,7 +426,7 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
  *  RETURN_INVALID: 参数无效
  *  RETURN_SUCCESS: 释放成功
  */
-int DBStmtFinished(HSTMT hstmt)
+int DBStmtFinalize(HSTMT hstmt)
 {
 	DBUG_ENTER(__func__);
 
@@ -597,7 +617,7 @@ static int allocEnoughSpaceForField(HSTMT hstmt)
 			select_dp->T[i] = scale ? ORA_SQL_FIELD_TYPE_FLOAT : ORA_SQL_FIELD_TYPE_INTEGER;
 
 		field[i].capacity = select_dp->L[i];
-		snprintf((char*)field[i].name, strlen((char*)field[i].name), "%.*s", select_dp->C[i], select_dp->S[i]);
+		snprintf((char*)field[i].name, sizeof(field[i].name), "%.*s", select_dp->C[i], select_dp->S[i]);
 
 		hstmt->table_size += select_dp->L[i];
 		select_dp->V[i] = realloc(select_dp->V[i], select_dp->L[i] + 1);
@@ -768,4 +788,366 @@ static int allocFixedSpaceForResultSet(HSTMT hstmt)
 	}
 
 	DBUG_RETURN(IAPSUCC);
+}
+
+/**
+ * DBGetFieldCount - 获取字段数量
+ *
+ * @hstmt: 数据库操纵句柄
+ * @counter: 出参，字段数量
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效，非查询SQL语句
+ *  RETURN_SUCCESS: 获取字段数量成功
+ */
+int DBGetFieldCount(HSTMT hstmt, int *counter)
+{
+	if(hstmt == NULL )
+		return(RETURN_FAILURE);
+
+	dbClearError(hstmt->error);
+
+	if(counter == NULL) {
+		dbSetErrorWithErrno(hstmt->error, EINVAL);
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->statement_type != SQL_TYPE_QUERY) {
+		dbSetError(hstmt->error, "%s", "It's not a select type sql statement.");
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->table == NULL) {
+		dbSetError(hstmt->error, "%s", "Maybe sql statement not be executed.");
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->table->fields < 1) {
+		dbSetError(hstmt->error, "%s", "Field number less than one, it not should be exist.");
+		return(RETURN_FAILURE);
+	}
+
+	*counter = hstmt->table->fields;
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetRowCount - 获取记录行数
+ *
+ * @hstmt: 数据库操纵句柄
+ * @counter: 出参，记录行数
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效，非查询SQL语句
+ *  RETURN_SUCCESS: 获取字段数量成功
+ */
+int DBGetRowCount(HSTMT hstmt, int *counter)
+{
+	if(hstmt == NULL)
+		return(RETURN_FAILURE);
+
+	dbClearError(hstmt->error);
+
+	if(counter == NULL) {
+		dbSetErrorWithErrno(hstmt->error, EINVAL);
+		return(RETURN_FAILURE);
+	}
+
+	*counter = hstmt->row_count;
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetFieldNameIdx - 根据下标获取字段名称
+ *
+ * @hstmt: 数据库操纵句柄
+ * @index: 下标，范围0 - (field_counter-1)
+ * @value: 字段的名称
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 获取字段名称成功
+ */
+int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value)
+{
+	DBUG_ENTER(__func__);
+
+	if(hstmt == NULL || value == NULL)
+		DBUG_RETURN(RETURN_FAILURE);
+
+	dbClearError(hstmt->error);
+
+	if(hstmt->table == NULL || hstmt->table->field == NULL)
+	{
+		dbSetError(hstmt->error, "%s", "Maybe sql statement not be executed, or not query statement.");
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	if(index < 0 || index >= hstmt->table->fields)
+	{
+		dbSetError(hstmt->error,
+				"Wrong index(%d), it should larger than 0 and less than field counter(%d).",
+				index, hstmt->table->fields);
+		DBUG_RETURN(RETURN_FAILURE);
+	}
+
+	sprintf(value, "%s", hstmt->table->field[index].name);
+
+	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetFieldLengthIdx - 获取字段最大长度
+ *
+ * @hstmt: 数据库操纵句柄
+ * @index: 下标，范围0 - (field_counter-1)
+ * @length: 字段最大长度
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 获取字段长度成功
+ */
+int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length)
+{
+	if(hstmt == NULL)
+		return(RETURN_FAILURE);
+
+	dbClearError(hstmt->error);
+
+	if(length == NULL) {
+		dbSetErrorWithErrno(hstmt->error, EINVAL);
+		return(RETURN_FAILURE);
+	}
+
+	if(index < 0 || index >= hstmt->table->fields)
+	{
+		dbSetError(hstmt->error,
+				"Wrong index(%d), it should larger than 0 and less than field counter(%d).",
+				index, hstmt->table->fields);
+		return(RETURN_FAILURE);
+	}
+
+	*length = hstmt->table->field[index].capacity;
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetErrorMessage - 获取错误信息
+ *
+ * @handle: 句柄，真实含义由type来决定
+ * @type: 表示@handle的类型，其取值由数据库操作句柄的类型决定
+ * @buffer: 用于存储错误信息的空间
+ * @capcacity: @buffer的空间大小
+ * @buffer_length: 信息串的长度
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者获取信息错误，或者无错误信息
+ *  RETURN_SUCCESS: 成功获取到错误信息
+ */
+int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length)
+{
+	if(handle == NULL || buffer == NULL || buffer_length == NULL)
+		return(RETURN_FAILURE);
+
+	HDBC hdbc = NULL;
+	HSTMT hstmt = NULL;
+
+	switch(type)
+	{
+		case ORA_SQL_HANDLE_DBC:
+			hdbc = (HDBC)handle;
+			if(hdbc->error && *hdbc->error->errstr)
+			{
+				*buffer_length = snprintf(buffer, capacity, "%s", hdbc->error->errstr);
+				return(RETURN_SUCCESS);
+			}
+			return(RETURN_FAILURE);
+
+		case ORA_SQL_HANDLE_STMT:
+			hstmt = (HSTMT)handle;
+			if(hstmt->error && *hstmt->error->errstr)
+			{
+				*buffer_length = snprintf(buffer, capacity, "%s", hstmt->error->errstr);
+				return(RETURN_SUCCESS);
+			}
+			return(RETURN_FAILURE);
+
+		default:
+			return(RETURN_FAILURE);
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetNextRow - 移动指示位置，获取下一行记录
+ *
+ * @hstmt: 数据库操纵句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ *  ORA_RESULT_NOT_FOUND: 找不到数据
+ */
+int DBGetNextRow(HSTMT hstmt)
+{
+	if(hstmt == NULL) {
+		return(RETURN_FAILURE);
+	}
+	
+	dbClearError(hstmt->error);
+
+	if(hstmt->row_count == 0 || hstmt->result == NULL)
+	{
+		dbSetError(hstmt->error, "%s", "Have no record.");
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->row_cur_pos >= hstmt->row_count-1)
+	{
+		hstmt->row_cur_pos = 0;
+		dbSetError(hstmt->error, "%s", "No more record.");
+		return(ORA_RESULT_NOT_FOUND);
+	}
+
+	hstmt->row_cur_pos ++;
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetFieldValue - 获取字段值
+ *
+ * @hstmt: 数据库操纵句柄
+ * @value: 字段值
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ *  ORA_RESULT_NOT_FOUND: 找不到数据
+ */
+int DBGetFieldValue(HSTMT hstmt, char *value)
+{
+	if(hstmt == NULL) {
+		return(RETURN_FAILURE);
+	}
+
+	dbClearError(hstmt->error);
+
+	if(value == NULL) {
+		dbSetErrorWithErrno(hstmt->error, EINVAL);
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->result == NULL || hstmt->table == NULL)
+	{
+		dbSetError(hstmt->error, "%s", "Inner error.");
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->row_count == 0 || hstmt->table->fields == 0)
+	{
+		dbSetError(hstmt->error, "%s", "Have no record.");
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->field_cur_pos >= hstmt->table->fields)
+	{
+		hstmt->field_cur_pos = 0;
+		dbSetError(hstmt->error, "%s", "No more record.");
+		return(ORA_RESULT_NOT_FOUND);
+	}
+
+	int i=0;
+	int offset = 0;
+	for(i=0; i<hstmt->field_cur_pos; i++) {
+		offset += hstmt->table->field[i].capacity;
+	}
+
+	if(hstmt->row_cur_pos < 0) {
+		hstmt->row_cur_pos = 0;
+	}
+
+	offset += hstmt->row_cur_pos*hstmt->table_size;
+	memcpy(value, (char*)hstmt->result+offset, hstmt->table->field[hstmt->field_cur_pos].capacity);
+	hstmt->field_cur_pos ++;
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetFieldValueIdx - 
+ *
+ * @hstmt: 数据库操纵句柄
+ * @row: 指定行数
+ * @field: 指定列数
+ * @value: 字段值
+ *
+ * 当@row为-1时，表示从当前行获取字段值
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ *  ORA_RESULT_NOT_FOUND: 找不到数据
+ */
+int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)
+{
+	if(hstmt == NULL) {
+		return(RETURN_FAILURE);
+	}
+
+	int row_pos = 0;
+	int field_pos = 0;
+	
+	dbClearError(hstmt->error);
+
+	if(value == NULL) {
+		dbSetErrorWithErrno(hstmt->error, EINVAL);
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->result == NULL || hstmt->table == NULL)
+	{
+		dbSetError(hstmt->error, "%s", "Inner error.");
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->row_count == 0 || hstmt->table->fields == 0)
+	{
+		dbSetError(hstmt->error, "%s", "Have no record.");
+		return(RETURN_FAILURE);
+	}
+
+	if(row >= 0) {
+		row_pos = row;
+	}
+	else {
+		row_pos = hstmt->row_cur_pos>=0?hstmt->row_cur_pos:0;
+	}
+
+	if(field >= 0) {
+		field_pos = field;
+	}
+	else {
+		field_pos = hstmt->field_cur_pos;
+	}
+
+	if(row_pos >= hstmt->row_count || field_pos >= hstmt->table->fields)
+	{
+		dbSetError(hstmt->error, "%s", "No so much records.");
+		return(ORA_RESULT_NOT_FOUND);
+	}
+
+	int i=0;
+	int offset = 0;
+	for(i=0; i<field; i++) {
+		offset += hstmt->table->field[i].capacity;
+	}
+
+	offset += (row_pos*hstmt->table_size);
+	memcpy(value, (char*)hstmt->result+offset, hstmt->table->field[field_pos].capacity);
+
+	return(RETURN_SUCCESS);
 }

@@ -13,9 +13,7 @@
 #include "util.h"
 #include "dbug.h"
 
-st_log_meta logger;
-
-int log_open(char *catalog, char *file, enum log_level level, st_log_meta *meta)
+int log_open(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta)
 {
 	DBUG_ENTER(__func__);
 
@@ -41,7 +39,7 @@ int log_open(char *catalog, char *file, enum log_level level, st_log_meta *meta)
 	DBUG_RETURN(0);
 }
 
-int log_close(st_log_meta *meta)
+int log_close(sqlbus_log_t *meta)
 {
 	DBUG_ENTER(__func__);
 
@@ -57,7 +55,7 @@ int log_close(st_log_meta *meta)
 	DBUG_RETURN(0);
 }
 
-int log_write(st_log_meta *meta, enum log_level level,
+int log_write(sqlbus_log_t *meta, enum log_level level,
 		const char *file, const char *func, const int line, const char *fmt, ...)
 {
 	DBUG_ENTER(__func__);
@@ -84,6 +82,9 @@ int log_write(st_log_meta *meta, enum log_level level,
 	size += make_iso8061_timestamp(buffer);
 	size += snprintf(buffer+size, 16*1024, " %s ", (char*)errmsg[level]);
 
+	if(level == LOG_DEBUG)
+		size += snprintf(buffer+size, 16*1024, "[%s(%d)-%s]", file, line, func);
+
 	va_start(ap, fmt);
 	size += vsnprintf(buffer+size, 16*1024, fmt, ap);
 	va_end(ap);
@@ -100,4 +101,23 @@ int log_write(st_log_meta *meta, enum log_level level,
 	}
 
 	DBUG_RETURN(0);
+}
+
+enum log_level log_level_string_to_type(char *level_string)
+{
+	if(!level_string)
+		return(LOG_WARNING);
+
+	if(strcasecmp(level_string, "DEBUG") == 0)
+		return(LOG_DEBUG);
+	else if(strcasecmp(level_string, "WARN") == 0)
+		return(LOG_WARNING);
+	else if(strcasecmp(level_string, "WARNING") == 0)
+		return(LOG_WARNING);
+	else if(strcasecmp(level_string, "ERROR") == 0)
+		return(LOG_ERR);
+	else if(strcasecmp(level_string, "INFO") == 0)
+		return(LOG_INFO);
+
+	return(LOG_WARNING);
 }

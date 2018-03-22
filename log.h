@@ -22,6 +22,10 @@
 #include <sys/fcntl.h>
 #include <sys/param.h>
 
+#define defaultLogFileName "sqlbus.log"
+#define defaultLogPathName "/tmp/sqlbus"
+#define defaultLogWriteLevel LOG_WARNING
+
 enum log_level {
 	LOG_ERR     = 0,
 	LOG_INFO    = 1,
@@ -29,24 +33,23 @@ enum log_level {
 	LOG_DEBUG   = 3,
 };
 
-typedef struct st_log_meta
+typedef struct sqlbus_log
 {
 	char *catalog; /* path of log                */
 	char *file;    /* log name                   */
 	int fd;        /* file decriptor of log file */
 	int level;     /* log base level             */
-} st_log_meta;
+} sqlbus_log_t;
 
-extern st_log_meta logger;
+extern sqlbus_log_t logger;
 
-int log_open(char *catalog, char *file, enum log_level level, st_log_meta *meta);
-int log_close(st_log_meta *meta);
-//int log_error(st_log_meta *meta, const char *fmt, ...);
-//int log_info(st_log_meta *meta, const char *fmt, ...);
-//int log_debug(st_log_meta *meta, const char *fmt, ...);
+int log_open(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta);
+int log_close(sqlbus_log_t *meta);
 
-int log_write(st_log_meta *meta, enum log_level level,
+int log_write(sqlbus_log_t *meta, enum log_level level,
 		const char *file, const char *func, const int line, const char *fmt, ...);
+
+enum log_level log_level_string_to_type(char *level_string);
 
 #define LOG_INFO(meta, ...)  log_write(meta, LOG_INFO,    __FILE__, __func__, __LINE__, ##__VA_ARGS__)
 #define LOG_WARN(meta, ...)  log_write(meta, LOG_WARNING, __FILE__, __func__, __LINE__, ##__VA_ARGS__)

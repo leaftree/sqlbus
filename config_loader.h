@@ -84,7 +84,7 @@ typedef struct configuration
 	char file[512];
 	FILE *fp;
 	conf_section_t *section;
-} config_t;
+} config_t, sqlbus_config_t;
 
 __BEGIN_DECLS
 

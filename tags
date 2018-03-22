@@ -4,18 +4,32 @@
 !_TAG_PROGRAM_NAME	Exuberant Ctags	//
 !_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
 !_TAG_PROGRAM_VERSION	5.8	//
-$	tags	/^LOG_ERR	log.h	\/^	LOG_ERR     = 0,$\/;"	e	enum:log_level$/;"	v
-$	tags	/^LOG_WARNING	log.h	\/^	LOG_WARNING = 2,$\/;"	e	enum:log_level$/;"	v	typeref:enum:
+$	tags	/^LOG_DEBUG	log.h	\/^	LOG_DEBUG   = 3,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+$	tags	/^LOG_INFO	log.h	\/^	LOG_INFO    = 1,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+$	tags	/^log_level	log.h	\/^enum log_level {$\/;"	g$/;"	e	enum:log_level	file:
+ADD	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
 AUTO	third/dbug/dbug.c	182;"	d	file:
 AUTOS_REVERSE	third/dbug/dbug.c	204;"	d	file:
 BOOLEAN	third/dbug/dbug.c	/^typedef int BOOLEAN;$/;"	t	file:
 BOOLEAN	third/dbug/dbug.c	173;"	d	file:
 BUS	README.md	/^SQL-BUS(SqlBus), forwarding SQL via Memory-Cache as a bus.$/;"	p	file:	signature:(SqlBus)
-BaseName	drivermanager/oracle/tags	/^BaseName	dbug\/dbug.c	\/^static char *BaseName(const char *pathname);$\/;"	p	file:	signature:(const char *pathname)$/;"	p	file:	signature:(const char *pathname)
 BaseName	third/dbug/dbug.c	/^BaseName(const char *pathname)$/;"	f	file:	signature:(const char *pathname)
 BaseName	third/dbug/dbug.c	/^static char *BaseName(const char *pathname);$/;"	p	file:	signature:(const char *pathname)
 C	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *C; \/* Ptr to Arr of current lengths of var. names *\/$/;"	m	struct:SQLDA	file:	access:public
+CJSON_EXPORT_SYMBOLS	third/cJSON/cJSON.h	108;"	d
+CJSON_NESTING_LIMIT	third/cJSON/cJSON.h	129;"	d
+CJSON_PUBLIC	third/cJSON/cJSON.h	112;"	d
+CJSON_PUBLIC	third/cJSON/cJSON.h	114;"	d
+CJSON_PUBLIC	third/cJSON/cJSON.h	116;"	d
+CJSON_PUBLIC	third/cJSON/cJSON.h	120;"	d
+CJSON_PUBLIC	third/cJSON/cJSON.h	122;"	d
+CJSON_VERSION_MAJOR	third/cJSON/cJSON.h	32;"	d
+CJSON_VERSION_MINOR	third/cJSON/cJSON.h	33;"	d
+CJSON_VERSION_PATCH	third/cJSON/cJSON.h	34;"	d
 CODE_STATE	third/dbug/dbug.c	/^CODE_STATE;$/;"	t	typeref:struct:st_code_state	file:
+CONTRACT	third/cJSON/LICENSE	/^LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
+CONTRACT	third/cJSON/README.md	/^>  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
+COPY	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
 ChangeOwner	third/dbug/dbug.c	/^ChangeOwner(char *pathname)$/;"	f	file:	signature:(char *pathname)
 ChangeOwner	third/dbug/dbug.c	/^static void ChangeOwner(char *pathname);$/;"	p	file:	signature:(char *pathname)
 ChangeOwner	third/dbug/dbug.c	365;"	d	file:
@@ -23,24 +37,16 @@ Clock	third/dbug/dbug.c	/^Clock()$/;"	f	file:	signature:()
 Clock	third/dbug/dbug.c	/^static unsigned long Clock(void);$/;"	p	file:	signature:(void)
 CloseFile	third/dbug/dbug.c	/^CloseFile(FILE * fp)$/;"	f	file:	signature:(FILE * fp)
 CloseFile	third/dbug/dbug.c	/^static void CloseFile(FILE * fp);$/;"	p	file:	signature:(FILE * fp)
-DBAPI_ASYNC	db.h	44;"	d
-DBAPI_CLIENT	db.h	47;"	d
-DBAPI_SERVER	db.h	48;"	d
-DBAPI_SYNC	db.h	45;"	d
-DBAPI_TIMEO	db.h	46;"	d
-DBAPPExecute	db.h	/^int DBAPPExecute(DBHandle *handle, char *stmt);$/;"	p	signature:(DBHandle *handle, char *stmt)
-DBAPPFree	db.h	/^DBHandle *DBAPPFree(DBHandle *handle);$/;"	p	signature:(DBHandle *handle)
-DBClientInit	db.h	/^DBHandle *DBClientInit(int flag, ...);$/;"	p	signature:(int flag, ...)
 DBConnect	driver_manager.c	/^int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database)$/;"	f	signature:(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 DBConnect	driver_manager.h	/^int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database);$/;"	p	signature:(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 DBConnect	drivermanager/oracle/dbdriver.h	/^int DBConnect(HDBC hdbc, char *username, char *password, char *database);$/;"	p	signature:(HDBC hdbc, char *username, char *password, char *database)
 DBConnect	drivermanager/oracle/ora.c	/^int DBConnect(HDBC hdbc, char *username, char *password, char *database)$/;"	f	signature:(HDBC hdbc, char *username, char *password, char *database)
 DBConnect	drivermanager/oracle/ora.pc	/^int DBConnect(HDBC hdbc, char *username, char *password, char *database)$/;"	f	signature:(HDBC hdbc, char *username, char *password, char *database)
-DBConnectFinished	driver_manager.c	/^int DBConnectFinished(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
-DBConnectFinished	driver_manager.h	/^int DBConnectFinished(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
-DBConnectFinished	drivermanager/oracle/dbdriver.h	/^int DBConnectFinished(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
-DBConnectFinished	drivermanager/oracle/ora.c	/^int DBConnectFinished(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
-DBConnectFinished	drivermanager/oracle/ora.pc	/^int DBConnectFinished(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
+DBConnectFinalize	driver_manager.c	/^int DBConnectFinalize(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
+DBConnectFinalize	driver_manager.h	/^int DBConnectFinalize(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
+DBConnectFinalize	drivermanager/oracle/dbdriver.h	/^int DBConnectFinalize(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
+DBConnectFinalize	drivermanager/oracle/ora.c	/^int DBConnectFinalize(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
+DBConnectFinalize	drivermanager/oracle/ora.pc	/^int DBConnectFinalize(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBConnectInitialize	driver_manager.c	/^int DBConnectInitialize(HENV henv, HDBC *hdbc)$/;"	f	signature:(HENV henv, HDBC *hdbc)
 DBConnectInitialize	driver_manager.h	/^int DBConnectInitialize(HENV henv, HDBC *hdbc);$/;"	p	signature:(HENV henv, HDBC *hdbc)
 DBConnectInitialize	drivermanager/oracle/dbdriver.h	/^int DBConnectInitialize(HDBC *hdbc);$/;"	p	signature:(HDBC *hdbc)
@@ -51,68 +57,154 @@ DBDisconnect	driver_manager.h	/^int DBDisconnect(HDBC hdbc);$/;"	p	signature:(HD
 DBDisconnect	drivermanager/oracle/dbdriver.h	/^int DBDisconnect(HDBC hdbc);$/;"	p	signature:(HDBC hdbc)
 DBDisconnect	drivermanager/oracle/ora.c	/^int DBDisconnect(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
 DBDisconnect	drivermanager/oracle/ora.pc	/^int DBDisconnect(HDBC hdbc)$/;"	f	signature:(HDBC hdbc)
-DBEnvFinished	driver_manager.c	/^int DBEnvFinished(HENV henv)$/;"	f	signature:(HENV henv)
-DBEnvFinished	driver_manager.h	/^int DBEnvFinished(HENV henv);$/;"	p	signature:(HENV henv)
+DBEnvFinalize	driver_manager.c	/^int DBEnvFinalize(HENV henv)$/;"	f	signature:(HENV henv)
+DBEnvFinalize	driver_manager.h	/^int DBEnvFinalize(HENV henv);$/;"	p	signature:(HENV henv)
 DBEnvInitialize	driver_manager.c	/^int DBEnvInitialize(HENV *henv, char *catalog)$/;"	f	signature:(HENV *henv, char *catalog)
 DBEnvInitialize	driver_manager.h	/^int DBEnvInitialize(HENV *henv, char *catalog);$/;"	p	signature:(HENV *henv, char *catalog)
-DBExecute	drivermanager/oracle/ora.pc	/^int DBExecute(DBDriver *driver, char *statment)$/;"	f	signature:(DBDriver *driver, char *statment)
-DBHDBC	drivermanager/oracle/dbdriver.h	/^typedef void* DBHDBC;$/;"	t
-DBHENV	drivermanager/oracle/dbdriver.h	/^typedef void* DBHENV;$/;"	t
-DBHSTMT	drivermanager/oracle/dbdriver.h	/^typedef void* DBHSTMT;$/;"	t
-DBHandle	db.h	/^} DBHandle;$/;"	t	typeref:struct:__DBHandle
-DBO_FAIL	drivermanager/oracle/dbdriver.h	27;"	d
-DBO_FAIL	drivermanager/oracle/dbdriver.h	31;"	d
-DBO_SUCC	drivermanager/oracle/dbdriver.h	28;"	d
-DBO_SUCC	drivermanager/oracle/dbdriver.h	30;"	d
-DBServerInit	db.h	/^DBHandle *DBServerInit(int flag, ...);$/;"	p	signature:(int flag, ...)
-DBStmtFinished	driver_manager.c	/^int DBStmtFinished(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
-DBStmtFinished	driver_manager.h	/^int DBStmtFinished(HSTMT hstmt);$/;"	p	signature:(HSTMT hstmt)
+DBExecute	driver_manager.c	/^int DBExecute(HSTMT hstmt, char *statement)$/;"	f	signature:(HSTMT hstmt, char *statement)
+DBExecute	driver_manager.h	/^int DBExecute(HSTMT hstmt, char *statement);$/;"	p	signature:(HSTMT hstmt, char *statement)
+DBExecute	drivermanager/oracle/dbdriver.h	/^int DBExecute(HSTMT hstmt, char *statement);$/;"	p	signature:(HSTMT hstmt, char *statement)
+DBExecute	drivermanager/oracle/ora.c	/^int DBExecute(HSTMT hstmt, char *statement)$/;"	f	signature:(HSTMT hstmt, char *statement)
+DBExecute	drivermanager/oracle/ora.pc	/^int DBExecute(HSTMT hstmt, char *statement)$/;"	f	signature:(HSTMT hstmt, char *statement)
+DBGetErrorMessage	driver_manager.c	/^int DBGetErrorMessage(HDMHANDLE handle, int type)$/;"	f	signature:(HDMHANDLE handle, int type)
+DBGetErrorMessage	driver_manager.h	/^int DBGetErrorMessage(HDMHANDLE handle, int type);$/;"	p	signature:(HDMHANDLE handle, int type)
+DBGetErrorMessage	drivermanager/oracle/dbdriver.h	/^int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length);$/;"	p	signature:(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length)
+DBGetErrorMessage	drivermanager/oracle/ora.c	/^int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length)$/;"	f	signature:(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length)
+DBGetErrorMessage	drivermanager/oracle/ora.pc	/^int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length)$/;"	f	signature:(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length)
+DBGetFieldCount	driver_manager.c	/^int DBGetFieldCount(HSTMT hstmt, int *counter)$/;"	f	signature:(HSTMT hstmt, int *counter)
+DBGetFieldCount	driver_manager.h	/^int DBGetFieldCount(HSTMT hstmt, int *counter);$/;"	p	signature:(HSTMT hstmt, int *counter)
+DBGetFieldCount	drivermanager/oracle/dbdriver.h	/^int DBGetFieldCount(HSTMT hstmt, int *counter);$/;"	p	signature:(HSTMT hstmt, int *counter)
+DBGetFieldCount	drivermanager/oracle/ora.c	/^int DBGetFieldCount(HSTMT hstmt, int *counter)$/;"	f	signature:(HSTMT hstmt, int *counter)
+DBGetFieldCount	drivermanager/oracle/ora.pc	/^int DBGetFieldCount(HSTMT hstmt, int *counter)$/;"	f	signature:(HSTMT hstmt, int *counter)
+DBGetFieldLengthIdx	driver_manager.c	/^int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length)$/;"	f	signature:(HSTMT hstmt, int index, int *length)
+DBGetFieldLengthIdx	driver_manager.h	/^int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length);$/;"	p	signature:(HSTMT hstmt, int index, int *length)
+DBGetFieldLengthIdx	drivermanager/oracle/dbdriver.h	/^int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length);$/;"	p	signature:(HSTMT hstmt, int index, int *length)
+DBGetFieldLengthIdx	drivermanager/oracle/ora.c	/^int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length)$/;"	f	signature:(HSTMT hstmt, int index, int *length)
+DBGetFieldLengthIdx	drivermanager/oracle/ora.pc	/^int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length)$/;"	f	signature:(HSTMT hstmt, int index, int *length)
+DBGetFieldNameIdx	driver_manager.c	/^int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value)$/;"	f	signature:(HSTMT hstmt, int index, char *value)
+DBGetFieldNameIdx	driver_manager.h	/^int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value);$/;"	p	signature:(HSTMT hstmt, int index, char *value)
+DBGetFieldNameIdx	drivermanager/oracle/dbdriver.h	/^int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value);$/;"	p	signature:(HSTMT hstmt, int index, char *value)
+DBGetFieldNameIdx	drivermanager/oracle/ora.c	/^int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value)$/;"	f	signature:(HSTMT hstmt, int index, char *value)
+DBGetFieldNameIdx	drivermanager/oracle/ora.pc	/^int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value)$/;"	f	signature:(HSTMT hstmt, int index, char *value)
+DBGetFieldValue	driver_manager.c	/^int DBGetFieldValue(HSTMT hstmt, char *value)$/;"	f	signature:(HSTMT hstmt, char *value)
+DBGetFieldValue	driver_manager.h	/^int DBGetFieldValue(HSTMT hstmt, char *value);$/;"	p	signature:(HSTMT hstmt, char *value)
+DBGetFieldValue	drivermanager/oracle/dbdriver.h	/^int DBGetFieldValue(HSTMT hstmt, char *value);$/;"	p	signature:(HSTMT hstmt, char *value)
+DBGetFieldValue	drivermanager/oracle/ora.c	/^int DBGetFieldValue(HSTMT hstmt, char *value)$/;"	f	signature:(HSTMT hstmt, char *value)
+DBGetFieldValue	drivermanager/oracle/ora.pc	/^int DBGetFieldValue(HSTMT hstmt, char *value)$/;"	f	signature:(HSTMT hstmt, char *value)
+DBGetFieldValueIdx	driver_manager.c	/^int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)$/;"	f	signature:(HSTMT hstmt, int row, int field, char *value)
+DBGetFieldValueIdx	driver_manager.h	/^int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value);$/;"	p	signature:(HSTMT hstmt, int row, int field, char *value)
+DBGetFieldValueIdx	drivermanager/oracle/dbdriver.h	/^int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value);$/;"	p	signature:(HSTMT hstmt, int row, int field, char *value)
+DBGetFieldValueIdx	drivermanager/oracle/ora.c	/^int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)$/;"	f	signature:(HSTMT hstmt, int row, int field, char *value)
+DBGetFieldValueIdx	drivermanager/oracle/ora.pc	/^int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)$/;"	f	signature:(HSTMT hstmt, int row, int field, char *value)
+DBGetNextRow	driver_manager.c	/^int DBGetNextRow(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+DBGetNextRow	driver_manager.h	/^int DBGetNextRow(HSTMT hstmt);$/;"	p	signature:(HSTMT hstmt)
+DBGetNextRow	drivermanager/oracle/dbdriver.h	/^int DBGetNextRow(HSTMT hstmt);$/;"	p	signature:(HSTMT hstmt)
+DBGetNextRow	drivermanager/oracle/ora.c	/^int DBGetNextRow(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+DBGetNextRow	drivermanager/oracle/ora.pc	/^int DBGetNextRow(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+DBGetRowCount	driver_manager.c	/^int DBGetRowCount(HSTMT hstmt, int *counter)$/;"	f	signature:(HSTMT hstmt, int *counter)
+DBGetRowCount	driver_manager.h	/^int DBGetRowCount(HSTMT hstmt, int *counter);$/;"	p	signature:(HSTMT hstmt, int *counter)
+DBGetRowCount	drivermanager/oracle/dbdriver.h	/^int DBGetRowCount(HSTMT hstmt, int *counter);$/;"	p	signature:(HSTMT hstmt, int *counter)
+DBGetRowCount	drivermanager/oracle/ora.c	/^int DBGetRowCount(HSTMT hstmt, int *counter)$/;"	f	signature:(HSTMT hstmt, int *counter)
+DBGetRowCount	drivermanager/oracle/ora.pc	/^int DBGetRowCount(HSTMT hstmt, int *counter)$/;"	f	signature:(HSTMT hstmt, int *counter)
+DBHANDLE	drivermanager/oracle/dbdriver.h	/^typedef void * DBHANDLE;$/;"	t
+DBStmtFinalize	driver_manager.c	/^int DBStmtFinalize(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+DBStmtFinalize	driver_manager.h	/^int DBStmtFinalize(HSTMT hstmt);$/;"	p	signature:(HSTMT hstmt)
+DBStmtFinalize	drivermanager/oracle/dbdriver.h	/^int DBStmtFinalize(HSTMT hstmt);$/;"	p	signature:(HSTMT hstmt)
+DBStmtFinalize	drivermanager/oracle/ora.c	/^int DBStmtFinalize(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+DBStmtFinalize	drivermanager/oracle/ora.pc	/^int DBStmtFinalize(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
 DBStmtInitialize	driver_manager.c	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)$/;"	f	signature:(HDBC hdbc, HSTMT *hstmt)
 DBStmtInitialize	driver_manager.h	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt);$/;"	p	signature:(HDBC hdbc, HSTMT *hstmt)
+DBStmtInitialize	drivermanager/oracle/dbdriver.h	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt);$/;"	p	signature:(HDBC hdbc, HSTMT *hstmt)
+DBStmtInitialize	drivermanager/oracle/ora.c	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)$/;"	f	signature:(HDBC hdbc, HSTMT *hstmt)
+DBStmtInitialize	drivermanager/oracle/ora.pc	/^int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)$/;"	f	signature:(HDBC hdbc, HSTMT *hstmt)
 DBUGOpenFile	third/dbug/dbug.c	/^DBUGOpenFile(const char *name, int append)$/;"	f	file:	signature:(const char *name, int append)
 DBUGOpenFile	third/dbug/dbug.c	/^static void DBUGOpenFile(const char *name, int append);$/;"	p	file:	signature:(const char *name, int append)
+DBUG_DUMP	drivermanager/oracle/dbug.h	125;"	d
+DBUG_DUMP	drivermanager/oracle/dbug.h	147;"	d
 DBUG_DUMP	third/dbug/dbug.h	125;"	d
 DBUG_DUMP	third/dbug/dbug.h	147;"	d
+DBUG_ENTER	drivermanager/oracle/dbug.h	111;"	d
+DBUG_ENTER	drivermanager/oracle/dbug.h	136;"	d
 DBUG_ENTER	third/dbug/dbug.h	111;"	d
 DBUG_ENTER	third/dbug/dbug.h	136;"	d
+DBUG_EXECUTE	drivermanager/oracle/dbug.h	117;"	d
+DBUG_EXECUTE	drivermanager/oracle/dbug.h	139;"	d
 DBUG_EXECUTE	third/dbug/dbug.h	117;"	d
 DBUG_EXECUTE	third/dbug/dbug.h	139;"	d
+DBUG_FILE	drivermanager/oracle/dbug.h	122;"	d
+DBUG_FILE	drivermanager/oracle/dbug.h	144;"	d
 DBUG_FILE	third/dbug/dbug.h	122;"	d
 DBUG_FILE	third/dbug/dbug.h	144;"	d
+DBUG_IN_USE	drivermanager/oracle/dbug.h	126;"	d
+DBUG_IN_USE	drivermanager/oracle/dbug.h	148;"	d
 DBUG_IN_USE	third/dbug/dbug.h	126;"	d
 DBUG_IN_USE	third/dbug/dbug.h	148;"	d
+DBUG_LEAVE	drivermanager/oracle/dbug.h	114;"	d
 DBUG_LEAVE	third/dbug/dbug.h	114;"	d
+DBUG_LONGJMP	drivermanager/oracle/dbug.h	124;"	d
+DBUG_LONGJMP	drivermanager/oracle/dbug.h	146;"	d
 DBUG_LONGJMP	third/dbug/dbug.h	124;"	d
 DBUG_LONGJMP	third/dbug/dbug.h	146;"	d
 DBUG_OFF	third/dbug/dbug.c	95;"	d	file:
 DBUG_OFF	third/dbug/doc/main.c	2;"	d	file:
 DBUG_ON	third/dbug/doc/example.c	8;"	d	file:
+DBUG_POP	drivermanager/oracle/dbug.h	120;"	d
+DBUG_POP	drivermanager/oracle/dbug.h	142;"	d
 DBUG_POP	third/dbug/dbug.h	120;"	d
 DBUG_POP	third/dbug/dbug.h	142;"	d
+DBUG_PRINT	drivermanager/oracle/dbug.h	118;"	d
+DBUG_PRINT	drivermanager/oracle/dbug.h	140;"	d
 DBUG_PRINT	third/dbug/dbug.h	118;"	d
 DBUG_PRINT	third/dbug/dbug.h	140;"	d
+DBUG_PROCESS	drivermanager/oracle/dbug.h	121;"	d
+DBUG_PROCESS	drivermanager/oracle/dbug.h	143;"	d
 DBUG_PROCESS	third/dbug/dbug.h	121;"	d
 DBUG_PROCESS	third/dbug/dbug.h	143;"	d
+DBUG_PUSH	drivermanager/oracle/dbug.h	119;"	d
+DBUG_PUSH	drivermanager/oracle/dbug.h	141;"	d
 DBUG_PUSH	third/dbug/dbug.h	119;"	d
 DBUG_PUSH	third/dbug/dbug.h	141;"	d
+DBUG_RETURN	drivermanager/oracle/dbug.h	115;"	d
+DBUG_RETURN	drivermanager/oracle/dbug.h	137;"	d
 DBUG_RETURN	third/dbug/dbug.h	115;"	d
 DBUG_RETURN	third/dbug/dbug.h	137;"	d
+DBUG_SETJMP	drivermanager/oracle/dbug.h	123;"	d
+DBUG_SETJMP	drivermanager/oracle/dbug.h	145;"	d
 DBUG_SETJMP	third/dbug/dbug.h	123;"	d
 DBUG_SETJMP	third/dbug/dbug.h	145;"	d
+DBUG_VOID_RETURN	drivermanager/oracle/dbug.h	116;"	d
+DBUG_VOID_RETURN	drivermanager/oracle/dbug.h	138;"	d
 DBUG_VOID_RETURN	third/dbug/dbug.h	116;"	d
 DBUG_VOID_RETURN	third/dbug/dbug.h	138;"	d
+DBUG_my_pthread_mutex_lock_FILE	drivermanager/oracle/dbug.h	129;"	d
+DBUG_my_pthread_mutex_lock_FILE	drivermanager/oracle/dbug.h	151;"	d
 DBUG_my_pthread_mutex_lock_FILE	third/dbug/dbug.h	129;"	d
 DBUG_my_pthread_mutex_lock_FILE	third/dbug/dbug.h	151;"	d
+DBUG_my_pthread_mutex_unlock_FILE	drivermanager/oracle/dbug.h	130;"	d
+DBUG_my_pthread_mutex_unlock_FILE	drivermanager/oracle/dbug.h	152;"	d
 DBUG_my_pthread_mutex_unlock_FILE	third/dbug/dbug.h	130;"	d
 DBUG_my_pthread_mutex_unlock_FILE	third/dbug/dbug.h	152;"	d
-DB_CONNECT	driver_loader.h	16;"	d
-DB_CONNECT_FINISHED	driver_loader.h	15;"	d
-DB_CONNECT_INITIALIZE	driver_loader.h	14;"	d
-DB_DISCONNECT	driver_loader.h	17;"	d
-DB_STMT_FINISHED	driver_loader.h	19;"	d
-DB_STMT_INITIALIZE	driver_loader.h	18;"	d
+DB_CONNECT	driver_loader.h	/^	DB_CONNECT,$/;"	e	enum:sqlbus_dm_type
+DB_CONNECT_FINALIZE	driver_loader.h	/^	DB_CONNECT_FINALIZE,$/;"	e	enum:sqlbus_dm_type
+DB_CONNECT_INITIALIZE	driver_loader.h	/^	DB_CONNECT_INITIALIZE = 1,$/;"	e	enum:sqlbus_dm_type
+DB_DISCONNECT	driver_loader.h	/^	DB_DISCONNECT,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_EXECUTE	driver_loader.h	/^	DB_STMT_EXECUTE,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_FINALIZE	driver_loader.h	/^	DB_STMT_FINALIZE,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_ERROR_MESSAGE	driver_loader.h	/^	DB_STMT_GET_ERROR_MESSAGE,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_FIELD_COUNT	driver_loader.h	/^	DB_STMT_GET_FIELD_COUNT,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_FIELD_LENGTH	driver_loader.h	/^	DB_STMT_GET_FIELD_LENGTH,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_FIELD_NAME	driver_loader.h	/^	DB_STMT_GET_FIELD_NAME,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_FIELD_VALUE	driver_loader.h	/^	DB_STMT_GET_FIELD_VALUE,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_FIELD_VALUE_IDX	driver_loader.h	/^	DB_STMT_GET_FIELD_VALUE_IDX,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_NEXT_ROW	driver_loader.h	/^	DB_STMT_GET_NEXT_ROW,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_GET_ROW_COUNT	driver_loader.h	/^	DB_STMT_GET_ROW_COUNT,$/;"	e	enum:sqlbus_dm_type
+DB_STMT_INITIALIZE	driver_loader.h	/^	DB_STMT_INITIALIZE,$/;"	e	enum:sqlbus_dm_type
+DEBUGGER_OFF	drivermanager/oracle/dbug.h	127;"	d
+DEBUGGER_OFF	drivermanager/oracle/dbug.h	149;"	d
 DEBUGGER_OFF	third/dbug/dbug.h	127;"	d
 DEBUGGER_OFF	third/dbug/dbug.h	149;"	d
+DEBUGGER_ON	drivermanager/oracle/dbug.h	128;"	d
+DEBUGGER_ON	drivermanager/oracle/dbug.h	150;"	d
 DEBUGGER_ON	third/dbug/dbug.h	128;"	d
 DEBUGGER_ON	third/dbug/dbug.h	150;"	d
 DEBUGGING	third/dbug/dbug.c	160;"	d	file:
@@ -151,78 +243,115 @@ EXISTS	third/dbug/dbug.c	358;"	d	file:
 EXISTS	third/dbug/dbug.c	361;"	d	file:
 EXPORT	third/dbug/dbug.c	181;"	d	file:
 F	drivermanager/oracle/ora.c	/^  \/* sb4    *\/ int        F; \/* Number of variables found by DESCRIBE       *\/$/;"	m	struct:SQLDA	file:	access:public
-F	drivermanager/oracle/ora.c	210;"	d	file:
+F	drivermanager/oracle/ora.c	216;"	d	file:
 FALSE	third/dbug/dbug.c	/^	FALSE = 0,$/;"	e	enum:__anon1	file:
 FILE_ON	third/dbug/dbug.c	149;"	d	file:
 FLUSH_ON_WRITE	third/dbug/dbug.c	157;"	d	file:
 FN_LIBCHAR	third/dbug/dbug.c	112;"	d	file:
 FN_REFLEN	third/dbug/dbug.c	113;"	d	file:
+FROM	third/cJSON/LICENSE	/^LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
+FROM	third/cJSON/README.md	/^>  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
 FreeList	third/dbug/dbug.c	/^FreeList(struct link *linkp)$/;"	f	file:	signature:(struct link *linkp)
 FreeList	third/dbug/dbug.c	/^static void FreeList(struct link *linkp);$/;"	p	file:	signature:(struct link *linkp)
-HDBC	driver_manager.h	/^typedef struct connection *HDBC;$/;"	t	typeref:struct:connection
+Guidelines	third/cJSON/.github/CONTRIBUTING.md	/^Contribution Guidelines$/;"	v
+H	drivermanager/oracle/server	/^ /;"	v
+H	drivermanager/oracle/server.o	/^ELF/;"	v
+H	main.o	/^ELF/;"	v
+HDBC	driver_manager.h	/^}connection, connection_t, *HDBC;$/;"	t	typeref:struct:connection
 HDBC	drivermanager/oracle/dbdriver.h	/^}connection, *HDBC;$/;"	t	typeref:struct:connection
 HDM	driver_loader.h	/^} driver_manager, *HDM;$/;"	t	typeref:struct:driver_manager
-HENV	driver_manager.h	/^typedef struct environment *HENV;$/;"	t	typeref:struct:environment
+HDMDBC	driver_manager.h	/^typedef void * HDMDBC;$/;"	t
+HDMENV	driver_manager.h	/^typedef void * HDMENV;$/;"	t
+HDMHANDLE	driver_manager.h	/^typedef void *HDMHANDLE;$/;"	t
+HDMSTMT	driver_manager.h	/^typedef void *HDMSTMT;$/;"	t
+HENV	driver_manager.h	/^}environment, environment_t, *HENV;$/;"	t	typeref:struct:environment
 HENV	drivermanager/oracle/dbdriver.h	/^}environment, *HENV;$/;"	t	typeref:struct:environment
-HSTMT	driver_manager.h	/^typedef struct statement *HSTMT;$/;"	t	typeref:struct:statement
-HSTMT	drivermanager/oracle/dbdriver.h	/^}statment, *HSTMT;$/;"	t	typeref:struct:statment
+HSQLBUS	sqlbus.h	/^} sqlbus_handle, sqlbus_handle_t, *HSQLBUS;$/;"	t	typeref:struct:sqlbus_handle
+HSTMT	driver_manager.h	/^}statement, statement_t, *HSTMT;$/;"	t	typeref:struct:statement
+HSTMT	drivermanager/oracle/dbdriver.h	/^}statement, *HSTMT;$/;"	t	typeref:struct:statement
 HZ	third/dbug/dbug.c	1898;"	d	file:
 Hanoi	third/dbug/doc/example.c	/^void  Hanoi(int n, char *pDishA, char *pDishB, char *pDishC)$/;"	f	signature:(int n, char *pDishA, char *pDishB, char *pDishC)
 Hanoi	third/dbug/doc/example.c	/^void  Hanoi(int n, char *pDishA, char *pDishB, char *pDishC);$/;"	p	file:	signature:(int n, char *pDishA, char *pDishB, char *pDishC)
 I	drivermanager/oracle/ora.c	/^  \/* sb2**  *\/ short    **I; \/* Ptr to Arr of addresses of indicator vars   *\/$/;"	m	struct:SQLDA	file:	access:public
-I	main.o	/^/;"	v
+I	main.o	/^:;/;"	v
 I	main.o	/^/;"	v
+I	main.o	/^ELF/;"	v
 IAPFAIL	drivermanager/oracle/ora.c	/^static const int IAPFAIL = 1403;$/;"	v	file:
 IAPFTL	drivermanager/oracle/ora.c	/^static const int IAPFTL  = 535;$/;"	v	file:
 IAPSUCC	drivermanager/oracle/ora.c	/^static const int IAPSUCC = 0;$/;"	v	file:
+IH	library/libdbug.so	/^¨IH€Á,Â@/;"	v
+IMPLIED	third/cJSON/LICENSE	/^IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,$/;"	v
+IMPLIED	third/cJSON/README.md	/^>  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,$/;"	v
 IMPORT	third/dbug/dbug.c	180;"	d	file:
 INDENT	third/dbug/dbug.c	138;"	d	file:
+INVALID	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
 InList	third/dbug/dbug.c	/^InList(struct link *linkp, const char *cp)$/;"	f	file:	signature:(struct link *linkp, const char *cp)
 InList	third/dbug/dbug.c	/^static BOOLEAN InList(struct link *linkp, const char *cp);$/;"	p	file:	signature:(struct link *linkp, const char *cp)
 Indent	third/dbug/dbug.c	/^static void Indent(int indent)$/;"	f	file:	signature:(int indent)
 Indent	third/dbug/dbug.c	/^static void Indent(int indent);$/;"	p	file:	signature:(int indent)
+JSON_OP_FALSE	sqlbus.h	42;"	d
+JSON_OP_TRUE	sqlbus.h	43;"	d
+KIND	third/cJSON/LICENSE	/^THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR$/;"	v
+KIND	third/cJSON/README.md	/^>  THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR$/;"	v
 L	drivermanager/oracle/ora.c	/^  \/* ub4*   *\/ int       *L; \/* Ptr to Arr of lengths of buffers            *\/$/;"	m	struct:SQLDA	file:	access:public
-L	drivermanager/oracle/ora.c	217;"	d	file:
+L	drivermanager/oracle/ora.c	223;"	d	file:
+LIABILITY	third/cJSON/LICENSE	/^LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
+LIABILITY	third/cJSON/README.md	/^>  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
 LINE_ON	third/dbug/dbug.c	150;"	d	file:
 LOG_DEBUG	log.h	/^	LOG_DEBUG   = 3,$/;"	e	enum:log_level
-LOG_DEBUG	log.h	53;"	d
+LOG_DEBUG	log.h	56;"	d
+LOG_DEBUG	tags	/^LOG_DEBUG	log.h	\/^	LOG_DEBUG   = 3,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
 LOG_ERR	log.h	/^	LOG_ERR     = 0,$/;"	e	enum:log_level
-LOG_ERROR	log.h	54;"	d
+LOG_ERROR	log.h	57;"	d
 LOG_INFO	log.h	/^	LOG_INFO    = 1,$/;"	e	enum:log_level
-LOG_INFO	log.h	51;"	d
-LOG_WARN	log.h	52;"	d
+LOG_INFO	log.h	54;"	d
+LOG_INFO	tags	/^LOG_INFO	log.h	\/^	LOG_INFO    = 1,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+LOG_WARN	log.h	55;"	d
 LOG_WARNING	log.h	/^	LOG_WARNING = 2,$/;"	e	enum:log_level
 ListParse	third/dbug/dbug.c	/^ListParse(char *ctlp)$/;"	f	file:	signature:(char *ctlp)
 ListParse	third/dbug/dbug.c	/^static struct link *ListParse(char *ctlp);$/;"	p	file:	signature:(char *ctlp)
 M	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *M; \/* Ptr to Arr of max lengths of var. names     *\/$/;"	m	struct:SQLDA	file:	access:public
 MAXDEPTH	third/dbug/dbug.c	139;"	d	file:
+MERCHANTABILITY	third/cJSON/LICENSE	/^IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,$/;"	v
+MERCHANTABILITY	third/cJSON/README.md	/^>  IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,$/;"	v
+MOVE	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
 N	drivermanager/oracle/ora.c	/^  \/* ub4    *\/ int        N; \/* Descriptor size in number of entries        *\/$/;"	m	struct:SQLDA	file:	access:public
 NUMBER_ON	third/dbug/dbug.c	153;"	d	file:
 NullS	third/dbug/dbug.c	114;"	d	file:
 O	third/dbug/doc/monty.doc	/^O,logfile   - As in "o,logfile", but do a close and reopen each time anything$/;"	v
-ORA_COLUMN_NAME_LEN	drivermanager/oracle/dbdriver.h	49;"	d
-ORA_INDICATE_NAME_LEN	drivermanager/oracle/dbdriver.h	50;"	d
-ORA_MAX_ROW_COUNT	drivermanager/oracle/dbdriver.h	52;"	d
-ORA_MAX_SQL_LEN	drivermanager/oracle/dbdriver.h	46;"	d
-ORA_SQL_FIELD_TYPE_CHAR	drivermanager/oracle/dbdriver.h	44;"	d
-ORA_SQL_FIELD_TYPE_DATE	drivermanager/oracle/dbdriver.h	41;"	d
-ORA_SQL_FIELD_TYPE_FLOAT	drivermanager/oracle/dbdriver.h	36;"	d
-ORA_SQL_FIELD_TYPE_INTEGER	drivermanager/oracle/dbdriver.h	35;"	d
-ORA_SQL_FIELD_TYPE_LONG	drivermanager/oracle/dbdriver.h	38;"	d
-ORA_SQL_FIELD_TYPE_LRAW	drivermanager/oracle/dbdriver.h	43;"	d
-ORA_SQL_FIELD_TYPE_NUMBER	drivermanager/oracle/dbdriver.h	34;"	d
-ORA_SQL_FIELD_TYPE_RAW	drivermanager/oracle/dbdriver.h	42;"	d
-ORA_SQL_FIELD_TYPE_ROWID	drivermanager/oracle/dbdriver.h	40;"	d
-ORA_SQL_FIELD_TYPE_STRING	drivermanager/oracle/dbdriver.h	37;"	d
-ORA_SQL_FIELD_TYPE_VCHAR	drivermanager/oracle/dbdriver.h	39;"	d
-ORA_SQL_FIELD_TYPE_VCHAR2	drivermanager/oracle/dbdriver.h	33;"	d
-ORA_SQL_MAX_ITEM_NUM	drivermanager/oracle/dbdriver.h	48;"	d
+ORA_COLUMN_NAME_LEN	drivermanager/oracle/dbdriver.h	44;"	d
+ORA_INDICATE_NAME_LEN	drivermanager/oracle/dbdriver.h	45;"	d
+ORA_MAX_ROW_COUNT	drivermanager/oracle/dbdriver.h	47;"	d
+ORA_MAX_SQL_LEN	drivermanager/oracle/dbdriver.h	41;"	d
+ORA_RESULT_NOT_FOUND	drivermanager/oracle/dbdriver.h	48;"	d
+ORA_SQL_EXEC_RESULT_CODE_FAILURE	drivermanager/oracle/dbdriver.h	50;"	d
+ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND	drivermanager/oracle/dbdriver.h	52;"	d
+ORA_SQL_EXEC_RESULT_CODE_SUCCESS	drivermanager/oracle/dbdriver.h	51;"	d
+ORA_SQL_FIELD_TYPE_CHAR	drivermanager/oracle/dbdriver.h	39;"	d
+ORA_SQL_FIELD_TYPE_DATE	drivermanager/oracle/dbdriver.h	36;"	d
+ORA_SQL_FIELD_TYPE_FLOAT	drivermanager/oracle/dbdriver.h	31;"	d
+ORA_SQL_FIELD_TYPE_INTEGER	drivermanager/oracle/dbdriver.h	30;"	d
+ORA_SQL_FIELD_TYPE_LONG	drivermanager/oracle/dbdriver.h	33;"	d
+ORA_SQL_FIELD_TYPE_LRAW	drivermanager/oracle/dbdriver.h	38;"	d
+ORA_SQL_FIELD_TYPE_NUMBER	drivermanager/oracle/dbdriver.h	29;"	d
+ORA_SQL_FIELD_TYPE_RAW	drivermanager/oracle/dbdriver.h	37;"	d
+ORA_SQL_FIELD_TYPE_ROWID	drivermanager/oracle/dbdriver.h	35;"	d
+ORA_SQL_FIELD_TYPE_STRING	drivermanager/oracle/dbdriver.h	32;"	d
+ORA_SQL_FIELD_TYPE_VCHAR	drivermanager/oracle/dbdriver.h	34;"	d
+ORA_SQL_FIELD_TYPE_VCHAR2	drivermanager/oracle/dbdriver.h	28;"	d
+ORA_SQL_HANDLE_DBC	drivermanager/oracle/dbdriver.h	70;"	d
+ORA_SQL_HANDLE_ENV	drivermanager/oracle/dbdriver.h	69;"	d
+ORA_SQL_HANDLE_STMT	drivermanager/oracle/dbdriver.h	71;"	d
+ORA_SQL_MAX_ITEM_NUM	drivermanager/oracle/dbdriver.h	43;"	d
+OTHERWISE	third/cJSON/LICENSE	/^LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
+OTHERWISE	third/cJSON/README.md	/^>  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,$/;"	v
 OpenProfile	third/dbug/dbug.c	/^OpenProfile(const char *name)$/;"	f	file:	signature:(const char *name)
 OpenProfile	third/dbug/dbug.c	/^static FILE *OpenProfile(const char *name);$/;"	p	file:	signature:(const char *name)
+P	library/libora.so	/^Í´„P†;ÿslåâëÓï¹ñØqX­\\d¦$½»ã’|ßÑÜª¤	Bã¦EBEÕìsxO§Ô!YXžÆ¦)5‰’üÕši¹-78úÖá†GÛÛ‚~yÑ_/;"	v
 PID_ON	third/dbug/dbug.c	155;"	d	file:
 PRINTBUF	third/dbug/dbug.c	137;"	d	file:
-PRI_L	db.h	67;"	d
-PRI_R	db.h	66;"	d
+PRI_L	sqlbus.h	74;"	d
+PRI_R	sqlbus.h	73;"	d
 PROCESS_ON	third/dbug/dbug.c	152;"	d	file:
 PROFILE_ON	third/dbug/dbug.c	154;"	d	file:
 PROFILING	third/dbug/dbug.c	161;"	d	file:
@@ -235,25 +364,46 @@ Proc_db_connect	drivermanager/oracle/ora.pc	/^static int Proc_db_connect(HDBC hd
 PushState	third/dbug/dbug.c	/^PushState()$/;"	f	file:	signature:()
 PushState	third/dbug/dbug.c	/^static void PushState(void);$/;"	p	file:	signature:(void)
 REGISTER	third/dbug/dbug.c	183;"	d	file:
+REMOVE	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
+REPLACE	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
 RETURN_FAILURE	drivermanager/oracle/dbdriver.h	55;"	d
 RETURN_FAILURE	util.h	19;"	d
 RETURN_INVALID	drivermanager/oracle/dbdriver.h	56;"	d
 RETURN_SUCCESS	drivermanager/oracle/dbdriver.h	54;"	d
 RETURN_SUCCESS	util.h	18;"	d
 S	drivermanager/oracle/ora.c	/^  \/* text** *\/ char     **S; \/* Ptr to Arr of variable name pointers        *\/$/;"	m	struct:SQLDA	file:	access:public
-S	drivermanager/oracle/ora.c	214;"	d	file:
+S	drivermanager/oracle/ora.c	220;"	d	file:
 SANITY_CHECK_ON	third/dbug/dbug.c	156;"	d	file:
-SQLAPR	drivermanager/oracle/ora.c	576;"	d	file:
-SQLBUS_CONNECT	driver_manager.h	73;"	d
-SQLBUS_CONNECT_INIT	driver_manager.h	62;"	d
-SQLBUS_DISCONNECT	driver_manager.h	81;"	d
-SQLBUS_STMT_FREE	driver_manager.h	87;"	d
-SQLBUS_STMT_INIT	driver_manager.h	84;"	d
-SQLCA	drivermanager/oracle/ora.c	312;"	d	file:
-SQLCDAFromResultSetCursor	drivermanager/oracle/ora.c	626;"	d	file:
-SQLCDAToResultSetCursor	drivermanager/oracle/ora.c	652;"	d	file:
+SQLAPR	drivermanager/oracle/ora.c	582;"	d	file:
+SQLBUS_ASYNC	sqlbus.h	51;"	d
+SQLBUS_CLIENT	sqlbus.h	54;"	d
+SQLBUS_CONNECT	driver_manager.h	100;"	d
+SQLBUS_CONNECT_INIT	driver_manager.h	89;"	d
+SQLBUS_DATA_NOT_FOUND	driver_manager.h	28;"	d
+SQLBUS_DISCONNECT	driver_manager.h	108;"	d
+SQLBUS_EXECUTE	driver_manager.h	134;"	d
+SQLBUS_FETCH_NEXT_ROW	driver_manager.h	152;"	d
+SQLBUS_GET_DBC_ERROR_MESSAGE	driver_manager.h	161;"	d
+SQLBUS_GET_FIELD_COUNT	driver_manager.h	137;"	d
+SQLBUS_GET_FIELD_LENGTH	driver_manager.h	146;"	d
+SQLBUS_GET_FIELD_NAME	driver_manager.h	143;"	d
+SQLBUS_GET_FIELD_VALUE	driver_manager.h	155;"	d
+SQLBUS_GET_FIELD_VALUE_IDX	driver_manager.h	158;"	d
+SQLBUS_GET_ROW_COUNT	driver_manager.h	140;"	d
+SQLBUS_GET_STMT_ERROR_MESSAGE	driver_manager.h	149;"	d
+SQLBUS_HANDLE_DBC	driver_manager.h	25;"	d
+SQLBUS_HANDLE_ENV	driver_manager.h	24;"	d
+SQLBUS_HANDLE_STMT	driver_manager.h	26;"	d
+SQLBUS_SERVER	sqlbus.h	55;"	d
+SQLBUS_STMT_FREE	driver_manager.h	125;"	d
+SQLBUS_STMT_INIT	driver_manager.h	117;"	d
+SQLBUS_SYNC	sqlbus.h	52;"	d
+SQLBUS_TIMEO	sqlbus.h	53;"	d
+SQLCA	drivermanager/oracle/ora.c	318;"	d	file:
+SQLCDAFromResultSetCursor	drivermanager/oracle/ora.c	632;"	d	file:
+SQLCDAToResultSetCursor	drivermanager/oracle/ora.c	658;"	d	file:
 SQLCODE	drivermanager/oracle/ora.c	134;"	d	file:
-SQLColumnNullCheck	drivermanager/oracle/ora.c	404;"	d	file:
+SQLColumnNullCheck	drivermanager/oracle/ora.c	410;"	d	file:
 SQLDA	drivermanager/oracle/ora.c	/^struct SQLDA {$/;"	s	file:
 SQLDA	drivermanager/oracle/ora.c	/^typedef struct SQLDA SQLDA;$/;"	t	typeref:struct:SQLDA	file:
 SQLDA::C	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *C; \/* Ptr to Arr of current lengths of var. names *\/$/;"	m	struct:SQLDA	file:	access:public
@@ -268,157 +418,325 @@ SQLDA::V	drivermanager/oracle/ora.c	/^  \/* text** *\/ char     **V; \/* Ptr to 
 SQLDA::X	drivermanager/oracle/ora.c	/^  \/* text** *\/ char     **X; \/* Ptr to Arr of ind. var. name pointers       *\/$/;"	m	struct:SQLDA	file:	access:public
 SQLDA::Y	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *Y; \/* Ptr to Arr of max lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
 SQLDA::Z	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *Z; \/* Ptr to Arr of cur lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
-SQLDAGetNamed	drivermanager/oracle/ora.c	607;"	d	file:
-SQLDA_	drivermanager/oracle/ora.c	204;"	d	file:
-SQLErrorGetText	drivermanager/oracle/ora.c	400;"	d	file:
+SQLDAGetNamed	drivermanager/oracle/ora.c	613;"	d	file:
+SQLDA_	drivermanager/oracle/ora.c	210;"	d	file:
+SQLErrorGetText	drivermanager/oracle/ora.c	406;"	d	file:
 SQLExtProcError	drivermanager/oracle/ora.c	/^extern void SQLExtProcError( void*, char*, size_t );$/;"	p	file:	signature:( void*, char*, size_t )
 SQLExtProcError	drivermanager/oracle/ora.c	/^extern void SQLExtProcError(\/*_ void*, char*, size_t _*\/);$/;"	p	file:	signature:( )
-SQLGetStride	drivermanager/oracle/ora.c	413;"	d	file:
-SQLLDAGetCurrent	drivermanager/oracle/ora.c	582;"	d	file:
-SQLNumberPrecV6	drivermanager/oracle/ora.c	407;"	d	file:
-SQLNumberPrecv7	drivermanager/oracle/ora.c	409;"	d	file:
-SQLPRO	drivermanager/oracle/ora.c	387;"	d	file:
+SQLGetStride	drivermanager/oracle/ora.c	419;"	d	file:
+SQLLDAGetCurrent	drivermanager/oracle/ora.c	588;"	d	file:
+SQLNumberPrecV6	drivermanager/oracle/ora.c	413;"	d	file:
+SQLNumberPrecv7	drivermanager/oracle/ora.c	415;"	d	file:
+SQLPRO	drivermanager/oracle/ora.c	393;"	d	file:
 SQLRowidGet	drivermanager/oracle/ora.c	/^extern void SQLRowidGet(\/*_ void*, OCIRowid **urid _*\/);$/;"	p	file:	signature:( )
-SQLSQLDAAlloc	drivermanager/oracle/ora.c	247;"	d	file:
-SQLSQLDAFree	drivermanager/oracle/ora.c	249;"	d	file:
-SQLStmtGetText	drivermanager/oracle/ora.c	402;"	d	file:
-SQLVarcharGetLength	drivermanager/oracle/ora.c	411;"	d	file:
+SQLSQLDAAlloc	drivermanager/oracle/ora.c	253;"	d	file:
+SQLSQLDAFree	drivermanager/oracle/ora.c	255;"	d	file:
+SQLStmtGetText	drivermanager/oracle/ora.c	408;"	d	file:
+SQLVarcharGetLength	drivermanager/oracle/ora.c	417;"	d	file:
 SQL_CONTEXT	drivermanager/oracle/ora.c	/^typedef void * SQL_CONTEXT;$/;"	t	file:
 SQL_CRSR	drivermanager/oracle/ora.c	4;"	d	file:
 SQL_CURSOR	drivermanager/oracle/ora.c	/^  typedef struct sql_cursor SQL_CURSOR;$/;"	t	typeref:struct:sql_cursor	file:
-SQL_ERROR	drivermanager/oracle/ora.c	394;"	d	file:
-SQL_FIELD_TYPE_DATE	drivermanager/oracle/dbdriver.h	21;"	d
-SQL_FIELD_TYPE_DOBULE	drivermanager/oracle/dbdriver.h	20;"	d
-SQL_FIELD_TYPE_INTEGER	drivermanager/oracle/dbdriver.h	19;"	d
-SQL_FIELD_TYPE_STRING	drivermanager/oracle/dbdriver.h	18;"	d
-SQL_MAX_ITEM_NUM	drivermanager/oracle/dbdriver.h	15;"	d
-SQL_MAX_SQL_LEN	drivermanager/oracle/dbdriver.h	16;"	d
-SQL_MSG_LEN	drivermanager/oracle/dbdriver.h	14;"	d
-SQL_SINGLE_RCTX	drivermanager/oracle/ora.c	397;"	d	file:
-SQL_SUCCESS	drivermanager/oracle/ora.c	393;"	d	file:
-SQL_TYPE_NONE_QUERY	drivermanager/oracle/dbdriver.h	24;"	d
-SQL_TYPE_QUERY	drivermanager/oracle/dbdriver.h	23;"	d
+SQL_ERROR	drivermanager/oracle/ora.c	400;"	d	file:
+SQL_FIELD_TYPE_DATE	drivermanager/oracle/dbdriver.h	23;"	d
+SQL_FIELD_TYPE_DOBULE	drivermanager/oracle/dbdriver.h	22;"	d
+SQL_FIELD_TYPE_INTEGER	drivermanager/oracle/dbdriver.h	21;"	d
+SQL_FIELD_TYPE_STRING	drivermanager/oracle/dbdriver.h	20;"	d
+SQL_MAX_ITEM_NUM	drivermanager/oracle/dbdriver.h	17;"	d
+SQL_MAX_SQL_LEN	drivermanager/oracle/dbdriver.h	18;"	d
+SQL_MSG_LEN	drivermanager/oracle/dbdriver.h	16;"	d
+SQL_SINGLE_RCTX	drivermanager/oracle/ora.c	403;"	d	file:
+SQL_SUCCESS	drivermanager/oracle/ora.c	399;"	d	file:
+SQL_TYPE_NONE_QUERY	drivermanager/oracle/dbdriver.h	26;"	d
+SQL_TYPE_QUERY	drivermanager/oracle/dbdriver.h	25;"	d
 STREQ	third/dbug/dbug.c	162;"	d	file:
+Software	third/cJSON/LICENSE	/^copies of the Software, and to permit persons to whom the Software is$/;"	v
+Software	third/cJSON/README.md	/^>  copies of the Software, and to permit persons to whom the Software is$/;"	v
 StrDup	third/dbug/dbug.c	/^StrDup(const char *str)$/;"	f	file:	signature:(const char *str)
 StrDup	third/dbug/dbug.c	/^static char *StrDup(const char *str);$/;"	p	file:	signature:(const char *str)
 T	drivermanager/oracle/ora.c	/^  \/* sb2*   *\/ short     *T; \/* Ptr to Arr of types of buffers              *\/$/;"	m	struct:SQLDA	file:	access:public
-T	drivermanager/oracle/ora.c	207;"	d	file:
-T	main.o	/^ELF/;"	v
+T	drivermanager/oracle/ora.c	213;"	d	file:
+TEST	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	e	enum:patch_operation	file:
 THR_my_pthread_mutex_lock_dbug	third/dbug/dbug.c	/^pthread_mutex_t THR_my_pthread_mutex_lock_dbug;$/;"	v
 TRACE_ON	third/dbug/dbug.c	147;"	d	file:
 TRACING	third/dbug/dbug.c	159;"	d	file:
 TRUE	third/dbug/dbug.c	/^	TRUE = (!FALSE)$/;"	e	enum:__anon1	file:
 V	drivermanager/oracle/ora.c	/^  \/* text** *\/ char     **V; \/* Ptr to Arr of addresses of main variables   *\/$/;"	m	struct:SQLDA	file:	access:public
-VARCHAR	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	t	typeref:struct:__anon2	file:
+VARCHAR	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	t	typeref:struct:__anon5	file:
 WRITABLE	third/dbug/dbug.c	362;"	d	file:
 Writable	third/dbug/dbug.c	/^Writable(char *pathname)$/;"	f	file:	signature:(char *pathname)
 Writable	third/dbug/dbug.c	/^static BOOLEAN Writable(char *pathname);$/;"	p	file:	signature:(char *pathname)
 Writable	third/dbug/dbug.c	359;"	d	file:
 X	drivermanager/oracle/ora.c	/^  \/* text** *\/ char     **X; \/* Ptr to Arr of ind. var. name pointers       *\/$/;"	m	struct:SQLDA	file:	access:public
 Y	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *Y; \/* Ptr to Arr of max lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
-Y	drivermanager/oracle/ora.c	221;"	d	file:
+Y	drivermanager/oracle/ora.c	227;"	d	file:
 Z	drivermanager/oracle/ora.c	/^  \/* ub2*   *\/ short     *Z; \/* Ptr to Arr of cur lengths of ind. var. names*\/$/;"	m	struct:SQLDA	file:	access:public
+_CRT_SECURE_NO_DEPRECATE	third/cJSON/cJSON.c	28;"	d	file:
+_CRT_SECURE_NO_DEPRECATE	third/cJSON/cJSON_Utils.c	25;"	d	file:
 _DBUG_START_CONDITION_	third/dbug/dbug.c	122;"	d	file:
 _DBUG_START_CONDITION_	third/dbug/dbug.c	124;"	d	file:
-_GNU_SOURCE	drivermanager/oracle/ora.c	146;"	d	file:
-_GNU_SOURCE	drivermanager/oracle/ora.pc	2;"	d	file:
 _VARARGS	third/dbug/dbug.c	111;"	d	file:
 __CONFIG_LOADER_H__	config_loader.h	12;"	d
 __DBDRIVER_H__	drivermanager/oracle/dbdriver.h	12;"	d
-__DBHandle	db.h	/^typedef struct __DBHandle {$/;"	s
-__DBHandle::app	db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::crc16	db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::errstr	db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
-__DBHandle::idx	db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::json_string	db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::more	db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::oper_timeout	db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::ora	db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::priority	db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::recv_channel	db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::redis	db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::root	db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::rset	db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::send_channel	db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::sync	db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
-__DBHandle::timestamp	db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
-__DB_H__	db.h	12;"	d
 __DRIVER_LOADER_H__	driver_loader.h	12;"	d
 __DRIVER_MANAGER_H__	driver_manager.h	12;"	d
 __LOG_H__	log.h	12;"	d
+__PAGE_SIZE	drivermanager/oracle/util.h	17;"	d
+__SQLBUS_H__	sqlbus.h	12;"	d
 __USE_BSD	util.c	11;"	d	file:
 __USE_MISC	util.c	12;"	d	file:
 __UTIL_H__	drivermanager/oracle/util.h	12;"	d
 __UTIL_H__	util.h	12;"	d
-__anon2::arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon2	file:	access:public
-__anon2::len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon2	file:	access:public
-__anon3::arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon3	file:	access:public
-__anon3::len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon3	file:	access:public
+__WINDOWS__	third/cJSON/cJSON.h	84;"	d
+__anon2::json	third/cJSON/cJSON.c	/^    const unsigned char *json;$/;"	m	struct:__anon2	file:	access:public
+__anon2::position	third/cJSON/cJSON.c	/^    size_t position;$/;"	m	struct:__anon2	file:	access:public
+__anon3::content	third/cJSON/cJSON.c	/^    const unsigned char *content;$/;"	m	struct:__anon3	file:	access:public
+__anon3::depth	third/cJSON/cJSON.c	/^    size_t depth; \/* How deeply nested (in arrays\/objects) is the input at the current offset. *\/$/;"	m	struct:__anon3	file:	access:public
+__anon3::hooks	third/cJSON/cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon3	file:	access:public
+__anon3::length	third/cJSON/cJSON.c	/^    size_t length;$/;"	m	struct:__anon3	file:	access:public
+__anon3::offset	third/cJSON/cJSON.c	/^    size_t offset;$/;"	m	struct:__anon3	file:	access:public
+__anon4::buffer	third/cJSON/cJSON.c	/^    unsigned char *buffer;$/;"	m	struct:__anon4	file:	access:public
+__anon4::depth	third/cJSON/cJSON.c	/^    size_t depth; \/* current nesting depth (for formatted printing) *\/$/;"	m	struct:__anon4	file:	access:public
+__anon4::format	third/cJSON/cJSON.c	/^    cJSON_bool format; \/* is this print a formatted print *\/$/;"	m	struct:__anon4	file:	access:public
+__anon4::hooks	third/cJSON/cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon4	file:	access:public
+__anon4::length	third/cJSON/cJSON.c	/^    size_t length;$/;"	m	struct:__anon4	file:	access:public
+__anon4::noalloc	third/cJSON/cJSON.c	/^    cJSON_bool noalloc;$/;"	m	struct:__anon4	file:	access:public
+__anon4::offset	third/cJSON/cJSON.c	/^    size_t offset;$/;"	m	struct:__anon4	file:	access:public
+__anon5::arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon5	file:	access:public
+__anon5::len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon5	file:	access:public
+__anon6::arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon6	file:	access:public
+__anon6::len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon6	file:	access:public
+_db_doprnt_	drivermanager/oracle/dbug.h	/^    extern void _db_doprnt_(const char *format, ...);$/;"	p	signature:(const char *format, ...)
 _db_doprnt_	third/dbug/dbug.c	/^_db_doprnt_(const char *format, ...)$/;"	f	signature:(const char *format, ...)
 _db_doprnt_	third/dbug/dbug.c	/^void _db_doprnt_(const char *format, ...);$/;"	p	file:	signature:(const char *format, ...)
 _db_doprnt_	third/dbug/dbug.h	/^    extern void _db_doprnt_(const char *format, ...);$/;"	p	signature:(const char *format, ...)
+_db_dump_	drivermanager/oracle/dbug.h	/^    extern void _db_dump_(uint _line_, const char *keyword,$/;"	p	signature:(uint _line_, const char *keyword, const char *memory, uint length)
 _db_dump_	third/dbug/dbug.c	/^_db_dump_(uint _line_, const char *keyword, const char *memory, uint length)$/;"	f	signature:(uint _line_, const char *keyword, const char *memory, uint length)
 _db_dump_	third/dbug/dbug.c	/^void _db_dump_(uint _line_, const char *keyword, const char *memory, uint length);$/;"	p	file:	signature:(uint _line_, const char *keyword, const char *memory, uint length)
 _db_dump_	third/dbug/dbug.h	/^    extern void _db_dump_(uint _line_, const char *keyword,$/;"	p	signature:(uint _line_, const char *keyword, const char *memory, uint length)
+_db_enter_	drivermanager/oracle/dbug.h	/^    extern void _db_enter_(const char *_func_, const char *_file_,$/;"	p	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***)
 _db_enter_	third/dbug/dbug.c	/^_db_enter_(const char *_func_,$/;"	f	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***_sframep_ __attribute__ ((unused)))
 _db_enter_	third/dbug/dbug.c	/^void _db_enter_(const char *_func_, const char *_file_, uint _line_,$/;"	p	file:	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***)
 _db_enter_	third/dbug/dbug.h	/^    extern void _db_enter_(const char *_func_, const char *_file_,$/;"	p	signature:(const char *_func_, const char *_file_, uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_, char ***)
 _db_fp_	third/dbug/dbug.c	/^FILE *_db_fp_ = (FILE *) 0;				   \/* Output stream, default stderr *\/$/;"	v
+_db_keyword_	drivermanager/oracle/dbug.h	/^    extern int _db_keyword_(const char *keyword);$/;"	p	signature:(const char *keyword)
 _db_keyword_	third/dbug/dbug.c	/^_db_keyword_(const char *keyword)$/;"	f	signature:(const char *keyword)
 _db_keyword_	third/dbug/dbug.c	/^int _db_keyword_(const char *keyword);$/;"	p	file:	signature:(const char *keyword)
 _db_keyword_	third/dbug/dbug.h	/^    extern int _db_keyword_(const char *keyword);$/;"	p	signature:(const char *keyword)
+_db_lock_file	drivermanager/oracle/dbug.h	/^    extern void _db_lock_file(void);$/;"	p	signature:(void)
 _db_lock_file	third/dbug/dbug.c	/^_db_lock_file()$/;"	f	signature:()
 _db_lock_file	third/dbug/dbug.c	/^void _db_lock_file(void);$/;"	p	file:	signature:(void)
 _db_lock_file	third/dbug/dbug.h	/^    extern void _db_lock_file(void);$/;"	p	signature:(void)
+_db_longjmp_	drivermanager/oracle/dbug.h	/^    extern void _db_longjmp_(void);$/;"	p	signature:(void)
 _db_longjmp_	third/dbug/dbug.c	/^_db_longjmp_()$/;"	f	signature:()
 _db_longjmp_	third/dbug/dbug.c	/^void _db_longjmp_(void);$/;"	p	file:	signature:(void)
 _db_longjmp_	third/dbug/dbug.h	/^    extern void _db_longjmp_(void);$/;"	p	signature:(void)
 _db_on_	third/dbug/dbug.c	/^BOOLEAN _db_on_ = FALSE;				   \/* TRUE if debugging currently on *\/$/;"	v
+_db_pargs_	drivermanager/oracle/dbug.h	/^    extern void _db_pargs_(uint _line_, const char *keyword);$/;"	p	signature:(uint _line_, const char *keyword)
 _db_pargs_	third/dbug/dbug.c	/^_db_pargs_(uint _line_, const char *keyword)$/;"	f	signature:(uint _line_, const char *keyword)
 _db_pargs_	third/dbug/dbug.c	/^void _db_pargs_(uint _line_, const char *keyword);$/;"	p	file:	signature:(uint _line_, const char *keyword)
 _db_pargs_	third/dbug/dbug.h	/^    extern void _db_pargs_(uint _line_, const char *keyword);$/;"	p	signature:(uint _line_, const char *keyword)
 _db_pfp_	third/dbug/dbug.c	/^FILE *_db_pfp_ = (FILE *) 0;				   \/* Profile stream, 'dbugmon.out' *\/$/;"	v
 _db_pon_	third/dbug/dbug.c	/^BOOLEAN _db_pon_ = FALSE;				   \/* TRUE if profile currently on *\/$/;"	v
+_db_pop_	drivermanager/oracle/dbug.h	/^    extern void _db_pop_(void);$/;"	p	signature:(void)
 _db_pop_	third/dbug/dbug.c	/^_db_pop_()$/;"	f	signature:()
 _db_pop_	third/dbug/dbug.c	/^void _db_pop_(void);$/;"	p	file:	signature:(void)
 _db_pop_	third/dbug/dbug.h	/^    extern void _db_pop_(void);$/;"	p	signature:(void)
 _db_process_	third/dbug/dbug.c	/^char *_db_process_ = (char *) "dbug";			   \/* Pointer to process name; argv[0] *\/$/;"	v
+_db_push_	drivermanager/oracle/dbug.h	/^    extern void _db_push_(const char *control);$/;"	p	signature:(const char *control)
 _db_push_	third/dbug/dbug.c	/^_db_push_(const char *control)$/;"	f	signature:(const char *control)
 _db_push_	third/dbug/dbug.c	/^void _db_push_(const char *control);$/;"	p	file:	signature:(const char *control)
 _db_push_	third/dbug/dbug.h	/^    extern void _db_push_(const char *control);$/;"	p	signature:(const char *control)
+_db_return_	drivermanager/oracle/dbug.h	/^    extern void _db_return_(uint _line_, const char **_sfunc_,$/;"	p	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
 _db_return_	third/dbug/dbug.c	/^_db_return_(uint _line_,$/;"	f	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
 _db_return_	third/dbug/dbug.c	/^void _db_return_(uint _line_, const char **_sfunc_,$/;"	p	file:	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
 _db_return_	third/dbug/dbug.h	/^    extern void _db_return_(uint _line_, const char **_sfunc_,$/;"	p	signature:(uint _line_, const char **_sfunc_, const char **_sfile_, uint * _slevel_)
+_db_setjmp_	drivermanager/oracle/dbug.h	/^    extern void _db_setjmp_(void);$/;"	p	signature:(void)
 _db_setjmp_	third/dbug/dbug.c	/^_db_setjmp_()$/;"	f	signature:()
 _db_setjmp_	third/dbug/dbug.c	/^void _db_setjmp_(void);$/;"	p	file:	signature:(void)
 _db_setjmp_	third/dbug/dbug.h	/^    extern void _db_setjmp_(void);$/;"	p	signature:(void)
+_db_unlock_file	drivermanager/oracle/dbug.h	/^    extern void _db_unlock_file(void);$/;"	p	signature:(void)
 _db_unlock_file	third/dbug/dbug.c	/^_db_unlock_file()$/;"	f	signature:()
 _db_unlock_file	third/dbug/dbug.c	/^void _db_unlock_file(void);$/;"	p	file:	signature:(void)
 _db_unlock_file	third/dbug/dbug.h	/^    extern void _db_unlock_file(void);$/;"	p	signature:(void)
+_dbug_h	drivermanager/oracle/dbug.h	76;"	d
 _dbug_h	third/dbug/dbug.h	76;"	d
 _dig_vec	third/dbug/dbug.c	/^char _dig_vec[] = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ";$/;"	v
 _no_db_	third/dbug/dbug.c	/^BOOLEAN _no_db_ = FALSE;				   \/* TRUE if no debugging at all *\/$/;"	v
 _sanity	third/dbug/dbug.c	/^IMPORT int _sanity(const char *file, uint line);$/;"	p	file:	signature:(const char *file, uint line)
+add_item_to_array	third/cJSON/cJSON.c	/^static cJSON_bool add_item_to_array(cJSON *array, cJSON *item)$/;"	f	file:	signature:(cJSON *array, cJSON *item)
+add_item_to_object	third/cJSON/cJSON.c	/^static cJSON_bool add_item_to_object(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)$/;"	f	file:	signature:(cJSON * const object, const char * const string, cJSON * const item, const internal_hooks * const hooks, const cJSON_bool constant_key)
+address	third/cJSON/test.c	/^    const char *address;$/;"	m	struct:record	file:	access:public
 adtmode	drivermanager/oracle/ora.c	/^  unsigned short adtmode; $/;"	m	struct:sqladts	file:	access:public
 adtnum	drivermanager/oracle/ora.c	/^  unsigned short adtnum;  $/;"	m	struct:sqladts	file:	access:public
 adttvn	drivermanager/oracle/ora.c	/^  sqltvn adttvn[1];       $/;"	m	struct:sqladts	file:	access:public
 adtvsn	drivermanager/oracle/ora.c	/^  unsigned int adtvsn; $/;"	m	struct:sqladts	file:	access:public
+aligned	drivermanager/oracle/util.h	20;"	d
 allocDescriptors	drivermanager/oracle/ora.c	/^static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)$/;"	f	file:	signature:(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
 allocDescriptors	drivermanager/oracle/ora.pc	/^static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)$/;"	f	file:	signature:(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
+allocEnoughSpaceForField	drivermanager/oracle/ora.c	/^static int allocEnoughSpaceForField(HSTMT hstmt)$/;"	f	file:	signature:(HSTMT hstmt)
+allocEnoughSpaceForField	drivermanager/oracle/ora.pc	/^static int allocEnoughSpaceForField(HSTMT hstmt)$/;"	f	file:	signature:(HSTMT hstmt)
+allocFixedSpaceForResultSet	drivermanager/oracle/ora.c	/^static int allocFixedSpaceForResultSet(HSTMT hstmt)$/;"	f	file:	signature:(HSTMT hstmt)
+allocFixedSpaceForResultSet	drivermanager/oracle/ora.pc	/^static int allocFixedSpaceForResultSet(HSTMT hstmt)$/;"	f	file:	signature:(HSTMT hstmt)
+allocate	third/cJSON/cJSON.c	/^    void *(*allocate)(size_t size);$/;"	m	struct:internal_hooks	file:	access:public
 ap	third/dbug/dbug.c	/^	va_list ap;$/;"	v
-app	db.h	/^	char *app;$/;"	m	struct:__DBHandle	access:public
+app	sqlbus.h	/^	char *app;$/;"	m	struct:sqlbus_handle	access:public
 append_pair_to_section	config_loader.c	/^static int append_pair_to_section(conf_section_t *section, conf_pair_t *pair)$/;"	f	file:	signature:(conf_section_t *section, conf_pair_t *pair)
 append_section_to_config	config_loader.c	/^static int append_section_to_config(config_t *conf, conf_section_t *section)$/;"	f	file:	signature:(config_t *conf, conf_section_t *section)
-arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon2	file:	access:public
-arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon3	file:	access:public
+apply_patch	third/cJSON/cJSON_Utils.c	/^static int apply_patch(cJSON *object, const cJSON *patch, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON *object, const cJSON *patch, const cJSON_bool case_sensitive)
+arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon5	file:	access:public
+arr	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon6	file:	access:public
+array	third/cJSON/cJSON.h	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array);$/;"	v
 arrsiz	drivermanager/oracle/ora.c	/^   unsigned int   arrsiz;$/;"	m	struct:sqlexd	file:	access:public
 begin	third/dbug/dbug.c	/^static struct DateStamp begin;$/;"	v	typeref:struct:DateStamp	file:
 bind_dp	drivermanager/oracle/ora.c	/^static SQLDA *bind_dp;$/;"	v	file:
 bind_dp	drivermanager/oracle/ora.pc	/^static SQLDA *bind_dp;$/;"	v	file:
 bool_t	third/dbug/dbug.c	/^bool_t;$/;"	t	typeref:enum:__anon1	file:
+boolean	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool boolean);$/;"	v
+buffer	third/cJSON/cJSON.c	/^    unsigned char *buffer;$/;"	m	struct:__anon4	file:	access:public
+buffer_at_offset	third/cJSON/cJSON.c	264;"	d	file:
+buffer_skip_whitespace	third/cJSON/cJSON.c	/^static parse_buffer *buffer_skip_whitespace(parse_buffer * const buffer)$/;"	f	file:	signature:(parse_buffer * const buffer)
+c	third/cJSON/cJSON.h	/^CJSON_PUBLIC(void) cJSON_Delete(cJSON *c);$/;"	v
+cJSON	third/cJSON/cJSON.h	/^typedef struct cJSON$/;"	s
+cJSON	third/cJSON/cJSON.h	/^} cJSON;$/;"	t	typeref:struct:cJSON
+cJSON::child	third/cJSON/cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON	access:public
+cJSON::next	third/cJSON/cJSON.h	/^    struct cJSON *next;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON	access:public
+cJSON::prev	third/cJSON/cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON	access:public
+cJSON::string	third/cJSON/cJSON.h	/^    char *string;$/;"	m	struct:cJSON	access:public
+cJSON::type	third/cJSON/cJSON.h	/^    int type;$/;"	m	struct:cJSON	access:public
+cJSON::valuedouble	third/cJSON/cJSON.h	/^    double valuedouble;$/;"	m	struct:cJSON	access:public
+cJSON::valueint	third/cJSON/cJSON.h	/^    int valueint;$/;"	m	struct:cJSON	access:public
+cJSON::valuestring	third/cJSON/cJSON.h	/^    char *valuestring;$/;"	m	struct:cJSON	access:public
+cJSONUtils_AddPatchToArray	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(void) cJSONUtils_AddPatchToArray(cJSON * const array, const char * const operation, const char * const path, const cJSON * const value)$/;"	f	signature:(cJSON * const array, const char * const operation, const char * const path, const cJSON * const value)
+cJSONUtils_ApplyPatches	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(int) cJSONUtils_ApplyPatches(cJSON * const object, const cJSON * const patches)$/;"	f	signature:(cJSON * const object, const cJSON * const patches)
+cJSONUtils_ApplyPatchesCaseSensitive	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(int) cJSONUtils_ApplyPatchesCaseSensitive(cJSON * const object, const cJSON * const patches)$/;"	f	signature:(cJSON * const object, const cJSON * const patches)
+cJSONUtils_FindPointerFromObjectTo	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(char *) cJSONUtils_FindPointerFromObjectTo(const cJSON * const object, const cJSON * const target)$/;"	f	signature:(const cJSON * const object, const cJSON * const target)
+cJSONUtils_GenerateMergePatch	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_GenerateMergePatch(cJSON * const from, cJSON * const to)$/;"	f	signature:(cJSON * const from, cJSON * const to)
+cJSONUtils_GenerateMergePatchCaseSensitive	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_GenerateMergePatchCaseSensitive(cJSON * const from, cJSON * const to)$/;"	f	signature:(cJSON * const from, cJSON * const to)
+cJSONUtils_GeneratePatches	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_GeneratePatches(cJSON * const from, cJSON * const to)$/;"	f	signature:(cJSON * const from, cJSON * const to)
+cJSONUtils_GeneratePatchesCaseSensitive	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_GeneratePatchesCaseSensitive(cJSON * const from, cJSON * const to)$/;"	f	signature:(cJSON * const from, cJSON * const to)
+cJSONUtils_GetPointer	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_GetPointer(cJSON * const object, const char *pointer)$/;"	f	signature:(cJSON * const object, const char *pointer)
+cJSONUtils_GetPointerCaseSensitive	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_GetPointerCaseSensitive(cJSON * const object, const char *pointer)$/;"	f	signature:(cJSON * const object, const char *pointer)
+cJSONUtils_MergePatch	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_MergePatch(cJSON *target, const cJSON * const patch)$/;"	f	signature:(cJSON *target, const cJSON * const patch)
+cJSONUtils_MergePatchCaseSensitive	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(cJSON *) cJSONUtils_MergePatchCaseSensitive(cJSON *target, const cJSON * const patch)$/;"	f	signature:(cJSON *target, const cJSON * const patch)
+cJSONUtils_SortObject	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(void) cJSONUtils_SortObject(cJSON * const object)$/;"	f	signature:(cJSON * const object)
+cJSONUtils_SortObjectCaseSensitive	third/cJSON/cJSON_Utils.c	/^CJSON_PUBLIC(void) cJSONUtils_SortObjectCaseSensitive(cJSON * const object)$/;"	f	signature:(cJSON * const object)
+cJSONUtils_strdup	third/cJSON/cJSON_Utils.c	/^static unsigned char* cJSONUtils_strdup(const unsigned char* const string)$/;"	f	file:	signature:(const unsigned char* const string)
+cJSON_AddArrayToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddArrayToObject(cJSON * const object, const char * const name)$/;"	f	signature:(cJSON * const object, const char * const name)
+cJSON_AddBoolToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddBoolToObject(cJSON * const object, const char * const name, const cJSON_bool boolean)$/;"	f	signature:(cJSON * const object, const char * const name, const cJSON_bool boolean)
+cJSON_AddFalseToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddFalseToObject(cJSON * const object, const char * const name)$/;"	f	signature:(cJSON * const object, const char * const name)
+cJSON_AddItemReferenceToArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemReferenceToArray(cJSON *array, cJSON *item)$/;"	f	signature:(cJSON *array, cJSON *item)
+cJSON_AddItemReferenceToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemReferenceToObject(cJSON *object, const char *string, cJSON *item)$/;"	f	signature:(cJSON *object, const char *string, cJSON *item)
+cJSON_AddItemToArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemToArray(cJSON *array, cJSON *item)$/;"	f	signature:(cJSON *array, cJSON *item)
+cJSON_AddItemToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemToObject(cJSON *object, const char *string, cJSON *item)$/;"	f	signature:(cJSON *object, const char *string, cJSON *item)
+cJSON_AddItemToObjectCS	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_AddItemToObjectCS(cJSON *object, const char *string, cJSON *item)$/;"	f	signature:(cJSON *object, const char *string, cJSON *item)
+cJSON_AddNullToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddNullToObject(cJSON * const object, const char * const name)$/;"	f	signature:(cJSON * const object, const char * const name)
+cJSON_AddNumberToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddNumberToObject(cJSON * const object, const char * const name, const double number)$/;"	f	signature:(cJSON * const object, const char * const name, const double number)
+cJSON_AddObjectToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddObjectToObject(cJSON * const object, const char * const name)$/;"	f	signature:(cJSON * const object, const char * const name)
+cJSON_AddRawToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddRawToObject(cJSON * const object, const char * const name, const char * const raw)$/;"	f	signature:(cJSON * const object, const char * const name, const char * const raw)
+cJSON_AddStringToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddStringToObject(cJSON * const object, const char * const name, const char * const string)$/;"	f	signature:(cJSON * const object, const char * const name, const char * const string)
+cJSON_AddTrueToObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON*) cJSON_AddTrueToObject(cJSON * const object, const char * const name)$/;"	f	signature:(cJSON * const object, const char * const name)
+cJSON_Array	third/cJSON/cJSON.h	45;"	d
+cJSON_ArrayForEach	third/cJSON/cJSON.h	267;"	d
+cJSON_Compare	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_Compare(const cJSON * const a, const cJSON * const b, const cJSON_bool case_sensitive)$/;"	f	signature:(const cJSON * const a, const cJSON * const b, const cJSON_bool case_sensitive)
+cJSON_CreateArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArray(void)$/;"	f	signature:(void)
+cJSON_CreateArrayReference	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child) {$/;"	f	signature:(const cJSON *child)
+cJSON_CreateBool	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateBool(cJSON_bool b)$/;"	f	signature:(cJSON_bool b)
+cJSON_CreateDoubleArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateDoubleArray(const double *numbers, int count)$/;"	f	signature:(const double *numbers, int count)
+cJSON_CreateFalse	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFalse(void)$/;"	f	signature:(void)
+cJSON_CreateFloatArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateFloatArray(const float *numbers, int count)$/;"	f	signature:(const float *numbers, int count)
+cJSON_CreateIntArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateIntArray(const int *numbers, int count)$/;"	f	signature:(const int *numbers, int count)
+cJSON_CreateNull	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNull(void)$/;"	f	signature:(void)
+cJSON_CreateNumber	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateNumber(double num)$/;"	f	signature:(double num)
+cJSON_CreateObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObject(void)$/;"	f	signature:(void)
+cJSON_CreateObjectReference	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child)$/;"	f	signature:(const cJSON *child)
+cJSON_CreateRaw	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateRaw(const char *raw)$/;"	f	signature:(const char *raw)
+cJSON_CreateString	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateString(const char *string)$/;"	f	signature:(const char *string)
+cJSON_CreateStringArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringArray(const char **strings, int count)$/;"	f	signature:(const char **strings, int count)
+cJSON_CreateStringReference	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateStringReference(const char *string)$/;"	f	signature:(const char *string)
+cJSON_CreateTrue	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_CreateTrue(void)$/;"	f	signature:(void)
+cJSON_Delete	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_Delete(cJSON *item)$/;"	f	signature:(cJSON *item)
+cJSON_DeleteItemFromArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromArray(cJSON *array, int which)$/;"	f	signature:(cJSON *array, int which)
+cJSON_DeleteItemFromObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObject(cJSON *object, const char *string)$/;"	f	signature:(cJSON *object, const char *string)
+cJSON_DeleteItemFromObjectCaseSensitive	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_DeleteItemFromObjectCaseSensitive(cJSON *object, const char *string)$/;"	f	signature:(cJSON *object, const char *string)
+cJSON_DetachItemFromArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromArray(cJSON *array, int which)$/;"	f	signature:(cJSON *array, int which)
+cJSON_DetachItemFromObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObject(cJSON *object, const char *string)$/;"	f	signature:(cJSON *object, const char *string)
+cJSON_DetachItemFromObjectCaseSensitive	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemFromObjectCaseSensitive(cJSON *object, const char *string)$/;"	f	signature:(cJSON *object, const char *string)
+cJSON_DetachItemViaPointer	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_DetachItemViaPointer(cJSON *parent, cJSON * const item)$/;"	f	signature:(cJSON *parent, cJSON * const item)
+cJSON_Duplicate	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_Duplicate(const cJSON *item, cJSON_bool recurse)$/;"	f	signature:(const cJSON *item, cJSON_bool recurse)
+cJSON_False	third/cJSON/cJSON.h	40;"	d
+cJSON_GetArrayItem	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetArrayItem(const cJSON *array, int index)$/;"	f	signature:(const cJSON *array, int index)
+cJSON_GetArraySize	third/cJSON/cJSON.c	/^CJSON_PUBLIC(int) cJSON_GetArraySize(const cJSON *array)$/;"	f	signature:(const cJSON *array)
+cJSON_GetErrorPtr	third/cJSON/cJSON.c	/^CJSON_PUBLIC(const char *) cJSON_GetErrorPtr(void)$/;"	f	signature:(void)
+cJSON_GetObjectItem	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItem(const cJSON * const object, const char * const string)$/;"	f	signature:(const cJSON * const object, const char * const string)
+cJSON_GetObjectItemCaseSensitive	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_GetObjectItemCaseSensitive(const cJSON * const object, const char * const string)$/;"	f	signature:(const cJSON * const object, const char * const string)
+cJSON_GetStringValue	third/cJSON/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_GetStringValue(cJSON *item) {$/;"	f	signature:(cJSON *item)
+cJSON_HasObjectItem	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_HasObjectItem(const cJSON *object, const char *string)$/;"	f	signature:(const cJSON *object, const char *string)
+cJSON_Hooks	third/cJSON/cJSON.h	/^typedef struct cJSON_Hooks$/;"	s
+cJSON_Hooks	third/cJSON/cJSON.h	/^} cJSON_Hooks;$/;"	t	typeref:struct:cJSON_Hooks
+cJSON_Hooks::free_fn	third/cJSON/cJSON.h	/^      void (*free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks	access:public
+cJSON_Hooks::malloc_fn	third/cJSON/cJSON.h	/^      void *(*malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks	access:public
+cJSON_InitHooks	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks)$/;"	f	signature:(cJSON_Hooks* hooks)
+cJSON_InsertItemInArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_InsertItemInArray(cJSON *array, int which, cJSON *newitem)$/;"	f	signature:(cJSON *array, int which, cJSON *newitem)
+cJSON_Invalid	third/cJSON/cJSON.h	39;"	d
+cJSON_IsArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsBool	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsFalse	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsInvalid	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsNull	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsNumber	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsObject(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsRaw	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsRaw(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsReference	third/cJSON/cJSON.h	49;"	d
+cJSON_IsString	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsString(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_IsTrue	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item)$/;"	f	signature:(const cJSON * const item)
+cJSON_Minify	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_Minify(char *json)$/;"	f	signature:(char *json)
+cJSON_NULL	third/cJSON/cJSON.h	42;"	d
+cJSON_New_Item	third/cJSON/cJSON.c	/^static cJSON *cJSON_New_Item(const internal_hooks * const hooks)$/;"	f	file:	signature:(const internal_hooks * const hooks)
+cJSON_Number	third/cJSON/cJSON.h	43;"	d
+cJSON_Object	third/cJSON/cJSON.h	46;"	d
+cJSON_Parse	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_Parse(const char *value)$/;"	f	signature:(const char *value)
+cJSON_ParseWithOpts	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON *) cJSON_ParseWithOpts(const char *value, const char **return_parse_end, cJSON_bool require_null_terminated)$/;"	f	signature:(const char *value, const char **return_parse_end, cJSON_bool require_null_terminated)
+cJSON_Print	third/cJSON/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_Print(const cJSON *item)$/;"	f	signature:(const cJSON *item)
+cJSON_PrintBuffered	third/cJSON/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_PrintBuffered(const cJSON *item, int prebuffer, cJSON_bool fmt)$/;"	f	signature:(const cJSON *item, int prebuffer, cJSON_bool fmt)
+cJSON_PrintPreallocated	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_PrintPreallocated(cJSON *item, char *buf, const int len, const cJSON_bool fmt)$/;"	f	signature:(cJSON *item, char *buf, const int len, const cJSON_bool fmt)
+cJSON_PrintUnformatted	third/cJSON/cJSON.c	/^CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item)$/;"	f	signature:(const cJSON *item)
+cJSON_Raw	third/cJSON/cJSON.h	47;"	d
+cJSON_ReplaceItemInArray	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_ReplaceItemInArray(cJSON *array, int which, cJSON *newitem)$/;"	f	signature:(cJSON *array, int which, cJSON *newitem)
+cJSON_ReplaceItemInObject	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_ReplaceItemInObject(cJSON *object, const char *string, cJSON *newitem)$/;"	f	signature:(cJSON *object, const char *string, cJSON *newitem)
+cJSON_ReplaceItemInObjectCaseSensitive	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_ReplaceItemInObjectCaseSensitive(cJSON *object, const char *string, cJSON *newitem)$/;"	f	signature:(cJSON *object, const char *string, cJSON *newitem)
+cJSON_ReplaceItemViaPointer	third/cJSON/cJSON.c	/^CJSON_PUBLIC(cJSON_bool) cJSON_ReplaceItemViaPointer(cJSON * const parent, cJSON * const item, cJSON * replacement)$/;"	f	signature:(cJSON * const parent, cJSON * const item, cJSON * replacement)
+cJSON_SetIntValue	third/cJSON/cJSON.h	261;"	d
+cJSON_SetNumberHelper	third/cJSON/cJSON.c	/^CJSON_PUBLIC(double) cJSON_SetNumberHelper(cJSON *object, double number)$/;"	f	signature:(cJSON *object, double number)
+cJSON_SetNumberValue	third/cJSON/cJSON.h	264;"	d
+cJSON_String	third/cJSON/cJSON.h	44;"	d
+cJSON_StringIsConst	third/cJSON/cJSON.h	50;"	d
+cJSON_True	third/cJSON/cJSON.h	41;"	d
+cJSON_Version	third/cJSON/cJSON.c	/^CJSON_PUBLIC(const char*) cJSON_Version(void)$/;"	f	signature:(void)
+cJSON__h	third/cJSON/cJSON.h	24;"	d
+cJSON_bool	third/cJSON/cJSON.h	/^typedef int cJSON_bool;$/;"	t
+cJSON_free	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void) cJSON_free(void *object)$/;"	f	signature:(void *object)
+cJSON_malloc	third/cJSON/cJSON.c	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size)$/;"	f	signature:(size_t size)
+cJSON_strdup	third/cJSON/cJSON.c	/^static unsigned char* cJSON_strdup(const unsigned char* string, const internal_hooks * const hooks)$/;"	f	file:	signature:(const unsigned char* string, const internal_hooks * const hooks)
+can	third/cJSON/README.md	/^As a library, cJSON exists to take away as much legwork as it can, but not get in your way.$/;"	v
+can_access_at_index	third/cJSON/cJSON.c	261;"	d	file:
+can_read	third/cJSON/cJSON.c	259;"	d	file:
+cannot_access_at_index	third/cJSON/cJSON.c	262;"	d	file:
+capacity	driver_manager.h	/^	int capacity;$/;"	m	struct:error_info_t	access:public
 capacity	drivermanager/oracle/dbdriver.h	/^	uint16_t capacity;$/;"	m	struct:column_attr	access:public
+case_insensitive_strcmp	third/cJSON/cJSON.c	/^static int case_insensitive_strcmp(const unsigned char *string1, const unsigned char *string2)$/;"	f	file:	signature:(const unsigned char *string1, const unsigned char *string2)
+cases	third/cJSON/.github/CONTRIBUTING.md	/^There are two branches to be aware of, the `master` and the `develop` branch. The `master` branch is reserved for the latest release, so only make pull requests to the `master` branch for small bug- or security fixes (these are usually just a few lines). In all other cases, please make a pull request to the `develop` branch.$/;"	v
+cast_away_const	third/cJSON/cJSON.c	/^static void* cast_away_const(const void* string)$/;"	f	file:	signature:(const void* string)
 catalog	driver_manager.h	/^	char catalog[512];$/;"	m	struct:connection	access:public
-catalog	log.h	/^	char *catalog; \/* path of log                *\/$/;"	m	struct:st_log_meta	access:public
+catalog	log.h	/^	char *catalog; \/* path of log                *\/$/;"	m	struct:sqlbus_log	access:public
+catalog	tags	/^catalog	log.h	\/^	char *catalog; \\\/* path of log                *\\\/$\/;"	m	struct:sqlbus_log	access:public$/;"	e	enum:log_level	file:
+charge	third/cJSON/LICENSE	/^Permission is hereby granted, free of charge, to any person obtaining a copy$/;"	v
+charge	third/cJSON/README.md	/^>  Permission is hereby granted, free of charge, to any person obtaining a copy$/;"	v
+child	third/cJSON/README.md	/^    struct cJSON *child;$/;"	v	typeref:struct:cJSON
+child	third/cJSON/cJSON.h	/^    struct cJSON *child;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON	access:public
+child	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateArrayReference(const cJSON *child);$/;"	v
+child	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON *) cJSON_CreateObjectReference(const cJSON *child);$/;"	v
+city	third/cJSON/test.c	/^    const char *city;$/;"	m	struct:record	file:	access:public
+cjson_min	third/cJSON/cJSON.c	1086;"	d	file:
 close_conf_file	config_loader.c	/^static int close_conf_file(FILE *fp)$/;"	f	file:	signature:(FILE *fp)
 code_state	third/dbug/dbug.c	/^code_state(void)$/;"	f	file:	signature:(void)
 code_state	third/dbug/dbug.c	415;"	d	file:
@@ -427,6 +745,10 @@ column_attr	drivermanager/oracle/dbdriver.h	/^} field_attr, column_attr;$/;"	t	t
 column_attr::capacity	drivermanager/oracle/dbdriver.h	/^	uint16_t capacity;$/;"	m	struct:column_attr	access:public
 column_attr::name	drivermanager/oracle/dbdriver.h	/^	unsigned char name[64];$/;"	m	struct:column_attr	access:public
 column_attr::type	drivermanager/oracle/dbdriver.h	/^	uint8_t type;$/;"	m	struct:column_attr	access:public
+compare_json	third/cJSON/cJSON_Utils.c	/^static cJSON_bool compare_json(cJSON *a, cJSON *b, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON *a, cJSON *b, const cJSON_bool case_sensitive)
+compare_pointers	third/cJSON/cJSON_Utils.c	/^static cJSON_bool compare_pointers(const unsigned char *name, const unsigned char *pointer, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(const unsigned char *name, const unsigned char *pointer, const cJSON_bool case_sensitive)
+compare_strings	third/cJSON/cJSON_Utils.c	/^static int compare_strings(const unsigned char *string1, const unsigned char *string2, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(const unsigned char *string1, const unsigned char *string2, const cJSON_bool case_sensitive)
+compose_patch	third/cJSON/cJSON_Utils.c	/^static void compose_patch(cJSON * const patches, const unsigned char * const operation, const unsigned char * const path, const unsigned char *suffix, const cJSON * const value)$/;"	f	file:	signature:(cJSON * const patches, const unsigned char * const operation, const unsigned char * const path, const unsigned char *suffix, const cJSON * const value)
 conf_pair	config_loader.h	/^typedef struct conf_pair$/;"	s
 conf_pair::ctext	config_loader.h	/^	char ctext[128];$/;"	m	struct:conf_pair	access:public
 conf_pair::name	config_loader.h	/^	char name[64];$/;"	m	struct:conf_pair	access:public
@@ -440,53 +762,83 @@ conf_section::pair	config_loader.h	/^	conf_pair_t *pair;$/;"	m	struct:conf_secti
 conf_section::tail	config_loader.h	/^	conf_pair_t *tail;$/;"	m	struct:conf_section	access:public
 conf_section_t	config_loader.h	/^} conf_section_t;$/;"	t	typeref:struct:conf_section
 config	driver_manager.h	/^	config_t *config;$/;"	m	struct:environment	access:public
-config_t	config_loader.h	/^} config_t;$/;"	t	typeref:struct:configuration
+config	sqlbus.h	/^	config_t *config;$/;"	m	struct:sqlbus_cycle	access:public
+config_file	sqlbus.h	/^	char *config_file;$/;"	m	struct:sqlbus_cycle	access:public
+config_t	config_loader.h	/^} config_t, sqlbus_config_t;$/;"	t	typeref:struct:configuration
 configuration	config_loader.h	/^typedef struct configuration$/;"	s
 configuration::file	config_loader.h	/^	char file[512];$/;"	m	struct:configuration	access:public
 configuration::fp	config_loader.h	/^	FILE *fp;$/;"	m	struct:configuration	access:public
 configuration::section	config_loader.h	/^	conf_section_t *section;$/;"	m	struct:configuration	access:public
 connect_counter	driver_manager.h	/^	int connect_counter;$/;"	m	struct:environment	access:public
 connection	driver_manager.h	/^	HDBC connection;$/;"	m	struct:statement	access:public
-connection	driver_manager.h	/^typedef struct connection connection;$/;"	t	typeref:struct:connection
 connection	driver_manager.h	/^typedef struct connection$/;"	s
+connection	driver_manager.h	/^}connection, connection_t, *HDBC;$/;"	t	typeref:struct:connection
 connection	drivermanager/oracle/dbdriver.h	/^typedef struct connection$/;"	s
 connection	drivermanager/oracle/dbdriver.h	/^}connection, *HDBC;$/;"	t	typeref:struct:connection
 connection::catalog	driver_manager.h	/^	char catalog[512];$/;"	m	struct:connection	access:public
 connection::database	driver_manager.h	/^	char database[64];$/;"	m	struct:connection	access:public
 connection::database	drivermanager/oracle/dbdriver.h	/^	char database[64];$/;"	m	struct:connection	access:public
 connection::driver	driver_manager.h	/^	HDM driver;$/;"	m	struct:connection	access:public
-connection::driver_dbc	driver_manager.h	/^	HDBC driver_dbc;$/;"	m	struct:connection	access:public
-connection::driver_env	driver_manager.h	/^	HENV driver_env;$/;"	m	struct:connection	access:public
+connection::driver_dbc	driver_manager.h	/^	HDMDBC driver_dbc;$/;"	m	struct:connection	access:public
+connection::driver_env	driver_manager.h	/^	HDMENV driver_env;$/;"	m	struct:connection	access:public
 connection::environment	driver_manager.h	/^	HENV environment;$/;"	m	struct:connection	access:public
+connection::error	driver_manager.h	/^	error_info_t *error;$/;"	m	struct:connection	access:public
 connection::error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:connection	access:public
 connection::password	driver_manager.h	/^	char password[64];$/;"	m	struct:connection	access:public
 connection::password	drivermanager/oracle/dbdriver.h	/^	char password[64];$/;"	m	struct:connection	access:public
 connection::username	driver_manager.h	/^	char username[64];$/;"	m	struct:connection	access:public
 connection::username	drivermanager/oracle/dbdriver.h	/^	char username[64];$/;"	m	struct:connection	access:public
-connection_t	driver_manager.h	/^}connection_t;$/;"	t	typeref:struct:connection
-crc16	db.h	/^	int crc16;$/;"	m	struct:__DBHandle	access:public
+connection_t	driver_manager.h	/^}connection, connection_t, *HDBC;$/;"	t	typeref:struct:connection
+content	third/cJSON/cJSON.c	/^    const unsigned char *content;$/;"	m	struct:__anon3	file:	access:public
+copy	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+copy	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+country	third/cJSON/test.c	/^    const char *country;$/;"	m	struct:record	file:	access:public
+crc16	sqlbus.h	/^	int crc16;$/;"	m	struct:sqlbus_handle	access:public
+create_objects	third/cJSON/test.c	/^static void create_objects(void)$/;"	f	file:	signature:(void)
+create_patches	third/cJSON/cJSON_Utils.c	/^static void create_patches(cJSON * const patches, const unsigned char * const path, cJSON * const from, cJSON * const to, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON * const patches, const unsigned char * const path, cJSON * const from, cJSON * const to, const cJSON_bool case_sensitive)
+create_reference	third/cJSON/cJSON.c	/^static cJSON *create_reference(const cJSON *item, const internal_hooks * const hooks)$/;"	f	file:	signature:(const cJSON *item, const internal_hooks * const hooks)
 ctext	config_loader.h	/^	char ctext[128];$/;"	m	struct:conf_pair	access:public
 cud	drivermanager/oracle/ora.c	/^      const short *cud;$/;"	m	struct:sqlexd	file:	access:public
 curocn	drivermanager/oracle/ora.c	/^    unsigned int curocn;$/;"	m	struct:sql_cursor	file:	access:public
 database	driver_manager.h	/^	char database[64];$/;"	m	struct:connection	access:public
 database	drivermanager/oracle/dbdriver.h	/^	char database[64];$/;"	m	struct:connection	access:public
+database	sqlbus.h	/^	char *database;$/;"	m	struct:sqlbus_cycle	access:public
+dbClearError	drivermanager/oracle/ora.c	/^static void dbClearError(error_info *error)$/;"	f	file:	signature:(error_info *error)
+dbClearError	drivermanager/oracle/ora.pc	/^static void dbClearError(error_info *error)$/;"	f	file:	signature:(error_info *error)
 dbSetError	drivermanager/oracle/ora.c	/^static void dbSetError(error_info *error, const char *fmt, ...)$/;"	f	file:	signature:(error_info *error, const char *fmt, ...)
 dbSetError	drivermanager/oracle/ora.pc	/^static void dbSetError(error_info *error, const char *fmt, ...)$/;"	f	file:	signature:(error_info *error, const char *fmt, ...)
 dbSetErrorWithErrno	drivermanager/oracle/ora.c	/^static void dbSetErrorWithErrno(error_info *error, int errorno)$/;"	f	file:	signature:(error_info *error, int errorno)
 dbSetErrorWithErrno	drivermanager/oracle/ora.pc	/^static void dbSetErrorWithErrno(error_info *error, int errorno)$/;"	f	file:	signature:(error_info *error, int errorno)
 dbSetORAError	drivermanager/oracle/ora.c	/^static void dbSetORAError(error_info *error)$/;"	f	file:	signature:(error_info *error)
 dbSetORAError	drivermanager/oracle/ora.pc	/^static void dbSetORAError(error_info *error)$/;"	f	file:	signature:(error_info *error)
+db_auth	sqlbus.h	/^	char *db_auth;$/;"	m	struct:sqlbus_cycle	access:public
+db_type	sqlbus.h	/^	char *db_type;$/;"	m	struct:sqlbus_cycle	access:public
+db_user	sqlbus.h	/^	char *db_user;$/;"	m	struct:sqlbus_cycle	access:public
 dbug_flush	third/dbug/dbug.c	/^dbug_flush(CODE_STATE * state)$/;"	f	file:	signature:(CODE_STATE * state)
 dbug_flush	third/dbug/dbug.c	/^static void dbug_flush(CODE_STATE *);$/;"	p	file:	signature:(CODE_STATE *)
-defaultOperTimeOut	db.h	58;"	d
-defaultQueue	db.h	53;"	d
-defaultReadChannelPriority	db.h	69;"	d
-defaultSendChannelPriority	db.h	68;"	d
+deallocate	third/cJSON/cJSON.c	/^    void (*deallocate)(void *pointer);$/;"	m	struct:internal_hooks	file:	access:public
+decode_array_index_from_pointer	third/cJSON/cJSON_Utils.c	/^static cJSON_bool decode_array_index_from_pointer(const unsigned char * const pointer, size_t * const index)$/;"	f	file:	signature:(const unsigned char * const pointer, size_t * const index)
+decode_patch_operation	third/cJSON/cJSON_Utils.c	/^static enum patch_operation decode_patch_operation(const cJSON * const patch, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(const cJSON * const patch, const cJSON_bool case_sensitive)
+decode_pointer_inplace	third/cJSON/cJSON_Utils.c	/^static void decode_pointer_inplace(unsigned char *string)$/;"	f	file:	signature:(unsigned char *string)
+defaultLogFileName	log.h	25;"	d
+defaultLogPathName	log.h	26;"	d
+defaultLogWriteLevel	log.h	27;"	d
+defaultOperTimeOut	sqlbus.h	65;"	d
+defaultQueue	sqlbus.h	60;"	d
+defaultReadChannelPriority	sqlbus.h	76;"	d
+defaultRedisHandle	redisop.c	/^redisContext *defaultRedisHandle = NULL;$/;"	v
+defaultSendChannelPriority	sqlbus.h	75;"	d
 delay	third/dbug/dbug.c	/^	uint delay;						   \/* Delay after each output line *\/$/;"	m	struct:state	file:	access:public
+depth	third/cJSON/cJSON.c	/^    size_t depth; \/* How deeply nested (in arrays\/objects) is the input at the current offset. *\/$/;"	m	struct:__anon3	file:	access:public
+depth	third/cJSON/cJSON.c	/^    size_t depth; \/* current nesting depth (for formatted printing) *\/$/;"	m	struct:__anon4	file:	access:public
+detach_item_from_array	third/cJSON/cJSON_Utils.c	/^static cJSON *detach_item_from_array(cJSON *array, size_t which)$/;"	f	file:	signature:(cJSON *array, size_t which)
+detach_path	third/cJSON/cJSON_Utils.c	/^static cJSON *detach_path(cJSON *object, const unsigned char *path, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON *object, const unsigned char *path, const cJSON_bool case_sensitive)
+distribute	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+distribute	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
 dl_handle	driver_loader.h	/^	void *dl_handle;$/;"	m	struct:driver_manager	access:public
 driver	driver_manager.h	/^	HDM driver;$/;"	m	struct:connection	access:public
-driver_dbc	driver_manager.h	/^	HDBC driver_dbc;$/;"	m	struct:connection	access:public
-driver_env	driver_manager.h	/^	HENV driver_env;$/;"	m	struct:connection	access:public
+driver_dbc	driver_manager.h	/^	HDMDBC driver_dbc;$/;"	m	struct:connection	access:public
+driver_env	driver_manager.h	/^	HDMENV driver_env;$/;"	m	struct:connection	access:public
 driver_func	driver_loader.h	/^typedef struct driver_func$/;"	s
 driver_func	driver_loader.h	/^}driver_func;$/;"	t	typeref:struct:driver_func
 driver_func::func	driver_loader.h	/^	int (*func)();$/;"	m	struct:driver_func	access:public
@@ -499,54 +851,81 @@ driver_manager::driver_name	driver_loader.h	/^	char *driver_name;$/;"	m	struct:d
 driver_manager::errstr	driver_loader.h	/^	char errstr[128];$/;"	m	struct:driver_manager	access:public
 driver_manager::functions	driver_loader.h	/^	driver_func *functions;$/;"	m	struct:driver_manager	access:public
 driver_name	driver_loader.h	/^	char *driver_name;$/;"	m	struct:driver_manager	access:public
-driver_stmt	driver_manager.h	/^	HSTMT driver_stmt;$/;"	m	struct:statement	access:public
+driver_stmt	driver_manager.h	/^	HDMSTMT driver_stmt;$/;"	m	struct:statement	access:public
 ds_Days	third/dbug/dbug.c	/^	long ds_Days;					   \/* is incredibly ugly without splitting this *\/$/;"	m	struct:DateStamp	file:	access:public
 ds_Minute	third/dbug/dbug.c	/^	long ds_Minute;					   \/* off into a separate file *\/$/;"	m	struct:DateStamp	file:	access:public
 ds_Tick	third/dbug/dbug.c	/^	long ds_Tick;$/;"	m	struct:DateStamp	file:	access:public
+dumb	third/cJSON/README.md	/^philosophy as JSON itself. Simple, dumb, out of the way.$/;"	v
+dump_pointer	drivermanager/oracle/util.c	/^int dump_pointer(char *file, char *fmt, ...)$/;"	f	signature:(char *file, char *fmt, ...)
+e	tags	/^LOG_ERR	log.h	\/^	LOG_ERR     = 0,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+e	tags	/^LOG_WARNING	log.h	\/^	LOG_WARNING = 2,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
 ecode	drivermanager/oracle/dbdriver.h	/^	int ecode;$/;"	m	struct:error_info	access:public
+effort	third/cJSON/.github/CONTRIBUTING.md	/^For bigger changes, in order to avoid wasted effort, please open an issue to discuss the technical details before creating a pull request.$/;"	v
 elapsed	third/dbug/dbug.c	/^static struct DateStamp elapsed;$/;"	v	typeref:struct:DateStamp	file:
+encode_string_as_pointer	third/cJSON/cJSON_Utils.c	/^static void encode_string_as_pointer(unsigned char *destination, const unsigned char *source)$/;"	f	file:	signature:(unsigned char *destination, const unsigned char *source)
+ensure	third/cJSON/cJSON.c	/^static unsigned char* ensure(printbuffer * const p, size_t needed)$/;"	f	file:	signature:(printbuffer * const p, size_t needed)
 environment	driver_manager.h	/^	HENV environment;$/;"	m	struct:connection	access:public
-environment	driver_manager.h	/^typedef struct environment environment;$/;"	t	typeref:struct:environment
 environment	driver_manager.h	/^typedef struct environment$/;"	s
+environment	driver_manager.h	/^}environment, environment_t, *HENV;$/;"	t	typeref:struct:environment
 environment	drivermanager/oracle/dbdriver.h	/^typedef struct environment$/;"	s
 environment	drivermanager/oracle/dbdriver.h	/^}environment, *HENV;$/;"	t	typeref:struct:environment
 environment::config	driver_manager.h	/^	config_t *config;$/;"	m	struct:environment	access:public
 environment::connect_counter	driver_manager.h	/^	int connect_counter;$/;"	m	struct:environment	access:public
 environment::error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:environment	access:public
-environment_t	driver_manager.h	/^}environment_t;$/;"	t	typeref:struct:environment
+environment_t	driver_manager.h	/^}environment, environment_t, *HENV;$/;"	t	typeref:struct:environment
+error	driver_manager.h	/^	error_info_t *error;$/;"	m	struct:connection	access:public
+error	driver_manager.h	/^	error_info_t *error;$/;"	m	struct:statement	access:public
 error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:connection	access:public
 error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:environment	access:public
-error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:statment	access:public
+error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:statement	access:public
+error	third/cJSON/cJSON.c	/^} error;$/;"	t	typeref:struct:__anon2	file:
+error_info	driver_manager.h	/^} error_info, error_info_t;$/;"	t	typeref:struct:error_info_t
 error_info	drivermanager/oracle/dbdriver.h	/^typedef struct error_info$/;"	s
 error_info	drivermanager/oracle/dbdriver.h	/^}error_info;$/;"	t	typeref:struct:error_info
 error_info::ecode	drivermanager/oracle/dbdriver.h	/^	int ecode;$/;"	m	struct:error_info	access:public
 error_info::errstr	drivermanager/oracle/dbdriver.h	/^	char errstr[512];$/;"	m	struct:error_info	access:public
-errstr	db.h	/^	char errstr[512];$/;"	m	struct:__DBHandle	access:public
+error_info_t	driver_manager.h	/^typedef struct error_info_t$/;"	s
+error_info_t	driver_manager.h	/^} error_info, error_info_t;$/;"	t	typeref:struct:error_info_t
+error_info_t::capacity	driver_manager.h	/^	int capacity;$/;"	m	struct:error_info_t	access:public
+error_info_t::errstr	driver_manager.h	/^	char errstr[1024];$/;"	m	struct:error_info_t	access:public
+error_info_t::msg_len	driver_manager.h	/^	int msg_len;$/;"	m	struct:error_info_t	access:public
 errstr	driver_loader.h	/^	char errstr[128];$/;"	m	struct:driver_manager	access:public
+errstr	driver_manager.h	/^	char errstr[1024];$/;"	m	struct:error_info_t	access:public
 errstr	drivermanager/oracle/dbdriver.h	/^	char errstr[512];$/;"	m	struct:error_info	access:public
 exiterr	drivermanager/oracle/ora.c	/^extern int exiterr( \/*_ char* _*\/ );$/;"	p	file:	signature:( )
 exiterr	drivermanager/oracle/ora.c	/^extern int exiterr( unsigned char* );$/;"	p	file:	signature:( unsigned char* )
-fd	log.h	/^	int fd;        \/* file decriptor of log file *\/$/;"	m	struct:st_log_meta	access:public
+false	third/cJSON/cJSON.c	63;"	d	file:
+false	third/cJSON/cJSON_Utils.c	54;"	d	file:
+fd	log.h	/^	int fd;        \/* file decriptor of log file *\/$/;"	m	struct:sqlbus_log	access:public
+fetchQueryStatmentResult	drivermanager/oracle/ora.c	/^\/*STATIC*\/ int fetchQueryStatmentResult(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+fetchQueryStatmentResult	drivermanager/oracle/ora.c	/^static int fetchQueryStatmentResult(HSTMT hstmt);$/;"	p	file:	signature:(HSTMT hstmt)
+fetchQueryStatmentResult	drivermanager/oracle/ora.pc	/^\/*STATIC*\/ int fetchQueryStatmentResult(HSTMT hstmt)$/;"	f	signature:(HSTMT hstmt)
+fetchQueryStatmentResult	drivermanager/oracle/ora.pc	/^static int fetchQueryStatmentResult(HSTMT hstmt);$/;"	p	file:	signature:(HSTMT hstmt)
 field	drivermanager/oracle/dbdriver.h	/^	field_attr *field;$/;"	m	struct:table_info	access:public
 field_attr	drivermanager/oracle/dbdriver.h	/^} field_attr, column_attr;$/;"	t	typeref:struct:column_attr
+field_cur_pos	drivermanager/oracle/dbdriver.h	/^	int field_cur_pos;$/;"	m	struct:statement	access:public
 fields	drivermanager/oracle/dbdriver.h	/^	uint16_t fields;$/;"	m	struct:table_info	access:public
 file	config_loader.h	/^	char file[512];$/;"	m	struct:configuration	access:public
-file	log.h	/^	char *file;    \/* log name                   *\/$/;"	m	struct:st_log_meta	access:public
+file	log.h	/^	char *file;    \/* log name                   *\/$/;"	m	struct:sqlbus_log	access:public
 file	third/dbug/dbug.c	/^	const char *file;					   \/* Name of current user file *\/$/;"	m	struct:st_code_state	file:	access:public
 file	third/dbug/doc/readme.prof	/^A second program (analyze) reads this file, and produces a report on$/;"	v
 fillen	drivermanager/oracle/ora.c	/^  unsigned short fillen;$/;"	m	struct:sqlcxp	file:	access:public
 filnam	drivermanager/oracle/ora.c	/^           char  filnam[7];$/;"	m	struct:sqlcxp	file:	access:public
 first_clock	third/dbug/dbug.c	/^static int first_clock = TRUE;$/;"	v	file:
 flags	third/dbug/dbug.c	/^	int flags;						   \/* Current state flags *\/$/;"	m	struct:state	file:	access:public
-format	drivermanager/oracle/tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append ;" to lines\/$/;"	v
 format	tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append ;" to lines\/$/;"	v
+format	third/cJSON/cJSON.c	/^    cJSON_bool format; \/* is this print a formatted print *\/$/;"	m	struct:__anon4	file:	access:public
 format	third/dbug/dbug.c	/^	char *format;$/;"	v
 fp	config_loader.h	/^	FILE *fp;$/;"	m	struct:configuration	access:public
 framep	third/dbug/dbug.c	/^	char **framep;					   \/* Pointer to current frame *\/$/;"	m	struct:st_code_state	file:	access:public
+free_fn	third/cJSON/cJSON.h	/^      void (*free_fn)(void *ptr);$/;"	m	struct:cJSON_Hooks	access:public
 func	driver_loader.h	/^	int (*func)();$/;"	m	struct:driver_func	access:public
 func	third/dbug/dbug.c	/^	const char *func;					   \/* Name of current user function *\/$/;"	m	struct:st_code_state	file:	access:public
 functions	driver_loader.h	/^	driver_func *functions;$/;"	m	struct:driver_manager	access:public
 functions	third/dbug/dbug.c	/^	struct link *functions;				   \/* List of functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+generate_merge_patch	third/cJSON/cJSON_Utils.c	/^static cJSON *generate_merge_patch(cJSON * const from, cJSON * const to, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON * const from, cJSON * const to, const cJSON_bool case_sensitive)
+get_array_item	third/cJSON/cJSON.c	/^static cJSON* get_array_item(const cJSON *array, size_t index)$/;"	f	file:	signature:(const cJSON *array, size_t index)
+get_array_item	third/cJSON/cJSON_Utils.c	/^static cJSON *get_array_item(const cJSON *array, size_t item)$/;"	f	file:	signature:(const cJSON *array, size_t item)
 get_config_pair	config_loader.c	/^conf_pair_t *get_config_pair(const conf_section_t *section, char *name)$/;"	f	signature:(const conf_section_t *section, char *name)
 get_config_pair	config_loader.h	/^conf_pair_t *get_config_pair(const conf_section_t *section, char *name);$/;"	p	signature:(const conf_section_t *section, char *name)
 get_config_section	config_loader.c	/^conf_section_t *get_config_section(const config_t *conf, const char *name)$/;"	f	signature:(const config_t *conf, const char *name)
@@ -554,34 +933,75 @@ get_config_section	config_loader.h	/^conf_section_t *get_config_section(const co
 get_config_value	config_loader.c	/^int get_config_value(const config_t *conf, char *section, char *key, char *value)$/;"	f	signature:(const config_t *conf, char *section, char *key, char *value)
 get_config_value	config_loader.h	/^int get_config_value(const config_t *conf, char *section, char *key, char *value);$/;"	p	signature:(const config_t *conf, char *section, char *key, char *value)
 get_connection_info	driver_manager.c	/^static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *password, char *database)$/;"	f	file:	signature:(HDBC hdbc, char *dsn, char *username, char *password, char *database)
+get_decimal_point	third/cJSON/cJSON.c	/^static unsigned char get_decimal_point(void)$/;"	f	file:	signature:(void)
+get_item_from_pointer	third/cJSON/cJSON_Utils.c	/^static cJSON *get_item_from_pointer(cJSON * const object, const char * pointer, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON * const object, const char * pointer, const cJSON_bool case_sensitive)
+get_object_item	third/cJSON/cJSON.c	/^static cJSON *get_object_item(const cJSON * const object, const char * const name, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(const cJSON * const object, const char * const name, const cJSON_bool case_sensitive)
+get_object_item	third/cJSON/cJSON_Utils.c	/^static cJSON *get_object_item(const cJSON * const object, const char* name, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(const cJSON * const object, const char* name, const cJSON_bool case_sensitive)
+global_error	third/cJSON/cJSON.c	/^static error global_error = { NULL, 0 };$/;"	v	file:
+global_hooks	third/cJSON/cJSON.c	/^static internal_hooks global_hooks = { internal_malloc, internal_free, internal_realloc };$/;"	v	file:
+granted	third/cJSON/LICENSE	/^Permission is hereby granted, free of charge, to any person obtaining a copy$/;"	v
+granted	third/cJSON/README.md	/^>  Permission is hereby granted, free of charge, to any person obtaining a copy$/;"	v
+h	tags	/^LOG_DEBUG	log.h	\/^	LOG_DEBUG   = 3,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+h	tags	/^LOG_INFO	log.h	\/^	LOG_INFO    = 1,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+h	tags	/^catalog	log.h	\/^	char *catalog; \\\/* path of log                *\\\/$\/;"	m	struct:sqlbus_log	access:public$/;"	e	enum:log_level	file:
 hdbc	Plugin.txt	/^DBConnectInitialize(HDBC *hdbc);$/;"	v
-hdbc	drivermanager/oracle/dbdriver.h	/^	connection *hdbc;$/;"	m	struct:statment	access:public
+hdbc	drivermanager/oracle/dbdriver.h	/^	connection *hdbc;$/;"	m	struct:statement	access:public
+hooks	third/cJSON/cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon3	file:	access:public
+hooks	third/cJSON/cJSON.c	/^    internal_hooks hooks;$/;"	m	struct:__anon4	file:	access:public
+hooks	third/cJSON/cJSON.h	/^CJSON_PUBLIC(void) cJSON_InitHooks(cJSON_Hooks* hooks);$/;"	v
 iappfo	drivermanager/oracle/ora.c	/^extern int iappfo( \/*_ char*, char*, unsigned int _*\/ );$/;"	p	file:	signature:( )
 iappfo	drivermanager/oracle/ora.c	/^extern int iappfo( unsigned char*, unsigned char*, size_t );$/;"	p	file:	signature:( unsigned char*, unsigned char*, size_t )
 iapprs	drivermanager/oracle/ora.c	/^extern int iapprs( \/*_ char* _*\/ );      $/;"	p	file:	signature:( )
 iapprs	drivermanager/oracle/ora.c	/^extern int iapprs( unsigned char* );      $/;"	p	file:	signature:( unsigned char* )
-idx	db.h	/^	int idx;$/;"	m	struct:__DBHandle	access:public
+idx	sqlbus.h	/^	int idx;$/;"	m	struct:sqlbus_handle	access:public
 init_dbug_state	third/dbug/dbug.c	/^init_dbug_state(void)$/;"	f	file:	signature:(void)
 init_dbug_state	third/dbug/dbug.c	414;"	d	file:
 init_done	third/dbug/dbug.c	/^static my_bool init_done = FALSE;			   \/* Set to TRUE when initialization done *\/$/;"	v	file:
+insert_item_in_array	third/cJSON/cJSON_Utils.c	/^static cJSON_bool insert_item_in_array(cJSON *array, size_t which, cJSON *newitem)$/;"	f	file:	signature:(cJSON *array, size_t which, cJSON *newitem)
+internal_free	third/cJSON/cJSON.c	/^static void internal_free(void *pointer)$/;"	f	file:	signature:(void *pointer)
+internal_free	third/cJSON/cJSON.c	144;"	d	file:
+internal_hooks	third/cJSON/cJSON.c	/^typedef struct internal_hooks$/;"	s	file:
+internal_hooks	third/cJSON/cJSON.c	/^} internal_hooks;$/;"	t	typeref:struct:internal_hooks	file:
+internal_hooks::allocate	third/cJSON/cJSON.c	/^    void *(*allocate)(size_t size);$/;"	m	struct:internal_hooks	file:	access:public
+internal_hooks::deallocate	third/cJSON/cJSON.c	/^    void (*deallocate)(void *pointer);$/;"	m	struct:internal_hooks	file:	access:public
+internal_hooks::reallocate	third/cJSON/cJSON.c	/^    void *(*reallocate)(void *pointer, size_t size);$/;"	m	struct:internal_hooks	file:	access:public
+internal_malloc	third/cJSON/cJSON.c	/^static void *internal_malloc(size_t size)$/;"	f	file:	signature:(size_t size)
+internal_malloc	third/cJSON/cJSON.c	143;"	d	file:
+internal_realloc	third/cJSON/cJSON.c	/^static void *internal_realloc(void *pointer, size_t size)$/;"	f	file:	signature:(void *pointer, size_t size)
+internal_realloc	third/cJSON/cJSON.c	145;"	d	file:
 isSelectStatment	drivermanager/oracle/ora.c	/^static int isSelectStatment(char *stmt)$/;"	f	file:	signature:(char *stmt)
 isSelectStatment	drivermanager/oracle/ora.pc	/^static int isSelectStatment(char *stmt)$/;"	f	file:	signature:(char *stmt)
 is_blank_line	config_loader.c	/^static int is_blank_line(char *string)$/;"	f	file:	signature:(char *string)
 is_comment_line	config_loader.c	/^static int is_comment_line(char *string)$/;"	f	file:	signature:(char *string)
 is_section	config_loader.c	/^static int is_section(char *string, char *name)$/;"	f	file:	signature:(char *string, char *name)
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsArray(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsBool(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsFalse(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsInvalid(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNull(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsNumber(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsObject(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsRaw(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsString(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(cJSON_bool) cJSON_IsTrue(const cJSON * const item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_GetStringValue(cJSON *item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_Print(const cJSON *item);$/;"	v
+item	third/cJSON/cJSON.h	/^CJSON_PUBLIC(char *) cJSON_PrintUnformatted(const cJSON *item);$/;"	v
 iters	drivermanager/oracle/ora.c	/^   unsigned int   iters;$/;"	m	struct:sqlexd	file:	access:public
 jmpfile	third/dbug/dbug.c	/^	const char *jmpfile;				   \/* Remember current file for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
 jmpfunc	third/dbug/dbug.c	/^	const char *jmpfunc;				   \/* Remember current function for setjmp *\/$/;"	m	struct:st_code_state	file:	access:public
 jmplevel	third/dbug/dbug.c	/^	int jmplevel;					   \/* Remember nesting level at setjmp () *\/$/;"	m	struct:st_code_state	file:	access:public
-json_string	db.h	/^	char *json_string;$/;"	m	struct:__DBHandle	access:public
+json	third/cJSON/cJSON.c	/^    const unsigned char *json;$/;"	m	struct:__anon2	file:	access:public
+json_string	sqlbus.h	/^	char *json_string;$/;"	m	struct:sqlbus_handle	access:public
 keywords	third/dbug/dbug.c	/^	struct link *keywords;				   \/* List of debug keywords *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 l$	driver_loader.o	/^ELF/;"	v
-l$	driver_manager.o	/^ELF/;"	v
-len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon2	file:	access:public
-len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon3	file:	access:public
-level	log.h	/^	int level;     \/* log base level             *\/$/;"	m	struct:st_log_meta	access:public
+lat	third/cJSON/test.c	/^    double lat;$/;"	m	struct:record	file:	access:public
+len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } VARCHAR;$/;"	m	struct:__anon5	file:	access:public
+len	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	m	struct:__anon6	file:	access:public
+length	third/cJSON/cJSON.c	/^    size_t length;$/;"	m	struct:__anon3	file:	access:public
+length	third/cJSON/cJSON.c	/^    size_t length;$/;"	m	struct:__anon4	file:	access:public
+level	log.h	/^	int level;     \/* log base level             *\/$/;"	m	struct:sqlbus_log	access:public
 level	third/dbug/dbug.c	/^	int level;						   \/* Current function nesting level *\/$/;"	m	struct:st_code_state	file:	access:public
-line	drivermanager/oracle/ora.lis	/^Error at line 243, column 24 in file ora.pc$/;"	v
 lineno	third/dbug/dbug.c	/^	int lineno;						   \/* Current debugger output line number *\/$/;"	m	struct:st_code_state	file:	access:public
 link	third/dbug/dbug.c	/^struct link$/;"	s	file:
 link::next_link	third/dbug/dbug.c	/^	struct link *next_link;				   \/* Pointer to the next link *\/$/;"	m	struct:link	typeref:struct:link::link	file:	access:public
@@ -591,20 +1011,27 @@ load_config	config_loader.h	/^int load_config(char *file, config_t *conf);$/;"	p
 load_driver	driver_loader.c	/^int load_driver(driver_manager *driver, char *file)$/;"	f	signature:(driver_manager *driver, char *file)
 load_driver	driver_loader.h	/^int load_driver(driver_manager *driver, char *file);$/;"	p	signature:(driver_manager *driver, char *file)
 locked	third/dbug/dbug.c	/^	int locked;						   \/* If locked with _db_lock_file *\/$/;"	m	struct:st_code_state	file:	access:public
-log_close	log.c	/^int log_close(st_log_meta *meta)$/;"	f	signature:(st_log_meta *meta)
-log_close	log.h	/^int log_close(st_log_meta *meta);$/;"	p	signature:(st_log_meta *meta)
+log	tags	/^LOG_DEBUG	log.h	\/^	LOG_DEBUG   = 3,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+log	tags	/^LOG_INFO	log.h	\/^	LOG_INFO    = 1,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+log	tags	/^catalog	log.h	\/^	char *catalog; \\\/* path of log                *\\\/$\/;"	m	struct:sqlbus_log	access:public$/;"	e	enum:log_level	file:
+log_close	log.c	/^int log_close(sqlbus_log_t *meta)$/;"	f	signature:(sqlbus_log_t *meta)
+log_close	log.h	/^int log_close(sqlbus_log_t *meta);$/;"	p	signature:(sqlbus_log_t *meta)
 log_level	log.h	/^enum log_level {$/;"	g
-log_open	log.c	/^int log_open(char *catalog, char *file, enum log_level level, st_log_meta *meta)$/;"	f	signature:(char *catalog, char *file, enum log_level level, st_log_meta *meta)
-log_open	log.h	/^int log_open(char *catalog, char *file, enum log_level level, st_log_meta *meta);$/;"	p	signature:(char *catalog, char *file, enum log_level level, st_log_meta *meta)
-log_write	log.c	/^int log_write(st_log_meta *meta, enum log_level level,$/;"	f	signature:(st_log_meta *meta, enum log_level level, const char *file, const char *func, const int line, const char *fmt, ...)
-log_write	log.h	/^int log_write(st_log_meta *meta, enum log_level level,$/;"	p	signature:(st_log_meta *meta, enum log_level level, const char *file, const char *func, const int line, const char *fmt, ...)
-logger	log.c	/^st_log_meta logger;$/;"	v
-ltrim	drivermanager/oracle/util.c	/^void ltrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
-ltrim	drivermanager/oracle/util.h	/^void ltrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
+log_level	tags	/^LOG_ERR	log.h	\/^	LOG_ERR     = 0,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+log_level	tags	/^LOG_WARNING	log.h	\/^	LOG_WARNING = 2,$\/;"	e	enum:log_level$/;"	e	enum:log_level	file:
+log_level	tags	/^log_level	log.h	\/^enum log_level {$\/;"	g$/;"	g	file:
+log_level_string_to_type	log.c	/^enum log_level log_level_string_to_type(char *level_string)$/;"	f	signature:(char *level_string)
+log_level_string_to_type	log.h	/^enum log_level log_level_string_to_type(char *level_string);$/;"	p	signature:(char *level_string)
+log_open	log.c	/^int log_open(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta)$/;"	f	signature:(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta)
+log_open	log.h	/^int log_open(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta);$/;"	p	signature:(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta)
+log_write	log.c	/^int log_write(sqlbus_log_t *meta, enum log_level level,$/;"	f	signature:(sqlbus_log_t *meta, enum log_level level, const char *file, const char *func, const int line, const char *fmt, ...)
+log_write	log.h	/^int log_write(sqlbus_log_t *meta, enum log_level level,$/;"	p	signature:(sqlbus_log_t *meta, enum log_level level, const char *file, const char *func, const int line, const char *fmt, ...)
+logger	sqlbus.h	/^	sqlbus_log_t *logger;$/;"	m	struct:sqlbus_cycle	access:public
+lon	third/cJSON/test.c	/^    double lon;$/;"	m	struct:record	file:	access:public
+ltrim	drivermanager/oracle/util.c	/^void ltrim(char *str, int len)$/;"	f	signature:(char *str, int len)
+ltrim	drivermanager/oracle/util.h	/^void ltrim(char *str, int len);$/;"	p	signature:(char *str, int len)
 ltrim	util.c	/^void ltrim(char *str, int len)$/;"	f	signature:(char *str, int len)
 ltrim	util.h	/^void ltrim(char *str, int len);$/;"	p	signature:(char *str, int len)
-mFree	db.h	29;"	d
-mFree	db.h	31;"	d
 mFree	drivermanager/oracle/dbdriver.h	59;"	d
 mFree	drivermanager/oracle/dbdriver.h	61;"	d
 mFree	util.h	22;"	d
@@ -612,63 +1039,145 @@ mFree	util.h	24;"	d
 magic	drivermanager/oracle/ora.c	/^    unsigned int magic;$/;"	m	struct:sql_cursor	file:	access:public
 main	drivermanager/oracle/server.c	/^int main()$/;"	f	signature:()
 main	main.c	/^int main(int argc, char **argv)$/;"	f	signature:(int argc, char **argv)
+main	third/cJSON/test.c	/^int main(void)$/;"	f	signature:(void)
 main	third/dbug/doc/example.c	/^int main (void)$/;"	f	signature:(void)
 make_iso8061_timestamp	util.c	/^int make_iso8061_timestamp(char *buffer)$/;"	f	signature:(char *buffer)
 make_iso8061_timestamp	util.h	/^int make_iso8061_timestamp(char *buffer);$/;"	p	signature:(char *buffer)
+malloc_fn	third/cJSON/cJSON.h	/^      void *(*malloc_fn)(size_t sz);$/;"	m	struct:cJSON_Hooks	access:public
+map_size	drivermanager/oracle/dbdriver.h	/^	int map_size;$/;"	m	struct:statement	access:public
 max	third/dbug/dbug.c	164;"	d	file:
-max_row_count	drivermanager/oracle/dbdriver.h	/^	int max_row_count;$/;"	m	struct:statment	access:public
+max_row_count	drivermanager/oracle/dbdriver.h	/^	int max_row_count;$/;"	m	struct:statement	access:public
 maxdepth	third/dbug/dbug.c	/^	int maxdepth;					   \/* Current maximum trace depth *\/$/;"	m	struct:state	file:	access:public
+merge	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+merge	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+merge_patch	third/cJSON/cJSON_Utils.c	/^static cJSON *merge_patch(cJSON *target, const cJSON * const patch, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON *target, const cJSON * const patch, const cJSON_bool case_sensitive)
 min	third/dbug/dbug.c	163;"	d	file:
-more	db.h	/^	int more;$/;"	m	struct:__DBHandle	access:public
+modify	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+modify	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+more	sqlbus.h	/^	int more;$/;"	m	struct:sqlbus_handle	access:public
+msg_len	driver_manager.h	/^	int msg_len;$/;"	m	struct:error_info_t	access:public
 my_bool	third/dbug/dbug.c	109;"	d	file:
 name	config_loader.h	/^	char name[64];$/;"	m	struct:conf_pair	access:public
 name	config_loader.h	/^	char name[64];$/;"	m	struct:conf_section	access:public
 name	driver_loader.h	/^	char *name;$/;"	m	struct:driver_func	access:public
 name	drivermanager/oracle/dbdriver.h	/^	unsigned char name[64];$/;"	m	struct:column_attr	access:public
 name	third/dbug/dbug.c	/^	char name[FN_REFLEN];				   \/* Name of output file *\/$/;"	m	struct:state	file:	access:public
+newTableInfo	drivermanager/oracle/ora.c	/^static table_info *newTableInfo(int fields)$/;"	f	file:	signature:(int fields)
+newTableInfo	drivermanager/oracle/ora.pc	/^static table_info *newTableInfo(int fields)$/;"	f	file:	signature:(int fields)
 next	config_loader.h	/^	struct conf_pair *next;$/;"	m	struct:conf_pair	typeref:struct:conf_pair::conf_pair	access:public
 next	config_loader.h	/^	struct conf_section *next;$/;"	m	struct:conf_section	typeref:struct:conf_section::conf_section	access:public
+next	third/cJSON/cJSON.h	/^    struct cJSON *next;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON	access:public
 next_link	third/dbug/dbug.c	/^	struct link *next_link;				   \/* Pointer to the next link *\/$/;"	m	struct:link	typeref:struct:link::link	file:	access:public
 next_state	third/dbug/dbug.c	/^	struct state *next_state;				   \/* Next state in the list *\/$/;"	m	struct:state	typeref:struct:state::state	file:	access:public
+noalloc	third/cJSON/cJSON.c	/^    cJSON_bool noalloc;$/;"	m	struct:__anon4	file:	access:public
+object	third/cJSON/cJSON_Utils.h	/^CJSON_PUBLIC(void) cJSONUtils_SortObject(cJSON * const object);$/;"	v
+object	third/cJSON/cJSON_Utils.h	/^CJSON_PUBLIC(void) cJSONUtils_SortObjectCaseSensitive(cJSON * const object);$/;"	v
 occurs	drivermanager/oracle/ora.c	/^   unsigned int   occurs;$/;"	m	struct:sqlexd	file:	access:public
 offset	drivermanager/oracle/ora.c	/^   unsigned int   offset;$/;"	m	struct:sqlexd	file:	access:public
+offset	third/cJSON/cJSON.c	/^    size_t offset;$/;"	m	struct:__anon3	file:	access:public
+offset	third/cJSON/cJSON.c	/^    size_t offset;$/;"	m	struct:__anon4	file:	access:public
 open_conf_file	config_loader.c	/^static FILE *open_conf_file(char *file)$/;"	f	file:	signature:(char *file)
 open_driver	driver_loader.c	/^static int open_driver(driver_manager *driver)$/;"	f	file:	signature:(driver_manager *driver)
-oper_timeout	db.h	/^	int oper_timeout;$/;"	m	struct:__DBHandle	access:public
-ora	db.h	/^	int ora;$/;"	m	struct:__DBHandle	access:public
+oper_timeout	sqlbus.h	/^	int oper_timeout;$/;"	m	struct:sqlbus_handle	access:public
+ora	sqlbus.h	/^	int ora;$/;"	m	struct:sqlbus_handle	access:public
 out_file	third/dbug/dbug.c	/^	FILE *out_file;					   \/* Current output stream *\/$/;"	m	struct:state	file:	access:public
+overwrite_item	third/cJSON/cJSON_Utils.c	/^static void overwrite_item(cJSON * const root, const cJSON replacement)$/;"	f	file:	signature:(cJSON * const root, const cJSON replacement)
 p_functions	third/dbug/dbug.c	/^	struct link *p_functions;				   \/* List of profiled functions *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
+pagesize_aligned	drivermanager/oracle/util.h	23;"	d
 pair	config_loader.h	/^	conf_pair_t *pair;$/;"	m	struct:conf_section	access:public
 pair_new	config_loader.c	/^static conf_pair_t *pair_new(char *name, char *value, char *ctext)$/;"	f	file:	signature:(char *name, char *value, char *ctext)
 parase_conf_file	config_loader.c	/^static int parase_conf_file(config_t *conf)$/;"	f	file:	signature:(config_t *conf)
+parse_array	third/cJSON/cJSON.c	/^static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_array	third/cJSON/cJSON.c	/^static cJSON_bool parse_array(cJSON * const item, parse_buffer * const input_buffer);$/;"	p	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_buffer	third/cJSON/cJSON.c	/^} parse_buffer;$/;"	t	typeref:struct:__anon3	file:
+parse_hex4	third/cJSON/cJSON.c	/^static unsigned parse_hex4(const unsigned char * const input)$/;"	f	file:	signature:(const unsigned char * const input)
+parse_number	third/cJSON/cJSON.c	/^static cJSON_bool parse_number(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_object	third/cJSON/cJSON.c	/^static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_object	third/cJSON/cJSON.c	/^static cJSON_bool parse_object(cJSON * const item, parse_buffer * const input_buffer);$/;"	p	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_string	third/cJSON/cJSON.c	/^static cJSON_bool parse_string(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_value	third/cJSON/cJSON.c	/^static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer)$/;"	f	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
+parse_value	third/cJSON/cJSON.c	/^static cJSON_bool parse_value(cJSON * const item, parse_buffer * const input_buffer);$/;"	p	file:	signature:(cJSON * const item, parse_buffer * const input_buffer)
 password	driver_manager.h	/^	char password[64];$/;"	m	struct:connection	access:public
 password	drivermanager/oracle/dbdriver.h	/^	char password[64];$/;"	m	struct:connection	access:public
-priority	db.h	/^	int priority;$/;"	m	struct:__DBHandle	access:public
+patch_operation	third/cJSON/cJSON_Utils.c	/^enum patch_operation { INVALID, ADD, REMOVE, REPLACE, MOVE, COPY, TEST };$/;"	g	file:
+pid	sqlbus.h	/^	int pid;$/;"	m	struct:sqlbus_handle	access:public
+pointer_encoded_length	third/cJSON/cJSON_Utils.c	/^static size_t pointer_encoded_length(const unsigned char *string)$/;"	f	file:	signature:(const unsigned char *string)
+position	third/cJSON/cJSON.c	/^    size_t position;$/;"	m	struct:__anon2	file:	access:public
+pragmatism	third/cJSON/README.md	/^As a point of pragmatism (i.e. ignoring the truth), I'm going to say that you can use it$/;"	p	file:	signature:(i.e. ignoring the truth)
+precision	third/cJSON/test.c	/^    const char *precision;$/;"	m	struct:record	file:	access:public
+prev	third/cJSON/cJSON.h	/^    struct cJSON *prev;$/;"	m	struct:cJSON	typeref:struct:cJSON::cJSON	access:public
+print	third/cJSON/cJSON.c	/^static unsigned char *print(const cJSON * const item, cJSON_bool format, const internal_hooks * const hooks)$/;"	f	file:	signature:(const cJSON * const item, cJSON_bool format, const internal_hooks * const hooks)
+print_array	third/cJSON/cJSON.c	/^static cJSON_bool print_array(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+print_array	third/cJSON/cJSON.c	/^static cJSON_bool print_array(const cJSON * const item, printbuffer * const output_buffer);$/;"	p	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+print_number	third/cJSON/cJSON.c	/^static cJSON_bool print_number(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+print_object	third/cJSON/cJSON.c	/^static cJSON_bool print_object(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+print_object	third/cJSON/cJSON.c	/^static cJSON_bool print_object(const cJSON * const item, printbuffer * const output_buffer);$/;"	p	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+print_preallocated	third/cJSON/test.c	/^static int print_preallocated(cJSON *root)$/;"	f	file:	signature:(cJSON *root)
+print_string	third/cJSON/cJSON.c	/^static cJSON_bool print_string(const cJSON * const item, printbuffer * const p)$/;"	f	file:	signature:(const cJSON * const item, printbuffer * const p)
+print_string_ptr	third/cJSON/cJSON.c	/^static cJSON_bool print_string_ptr(const unsigned char * const input, printbuffer * const output_buffer)$/;"	f	file:	signature:(const unsigned char * const input, printbuffer * const output_buffer)
+print_value	third/cJSON/cJSON.c	/^static cJSON_bool print_value(const cJSON * const item, printbuffer * const output_buffer)$/;"	f	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+print_value	third/cJSON/cJSON.c	/^static cJSON_bool print_value(const cJSON * const item, printbuffer * const output_buffer);$/;"	p	file:	signature:(const cJSON * const item, printbuffer * const output_buffer)
+printbuffer	third/cJSON/cJSON.c	/^} printbuffer;$/;"	t	typeref:struct:__anon4	file:
+priority	sqlbus.h	/^	int priority;$/;"	m	struct:sqlbus_handle	access:public
 processes	third/dbug/dbug.c	/^	struct link *processes;				   \/* List of process names *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 prof_file	third/dbug/dbug.c	/^	FILE *prof_file;					   \/* Current profiling stream *\/$/;"	m	struct:state	file:	access:public
 pthread_mutex_lock	third/dbug/dbug.c	416;"	d	file:
 pthread_mutex_unlock	third/dbug/dbug.c	417;"	d	file:
 ptr1	drivermanager/oracle/ora.c	/^    void *ptr1;$/;"	m	struct:sql_cursor	file:	access:public
 ptr2	drivermanager/oracle/ora.c	/^    void *ptr2;$/;"	m	struct:sql_cursor	file:	access:public
+publish	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+publish	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
 r	util.o	/^ELF/;"	v
 read_one_line	config_loader.c	/^static int read_one_line(FILE *fp, char *line, int size)$/;"	f	file:	signature:(FILE *fp, char *line, int size)
-recv_channel	db.h	/^	char *recv_channel;$/;"	m	struct:__DBHandle	access:public
-redis	db.h	/^	redisContext *redis;$/;"	m	struct:__DBHandle	access:public
-root	db.h	/^	cJSON *root;$/;"	m	struct:__DBHandle	access:public
-rows	drivermanager/oracle/dbdriver.h	/^	uint32_t rows;$/;"	m	struct:table_info	access:public
+reallocate	third/cJSON/cJSON.c	/^    void *(*reallocate)(void *pointer, size_t size);$/;"	m	struct:internal_hooks	file:	access:public
+record	third/cJSON/test.c	/^struct record$/;"	s	file:
+record::address	third/cJSON/test.c	/^    const char *address;$/;"	m	struct:record	file:	access:public
+record::city	third/cJSON/test.c	/^    const char *city;$/;"	m	struct:record	file:	access:public
+record::country	third/cJSON/test.c	/^    const char *country;$/;"	m	struct:record	file:	access:public
+record::lat	third/cJSON/test.c	/^    double lat;$/;"	m	struct:record	file:	access:public
+record::lon	third/cJSON/test.c	/^    double lon;$/;"	m	struct:record	file:	access:public
+record::precision	third/cJSON/test.c	/^    const char *precision;$/;"	m	struct:record	file:	access:public
+record::state	third/cJSON/test.c	/^    const char *state;$/;"	m	struct:record	file:	access:public
+record::zip	third/cJSON/test.c	/^    const char *zip;$/;"	m	struct:record	file:	access:public
+recv_channel	sqlbus.h	/^	char *recv_channel;$/;"	m	struct:sqlbus_handle	access:public
+redis	sqlbus.h	/^	redisContext *redis;$/;"	m	struct:sqlbus_handle	access:public
+redis_auth	redisop.c	/^int redis_auth(redisContext *redis, char *password)$/;"	f	signature:(redisContext *redis, char *password)
+redis_connection	redisop.c	/^redisContext *redis_connection(char *host, unsigned short int port, unsigned int timeo)$/;"	f	signature:(char *host, unsigned short int port, unsigned int timeo)
+redis_select	redisop.c	/^int redis_select(redisContext *redis, int database)$/;"	f	signature:(redisContext *redis, int database)
+releaseDescriptors	drivermanager/oracle/ora.c	/^\/*STATIC*\/ int releaseDescriptors(int max_item)$/;"	f	signature:(int max_item)
+releaseDescriptors	drivermanager/oracle/ora.c	/^static int releaseDescriptors(int max_item);$/;"	p	file:	signature:(int max_item)
+releaseDescriptors	drivermanager/oracle/ora.pc	/^\/*STATIC*\/ int releaseDescriptors(int max_item)$/;"	f	signature:(int max_item)
+releaseDescriptors	drivermanager/oracle/ora.pc	/^static int releaseDescriptors(int max_item);$/;"	p	file:	signature:(int max_item)
+replace_item_in_object	third/cJSON/cJSON.c	/^static cJSON_bool replace_item_in_object(cJSON *object, const char *string, cJSON *replacement, cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON *object, const char *string, cJSON *replacement, cJSON_bool case_sensitive)
+restriction	third/cJSON/LICENSE	/^in the Software without restriction, including without limitation the rights$/;"	v
+restriction	third/cJSON/README.md	/^>  in the Software without restriction, including without limitation the rights$/;"	v
+result	drivermanager/oracle/dbdriver.h	/^	void *result;$/;"	m	struct:statement	access:public
+result_code	drivermanager/oracle/dbdriver.h	/^	int result_code;$/;"	m	struct:statement	access:public
+root	sqlbus.h	/^	cJSON *root;$/;"	m	struct:sqlbus_handle	access:public
+row_count	drivermanager/oracle/dbdriver.h	/^	int row_count;$/;"	m	struct:statement	access:public
+row_cur_pos	drivermanager/oracle/dbdriver.h	/^	int row_cur_pos;$/;"	m	struct:statement	access:public
 rport	drivermanager/oracle/server.c	/^const static int rport = 6379;$/;"	v	file:
-rset	db.h	/^	cJSON *rset;$/;"	m	struct:__DBHandle	access:public
-rtrim	drivermanager/oracle/util.c	/^void rtrim(unsigned char *str, int len)$/;"	f	signature:(unsigned char *str, int len)
-rtrim	drivermanager/oracle/util.h	/^void rtrim(unsigned char *str, int len);$/;"	p	signature:(unsigned char *str, int len)
+rset	sqlbus.h	/^	cJSON *rset;$/;"	m	struct:sqlbus_handle	access:public
+rtrim	drivermanager/oracle/util.c	/^void rtrim(char *str, int len)$/;"	f	signature:(char *str, int len)
+rtrim	drivermanager/oracle/util.h	/^void rtrim(char *str, int len);$/;"	p	signature:(char *str, int len)
 rtrim	util.c	/^void rtrim(char *str, int len)$/;"	f	signature:(char *str, int len)
 rtrim	util.h	/^void rtrim(char *str, int len);$/;"	p	signature:(char *str, int len)
+runNonQueryStatment	drivermanager/oracle/ora.c	/^static int runNonQueryStatment(HSTMT hstmt, char *statement)$/;"	f	file:	signature:(HSTMT hstmt, char *statement)
+runNonQueryStatment	drivermanager/oracle/ora.pc	/^static int runNonQueryStatment(HSTMT hstmt, char *statement)$/;"	f	file:	signature:(HSTMT hstmt, char *statement)
+s	tags	/^sqlbus_log	log.h	\/^typedef struct sqlbus_log$\/;"	s$/;"	e	enum:log_level	file:
 section	config_loader.h	/^	conf_section_t *section;$/;"	m	struct:configuration	access:public
 section_new	config_loader.c	/^static conf_section_t *section_new(char *name)$/;"	f	file:	signature:(char *name)
 select_dp	drivermanager/oracle/ora.c	/^static SQLDA *select_dp;$/;"	v	file:
 select_dp	drivermanager/oracle/ora.pc	/^static SQLDA *select_dp;$/;"	v	file:
 selerr	drivermanager/oracle/ora.c	/^   unsigned short selerr;$/;"	m	struct:sqlexd	file:	access:public
-send_channel	db.h	/^	char *send_channel;$/;"	m	struct:__DBHandle	access:public
+send_channel	sqlbus.h	/^	char *send_channel;$/;"	m	struct:sqlbus_handle	access:public
 separate_key_value_pair	config_loader.c	/^static int separate_key_value_pair(char *string, conf_pair_t **pair)$/;"	f	file:	signature:(char *string, conf_pair_t **pair)
+size	third/cJSON/cJSON.h	/^CJSON_PUBLIC(void *) cJSON_malloc(size_t size);$/;"	v
+skip_utf8_bom	third/cJSON/cJSON.c	/^static parse_buffer *skip_utf8_bom(parse_buffer * const buffer)$/;"	f	file:	signature:(parse_buffer * const buffer)
+so	third/cJSON/LICENSE	/^furnished to do so, subject to the following conditions:$/;"	v
+so	third/cJSON/README.md	/^>  furnished to do so, subject to the following conditions:$/;"	v
+sort_list	third/cJSON/cJSON_Utils.c	/^static cJSON *sort_list(cJSON *list, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON *list, const cJSON_bool case_sensitive)
+sort_object	third/cJSON/cJSON_Utils.c	/^static void sort_object(cJSON * const object, const cJSON_bool case_sensitive)$/;"	f	file:	signature:(cJSON * const object, const cJSON_bool case_sensitive)
 sqadto	drivermanager/oracle/ora.c	/^   unsigned short  sqadto[4];$/;"	m	struct:sqlexd	file:	access:public
 sqcmod	drivermanager/oracle/ora.c	/^   unsigned int   sqcmod;$/;"	m	struct:sqlexd	file:	access:public
 sqfmod	drivermanager/oracle/ora.c	/^   unsigned int   sqfmod;$/;"	m	struct:sqlexd	file:	access:public
@@ -687,6 +1196,7 @@ sql_cursor::curocn	drivermanager/oracle/ora.c	/^    unsigned int curocn;$/;"	m	s
 sql_cursor::magic	drivermanager/oracle/ora.c	/^    unsigned int magic;$/;"	m	struct:sql_cursor	file:	access:public
 sql_cursor::ptr1	drivermanager/oracle/ora.c	/^    void *ptr1;$/;"	m	struct:sql_cursor	file:	access:public
 sql_cursor::ptr2	drivermanager/oracle/ora.c	/^    void *ptr2;$/;"	m	struct:sql_cursor	file:	access:public
+sql_statement	sqlbus.h	/^	char *sql_statement;$/;"	m	struct:sqlbus_handle	access:public
 sqlabc	drivermanager/oracle/ora.c	/^         \/* b4  *\/ int     sqlabc;$/;"	m	struct:sqlca	file:	access:public
 sqladt	drivermanager/oracle/ora.c	/^static struct sqladts sqladt = {$/;"	v	typeref:struct:sqladts	file:
 sqladtp	drivermanager/oracle/ora.c	/^   sqladts *sqladtp;$/;"	m	struct:sqlexd	file:	access:public
@@ -702,16 +1212,63 @@ sqlaldt	drivermanager/oracle/ora.c	/^extern struct SQLDA *sqlaldt( void*, int, s
 sqlaldt	drivermanager/oracle/ora.c	/^extern struct SQLDA *sqlaldt(\/*_ void*, int, size_t, size_t _*\/ );$/;"	p	file:	signature:( )
 sqlapr	drivermanager/oracle/ora.pc	/^EXEC SQL INCLUDE sqlapr;$/;"	v
 sqlbuft	drivermanager/oracle/ora.c	/^extern void sqlbuft(void **, char *);$/;"	p	file:	signature:(void **, char *)
+sqlbus	sqlbus.h	/^	sqlbus_handle_t *sqlbus;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_config_t	config_loader.h	/^} config_t, sqlbus_config_t;$/;"	t	typeref:struct:configuration
+sqlbus_cycle	sqlbus.h	/^typedef struct sqlbus_cycle$/;"	s
+sqlbus_cycle	sqlbus.h	/^} sqlbus_cycle, sqlbus_cycle_t;$/;"	t	typeref:struct:sqlbus_cycle
+sqlbus_cycle::config	sqlbus.h	/^	config_t *config;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::config_file	sqlbus.h	/^	char *config_file;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::database	sqlbus.h	/^	char *database;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::db_auth	sqlbus.h	/^	char *db_auth;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::db_type	sqlbus.h	/^	char *db_type;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::db_user	sqlbus.h	/^	char *db_user;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::logger	sqlbus.h	/^	sqlbus_log_t *logger;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle::sqlbus	sqlbus.h	/^	sqlbus_handle_t *sqlbus;$/;"	m	struct:sqlbus_cycle	access:public
+sqlbus_cycle_t	sqlbus.h	/^} sqlbus_cycle, sqlbus_cycle_t;$/;"	t	typeref:struct:sqlbus_cycle
+sqlbus_dm_type	driver_loader.h	/^enum sqlbus_dm_type{$/;"	g
+sqlbus_env_exit	sqlbus.c	/^int sqlbus_env_exit(sqlbus_cycle_t *cycle)$/;"	f	signature:(sqlbus_cycle_t *cycle)
+sqlbus_env_init	sqlbus.c	/^int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char const *argv[])$/;"	f	signature:(sqlbus_cycle_t *cycle, int argc, const char const *argv[])
+sqlbus_handle	sqlbus.h	/^typedef struct sqlbus_handle {$/;"	s
+sqlbus_handle	sqlbus.h	/^} sqlbus_handle, sqlbus_handle_t, *HSQLBUS;$/;"	t	typeref:struct:sqlbus_handle
+sqlbus_handle::app	sqlbus.h	/^	char *app;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::crc16	sqlbus.h	/^	int crc16;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::idx	sqlbus.h	/^	int idx;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::json_string	sqlbus.h	/^	char *json_string;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::more	sqlbus.h	/^	int more;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::oper_timeout	sqlbus.h	/^	int oper_timeout;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::ora	sqlbus.h	/^	int ora;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::pid	sqlbus.h	/^	int pid;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::priority	sqlbus.h	/^	int priority;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::recv_channel	sqlbus.h	/^	char *recv_channel;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::redis	sqlbus.h	/^	redisContext *redis;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::root	sqlbus.h	/^	cJSON *root;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::rset	sqlbus.h	/^	cJSON *rset;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::send_channel	sqlbus.h	/^	char *send_channel;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::sql_statement	sqlbus.h	/^	char *sql_statement;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::sync	sqlbus.h	/^	int sync;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::timestamp	sqlbus.h	/^	int timestamp;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle::type	sqlbus.h	/^	char *type;$/;"	m	struct:sqlbus_handle	access:public
+sqlbus_handle_t	sqlbus.h	/^} sqlbus_handle, sqlbus_handle_t, *HSQLBUS;$/;"	t	typeref:struct:sqlbus_handle
+sqlbus_log	log.h	/^typedef struct sqlbus_log$/;"	s
+sqlbus_log::catalog	log.h	/^	char *catalog; \/* path of log                *\/$/;"	m	struct:sqlbus_log	access:public
+sqlbus_log::fd	log.h	/^	int fd;        \/* file decriptor of log file *\/$/;"	m	struct:sqlbus_log	access:public
+sqlbus_log::file	log.h	/^	char *file;    \/* log name                   *\/$/;"	m	struct:sqlbus_log	access:public
+sqlbus_log::level	log.h	/^	int level;     \/* log base level             *\/$/;"	m	struct:sqlbus_log	access:public
+sqlbus_log_t	log.h	/^} sqlbus_log_t;$/;"	t	typeref:struct:sqlbus_log
+sqlbus_main	sqlbus.c	/^int sqlbus_main(sqlbus_cycle_t *cycle)$/;"	f	signature:(sqlbus_cycle_t *cycle)
+sqlbus_parse_request	sqlbus.c	/^int sqlbus_parse_request(sqlbus_cycle_t *cycle)$/;"	f	signature:(sqlbus_cycle_t *cycle)
+sqlbus_recv_from_redis	redisop.c	/^int sqlbus_recv_from_redis(HSQLBUS *handle)$/;"	f	signature:(HSQLBUS *handle)
+sqlbus_write_to_redis	redisop.c	/^int sqlbus_write_to_redis(HSQLBUS *handle)$/;"	f	signature:(HSQLBUS *handle)
 sqlca	drivermanager/oracle/ora.c	/^SQLCA_STORAGE_CLASS struct sqlca sqlca$/;"	v	typeref:struct:sqlca
 sqlca	drivermanager/oracle/ora.c	/^struct   sqlca$/;"	s	file:
 sqlca	drivermanager/oracle/ora.pc	/^EXEC SQL INCLUDE sqlca;$/;"	v
-sqlca::__anon4::sqlerrmc	drivermanager/oracle/ora.c	/^           \/* ub1 *\/ char           sqlerrmc[70];$/;"	m	struct:sqlca::__anon4	file:	access:public
-sqlca::__anon4::sqlerrml	drivermanager/oracle/ora.c	/^           \/* ub2 *\/ unsigned short sqlerrml;$/;"	m	struct:sqlca::__anon4	file:	access:public
+sqlca::__anon7::sqlerrmc	drivermanager/oracle/ora.c	/^           \/* ub1 *\/ char           sqlerrmc[70];$/;"	m	struct:sqlca::__anon7	file:	access:public
+sqlca::__anon7::sqlerrml	drivermanager/oracle/ora.c	/^           \/* ub2 *\/ unsigned short sqlerrml;$/;"	m	struct:sqlca::__anon7	file:	access:public
 sqlca::sqlabc	drivermanager/oracle/ora.c	/^         \/* b4  *\/ int     sqlabc;$/;"	m	struct:sqlca	file:	access:public
 sqlca::sqlcaid	drivermanager/oracle/ora.c	/^         \/* ub1 *\/ char    sqlcaid[8];$/;"	m	struct:sqlca	file:	access:public
 sqlca::sqlcode	drivermanager/oracle/ora.c	/^         \/* b4  *\/ int     sqlcode;$/;"	m	struct:sqlca	file:	access:public
 sqlca::sqlerrd	drivermanager/oracle/ora.c	/^         \/* b4  *\/ int     sqlerrd[6];$/;"	m	struct:sqlca	file:	access:public
-sqlca::sqlerrm	drivermanager/oracle/ora.c	/^           } sqlerrm;$/;"	m	struct:sqlca	typeref:struct:sqlca::__anon4	file:	access:public
+sqlca::sqlerrm	drivermanager/oracle/ora.c	/^           } sqlerrm;$/;"	m	struct:sqlca	typeref:struct:sqlca::__anon7	file:	access:public
 sqlca::sqlerrp	drivermanager/oracle/ora.c	/^         \/* ub1 *\/ char    sqlerrp[8];$/;"	m	struct:sqlca	file:	access:public
 sqlca::sqlext	drivermanager/oracle/ora.c	/^         \/* ub1 *\/ char    sqlext[8];$/;"	m	struct:sqlca	file:	access:public
 sqlca::sqlwarn	drivermanager/oracle/ora.c	/^         \/* ub1 *\/ char    sqlwarn[8];$/;"	m	struct:sqlca	file:	access:public
@@ -740,9 +1297,9 @@ sqlcxp::filnam	drivermanager/oracle/ora.c	/^           char  filnam[7];$/;"	m	st
 sqlcxt	drivermanager/oracle/ora.c	/^extern void sqlcxt (void **, unsigned int *,$/;"	p	file:	signature:(void **, unsigned int *, struct sqlexd *, const struct sqlcxp *)
 sqlda	drivermanager/oracle/ora.pc	/^EXEC SQL INCLUDE sqlda;$/;"	v
 sqlerrd	drivermanager/oracle/ora.c	/^         \/* b4  *\/ int     sqlerrd[6];$/;"	m	struct:sqlca	file:	access:public
-sqlerrm	drivermanager/oracle/ora.c	/^           } sqlerrm;$/;"	m	struct:sqlca	typeref:struct:sqlca::__anon4	file:	access:public
-sqlerrmc	drivermanager/oracle/ora.c	/^           \/* ub1 *\/ char           sqlerrmc[70];$/;"	m	struct:sqlca::__anon4	file:	access:public
-sqlerrml	drivermanager/oracle/ora.c	/^           \/* ub2 *\/ unsigned short sqlerrml;$/;"	m	struct:sqlca::__anon4	file:	access:public
+sqlerrm	drivermanager/oracle/ora.c	/^           } sqlerrm;$/;"	m	struct:sqlca	typeref:struct:sqlca::__anon7	file:	access:public
+sqlerrmc	drivermanager/oracle/ora.c	/^           \/* ub1 *\/ char           sqlerrmc[70];$/;"	m	struct:sqlca::__anon7	file:	access:public
+sqlerrml	drivermanager/oracle/ora.c	/^           \/* ub2 *\/ unsigned short sqlerrml;$/;"	m	struct:sqlca::__anon7	file:	access:public
 sqlerrp	drivermanager/oracle/ora.c	/^         \/* ub1 *\/ char    sqlerrp[8];$/;"	m	struct:sqlca	file:	access:public
 sqlest	drivermanager/oracle/ora.c	/^   unsigned char  *sqlest;$/;"	m	struct:sqlexd	file:	access:public
 sqlety	drivermanager/oracle/ora.c	/^   unsigned short sqlety;$/;"	m	struct:sqlexd	file:	access:public
@@ -864,13 +1421,8 @@ st_code_state::lineno	third/dbug/dbug.c	/^	int lineno;						   \/* Current debug
 st_code_state::locked	third/dbug/dbug.c	/^	int locked;						   \/* If locked with _db_lock_file *\/$/;"	m	struct:st_code_state	file:	access:public
 st_code_state::u_keyword	third/dbug/dbug.c	/^	const char *u_keyword;				   \/* Keyword for current macro *\/$/;"	m	struct:st_code_state	file:	access:public
 st_code_state::u_line	third/dbug/dbug.c	/^	uint u_line;					   \/* User source code line number *\/$/;"	m	struct:st_code_state	file:	access:public
-st_log_meta	log.h	/^typedef struct st_log_meta$/;"	s
-st_log_meta	log.h	/^} st_log_meta;$/;"	t	typeref:struct:st_log_meta
-st_log_meta::catalog	log.h	/^	char *catalog; \/* path of log                *\/$/;"	m	struct:st_log_meta	access:public
-st_log_meta::fd	log.h	/^	int fd;        \/* file decriptor of log file *\/$/;"	m	struct:st_log_meta	access:public
-st_log_meta::file	log.h	/^	char *file;    \/* log name                   *\/$/;"	m	struct:st_log_meta	access:public
-st_log_meta::level	log.h	/^	int level;     \/* log base level             *\/$/;"	m	struct:st_log_meta	access:public
 stack	third/dbug/dbug.c	/^static struct state *stack = 0;$/;"	v	typeref:struct:state	file:
+state	third/cJSON/test.c	/^    const char *state;$/;"	m	struct:record	file:	access:public
 state	third/dbug/dbug.c	/^struct state$/;"	s	file:
 state::delay	third/dbug/dbug.c	/^	uint delay;						   \/* Delay after each output line *\/$/;"	m	struct:state	file:	access:public
 state::flags	third/dbug/dbug.c	/^	int flags;						   \/* Current state flags *\/$/;"	m	struct:state	file:	access:public
@@ -884,46 +1436,62 @@ state::p_functions	third/dbug/dbug.c	/^	struct link *p_functions;				   \/* List
 state::processes	third/dbug/dbug.c	/^	struct link *processes;				   \/* List of process names *\/$/;"	m	struct:state	typeref:struct:state::link	file:	access:public
 state::prof_file	third/dbug/dbug.c	/^	FILE *prof_file;					   \/* Current profiling stream *\/$/;"	m	struct:state	file:	access:public
 state::sub_level	third/dbug/dbug.c	/^	int sub_level;					   \/* Sub this from code_state->level *\/$/;"	m	struct:state	file:	access:public
-statement	driver_manager.h	/^typedef struct statement statement;$/;"	t	typeref:struct:statement
 statement	driver_manager.h	/^typedef struct statement$/;"	s
+statement	driver_manager.h	/^}statement, statement_t, *HSTMT;$/;"	t	typeref:struct:statement
+statement	drivermanager/oracle/dbdriver.h	/^	char *statement;$/;"	m	struct:statement	access:public
+statement	drivermanager/oracle/dbdriver.h	/^typedef struct statement$/;"	s
+statement	drivermanager/oracle/dbdriver.h	/^}statement, *HSTMT;$/;"	t	typeref:struct:statement
 statement::connection	driver_manager.h	/^	HDBC connection;$/;"	m	struct:statement	access:public
-statement::driver_stmt	driver_manager.h	/^	HSTMT driver_stmt;$/;"	m	struct:statement	access:public
-statement_t	driver_manager.h	/^} statement_t;$/;"	t	typeref:struct:statement
+statement::driver_stmt	driver_manager.h	/^	HDMSTMT driver_stmt;$/;"	m	struct:statement	access:public
+statement::error	driver_manager.h	/^	error_info_t *error;$/;"	m	struct:statement	access:public
+statement::error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:statement	access:public
+statement::field_cur_pos	drivermanager/oracle/dbdriver.h	/^	int field_cur_pos;$/;"	m	struct:statement	access:public
+statement::hdbc	drivermanager/oracle/dbdriver.h	/^	connection *hdbc;$/;"	m	struct:statement	access:public
+statement::map_size	drivermanager/oracle/dbdriver.h	/^	int map_size;$/;"	m	struct:statement	access:public
+statement::max_row_count	drivermanager/oracle/dbdriver.h	/^	int max_row_count;$/;"	m	struct:statement	access:public
+statement::result	drivermanager/oracle/dbdriver.h	/^	void *result;$/;"	m	struct:statement	access:public
+statement::result_code	drivermanager/oracle/dbdriver.h	/^	int result_code;$/;"	m	struct:statement	access:public
+statement::row_count	drivermanager/oracle/dbdriver.h	/^	int row_count;$/;"	m	struct:statement	access:public
+statement::row_cur_pos	drivermanager/oracle/dbdriver.h	/^	int row_cur_pos;$/;"	m	struct:statement	access:public
+statement::statement	drivermanager/oracle/dbdriver.h	/^	char *statement;$/;"	m	struct:statement	access:public
+statement::statement_type	drivermanager/oracle/dbdriver.h	/^	int statement_type;$/;"	m	struct:statement	access:public
+statement::status	drivermanager/oracle/dbdriver.h	/^	int status; \/* åº”è¯¥è¦è®°å½•å½“å‰çš„æ‰§è¡ŒçŠ¶æ€ *\/$/;"	m	struct:statement	access:public
+statement::table	drivermanager/oracle/dbdriver.h	/^	table_info *table;$/;"	m	struct:statement	access:public
+statement::table_size	drivermanager/oracle/dbdriver.h	/^	int table_size;$/;"	m	struct:statement	access:public
+statement_t	driver_manager.h	/^}statement, statement_t, *HSTMT;$/;"	t	typeref:struct:statement
+statement_type	drivermanager/oracle/dbdriver.h	/^	int statement_type;$/;"	m	struct:statement	access:public
 static_code_state	third/dbug/dbug.c	/^static CODE_STATE static_code_state = { 0, 0, "?func", "?file", NULL, 0, NULL,$/;"	v	file:
 static_strtok	third/dbug/dbug.c	/^static char *static_strtok(char *s1, char chr);$/;"	p	file:	signature:(char *s1, char chr)
 static_strtok	third/dbug/dbug.c	/^static_strtok(char *s1, char separator)$/;"	f	file:	signature:(char *s1, char separator)
-statment	drivermanager/oracle/dbdriver.h	/^	char *statment;$/;"	m	struct:statment	access:public
-statment	drivermanager/oracle/dbdriver.h	/^typedef struct statment$/;"	s
-statment	drivermanager/oracle/dbdriver.h	/^}statment, *HSTMT;$/;"	t	typeref:struct:statment
-statment::error	drivermanager/oracle/dbdriver.h	/^	error_info *error;$/;"	m	struct:statment	access:public
-statment::hdbc	drivermanager/oracle/dbdriver.h	/^	connection *hdbc;$/;"	m	struct:statment	access:public
-statment::max_row_count	drivermanager/oracle/dbdriver.h	/^	int max_row_count;$/;"	m	struct:statment	access:public
-statment::statment	drivermanager/oracle/dbdriver.h	/^	char *statment;$/;"	m	struct:statment	access:public
-statment::statment_type	drivermanager/oracle/dbdriver.h	/^	int statment_type;$/;"	m	struct:statment	access:public
-statment::table	drivermanager/oracle/dbdriver.h	/^	table_info *table;$/;"	m	struct:statment	access:public
-statment_type	drivermanager/oracle/dbdriver.h	/^	int statment_type;$/;"	m	struct:statment	access:public
+status	drivermanager/oracle/dbdriver.h	/^	int status; \/* åº”è¯¥è¦è®°å½•å½“å‰çš„æ‰§è¡ŒçŠ¶æ€ *\/$/;"	m	struct:statement	access:public
 stmt	drivermanager/oracle/ora.c	/^      const char  *stmt;$/;"	m	struct:sqlexd	file:	access:public
 str	third/dbug/dbug.c	/^	char *str;						   \/* Pointer to link's contents *\/$/;"	m	struct:link	file:	access:public
 stream	third/dbug/dbug.c	/^	FILE *stream;$/;"	v
+string	third/cJSON/README.md	/^    char *string;$/;"	v
+string	third/cJSON/cJSON.h	/^    char *string;$/;"	m	struct:cJSON	access:public
 sub_level	third/dbug/dbug.c	/^	int sub_level;					   \/* Sub this from code_state->level *\/$/;"	m	struct:state	file:	access:public
-sync	db.h	/^	int sync;$/;"	m	struct:__DBHandle	access:public
-t	main.o	/^ELF/;"	v
-table	drivermanager/oracle/dbdriver.h	/^	table_info *table;$/;"	m	struct:statment	access:public
+sublicense	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+sublicense	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+suffix_object	third/cJSON/cJSON.c	/^static void suffix_object(cJSON *prev, cJSON *item)$/;"	f	file:	signature:(cJSON *prev, cJSON *item)
+sync	sqlbus.h	/^	int sync;$/;"	m	struct:sqlbus_handle	access:public
+table	drivermanager/oracle/dbdriver.h	/^	table_info *table;$/;"	m	struct:statement	access:public
 table_info	drivermanager/oracle/dbdriver.h	/^typedef struct table_info$/;"	s
 table_info	drivermanager/oracle/dbdriver.h	/^} table_info;$/;"	t	typeref:struct:table_info
 table_info::field	drivermanager/oracle/dbdriver.h	/^	field_attr *field;$/;"	m	struct:table_info	access:public
 table_info::fields	drivermanager/oracle/dbdriver.h	/^	uint16_t fields;$/;"	m	struct:table_info	access:public
-table_info::rows	drivermanager/oracle/dbdriver.h	/^	uint32_t rows;$/;"	m	struct:table_info	access:public
 table_info::table_name	drivermanager/oracle/dbdriver.h	/^	char table_name[128];$/;"	m	struct:table_info	access:public
 table_name	drivermanager/oracle/dbdriver.h	/^	char table_name[128];$/;"	m	struct:table_info	access:public
+table_size	drivermanager/oracle/dbdriver.h	/^	int table_size;$/;"	m	struct:statement	access:public
 tail	config_loader.h	/^	conf_pair_t *tail;$/;"	m	struct:conf_section	access:public
 tdsnum	drivermanager/oracle/ora.c	/^  unsigned short tdsnum; $/;"	m	struct:sqltdss	file:	access:public
 tdsval	drivermanager/oracle/ora.c	/^  unsigned char *tdsval[1]; $/;"	m	struct:sqltdss	file:	access:public
 tdsvsn	drivermanager/oracle/ora.c	/^  unsigned int tdsvsn; $/;"	m	struct:sqltdss	file:	access:public
 teH	driver_loader.o	/^ELF/;"	v
 times	third/dbug/doc/readme.prof	/^sum total of all the times, etc.$/;"	v
-timestamp	db.h	/^	int timestamp;$/;"	m	struct:__DBHandle	access:public
+timestamp	sqlbus.h	/^	int timestamp;$/;"	m	struct:sqlbus_handle	access:public
 trim_space_character	config_loader.c	/^static int trim_space_character(char *string)$/;"	f	file:	signature:(char *string)
+true	third/cJSON/cJSON.c	62;"	d	file:
+true	third/cJSON/cJSON_Utils.c	53;"	d	file:
 tvnnm	drivermanager/oracle/ora.c	/^  unsigned char *tvnnm;$/;"	m	struct:sqltvn	file:	access:public
 tvnnml	drivermanager/oracle/ora.c	/^  unsigned short tvnnml; $/;"	m	struct:sqltvn	file:	access:public
 tvnsnm	drivermanager/oracle/ora.c	/^  unsigned char *tvnsnm;$/;"	m	struct:sqltvn	file:	access:public
@@ -931,21 +1499,32 @@ tvnsnml	drivermanager/oracle/ora.c	/^  unsigned short tvnsnml;$/;"	m	struct:sqlt
 tvnvsn	drivermanager/oracle/ora.c	/^  unsigned char *tvnvsn; $/;"	m	struct:sqltvn	file:	access:public
 tvnvsnl	drivermanager/oracle/ora.c	/^  unsigned short tvnvsnl; $/;"	m	struct:sqltvn	file:	access:public
 type	drivermanager/oracle/dbdriver.h	/^	uint8_t type;$/;"	m	struct:column_attr	access:public
-u	driver_manager.o	/^ELF/;"	v
+type	sqlbus.h	/^	char *type;$/;"	m	struct:sqlbus_handle	access:public
+type	third/cJSON/README.md	/^    int type;$/;"	v
+type	third/cJSON/cJSON.h	/^    int type;$/;"	m	struct:cJSON	access:public
 u_keyword	third/dbug/dbug.c	/^	const char *u_keyword;				   \/* Keyword for current macro *\/$/;"	m	struct:st_code_state	file:	access:public
 u_line	third/dbug/dbug.c	/^	uint u_line;					   \/* User source code line number *\/$/;"	m	struct:st_code_state	file:	access:public
 unload_config	config_loader.c	/^int unload_config(config_t *conf)$/;"	f	signature:(config_t *conf)
 unload_config	config_loader.h	/^int unload_config(config_t *conf);$/;"	p	signature:(config_t *conf)
 unload_driver	driver_loader.c	/^int unload_driver(driver_manager *driver)$/;"	f	signature:(driver_manager *driver)
 unload_driver	driver_loader.h	/^int unload_driver(driver_manager *driver);$/;"	p	signature:(driver_manager *driver)
+update_offset	third/cJSON/cJSON.c	/^static void update_offset(printbuffer * const buffer)$/;"	f	file:	signature:(printbuffer * const buffer)
+use	third/cJSON/LICENSE	/^to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
+use	third/cJSON/README.md	/^>  to use, copy, modify, merge, publish, distribute, sublicense, and\/or sell$/;"	v
 username	driver_manager.h	/^	char username[64];$/;"	m	struct:connection	access:public
 username	drivermanager/oracle/dbdriver.h	/^	char username[64];$/;"	m	struct:connection	access:public
+utf16_literal_to_utf8	third/cJSON/cJSON.c	/^static unsigned char utf16_literal_to_utf8(const unsigned char * const input_pointer, const unsigned char * const input_end, unsigned char **output_pointer)$/;"	f	file:	signature:(const unsigned char * const input_pointer, const unsigned char * const input_end, unsigned char **output_pointer)
 value	config_loader.h	/^	char value[128];$/;"	m	struct:conf_pair	access:public
-varchar	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	t	typeref:struct:__anon3	file:
-wing	drivermanager/oracle/ora.lis	/^        wing:$/;"	v
+valuedouble	third/cJSON/README.md	/^    double valuedouble;$/;"	v
+valuedouble	third/cJSON/cJSON.h	/^    double valuedouble;$/;"	m	struct:cJSON	access:public
+valueint	third/cJSON/README.md	/^    int valueint;$/;"	v
+valueint	third/cJSON/cJSON.h	/^    int valueint;$/;"	m	struct:cJSON	access:public
+valuestring	third/cJSON/README.md	/^    char *valuestring;$/;"	v
+valuestring	third/cJSON/cJSON.h	/^    char *valuestring;$/;"	m	struct:cJSON	access:public
+varchar	drivermanager/oracle/ora.c	/^typedef struct { unsigned short len; unsigned char arr[1]; } varchar;$/;"	t	typeref:struct:__anon6	file:
 write	third/dbug/doc/readme.prof	/^the code that I write, it isn't necessary.  If you have any good ideas,$/;"	v
 x4	third/dbug/doc/dbug	/^ELF/;"	v
 xcolor	third/dbug/dbug.c	/^static char *xcolor(int level)$/;"	f	file:	signature:(int level)
 xprint	driver_manager.c	14;"	d	file:
-xprint_config_all	config_loader.c	/^int xprint_config_all(const config_t *cfg)$/;"	f	signature:(const config_t *cfg)
 xprint_config_all	config_loader.h	/^int xprint_config_all(const config_t *cfg);$/;"	p	signature:(const config_t *cfg)
+zip	third/cJSON/test.c	/^    const char *zip;$/;"	m	struct:record	file:	access:public

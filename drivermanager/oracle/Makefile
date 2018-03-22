@@ -61,4 +61,4 @@ clean:
 	$(QUIET_REMOVE) -f core.*
 	$(QUIET_REMOVE) -f *.o
 	$(QUIET_REMOVE) -f tags
-	$(QUIET_REMOVE) -f ora.lis
+	$(QUIET_REMOVE) -f ora.lis ora.c

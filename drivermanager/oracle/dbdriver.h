@@ -45,10 +45,11 @@
 #define ORA_INDICATE_NAME_LEN SQL_MAX_ITEM_NUM
 
 #define ORA_MAX_ROW_COUNT 1000
+#define ORA_RESULT_NOT_FOUND (100)
 
-#define ORA_SQL_EXEC_RESULT_CODE_FAILURE    (-1)
-#define ORA_SQL_EXEC_RESULT_CODE_SUCCESS    (+0)
-#define ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND (100)
+#define ORA_SQL_EXEC_RESULT_CODE_FAILURE   (-1)
+#define ORA_SQL_EXEC_RESULT_CODE_SUCCESS   (+0)
+#define ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND (ORA_RESULT_NOT_FOUND)
 
 #define RETURN_SUCCESS (+0)
 #define RETURN_FAILURE (-1)
@@ -59,9 +60,17 @@
 #endif
 # define mFree(p) do { if(p) { free(p); p = NULL; } }while(0)
 
-typedef void* DBHENV;
-typedef void* DBHDBC;
-typedef void* DBHSTMT;
+/**
+ * 数据库操作句柄的类型
+ * 0: 环境ENV句柄类型
+ * 1: 数据库连接DBC句柄类型
+ * 2: 数据库操纵STMT句柄类型
+ */
+#define ORA_SQL_HANDLE_ENV  (0)
+#define ORA_SQL_HANDLE_DBC  (1)
+#define ORA_SQL_HANDLE_STMT (2)
+
+typedef void * DBHANDLE;
 
 /**
  * error_info - 错误消息
@@ -127,6 +136,7 @@ typedef struct statement
 {
 	char *statement;
 	int statement_type;
+	int status; /* 应该要记录当前的执行状态 */
 	int max_row_count;
 	int row_cur_pos;
 	int field_cur_pos;
@@ -155,7 +165,7 @@ __BEGIN_DECLS
 int DBConnectInitialize(HDBC *hdbc);
 
 /**
- * DBConnectFinished - 数据库连接句柄使用结束，翻译资源
+ * DBConnectFinalize - 数据库连接句柄使用结束，翻译资源
  *
  * @hdbc: 句柄
  *
@@ -163,7 +173,7 @@ int DBConnectInitialize(HDBC *hdbc);
  *  RETURN_INVALID: 参数无效
  *  RETURN_SUCCESS: 释放资源成功
  */
-int DBConnectFinished(HDBC hdbc);
+int DBConnectFinalize(HDBC hdbc);
 
 /**
  * DBConnect - 数据库连接
@@ -206,7 +216,7 @@ int DBDisconnect(HDBC hdbc);
 int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt);
 
 /**
- * DBStmtFinished - 数据库操纵句柄使用结束，释放资源
+ * DBStmtFinalize - 数据库操纵句柄使用结束，释放资源
  *
  * @hstmt: 操纵句柄
  *
@@ -214,7 +224,7 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt);
  *  RETURN_INVALID: 参数无效
  *  RETURN_SUCCESS: 释放成功
  */
-int DBStmtFinished(HSTMT hstmt);
+int DBStmtFinalize(HSTMT hstmt);
 
 /**
  * DBExecute - 执行SQL语句
@@ -229,11 +239,113 @@ int DBStmtFinished(HSTMT hstmt);
  */
 int DBExecute(HSTMT hstmt, char *statement);
 
-int DBGetFieldCount(HSTMT hstmt);
-int DBGetRowCount(HSTMT hstmt);
+/**
+ * DBGetFieldCount - 获取字段数量
+ *
+ * @hstmt: 数据库操纵句柄
+ * @counter: 出参，字段数量
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效，非查询SQL语句
+ *  RETURN_SUCCESS: 获取字段数量成功
+ */
+int DBGetFieldCount(HSTMT hstmt, int *counter);
 
+/**
+ * DBGetRowCount - 获取记录行数
+ *
+ * @hstmt: 数据库操纵句柄
+ * @counter: 出参，记录行数
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效，非查询SQL语句
+ *  RETURN_SUCCESS: 获取字段数量成功
+ */
+int DBGetRowCount(HSTMT hstmt, int *counter);
+
+/**
+ * DBGetFieldNameIdx - 根据下标获取字段名称
+ *
+ * @hstmt: 数据库操纵句柄
+ * @index: 下标，范围[0, field_counter)
+ * @value: 字段的名称
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 获取字段名称成功
+ */
 int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value);
+
+/**
+ * DBGetFieldLengthIdx - 获取字段最大长度
+ *
+ * @hstmt: 数据库操纵句柄
+ * @index: 下标，范围[0, field_counter)
+ * @length: 字段最大长度
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 获取字段长度成功
+ */
 int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length);
+
+/**
+ * DBGetNextRow - 移动指示位置，获取下一行记录
+ *
+ * @hstmt: 数据库操纵句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ *  ORA_RESULT_NOT_FOUND: 找不到数据
+ */
+int DBGetNextRow(HSTMT hstmt);
+
+/**
+ * DBGetFieldValue - 获取当前行的字段值
+ *
+ * @hstmt: 数据库操纵句柄
+ * @value: 字段值
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ *  ORA_RESULT_NOT_FOUND: 找不到数据
+ */
+int DBGetFieldValue(HSTMT hstmt, char *value);
+
+/**
+ * DBGetFieldValueIdx - 根据指定的行和列读取字段值
+ *
+ * @hstmt: 数据库操纵句柄
+ * @row: 指定行数
+ * @field: 指定列数
+ * @value: 字段值
+ *
+ * 当@row为-1时，表示从当前行获取字段值
+ * 当@field为-1时，表示从当前列获取字段值
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ *  ORA_RESULT_NOT_FOUND: 找不到数据
+ */
+int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value);
+
+/**
+ * DBGetErrorMessage - 获取错误信息
+ *
+ * @handle: 句柄，真实含义由type来决定
+ * @type: 表示@handle的类型，其取值由数据库操作句柄的类型决定
+ * @buffer: 用于存储错误信息的空间
+ * @capcacity: @buffer的空间大小
+ * @buffer_length: 信息串的长度
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者获取信息错误，或者无错误信息
+ *  RETURN_SUCCESS: 成功获取到错误信息
+ */
+int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length);
 
 __END_DECLS
 

@@ -13,18 +13,27 @@
 CC = gcc
 CFLAG = -g -O3 -Wall
 
-OBJECT = main.o log.o util.o driver_loader.o config_loader.o driver_manager.o
+THIRD_INC = -I./third/cJSON -I./third/dbug
 
-THIRD_LIBS = -L/usr/lib -ldbug
+OBJECT = main.o log.o util.o driver_loader.o config_loader.o driver_manager.o sqlbus.o redisop.o
+
+LNKLIBS = -L/usr/lib -lhiredis -L./library -lcjson -ldl
+
+ifeq ($(ver), debug)
+CFLAGS += $(CFLAG) -g3 -DDBUG_ON
+LNKLIBS += -ldbug
+else
+CFLAGS += $(CFLAG)
+endif
 
 all:sqlbus
 
 sqlbus:$(OBJECT)
-	$(CC) $(OBJECT) $(CFLAG) $(THIRD_LIBS) -o $@ -ldl
+	$(CC) $(OBJECT) $(CFLAGS) $(LNKLIBS) -o $@ $(THIRD_INC)
 
 .c.o:
-	$(CC) $(CFLAG) -I. -c $<
+	$(CC) $(CFLAGS) -I. -c $< $(THIRD_INC)
 
 .PHONY:clean
 clean:
-	rm -f $(OBJECT) sqlbus
+	rm -f $(OBJECT) sqlbus app.log
