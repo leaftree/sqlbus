@@ -1,0 +1,877 @@
+!_TAG_FILE_FORMAT	2	/extended format; --format=1 will not append ;" to lines/
+!_TAG_FILE_SORTED	1	/0=unsorted, 1=sorted, 2=foldcase/
+!_TAG_PROGRAM_AUTHOR	Darren Hiebert	/dhiebert@users.sourceforge.net/
+!_TAG_PROGRAM_NAME	Exuberant Ctags	//
+!_TAG_PROGRAM_URL	http://ctags.sourceforge.net	/official site/
+!_TAG_PROGRAM_VERSION	5.8	//
+AF_LOCAL	net.h	41;"	d
+CONN_FD	test.c	/^    CONN_FD$/;"	e	enum:connection_type	file:
+CONN_TCP	test.c	/^    CONN_TCP,$/;"	e	enum:connection_type	file:
+CONN_UNIX	test.c	/^    CONN_UNIX,$/;"	e	enum:connection_type	file:
+CONTRACT	COPYING	/^ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT$/;"	v
+DICT_ERR	dict.h	40;"	d
+DICT_HT_INITIAL_SIZE	dict.h	76;"	d
+DICT_NOTUSED	dict.h	43;"	d
+DICT_OK	dict.h	39;"	d
+EXEMPLARY	COPYING	/^ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES$/;"	v
+ExampleQt	examples/example-qt.h	/^        ExampleQt(const char * value, QObject * parent = 0)$/;"	f	class:ExampleQt	access:public	signature:(const char * value, QObject * parent = 0)
+ExampleQt	examples/example-qt.h	/^class ExampleQt : public QObject {$/;"	c	inherits:QObject
+ExampleQt::ExampleQt	examples/example-qt.h	/^        ExampleQt(const char * value, QObject * parent = 0)$/;"	f	class:ExampleQt	access:public	signature:(const char * value, QObject * parent = 0)
+ExampleQt::finish	examples/example-qt.h	/^        void finish() { emit finished(); }$/;"	f	class:ExampleQt	access:private	signature:()
+ExampleQt::finished	examples/example-qt.h	/^        void finished();$/;"	p	class:ExampleQt	access:public	signature:()
+ExampleQt::getCallback	examples/example-qt.h	/^    void getCallback(redisAsyncContext *, void *, void *);$/;"	p	class:ExampleQt	access:friend	signature:(redisAsyncContext *, void *, void *)
+ExampleQt::m_adapter	examples/example-qt.h	/^        RedisQtAdapter m_adapter;$/;"	m	class:ExampleQt	access:private
+ExampleQt::m_ctx	examples/example-qt.h	/^        redisAsyncContext * m_ctx;$/;"	m	class:ExampleQt	access:private
+ExampleQt::m_value	examples/example-qt.h	/^        const char * m_value;$/;"	m	class:ExampleQt	access:private
+ExampleQt::run	examples/example-qt.cpp	/^void ExampleQt::run() {$/;"	f	class:ExampleQt	signature:()
+ExampleQt::run	examples/example-qt.h	/^        void run();$/;"	p	class:ExampleQt	access:public	signature:()
+FLOAT_WIDTH_TEST	test.c	183;"	d	file:
+HIREDIS_MAJOR	hiredis.h	42;"	d
+HIREDIS_MINOR	hiredis.h	43;"	d
+HIREDIS_PATCH	hiredis.h	44;"	d
+HIREDIS_SONAME	hiredis.h	45;"	d
+INCIDENTAL	COPYING	/^ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES$/;"	v
+INCLUDING	COPYING	/^ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED$/;"	v
+INDIRECT	COPYING	/^ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES$/;"	v
+INTEGER_WIDTH_TEST	test.c	174;"	d	file:
+LIABILITY	COPYING	/^ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT$/;"	v
+REDIS_BLOCK	hiredis.h	49;"	d
+REDIS_CONNECTED	hiredis.h	53;"	d
+REDIS_CONNECT_RETRIES	hiredis.h	81;"	d
+REDIS_CONN_TCP	hiredis.h	/^    REDIS_CONN_TCP,$/;"	e	enum:redisConnectionType
+REDIS_CONN_UNIX	hiredis.h	/^    REDIS_CONN_UNIX$/;"	e	enum:redisConnectionType
+REDIS_DISCONNECTING	hiredis.h	59;"	d
+REDIS_ERR	read.h	37;"	d
+REDIS_ERR_EOF	read.h	45;"	d
+REDIS_ERR_IO	read.h	44;"	d
+REDIS_ERR_OOM	read.h	47;"	d
+REDIS_ERR_OTHER	read.h	48;"	d
+REDIS_ERR_PROTOCOL	read.h	46;"	d
+REDIS_FREEING	hiredis.h	63;"	d
+REDIS_IN_CALLBACK	hiredis.h	66;"	d
+REDIS_KEEPALIVE_INTERVAL	hiredis.h	77;"	d
+REDIS_MONITORING	hiredis.h	72;"	d
+REDIS_OK	read.h	38;"	d
+REDIS_READER_MAX_BUF	read.h	57;"	d
+REDIS_REPLY_ARRAY	read.h	51;"	d
+REDIS_REPLY_ERROR	read.h	55;"	d
+REDIS_REPLY_INTEGER	read.h	52;"	d
+REDIS_REPLY_NIL	read.h	53;"	d
+REDIS_REPLY_STATUS	read.h	54;"	d
+REDIS_REPLY_STRING	read.h	50;"	d
+REDIS_REUSEADDR	hiredis.h	75;"	d
+REDIS_SUBSCRIBED	hiredis.h	69;"	d
+RedisQtAdapter	adapters/qt.h	/^        RedisQtAdapter(QObject * parent = 0)$/;"	f	class:RedisQtAdapter	access:public	signature:(QObject * parent = 0)
+RedisQtAdapter	adapters/qt.h	/^class RedisQtAdapter : public QObject {$/;"	c	inherits:QObject
+RedisQtAdapter::RedisQtAdapter	adapters/qt.h	/^        RedisQtAdapter(QObject * parent = 0)$/;"	f	class:RedisQtAdapter	access:public	signature:(QObject * parent = 0)
+RedisQtAdapter::RedisQtAddRead	adapters/qt.h	/^    void RedisQtAddRead(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAdapter::RedisQtAddWrite	adapters/qt.h	/^    void RedisQtAddWrite(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAdapter::RedisQtCleanup	adapters/qt.h	/^    void RedisQtCleanup(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAdapter::RedisQtDelRead	adapters/qt.h	/^    void RedisQtDelRead(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAdapter::RedisQtDelWrite	adapters/qt.h	/^    void RedisQtDelWrite(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAdapter::addRead	adapters/qt.h	/^        void addRead() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::addWrite	adapters/qt.h	/^        void addWrite() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::cleanup	adapters/qt.h	/^        void cleanup() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::delRead	adapters/qt.h	/^        void delRead() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::delWrite	adapters/qt.h	/^        void delWrite() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::m_ctx	adapters/qt.h	/^        redisAsyncContext * m_ctx;$/;"	m	class:RedisQtAdapter	access:private
+RedisQtAdapter::m_read	adapters/qt.h	/^        QSocketNotifier * m_read;$/;"	m	class:RedisQtAdapter	access:private
+RedisQtAdapter::m_write	adapters/qt.h	/^        QSocketNotifier * m_write;$/;"	m	class:RedisQtAdapter	access:private
+RedisQtAdapter::read	adapters/qt.h	/^        void read() { redisAsyncHandleRead(m_ctx); }$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::setContext	adapters/qt.h	/^        int setContext(redisAsyncContext * ac) {$/;"	f	class:RedisQtAdapter	access:public	signature:(redisAsyncContext * ac)
+RedisQtAdapter::write	adapters/qt.h	/^        void write() { redisAsyncHandleWrite(m_ctx); }$/;"	f	class:RedisQtAdapter	access:private	signature:()
+RedisQtAdapter::~RedisQtAdapter	adapters/qt.h	/^        ~RedisQtAdapter() {$/;"	f	class:RedisQtAdapter	access:public	signature:()
+RedisQtAddRead	adapters/qt.h	/^    void RedisQtAddRead(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAddRead	adapters/qt.h	/^static void RedisQtAddRead(void *);$/;"	p	signature:(void *)
+RedisQtAddWrite	adapters/qt.h	/^    void RedisQtAddWrite(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtAddWrite	adapters/qt.h	/^static void RedisQtAddWrite(void *);$/;"	p	signature:(void *)
+RedisQtCleanup	adapters/qt.h	/^    void RedisQtCleanup(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtCleanup	adapters/qt.h	/^static void RedisQtCleanup(void *);$/;"	p	signature:(void *)
+RedisQtDelRead	adapters/qt.h	/^    void RedisQtDelRead(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtDelRead	adapters/qt.h	/^static void RedisQtDelRead(void *);$/;"	p	signature:(void *)
+RedisQtDelWrite	adapters/qt.h	/^    void RedisQtDelWrite(void * adapter) {$/;"	f	class:RedisQtAdapter	access:friend	signature:(void * adapter)
+RedisQtDelWrite	adapters/qt.h	/^static void RedisQtDelWrite(void *);$/;"	p	signature:(void *)
+RedisRunLoop	adapters/macosx.h	/^} RedisRunLoop;$/;"	t	typeref:struct:__anon1
+RedisSource	adapters/glib.h	/^} RedisSource;$/;"	t	typeref:struct:__anon2
+SDS_HDR	sds.h	83;"	d
+SDS_HDR_VAR	sds.h	82;"	d
+SDS_LLSTR_SIZE	sds.c	428;"	d	file:
+SDS_MAX_PREALLOC	sds.h	36;"	d
+SDS_TYPE_16	sds.h	77;"	d
+SDS_TYPE_32	sds.h	78;"	d
+SDS_TYPE_5	sds.h	75;"	d
+SDS_TYPE_5_LEN	sds.h	84;"	d
+SDS_TYPE_64	sds.h	79;"	d
+SDS_TYPE_8	sds.h	76;"	d
+SDS_TYPE_BITS	sds.h	81;"	d
+SDS_TYPE_MASK	sds.h	80;"	d
+SOFTWARE	COPYING	/^SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.$/;"	v
+SPECIAL	COPYING	/^ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES$/;"	v
+TO	COPYING	/^ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED$/;"	v
+UNUSED	sds.c	1103;"	d	file:
+_ALL_SOURCE	fmacros.h	35;"	d
+_BSD_SOURCE	fmacros.h	5;"	d
+_DEFAULT_SOURCE	fmacros.h	6;"	d
+_EL_ADD_READ	async.c	44;"	d	file:
+_EL_ADD_WRITE	async.c	50;"	d	file:
+_EL_CLEANUP	async.c	56;"	d	file:
+_EL_DEL_READ	async.c	47;"	d	file:
+_EL_DEL_WRITE	async.c	53;"	d	file:
+_OSX	fmacros.h	30;"	d
+_POSIX_C_SOURCE	fmacros.h	26;"	d
+_WIN32_HELPER_INCLUDE	win32.h	2;"	d
+_XOPEN_SOURCE	fmacros.h	14;"	d
+_XOPEN_SOURCE	fmacros.h	16;"	d
+_XOPEN_SOURCE	fmacros.h	22;"	d
+_XOPEN_SOURCE_EXTENDED	fmacros.h	34;"	d
+__DICT_H	dict.h	37;"	d
+__HIREDIS_AE_H__	adapters/ae.h	32;"	d
+__HIREDIS_ASYNC_H	async.h	33;"	d
+__HIREDIS_EXAMPLE_QT_H	examples/example-qt.h	2;"	d
+__HIREDIS_FMACRO_H	fmacros.h	2;"	d
+__HIREDIS_GLIB_H__	adapters/glib.h	2;"	d
+__HIREDIS_H	hiredis.h	35;"	d
+__HIREDIS_IVYKIS_H__	adapters/ivykis.h	2;"	d
+__HIREDIS_LIBEVENT_H__	adapters/libevent.h	32;"	d
+__HIREDIS_LIBEV_H__	adapters/libev.h	32;"	d
+__HIREDIS_LIBUV_H__	adapters/libuv.h	2;"	d
+__HIREDIS_MACOSX_H__	adapters/macosx.h	7;"	d
+__HIREDIS_QT_H__	adapters/qt.h	27;"	d
+__HIREDIS_READ_H	read.h	34;"	d
+__MAX_MSEC	net.c	179;"	d	file:
+__NET_H	net.h	36;"	d
+__SDS_H	sds.h	34;"	d
+__anon1::context	adapters/macosx.h	/^    redisAsyncContext *context;$/;"	m	struct:__anon1	access:public
+__anon1::socketRef	adapters/macosx.h	/^    CFSocketRef socketRef;$/;"	m	struct:__anon1	access:public
+__anon1::sourceRef	adapters/macosx.h	/^    CFRunLoopSourceRef sourceRef;$/;"	m	struct:__anon1	access:public
+__anon2::ac	adapters/glib.h	/^    redisAsyncContext *ac;$/;"	m	struct:__anon2	access:public
+__anon2::poll_fd	adapters/glib.h	/^    GPollFD poll_fd;$/;"	m	struct:__anon2	access:public
+__anon2::source	adapters/glib.h	/^    GSource source;$/;"	m	struct:__anon2	access:public
+__redisAppendCommand	async.c	/^int __redisAppendCommand(redisContext *c, const char *cmd, size_t len);$/;"	p	file:	signature:(redisContext *c, const char *cmd, size_t len)
+__redisAppendCommand	hiredis.c	/^int __redisAppendCommand(redisContext *c, const char *cmd, size_t len) {$/;"	f	signature:(redisContext *c, const char *cmd, size_t len)
+__redisAsyncCommand	async.c	/^static int __redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *cmd, size_t len) {$/;"	f	file:	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *cmd, size_t len)
+__redisAsyncCopyError	async.c	/^static void __redisAsyncCopyError(redisAsyncContext *ac) {$/;"	f	file:	signature:(redisAsyncContext *ac)
+__redisAsyncDisconnect	async.c	/^static void __redisAsyncDisconnect(redisAsyncContext *ac) {$/;"	f	file:	signature:(redisAsyncContext *ac)
+__redisAsyncFree	async.c	/^static void __redisAsyncFree(redisAsyncContext *ac) {$/;"	f	file:	signature:(redisAsyncContext *ac)
+__redisAsyncHandleConnect	async.c	/^static int __redisAsyncHandleConnect(redisAsyncContext *ac) {$/;"	f	file:	signature:(redisAsyncContext *ac)
+__redisBlockForReply	hiredis.c	/^static void *__redisBlockForReply(redisContext *c) {$/;"	f	file:	signature:(redisContext *c)
+__redisGetSubscribeCallback	async.c	/^static int __redisGetSubscribeCallback(redisAsyncContext *ac, redisReply *reply, redisCallback *dstcb) {$/;"	f	file:	signature:(redisAsyncContext *ac, redisReply *reply, redisCallback *dstcb)
+__redisPushCallback	async.c	/^static int __redisPushCallback(redisCallbackList *list, redisCallback *source) {$/;"	f	file:	signature:(redisCallbackList *list, redisCallback *source)
+__redisReaderSetError	read.c	/^static void __redisReaderSetError(redisReader *r, int type, const char *str) {$/;"	f	file:	signature:(redisReader *r, int type, const char *str)
+__redisReaderSetErrorOOM	read.c	/^static void __redisReaderSetErrorOOM(redisReader *r) {$/;"	f	file:	signature:(redisReader *r)
+__redisReaderSetErrorProtocolByte	read.c	/^static void __redisReaderSetErrorProtocolByte(redisReader *r, char byte) {$/;"	f	file:	signature:(redisReader *r, char byte)
+__redisRunCallback	async.c	/^static void __redisRunCallback(redisAsyncContext *ac, redisCallback *cb, redisReply *reply) {$/;"	f	file:	signature:(redisAsyncContext *ac, redisCallback *cb, redisReply *reply)
+__redisSetError	hiredis.c	/^void __redisSetError(redisContext *c, int type, const char *str) {$/;"	f	signature:(redisContext *c, int type, const char *str)
+__redisSetError	net.c	/^void __redisSetError(redisContext *c, int type, const char *str);$/;"	p	file:	signature:(redisContext *c, int type, const char *str)
+__redisSetErrorFromErrno	net.c	/^static void __redisSetErrorFromErrno(redisContext *c, int type, const char *prefix) {$/;"	f	file:	signature:(redisContext *c, int type, const char *prefix)
+__redisShiftCallback	async.c	/^static int __redisShiftCallback(redisCallbackList *list, redisCallback *target) {$/;"	f	file:	signature:(redisCallbackList *list, redisCallback *target)
+__redis_strerror_r	hiredis.h	88;"	d
+__redis_strerror_r	hiredis.h	94;"	d
+_dictClear	dict.c	/^static int _dictClear(dict *ht) {$/;"	f	file:	signature:(dict *ht)
+_dictExpandIfNeeded	dict.c	/^static int _dictExpandIfNeeded(dict *ht) {$/;"	f	file:	signature:(dict *ht)
+_dictExpandIfNeeded	dict.c	/^static int _dictExpandIfNeeded(dict *ht);$/;"	p	file:	signature:(dict *ht)
+_dictInit	dict.c	/^static int _dictInit(dict *ht, dictType *type, void *privDataPtr) {$/;"	f	file:	signature:(dict *ht, dictType *type, void *privDataPtr)
+_dictInit	dict.c	/^static int _dictInit(dict *ht, dictType *type, void *privDataPtr);$/;"	p	file:	signature:(dict *ht, dictType *type, void *privDataPtr)
+_dictKeyIndex	dict.c	/^static int _dictKeyIndex(dict *ht, const void *key) {$/;"	f	file:	signature:(dict *ht, const void *key)
+_dictKeyIndex	dict.c	/^static int _dictKeyIndex(dict *ht, const void *key);$/;"	p	file:	signature:(dict *ht, const void *key)
+_dictNextPower	dict.c	/^static unsigned long _dictNextPower(unsigned long size) {$/;"	f	file:	signature:(unsigned long size)
+_dictNextPower	dict.c	/^static unsigned long _dictNextPower(unsigned long size);$/;"	p	file:	signature:(unsigned long size)
+_dictReset	dict.c	/^static void _dictReset(dict *ht) {$/;"	f	file:	signature:(dict *ht)
+_redisContextConnectTcp	net.c	/^static int _redisContextConnectTcp(redisContext *c, const char *addr, int port,$/;"	f	file:	signature:(redisContext *c, const char *addr, int port, const struct timeval *timeout, const char *source_addr)
+ac	adapters/glib.h	/^    redisAsyncContext *ac;$/;"	m	struct:__anon2	access:public
+addRead	adapters/qt.h	/^        void addRead() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+addRead	async.h	/^        void (*addRead)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+addWrite	adapters/qt.h	/^        void addWrite() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+addWrite	async.h	/^        void (*addWrite)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+assert	test.c	50;"	d	file:
+assert	test.c	51;"	d	file:
+buf	read.h	/^    char *buf; \/* Read buffer *\/$/;"	m	struct:redisReader	access:public
+bulklen	hiredis.c	/^static size_t bulklen(size_t len) {$/;"	f	file:	signature:(size_t len)
+c	async.h	/^    redisContext c;$/;"	m	struct:redisAsyncContext	access:public
+c99_snprintf	win32.h	/^__inline int c99_snprintf(char* str, size_t size, const char* format, ...)$/;"	f	signature:(char* str, size_t size, const char* format, ...)
+c99_vsnprintf	win32.h	/^__inline int c99_vsnprintf(char* str, size_t size, const char* format, va_list ap)$/;"	f	signature:(char* str, size_t size, const char* format, va_list ap)
+callbackDict	async.c	/^static dictType callbackDict = {$/;"	v	file:
+callbackHash	async.c	/^static unsigned int callbackHash(const void *key) {$/;"	f	file:	signature:(const void *key)
+callbackKeyCompare	async.c	/^static int callbackKeyCompare(void *privdata, const void *key1, const void *key2) {$/;"	f	file:	signature:(void *privdata, const void *key1, const void *key2)
+callbackKeyDestructor	async.c	/^static void callbackKeyDestructor(void *privdata, void *key) {$/;"	f	file:	signature:(void *privdata, void *key)
+callbackValDestructor	async.c	/^static void callbackValDestructor(void *privdata, void *val) {$/;"	f	file:	signature:(void *privdata, void *val)
+callbackValDup	async.c	/^static void *callbackValDup(void *privdata, const void *src) {$/;"	f	file:	signature:(void *privdata, const void *src)
+channels	async.h	/^        struct dict *channels;$/;"	m	struct:redisAsyncContext::__anon6	typeref:struct:redisAsyncContext::__anon6::dict	access:public
+chrtos	read.c	/^static size_t chrtos(char *buf, size_t size, char byte) {$/;"	f	file:	signature:(char *buf, size_t size, char byte)
+chrtos	tags	/^chrtos	read.c	\/^static size_t chrtos(char *buf, size_t size, char byte) {$\/;"	f	file:	signature:(char *buf, size_t size, char byte)$/;"	f	file:	signature:(char *buf, size_t size, char byte)
+cleanup	adapters/qt.h	/^        void cleanup() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+cleanup	async.h	/^        void (*cleanup)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+cleared	CHANGELOG.md	/^If the `REDIS_CONNECTED` flag is cleared,$/;"	v
+command_cb	examples/example-glib.c	/^command_cb(redisAsyncContext *ac,$/;"	f	file:	signature:(redisAsyncContext *ac, gpointer r, gpointer user_data G_GNUC_UNUSED)
+config	test.c	/^struct config {$/;"	s	file:
+config::__anon7::host	test.c	/^        const char *host;$/;"	m	struct:config::__anon7	file:	access:public
+config::__anon7::port	test.c	/^        int port;$/;"	m	struct:config::__anon7	file:	access:public
+config::__anon7::timeout	test.c	/^        struct timeval timeout;$/;"	m	struct:config::__anon7	typeref:struct:config::__anon7::timeval	file:	access:public
+config::__anon8::path	test.c	/^        const char *path;$/;"	m	struct:config::__anon8	file:	access:public
+config::tcp	test.c	/^    } tcp;$/;"	m	struct:config	typeref:struct:config::__anon7	file:	access:public
+config::type	test.c	/^    enum connection_type type;$/;"	m	struct:config	typeref:enum:config::connection_type	file:	access:public
+config::unix_sock	test.c	/^    } unix_sock;$/;"	m	struct:config	typeref:struct:config::__anon8	file:	access:public
+connect	test.c	/^static redisContext *connect(struct config config) {$/;"	f	file:	signature:(struct config config)
+connectCallback	examples/example-ae.c	/^void connectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+connectCallback	examples/example-ivykis.c	/^void connectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+connectCallback	examples/example-libev.c	/^void connectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+connectCallback	examples/example-libevent.c	/^void connectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+connectCallback	examples/example-libuv.c	/^void connectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+connectCallback	examples/example-macosx.c	/^void connectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+connect_cb	examples/example-glib.c	/^connect_cb (const redisAsyncContext *ac G_GNUC_UNUSED,$/;"	f	file:	signature:(const redisAsyncContext *ac G_GNUC_UNUSED, int status)
+connection_type	hiredis.h	/^    enum redisConnectionType connection_type;$/;"	m	struct:redisContext	typeref:enum:redisContext::redisConnectionType	access:public
+connection_type	test.c	/^enum connection_type {$/;"	g	file:
+context	CHANGELOG.md	/^* Implement a reconnect method for the client context, this changes the structure of `redisContext` (Aaron Bedra)$/;"	v
+context	adapters/ae.h	/^    redisAsyncContext *context;$/;"	m	struct:redisAeEvents	access:public
+context	adapters/ivykis.h	/^    redisAsyncContext *context;$/;"	m	struct:redisIvykisEvents	access:public
+context	adapters/libev.h	/^    redisAsyncContext *context;$/;"	m	struct:redisLibevEvents	access:public
+context	adapters/libevent.h	/^    redisAsyncContext *context;$/;"	m	struct:redisLibeventEvents	access:public
+context	adapters/libuv.h	/^  redisAsyncContext* context;$/;"	m	struct:redisLibuvEvents	access:public
+context	adapters/macosx.h	/^    redisAsyncContext *context;$/;"	m	struct:__anon1	access:public
+countDigits	hiredis.c	/^static uint32_t countDigits(uint64_t v) {$/;"	f	file:	signature:(uint64_t v)
+createArray	read.h	/^    void *(*createArray)(const redisReadTask*, int);$/;"	m	struct:redisReplyObjectFunctions	access:public
+createArrayObject	hiredis.c	/^static void *createArrayObject(const redisReadTask *task, int elements) {$/;"	f	file:	signature:(const redisReadTask *task, int elements)
+createArrayObject	hiredis.c	/^static void *createArrayObject(const redisReadTask *task, int elements);$/;"	p	file:	signature:(const redisReadTask *task, int elements)
+createInteger	read.h	/^    void *(*createInteger)(const redisReadTask*, long long);$/;"	m	struct:redisReplyObjectFunctions	access:public
+createIntegerObject	hiredis.c	/^static void *createIntegerObject(const redisReadTask *task, long long value) {$/;"	f	file:	signature:(const redisReadTask *task, long long value)
+createIntegerObject	hiredis.c	/^static void *createIntegerObject(const redisReadTask *task, long long value);$/;"	p	file:	signature:(const redisReadTask *task, long long value)
+createNil	read.h	/^    void *(*createNil)(const redisReadTask*);$/;"	m	struct:redisReplyObjectFunctions	access:public
+createNilObject	hiredis.c	/^static void *createNilObject(const redisReadTask *task) {$/;"	f	file:	signature:(const redisReadTask *task)
+createNilObject	hiredis.c	/^static void *createNilObject(const redisReadTask *task);$/;"	p	file:	signature:(const redisReadTask *task)
+createReplyObject	hiredis.c	/^static redisReply *createReplyObject(int type) {$/;"	f	file:	signature:(int type)
+createReplyObject	hiredis.c	/^static redisReply *createReplyObject(int type);$/;"	p	file:	signature:(int type)
+createString	read.h	/^    void *(*createString)(const redisReadTask*, char*, size_t);$/;"	m	struct:redisReplyObjectFunctions	access:public
+createStringObject	hiredis.c	/^static void *createStringObject(const redisReadTask *task, char *str, size_t len) {$/;"	f	file:	signature:(const redisReadTask *task, char *str, size_t len)
+createStringObject	hiredis.c	/^static void *createStringObject(const redisReadTask *task, char *str, size_t len);$/;"	p	file:	signature:(const redisReadTask *task, char *str, size_t len)
+data	async.h	/^        void *data;$/;"	m	struct:redisAsyncContext::__anon5	access:public
+data	async.h	/^    void *data;$/;"	m	struct:redisAsyncContext	access:public
+defaultFunctions	hiredis.c	/^static redisReplyObjectFunctions defaultFunctions = {$/;"	v	file:
+delRead	adapters/qt.h	/^        void delRead() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+delRead	async.h	/^        void (*delRead)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+delWrite	adapters/qt.h	/^        void delWrite() {$/;"	f	class:RedisQtAdapter	access:private	signature:()
+delWrite	async.h	/^        void (*delWrite)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+dict	dict.h	/^typedef struct dict {$/;"	s
+dict	dict.h	/^} dict;$/;"	t	typeref:struct:dict
+dict::privdata	dict.h	/^    void *privdata;$/;"	m	struct:dict	access:public
+dict::size	dict.h	/^    unsigned long size;$/;"	m	struct:dict	access:public
+dict::sizemask	dict.h	/^    unsigned long sizemask;$/;"	m	struct:dict	access:public
+dict::table	dict.h	/^    dictEntry **table;$/;"	m	struct:dict	access:public
+dict::type	dict.h	/^    dictType *type;$/;"	m	struct:dict	access:public
+dict::used	dict.h	/^    unsigned long used;$/;"	m	struct:dict	access:public
+dictAdd	dict.c	/^static int dictAdd(dict *ht, void *key, void *val) {$/;"	f	file:	signature:(dict *ht, void *key, void *val)
+dictAdd	dict.h	/^static int dictAdd(dict *ht, void *key, void *val);$/;"	p	signature:(dict *ht, void *key, void *val)
+dictCompareHashKeys	dict.h	101;"	d
+dictCreate	dict.c	/^static dict *dictCreate(dictType *type, void *privDataPtr) {$/;"	f	file:	signature:(dictType *type, void *privDataPtr)
+dictCreate	dict.h	/^static dict *dictCreate(dictType *type, void *privDataPtr);$/;"	p	signature:(dictType *type, void *privDataPtr)
+dictDelete	dict.c	/^static int dictDelete(dict *ht, const void *key) {$/;"	f	file:	signature:(dict *ht, const void *key)
+dictDelete	dict.h	/^static int dictDelete(dict *ht, const void *key);$/;"	p	signature:(dict *ht, const void *key)
+dictEntry	dict.h	/^typedef struct dictEntry {$/;"	s
+dictEntry	dict.h	/^} dictEntry;$/;"	t	typeref:struct:dictEntry
+dictEntry::key	dict.h	/^    void *key;$/;"	m	struct:dictEntry	access:public
+dictEntry::next	dict.h	/^    struct dictEntry *next;$/;"	m	struct:dictEntry	typeref:struct:dictEntry::dictEntry	access:public
+dictEntry::val	dict.h	/^    void *val;$/;"	m	struct:dictEntry	access:public
+dictExpand	dict.c	/^static int dictExpand(dict *ht, unsigned long size) {$/;"	f	file:	signature:(dict *ht, unsigned long size)
+dictExpand	dict.h	/^static int dictExpand(dict *ht, unsigned long size);$/;"	p	signature:(dict *ht, unsigned long size)
+dictFind	dict.c	/^static dictEntry *dictFind(dict *ht, const void *key) {$/;"	f	file:	signature:(dict *ht, const void *key)
+dictFind	dict.h	/^static dictEntry * dictFind(dict *ht, const void *key);$/;"	p	signature:(dict *ht, const void *key)
+dictFreeEntryKey	dict.h	90;"	d
+dictFreeEntryVal	dict.h	79;"	d
+dictGenHashFunction	dict.c	/^static unsigned int dictGenHashFunction(const unsigned char *buf, int len) {$/;"	f	file:	signature:(const unsigned char *buf, int len)
+dictGenHashFunction	dict.h	/^static unsigned int dictGenHashFunction(const unsigned char *buf, int len);$/;"	p	signature:(const unsigned char *buf, int len)
+dictGetEntryKey	dict.h	108;"	d
+dictGetEntryVal	dict.h	109;"	d
+dictGetIterator	dict.c	/^static dictIterator *dictGetIterator(dict *ht) {$/;"	f	file:	signature:(dict *ht)
+dictGetIterator	dict.h	/^static dictIterator *dictGetIterator(dict *ht);$/;"	p	signature:(dict *ht)
+dictHashKey	dict.h	106;"	d
+dictIterator	dict.h	/^typedef struct dictIterator {$/;"	s
+dictIterator	dict.h	/^} dictIterator;$/;"	t	typeref:struct:dictIterator
+dictIterator::entry	dict.h	/^    dictEntry *entry, *nextEntry;$/;"	m	struct:dictIterator	access:public
+dictIterator::ht	dict.h	/^    dict *ht;$/;"	m	struct:dictIterator	access:public
+dictIterator::index	dict.h	/^    int index;$/;"	m	struct:dictIterator	access:public
+dictIterator::nextEntry	dict.h	/^    dictEntry *entry, *nextEntry;$/;"	m	struct:dictIterator	access:public
+dictNext	dict.c	/^static dictEntry *dictNext(dictIterator *iter) {$/;"	f	file:	signature:(dictIterator *iter)
+dictNext	dict.h	/^static dictEntry *dictNext(dictIterator *iter);$/;"	p	signature:(dictIterator *iter)
+dictRelease	dict.c	/^static void dictRelease(dict *ht) {$/;"	f	file:	signature:(dict *ht)
+dictRelease	dict.h	/^static void dictRelease(dict *ht);$/;"	p	signature:(dict *ht)
+dictReleaseIterator	dict.c	/^static void dictReleaseIterator(dictIterator *iter) {$/;"	f	file:	signature:(dictIterator *iter)
+dictReleaseIterator	dict.h	/^static void dictReleaseIterator(dictIterator *iter);$/;"	p	signature:(dictIterator *iter)
+dictReplace	dict.c	/^static int dictReplace(dict *ht, void *key, void *val) {$/;"	f	file:	signature:(dict *ht, void *key, void *val)
+dictReplace	dict.h	/^static int dictReplace(dict *ht, void *key, void *val);$/;"	p	signature:(dict *ht, void *key, void *val)
+dictSetHashKey	dict.h	94;"	d
+dictSetHashVal	dict.h	83;"	d
+dictSize	dict.h	111;"	d
+dictSlots	dict.h	110;"	d
+dictType	dict.h	/^typedef struct dictType {$/;"	s
+dictType	dict.h	/^} dictType;$/;"	t	typeref:struct:dictType
+dictType::hashFunction	dict.h	/^    unsigned int (*hashFunction)(const void *key);$/;"	m	struct:dictType	access:public
+dictType::keyCompare	dict.h	/^    int (*keyCompare)(void *privdata, const void *key1, const void *key2);$/;"	m	struct:dictType	access:public
+dictType::keyDestructor	dict.h	/^    void (*keyDestructor)(void *privdata, void *key);$/;"	m	struct:dictType	access:public
+dictType::keyDup	dict.h	/^    void *(*keyDup)(void *privdata, const void *key);$/;"	m	struct:dictType	access:public
+dictType::valDestructor	dict.h	/^    void (*valDestructor)(void *privdata, void *obj);$/;"	m	struct:dictType	access:public
+dictType::valDup	dict.h	/^    void *(*valDup)(void *privdata, const void *obj);$/;"	m	struct:dictType	access:public
+disconnect	test.c	/^static int disconnect(redisContext *c, int keep_fd) {$/;"	f	file:	signature:(redisContext *c, int keep_fd)
+disconnectCallback	examples/example-ae.c	/^void disconnectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+disconnectCallback	examples/example-ivykis.c	/^void disconnectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+disconnectCallback	examples/example-libev.c	/^void disconnectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+disconnectCallback	examples/example-libevent.c	/^void disconnectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+disconnectCallback	examples/example-libuv.c	/^void disconnectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+disconnectCallback	examples/example-macosx.c	/^void disconnectCallback(const redisAsyncContext *c, int status) {$/;"	f	signature:(const redisAsyncContext *c, int status)
+disconnect_cb	examples/example-glib.c	/^disconnect_cb (const redisAsyncContext *ac G_GNUC_UNUSED,$/;"	f	file:	signature:(const redisAsyncContext *ac G_GNUC_UNUSED, int status)
+element	hiredis.h	/^    struct redisReply **element; \/* elements vector for REDIS_REPLY_ARRAY *\/$/;"	m	struct:redisReply	typeref:struct:redisReply::redisReply	access:public
+elements	hiredis.h	/^    size_t elements; \/* number of elements, for REDIS_REPLY_ARRAY *\/$/;"	m	struct:redisReply	access:public
+elements	read.h	/^    int elements; \/* number of elements in multibulk container *\/$/;"	m	struct:redisReadTask	access:public
+entry	dict.h	/^    dictEntry *entry, *nextEntry;$/;"	m	struct:dictIterator	access:public
+err	async.h	/^    int err;$/;"	m	struct:redisAsyncContext	access:public
+err	hiredis.h	/^    int err; \/* Error flags, 0 when there is no error *\/$/;"	m	struct:redisContext	access:public
+err	read.h	/^    int err; \/* Error flags, 0 when there is no error *\/$/;"	m	struct:redisReader	access:public
+errstr	async.h	/^    char *errstr;$/;"	m	struct:redisAsyncContext	access:public
+errstr	hiredis.h	/^    char errstr[128]; \/* String representation of error when applicable *\/$/;"	m	struct:redisContext	access:public
+errstr	read.h	/^    char errstr[128]; \/* String representation of error when applicable *\/$/;"	m	struct:redisReader	access:public
+ev	async.h	/^    } ev;$/;"	m	struct:redisAsyncContext	typeref:struct:redisAsyncContext::__anon5	access:public
+events	adapters/libuv.h	/^  int                events;$/;"	m	struct:redisLibuvEvents	access:public
+fails	test.c	/^static int tests = 0, fails = 0;$/;"	v	file:
+fd	adapters/ae.h	/^    int fd;$/;"	m	struct:redisAeEvents	access:public
+fd	adapters/ivykis.h	/^    struct iv_fd fd;$/;"	m	struct:redisIvykisEvents	typeref:struct:redisIvykisEvents::iv_fd	access:public
+fd	hiredis.h	/^    int fd;$/;"	m	struct:redisContext	access:public
+files	CHANGELOG.md	/^* Fix `make install`: DESTDIR support, install all required files, install PKGCONF in proper location$/;"	v
+finish	examples/example-qt.h	/^        void finish() { emit finished(); }$/;"	f	class:ExampleQt	access:private	signature:()
+finished	examples/example-qt.h	/^        void finished();$/;"	p	class:ExampleQt	access:public	signature:()
+flags	hiredis.h	/^    int flags;$/;"	m	struct:redisContext	access:public
+fn	async.h	/^    redisCallbackFn *fn;$/;"	m	struct:redisCallback	access:public
+fn	read.h	/^    redisReplyObjectFunctions *fn;$/;"	m	struct:redisReader	access:public
+format	tags	/^!_TAG_FILE_FORMAT	2	\/extended format; --format=1 will not append ;" to lines\/$/;"	v
+freeObject	read.h	/^    void (*freeObject)(void*);$/;"	m	struct:redisReplyObjectFunctions	access:public
+freeRedisRunLoop	adapters/macosx.h	/^static int freeRedisRunLoop(RedisRunLoop* redisRunLoop) {$/;"	f	signature:(RedisRunLoop* redisRunLoop)
+freeReplyObject	hiredis.c	/^void freeReplyObject(void *reply) {$/;"	f	signature:(void *reply)
+freeReplyObject	hiredis.h	/^void freeReplyObject(void *reply);$/;"	p	signature:(void *reply)
+getCallback	examples/example-ae.c	/^void getCallback(redisAsyncContext *c, void *r, void *privdata) {$/;"	f	signature:(redisAsyncContext *c, void *r, void *privdata)
+getCallback	examples/example-ivykis.c	/^void getCallback(redisAsyncContext *c, void *r, void *privdata) {$/;"	f	signature:(redisAsyncContext *c, void *r, void *privdata)
+getCallback	examples/example-libev.c	/^void getCallback(redisAsyncContext *c, void *r, void *privdata) {$/;"	f	signature:(redisAsyncContext *c, void *r, void *privdata)
+getCallback	examples/example-libevent.c	/^void getCallback(redisAsyncContext *c, void *r, void *privdata) {$/;"	f	signature:(redisAsyncContext *c, void *r, void *privdata)
+getCallback	examples/example-libuv.c	/^void getCallback(redisAsyncContext *c, void *r, void *privdata) {$/;"	f	signature:(redisAsyncContext *c, void *r, void *privdata)
+getCallback	examples/example-macosx.c	/^void getCallback(redisAsyncContext *c, void *r, void *privdata) {$/;"	f	signature:(redisAsyncContext *c, void *r, void *privdata)
+getCallback	examples/example-qt.cpp	/^void getCallback(redisAsyncContext *, void * r, void * privdata) {$/;"	f	signature:(redisAsyncContext *, void * r, void * privdata)
+getCallback	examples/example-qt.h	/^    void getCallback(redisAsyncContext *, void *, void *);$/;"	p	class:ExampleQt	access:friend	signature:(redisAsyncContext *, void *, void *)
+handle	adapters/libuv.h	/^  uv_poll_t          handle;$/;"	m	struct:redisLibuvEvents	access:public
+hashFunction	dict.h	/^    unsigned int (*hashFunction)(const void *key);$/;"	m	struct:dictType	access:public
+head	async.h	/^    redisCallback *head, *tail;$/;"	m	struct:redisCallbackList	access:public
+hex_digit_to_int	sds.c	/^int hex_digit_to_int(char c) {$/;"	f	signature:(char c)
+host	hiredis.h	/^        char *host;$/;"	m	struct:redisContext::__anon3	access:public
+host	test.c	/^        const char *host;$/;"	m	struct:config::__anon7	file:	access:public
+ht	dict.h	/^    dict *ht;$/;"	m	struct:dictIterator	access:public
+idx	read.h	/^    int idx; \/* index in parent (array) object *\/$/;"	m	struct:redisReadTask	access:public
+index	dict.h	/^    int index;$/;"	m	struct:dictIterator	access:public
+inline	win32.h	6;"	d
+integer	hiredis.h	/^    long long integer; \/* The integer when type is REDIS_REPLY_INTEGER *\/$/;"	m	struct:redisReply	access:public
+invalid	async.h	/^        redisCallbackList invalid;$/;"	m	struct:redisAsyncContext::__anon6	access:public
+is_hex_digit	sds.c	/^int is_hex_digit(char c) {$/;"	f	signature:(char c)
+key	dict.h	/^    void *key;$/;"	m	struct:dictEntry	access:public
+keyCompare	dict.h	/^    int (*keyCompare)(void *privdata, const void *key1, const void *key2);$/;"	m	struct:dictType	access:public
+keyDestructor	dict.h	/^    void (*keyDestructor)(void *privdata, void *key);$/;"	m	struct:dictType	access:public
+keyDup	dict.h	/^    void *(*keyDup)(void *privdata, const void *key);$/;"	m	struct:dictType	access:public
+len	hiredis.h	/^    size_t len; \/* Length of string *\/$/;"	m	struct:redisReply	access:public
+len	read.h	/^    size_t len; \/* Buffer length *\/$/;"	m	struct:redisReader	access:public
+loop	adapters/ae.h	/^    aeEventLoop *loop;$/;"	m	struct:redisAeEvents	access:public
+loop	adapters/libev.h	/^    struct ev_loop *loop;$/;"	m	struct:redisLibevEvents	typeref:struct:redisLibevEvents::ev_loop	access:public
+loop	examples/example-ae.c	/^static aeEventLoop *loop;$/;"	v	file:
+m_adapter	examples/example-qt.h	/^        RedisQtAdapter m_adapter;$/;"	m	class:ExampleQt	access:private
+m_ctx	adapters/qt.h	/^        redisAsyncContext * m_ctx;$/;"	m	class:RedisQtAdapter	access:private
+m_ctx	examples/example-qt.h	/^        redisAsyncContext * m_ctx;$/;"	m	class:ExampleQt	access:private
+m_read	adapters/qt.h	/^        QSocketNotifier * m_read;$/;"	m	class:RedisQtAdapter	access:private
+m_value	examples/example-qt.h	/^        const char * m_value;$/;"	m	class:ExampleQt	access:private
+m_write	adapters/qt.h	/^        QSocketNotifier * m_write;$/;"	m	class:RedisQtAdapter	access:private
+main	examples/example-ae.c	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example-glib.c	/^main (gint argc     G_GNUC_UNUSED,$/;"	f	signature:(gint argc G_GNUC_UNUSED, gchar *argv[] G_GNUC_UNUSED)
+main	examples/example-ivykis.c	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example-libev.c	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example-libevent.c	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example-libuv.c	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example-macosx.c	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example-qt.cpp	/^int main (int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	examples/example.c	/^int main(int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+main	sds.c	/^int main(void) {$/;"	f	signature:(void)
+main	test.c	/^int main(int argc, char **argv) {$/;"	f	signature:(int argc, char **argv)
+mainloop	examples/example-glib.c	/^static GMainLoop *mainloop;$/;"	v	file:
+maxbuf	read.h	/^    size_t maxbuf; \/* Max length of unused buffer *\/$/;"	m	struct:redisReader	access:public
+modification	COPYING	/^modification, are permitted provided that the following conditions are met:$/;"	v
+moveToNextTask	read.c	/^static void moveToNextTask(redisReader *r) {$/;"	f	file:	signature:(redisReader *r)
+next	async.h	/^    struct redisCallback *next; \/* simple singly linked list *\/$/;"	m	struct:redisCallback	typeref:struct:redisCallback::redisCallback	access:public
+next	dict.h	/^    struct dictEntry *next;$/;"	m	struct:dictEntry	typeref:struct:dictEntry::dictEntry	access:public
+nextArgument	async.c	/^static const char *nextArgument(const char *start, const char **str, size_t *len) {$/;"	f	file:	signature:(const char *start, const char **str, size_t *len)
+nextEntry	dict.h	/^    dictEntry *entry, *nextEntry;$/;"	m	struct:dictIterator	access:public
+notice	COPYING	/^* Redistributions of source code must retain the above copyright notice,$/;"	v
+obj	read.h	/^    void *obj; \/* holds user-generated value for a read task *\/$/;"	m	struct:redisReadTask	access:public
+obuf	hiredis.h	/^    char *obuf; \/* Write buffer *\/$/;"	m	struct:redisContext	access:public
+onConnect	async.h	/^    redisConnectCallback *onConnect;$/;"	m	struct:redisAsyncContext	access:public
+onDisconnect	async.h	/^    redisDisconnectCallback *onDisconnect;$/;"	m	struct:redisAsyncContext	access:public
+on_close	adapters/libuv.h	/^static void on_close(uv_handle_t* handle) {$/;"	f	signature:(uv_handle_t* handle)
+parent	read.h	/^    struct redisReadTask *parent; \/* parent task *\/$/;"	m	struct:redisReadTask	typeref:struct:redisReadTask::redisReadTask	access:public
+path	hiredis.h	/^        char *path;$/;"	m	struct:redisContext::__anon4	access:public
+path	test.c	/^        const char *path;$/;"	m	struct:config::__anon8	file:	access:public
+patterns	async.h	/^        struct dict *patterns;$/;"	m	struct:redisAsyncContext::__anon6	typeref:struct:redisAsyncContext::__anon6::dict	access:public
+poll_fd	adapters/glib.h	/^    GPollFD poll_fd;$/;"	m	struct:__anon2	access:public
+port	hiredis.h	/^        int port;$/;"	m	struct:redisContext::__anon3	access:public
+port	test.c	/^        int port;$/;"	m	struct:config::__anon7	file:	access:public
+pos	read.h	/^    size_t pos; \/* Buffer cursor *\/$/;"	m	struct:redisReader	access:public
+privdata	async.h	/^    void *privdata;$/;"	m	struct:redisCallback	access:public
+privdata	dict.h	/^    void *privdata;$/;"	m	struct:dict	access:public
+privdata	read.h	/^    void *privdata; \/* user-settable arbitrary field *\/$/;"	m	struct:redisReadTask	access:public
+privdata	read.h	/^    void *privdata;$/;"	m	struct:redisReader	access:public
+processBulkItem	read.c	/^static int processBulkItem(redisReader *r) {$/;"	f	file:	signature:(redisReader *r)
+processItem	read.c	/^static int processItem(redisReader *r) {$/;"	f	file:	signature:(redisReader *r)
+processLineItem	read.c	/^static int processLineItem(redisReader *r) {$/;"	f	file:	signature:(redisReader *r)
+processMultiBulkItem	read.c	/^static int processMultiBulkItem(redisReader *r) {$/;"	f	file:	signature:(redisReader *r)
+read	adapters/qt.h	/^        void read() { redisAsyncHandleRead(m_ctx); }$/;"	f	class:RedisQtAdapter	access:private	signature:()
+readBytes	read.c	/^static char *readBytes(redisReader *r, unsigned int bytes) {$/;"	f	file:	signature:(redisReader *r, unsigned int bytes)
+readLine	read.c	/^static char *readLine(redisReader *r, int *_len) {$/;"	f	file:	signature:(redisReader *r, int *_len)
+readLongLong	read.c	/^static long long readLongLong(char *s) {$/;"	f	file:	signature:(char *s)
+reader	hiredis.h	/^    redisReader *reader; \/* Protocol reader *\/$/;"	m	struct:redisContext	access:public
+reading	adapters/ae.h	/^    int reading, writing;$/;"	m	struct:redisAeEvents	access:public
+reading	adapters/libev.h	/^    int reading, writing;$/;"	m	struct:redisLibevEvents	access:public
+redis	.travis.yml	/^    - if [ "$TRAVIS_OS_NAME" == "osx" ] ; then brew update; brew install redis; fi$/;"	v
+redisAeAddRead	adapters/ae.h	/^static void redisAeAddRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisAeAddWrite	adapters/ae.h	/^static void redisAeAddWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisAeAttach	adapters/ae.h	/^static int redisAeAttach(aeEventLoop *loop, redisAsyncContext *ac) {$/;"	f	signature:(aeEventLoop *loop, redisAsyncContext *ac)
+redisAeCleanup	adapters/ae.h	/^static void redisAeCleanup(void *privdata) {$/;"	f	signature:(void *privdata)
+redisAeDelRead	adapters/ae.h	/^static void redisAeDelRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisAeDelWrite	adapters/ae.h	/^static void redisAeDelWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisAeEvents	adapters/ae.h	/^typedef struct redisAeEvents {$/;"	s
+redisAeEvents	adapters/ae.h	/^} redisAeEvents;$/;"	t	typeref:struct:redisAeEvents
+redisAeEvents::context	adapters/ae.h	/^    redisAsyncContext *context;$/;"	m	struct:redisAeEvents	access:public
+redisAeEvents::fd	adapters/ae.h	/^    int fd;$/;"	m	struct:redisAeEvents	access:public
+redisAeEvents::loop	adapters/ae.h	/^    aeEventLoop *loop;$/;"	m	struct:redisAeEvents	access:public
+redisAeEvents::reading	adapters/ae.h	/^    int reading, writing;$/;"	m	struct:redisAeEvents	access:public
+redisAeEvents::writing	adapters/ae.h	/^    int reading, writing;$/;"	m	struct:redisAeEvents	access:public
+redisAeReadEvent	adapters/ae.h	/^static void redisAeReadEvent(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f	signature:(aeEventLoop *el, int fd, void *privdata, int mask)
+redisAeWriteEvent	adapters/ae.h	/^static void redisAeWriteEvent(aeEventLoop *el, int fd, void *privdata, int mask) {$/;"	f	signature:(aeEventLoop *el, int fd, void *privdata, int mask)
+redisAppendCommand	hiredis.c	/^int redisAppendCommand(redisContext *c, const char *format, ...) {$/;"	f	signature:(redisContext *c, const char *format, ...)
+redisAppendCommand	hiredis.h	/^int redisAppendCommand(redisContext *c, const char *format, ...);$/;"	p	signature:(redisContext *c, const char *format, ...)
+redisAppendCommandArgv	hiredis.c	/^int redisAppendCommandArgv(redisContext *c, int argc, const char **argv, const size_t *argvlen) {$/;"	f	signature:(redisContext *c, int argc, const char **argv, const size_t *argvlen)
+redisAppendCommandArgv	hiredis.h	/^int redisAppendCommandArgv(redisContext *c, int argc, const char **argv, const size_t *argvlen);$/;"	p	signature:(redisContext *c, int argc, const char **argv, const size_t *argvlen)
+redisAppendFormattedCommand	hiredis.c	/^int redisAppendFormattedCommand(redisContext *c, const char *cmd, size_t len) {$/;"	f	signature:(redisContext *c, const char *cmd, size_t len)
+redisAppendFormattedCommand	hiredis.h	/^int redisAppendFormattedCommand(redisContext *c, const char *cmd, size_t len);$/;"	p	signature:(redisContext *c, const char *cmd, size_t len)
+redisAsyncCommand	async.c	/^int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...) {$/;"	f	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...)
+redisAsyncCommand	async.h	/^int redisAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...);$/;"	p	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, ...)
+redisAsyncCommandArgv	async.c	/^int redisAsyncCommandArgv(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, int argc, const char **argv, const size_t *argvlen) {$/;"	f	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, int argc, const char **argv, const size_t *argvlen)
+redisAsyncCommandArgv	async.h	/^int redisAsyncCommandArgv(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, int argc, const char **argv, const size_t *argvlen);$/;"	p	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, int argc, const char **argv, const size_t *argvlen)
+redisAsyncConnect	async.c	/^redisAsyncContext *redisAsyncConnect(const char *ip, int port) {$/;"	f	signature:(const char *ip, int port)
+redisAsyncConnect	async.h	/^redisAsyncContext *redisAsyncConnect(const char *ip, int port);$/;"	p	signature:(const char *ip, int port)
+redisAsyncConnectBind	async.c	/^redisAsyncContext *redisAsyncConnectBind(const char *ip, int port,$/;"	f	signature:(const char *ip, int port, const char *source_addr)
+redisAsyncConnectBind	async.h	/^redisAsyncContext *redisAsyncConnectBind(const char *ip, int port, const char *source_addr);$/;"	p	signature:(const char *ip, int port, const char *source_addr)
+redisAsyncConnectBindWithReuse	async.c	/^redisAsyncContext *redisAsyncConnectBindWithReuse(const char *ip, int port,$/;"	f	signature:(const char *ip, int port, const char *source_addr)
+redisAsyncConnectBindWithReuse	async.h	/^redisAsyncContext *redisAsyncConnectBindWithReuse(const char *ip, int port,$/;"	p	signature:(const char *ip, int port, const char *source_addr)
+redisAsyncConnectUnix	async.c	/^redisAsyncContext *redisAsyncConnectUnix(const char *path) {$/;"	f	signature:(const char *path)
+redisAsyncConnectUnix	async.h	/^redisAsyncContext *redisAsyncConnectUnix(const char *path);$/;"	p	signature:(const char *path)
+redisAsyncContext	async.h	/^typedef struct redisAsyncContext {$/;"	s
+redisAsyncContext	async.h	/^} redisAsyncContext;$/;"	t	typeref:struct:redisAsyncContext
+redisAsyncContext::__anon5::addRead	async.h	/^        void (*addRead)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::__anon5::addWrite	async.h	/^        void (*addWrite)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::__anon5::cleanup	async.h	/^        void (*cleanup)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::__anon5::data	async.h	/^        void *data;$/;"	m	struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::__anon5::delRead	async.h	/^        void (*delRead)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::__anon5::delWrite	async.h	/^        void (*delWrite)(void *privdata);$/;"	m	struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::__anon6::channels	async.h	/^        struct dict *channels;$/;"	m	struct:redisAsyncContext::__anon6	typeref:struct:redisAsyncContext::__anon6::dict	access:public
+redisAsyncContext::__anon6::invalid	async.h	/^        redisCallbackList invalid;$/;"	m	struct:redisAsyncContext::__anon6	access:public
+redisAsyncContext::__anon6::patterns	async.h	/^        struct dict *patterns;$/;"	m	struct:redisAsyncContext::__anon6	typeref:struct:redisAsyncContext::__anon6::dict	access:public
+redisAsyncContext::c	async.h	/^    redisContext c;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::data	async.h	/^    void *data;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::err	async.h	/^    int err;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::errstr	async.h	/^    char *errstr;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::ev	async.h	/^    } ev;$/;"	m	struct:redisAsyncContext	typeref:struct:redisAsyncContext::__anon5	access:public
+redisAsyncContext::onConnect	async.h	/^    redisConnectCallback *onConnect;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::onDisconnect	async.h	/^    redisDisconnectCallback *onDisconnect;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::replies	async.h	/^    redisCallbackList replies;$/;"	m	struct:redisAsyncContext	access:public
+redisAsyncContext::sub	async.h	/^    } sub;$/;"	m	struct:redisAsyncContext	typeref:struct:redisAsyncContext::__anon6	access:public
+redisAsyncDisconnect	async.c	/^void redisAsyncDisconnect(redisAsyncContext *ac) {$/;"	f	signature:(redisAsyncContext *ac)
+redisAsyncDisconnect	async.h	/^void redisAsyncDisconnect(redisAsyncContext *ac);$/;"	p	signature:(redisAsyncContext *ac)
+redisAsyncFormattedCommand	async.c	/^int redisAsyncFormattedCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *cmd, size_t len) {$/;"	f	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *cmd, size_t len)
+redisAsyncFormattedCommand	async.h	/^int redisAsyncFormattedCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *cmd, size_t len);$/;"	p	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *cmd, size_t len)
+redisAsyncFree	async.c	/^void redisAsyncFree(redisAsyncContext *ac) {$/;"	f	signature:(redisAsyncContext *ac)
+redisAsyncFree	async.h	/^void redisAsyncFree(redisAsyncContext *ac);$/;"	p	signature:(redisAsyncContext *ac)
+redisAsyncHandleRead	async.c	/^void redisAsyncHandleRead(redisAsyncContext *ac) {$/;"	f	signature:(redisAsyncContext *ac)
+redisAsyncHandleRead	async.h	/^void redisAsyncHandleRead(redisAsyncContext *ac);$/;"	p	signature:(redisAsyncContext *ac)
+redisAsyncHandleWrite	async.c	/^void redisAsyncHandleWrite(redisAsyncContext *ac) {$/;"	f	signature:(redisAsyncContext *ac)
+redisAsyncHandleWrite	async.h	/^void redisAsyncHandleWrite(redisAsyncContext *ac);$/;"	p	signature:(redisAsyncContext *ac)
+redisAsyncInitialize	async.c	/^static redisAsyncContext *redisAsyncInitialize(redisContext *c) {$/;"	f	file:	signature:(redisContext *c)
+redisAsyncSetConnectCallback	async.c	/^int redisAsyncSetConnectCallback(redisAsyncContext *ac, redisConnectCallback *fn) {$/;"	f	signature:(redisAsyncContext *ac, redisConnectCallback *fn)
+redisAsyncSetConnectCallback	async.h	/^int redisAsyncSetConnectCallback(redisAsyncContext *ac, redisConnectCallback *fn);$/;"	p	signature:(redisAsyncContext *ac, redisConnectCallback *fn)
+redisAsyncSetDisconnectCallback	async.c	/^int redisAsyncSetDisconnectCallback(redisAsyncContext *ac, redisDisconnectCallback *fn) {$/;"	f	signature:(redisAsyncContext *ac, redisDisconnectCallback *fn)
+redisAsyncSetDisconnectCallback	async.h	/^int redisAsyncSetDisconnectCallback(redisAsyncContext *ac, redisDisconnectCallback *fn);$/;"	p	signature:(redisAsyncContext *ac, redisDisconnectCallback *fn)
+redisBufferRead	hiredis.c	/^int redisBufferRead(redisContext *c) {$/;"	f	signature:(redisContext *c)
+redisBufferRead	hiredis.h	/^int redisBufferRead(redisContext *c);$/;"	p	signature:(redisContext *c)
+redisBufferWrite	hiredis.c	/^int redisBufferWrite(redisContext *c, int *done) {$/;"	f	signature:(redisContext *c, int *done)
+redisBufferWrite	hiredis.h	/^int redisBufferWrite(redisContext *c, int *done);$/;"	p	signature:(redisContext *c, int *done)
+redisCallback	async.h	/^typedef struct redisCallback {$/;"	s
+redisCallback	async.h	/^} redisCallback;$/;"	t	typeref:struct:redisCallback
+redisCallback::fn	async.h	/^    redisCallbackFn *fn;$/;"	m	struct:redisCallback	access:public
+redisCallback::next	async.h	/^    struct redisCallback *next; \/* simple singly linked list *\/$/;"	m	struct:redisCallback	typeref:struct:redisCallback::redisCallback	access:public
+redisCallback::privdata	async.h	/^    void *privdata;$/;"	m	struct:redisCallback	access:public
+redisCallbackFn	async.h	/^typedef void (redisCallbackFn)(struct redisAsyncContext*, void*, void*);$/;"	t
+redisCallbackList	async.h	/^typedef struct redisCallbackList {$/;"	s
+redisCallbackList	async.h	/^} redisCallbackList;$/;"	t	typeref:struct:redisCallbackList
+redisCallbackList::head	async.h	/^    redisCallback *head, *tail;$/;"	m	struct:redisCallbackList	access:public
+redisCallbackList::tail	async.h	/^    redisCallback *head, *tail;$/;"	m	struct:redisCallbackList	access:public
+redisCheckSocketError	net.c	/^int redisCheckSocketError(redisContext *c) {$/;"	f	signature:(redisContext *c)
+redisCheckSocketError	net.h	/^int redisCheckSocketError(redisContext *c);$/;"	p	signature:(redisContext *c)
+redisCommand	hiredis.c	/^void *redisCommand(redisContext *c, const char *format, ...) {$/;"	f	signature:(redisContext *c, const char *format, ...)
+redisCommand	hiredis.h	/^void *redisCommand(redisContext *c, const char *format, ...);$/;"	p	signature:(redisContext *c, const char *format, ...)
+redisCommandArgv	hiredis.c	/^void *redisCommandArgv(redisContext *c, int argc, const char **argv, const size_t *argvlen) {$/;"	f	signature:(redisContext *c, int argc, const char **argv, const size_t *argvlen)
+redisCommandArgv	hiredis.h	/^void *redisCommandArgv(redisContext *c, int argc, const char **argv, const size_t *argvlen);$/;"	p	signature:(redisContext *c, int argc, const char **argv, const size_t *argvlen)
+redisConnect	hiredis.c	/^redisContext *redisConnect(const char *ip, int port) {$/;"	f	signature:(const char *ip, int port)
+redisConnect	hiredis.h	/^redisContext *redisConnect(const char *ip, int port);$/;"	p	signature:(const char *ip, int port)
+redisConnectBindNonBlock	hiredis.c	/^redisContext *redisConnectBindNonBlock(const char *ip, int port,$/;"	f	signature:(const char *ip, int port, const char *source_addr)
+redisConnectBindNonBlock	hiredis.h	/^redisContext *redisConnectBindNonBlock(const char *ip, int port,$/;"	p	signature:(const char *ip, int port, const char *source_addr)
+redisConnectBindNonBlockWithReuse	hiredis.c	/^redisContext *redisConnectBindNonBlockWithReuse(const char *ip, int port,$/;"	f	signature:(const char *ip, int port, const char *source_addr)
+redisConnectBindNonBlockWithReuse	hiredis.h	/^redisContext *redisConnectBindNonBlockWithReuse(const char *ip, int port,$/;"	p	signature:(const char *ip, int port, const char *source_addr)
+redisConnectCallback	async.h	/^typedef void (redisConnectCallback)(const struct redisAsyncContext*, int status);$/;"	t
+redisConnectFd	hiredis.c	/^redisContext *redisConnectFd(int fd) {$/;"	f	signature:(int fd)
+redisConnectFd	hiredis.h	/^redisContext *redisConnectFd(int fd);$/;"	p	signature:(int fd)
+redisConnectNonBlock	hiredis.c	/^redisContext *redisConnectNonBlock(const char *ip, int port) {$/;"	f	signature:(const char *ip, int port)
+redisConnectNonBlock	hiredis.h	/^redisContext *redisConnectNonBlock(const char *ip, int port);$/;"	p	signature:(const char *ip, int port)
+redisConnectUnix	hiredis.c	/^redisContext *redisConnectUnix(const char *path) {$/;"	f	signature:(const char *path)
+redisConnectUnix	hiredis.h	/^redisContext *redisConnectUnix(const char *path);$/;"	p	signature:(const char *path)
+redisConnectUnixNonBlock	hiredis.c	/^redisContext *redisConnectUnixNonBlock(const char *path) {$/;"	f	signature:(const char *path)
+redisConnectUnixNonBlock	hiredis.h	/^redisContext *redisConnectUnixNonBlock(const char *path);$/;"	p	signature:(const char *path)
+redisConnectUnixWithTimeout	hiredis.c	/^redisContext *redisConnectUnixWithTimeout(const char *path, const struct timeval tv) {$/;"	f	signature:(const char *path, const struct timeval tv)
+redisConnectUnixWithTimeout	hiredis.h	/^redisContext *redisConnectUnixWithTimeout(const char *path, const struct timeval tv);$/;"	p	signature:(const char *path, const struct timeval tv)
+redisConnectWithTimeout	hiredis.c	/^redisContext *redisConnectWithTimeout(const char *ip, int port, const struct timeval tv) {$/;"	f	signature:(const char *ip, int port, const struct timeval tv)
+redisConnectWithTimeout	hiredis.h	/^redisContext *redisConnectWithTimeout(const char *ip, int port, const struct timeval tv);$/;"	p	signature:(const char *ip, int port, const struct timeval tv)
+redisConnectionType	hiredis.h	/^enum redisConnectionType {$/;"	g
+redisContext	hiredis.h	/^typedef struct redisContext {$/;"	s
+redisContext	hiredis.h	/^} redisContext;$/;"	t	typeref:struct:redisContext
+redisContext::__anon3::host	hiredis.h	/^        char *host;$/;"	m	struct:redisContext::__anon3	access:public
+redisContext::__anon3::port	hiredis.h	/^        int port;$/;"	m	struct:redisContext::__anon3	access:public
+redisContext::__anon3::source_addr	hiredis.h	/^        char *source_addr;$/;"	m	struct:redisContext::__anon3	access:public
+redisContext::__anon4::path	hiredis.h	/^        char *path;$/;"	m	struct:redisContext::__anon4	access:public
+redisContext::connection_type	hiredis.h	/^    enum redisConnectionType connection_type;$/;"	m	struct:redisContext	typeref:enum:redisContext::redisConnectionType	access:public
+redisContext::err	hiredis.h	/^    int err; \/* Error flags, 0 when there is no error *\/$/;"	m	struct:redisContext	access:public
+redisContext::errstr	hiredis.h	/^    char errstr[128]; \/* String representation of error when applicable *\/$/;"	m	struct:redisContext	access:public
+redisContext::fd	hiredis.h	/^    int fd;$/;"	m	struct:redisContext	access:public
+redisContext::flags	hiredis.h	/^    int flags;$/;"	m	struct:redisContext	access:public
+redisContext::obuf	hiredis.h	/^    char *obuf; \/* Write buffer *\/$/;"	m	struct:redisContext	access:public
+redisContext::reader	hiredis.h	/^    redisReader *reader; \/* Protocol reader *\/$/;"	m	struct:redisContext	access:public
+redisContext::tcp	hiredis.h	/^    } tcp;$/;"	m	struct:redisContext	typeref:struct:redisContext::__anon3	access:public
+redisContext::timeout	hiredis.h	/^    struct timeval *timeout;$/;"	m	struct:redisContext	typeref:struct:redisContext::timeval	access:public
+redisContext::unix_sock	hiredis.h	/^    } unix_sock;$/;"	m	struct:redisContext	typeref:struct:redisContext::__anon4	access:public
+redisContextCloseFd	net.c	/^static void redisContextCloseFd(redisContext *c) {$/;"	f	file:	signature:(redisContext *c)
+redisContextConnectBindTcp	net.c	/^int redisContextConnectBindTcp(redisContext *c, const char *addr, int port,$/;"	f	signature:(redisContext *c, const char *addr, int port, const struct timeval *timeout, const char *source_addr)
+redisContextConnectBindTcp	net.h	/^int redisContextConnectBindTcp(redisContext *c, const char *addr, int port,$/;"	p	signature:(redisContext *c, const char *addr, int port, const struct timeval *timeout, const char *source_addr)
+redisContextConnectTcp	net.c	/^int redisContextConnectTcp(redisContext *c, const char *addr, int port,$/;"	f	signature:(redisContext *c, const char *addr, int port, const struct timeval *timeout)
+redisContextConnectTcp	net.h	/^int redisContextConnectTcp(redisContext *c, const char *addr, int port, const struct timeval *timeout);$/;"	p	signature:(redisContext *c, const char *addr, int port, const struct timeval *timeout)
+redisContextConnectUnix	net.c	/^int redisContextConnectUnix(redisContext *c, const char *path, const struct timeval *timeout) {$/;"	f	signature:(redisContext *c, const char *path, const struct timeval *timeout)
+redisContextConnectUnix	net.h	/^int redisContextConnectUnix(redisContext *c, const char *path, const struct timeval *timeout);$/;"	p	signature:(redisContext *c, const char *path, const struct timeval *timeout)
+redisContextInit	hiredis.c	/^static redisContext *redisContextInit(void) {$/;"	f	file:	signature:(void)
+redisContextSetTimeout	net.c	/^int redisContextSetTimeout(redisContext *c, const struct timeval tv) {$/;"	f	signature:(redisContext *c, const struct timeval tv)
+redisContextSetTimeout	net.h	/^int redisContextSetTimeout(redisContext *c, const struct timeval tv);$/;"	p	signature:(redisContext *c, const struct timeval tv)
+redisContextTimeoutMsec	net.c	/^static int redisContextTimeoutMsec(redisContext *c, long *result)$/;"	f	file:	signature:(redisContext *c, long *result)
+redisContextWaitReady	net.c	/^static int redisContextWaitReady(redisContext *c, long msec) {$/;"	f	file:	signature:(redisContext *c, long msec)
+redisCreateSocket	net.c	/^static int redisCreateSocket(redisContext *c, int type) {$/;"	f	file:	signature:(redisContext *c, int type)
+redisDisconnectCallback	async.h	/^typedef void (redisDisconnectCallback)(const struct redisAsyncContext*, int status);$/;"	t
+redisEnableKeepAlive	hiredis.c	/^int redisEnableKeepAlive(redisContext *c) {$/;"	f	signature:(redisContext *c)
+redisEnableKeepAlive	hiredis.h	/^int redisEnableKeepAlive(redisContext *c);$/;"	p	signature:(redisContext *c)
+redisFormatCommand	hiredis.c	/^int redisFormatCommand(char **target, const char *format, ...) {$/;"	f	signature:(char **target, const char *format, ...)
+redisFormatCommand	hiredis.h	/^int redisFormatCommand(char **target, const char *format, ...);$/;"	p	signature:(char **target, const char *format, ...)
+redisFormatCommandArgv	hiredis.c	/^int redisFormatCommandArgv(char **target, int argc, const char **argv, const size_t *argvlen) {$/;"	f	signature:(char **target, int argc, const char **argv, const size_t *argvlen)
+redisFormatCommandArgv	hiredis.h	/^int redisFormatCommandArgv(char **target, int argc, const char **argv, const size_t *argvlen);$/;"	p	signature:(char **target, int argc, const char **argv, const size_t *argvlen)
+redisFormatSdsCommandArgv	hiredis.c	/^int redisFormatSdsCommandArgv(sds *target, int argc, const char **argv,$/;"	f	signature:(sds *target, int argc, const char **argv, const size_t *argvlen)
+redisFormatSdsCommandArgv	hiredis.h	/^int redisFormatSdsCommandArgv(sds *target, int argc, const char ** argv, const size_t *argvlen);$/;"	p	signature:(sds *target, int argc, const char ** argv, const size_t *argvlen)
+redisFree	hiredis.c	/^void redisFree(redisContext *c) {$/;"	f	signature:(redisContext *c)
+redisFree	hiredis.h	/^void redisFree(redisContext *c);$/;"	p	signature:(redisContext *c)
+redisFreeCommand	hiredis.c	/^void redisFreeCommand(char *cmd) {$/;"	f	signature:(char *cmd)
+redisFreeCommand	hiredis.h	/^void redisFreeCommand(char *cmd);$/;"	p	signature:(char *cmd)
+redisFreeKeepFd	hiredis.c	/^int redisFreeKeepFd(redisContext *c) {$/;"	f	signature:(redisContext *c)
+redisFreeKeepFd	hiredis.h	/^int redisFreeKeepFd(redisContext *c);$/;"	p	signature:(redisContext *c)
+redisFreeSdsCommand	hiredis.c	/^void redisFreeSdsCommand(sds cmd) {$/;"	f	signature:(sds cmd)
+redisFreeSdsCommand	hiredis.h	/^void redisFreeSdsCommand(sds cmd);$/;"	p	signature:(sds cmd)
+redisGetReply	hiredis.c	/^int redisGetReply(redisContext *c, void **reply) {$/;"	f	signature:(redisContext *c, void **reply)
+redisGetReply	hiredis.h	/^int redisGetReply(redisContext *c, void **reply);$/;"	p	signature:(redisContext *c, void **reply)
+redisGetReplyFromReader	hiredis.c	/^int redisGetReplyFromReader(redisContext *c, void **reply) {$/;"	f	signature:(redisContext *c, void **reply)
+redisGetReplyFromReader	hiredis.h	/^int redisGetReplyFromReader(redisContext *c, void **reply);$/;"	p	signature:(redisContext *c, void **reply)
+redisIvykisAddRead	adapters/ivykis.h	/^static void redisIvykisAddRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisIvykisAddWrite	adapters/ivykis.h	/^static void redisIvykisAddWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisIvykisAttach	adapters/ivykis.h	/^static int redisIvykisAttach(redisAsyncContext *ac) {$/;"	f	signature:(redisAsyncContext *ac)
+redisIvykisCleanup	adapters/ivykis.h	/^static void redisIvykisCleanup(void *privdata) {$/;"	f	signature:(void *privdata)
+redisIvykisDelRead	adapters/ivykis.h	/^static void redisIvykisDelRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisIvykisDelWrite	adapters/ivykis.h	/^static void redisIvykisDelWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisIvykisEvents	adapters/ivykis.h	/^typedef struct redisIvykisEvents {$/;"	s
+redisIvykisEvents	adapters/ivykis.h	/^} redisIvykisEvents;$/;"	t	typeref:struct:redisIvykisEvents
+redisIvykisEvents::context	adapters/ivykis.h	/^    redisAsyncContext *context;$/;"	m	struct:redisIvykisEvents	access:public
+redisIvykisEvents::fd	adapters/ivykis.h	/^    struct iv_fd fd;$/;"	m	struct:redisIvykisEvents	typeref:struct:redisIvykisEvents::iv_fd	access:public
+redisIvykisReadEvent	adapters/ivykis.h	/^static void redisIvykisReadEvent(void *arg) {$/;"	f	signature:(void *arg)
+redisIvykisWriteEvent	adapters/ivykis.h	/^static void redisIvykisWriteEvent(void *arg) {$/;"	f	signature:(void *arg)
+redisKeepAlive	net.c	/^int redisKeepAlive(redisContext *c, int interval) {$/;"	f	signature:(redisContext *c, int interval)
+redisKeepAlive	net.h	/^int redisKeepAlive(redisContext *c, int interval);$/;"	p	signature:(redisContext *c, int interval)
+redisLibevAddRead	adapters/libev.h	/^static void redisLibevAddRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibevAddWrite	adapters/libev.h	/^static void redisLibevAddWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibevAttach	adapters/libev.h	/^static int redisLibevAttach(EV_P_ redisAsyncContext *ac) {$/;"	f	signature:(EV_P_ redisAsyncContext *ac)
+redisLibevCleanup	adapters/libev.h	/^static void redisLibevCleanup(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibevDelRead	adapters/libev.h	/^static void redisLibevDelRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibevDelWrite	adapters/libev.h	/^static void redisLibevDelWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibevEvents	adapters/libev.h	/^typedef struct redisLibevEvents {$/;"	s
+redisLibevEvents	adapters/libev.h	/^} redisLibevEvents;$/;"	t	typeref:struct:redisLibevEvents
+redisLibevEvents::context	adapters/libev.h	/^    redisAsyncContext *context;$/;"	m	struct:redisLibevEvents	access:public
+redisLibevEvents::loop	adapters/libev.h	/^    struct ev_loop *loop;$/;"	m	struct:redisLibevEvents	typeref:struct:redisLibevEvents::ev_loop	access:public
+redisLibevEvents::reading	adapters/libev.h	/^    int reading, writing;$/;"	m	struct:redisLibevEvents	access:public
+redisLibevEvents::rev	adapters/libev.h	/^    ev_io rev, wev;$/;"	m	struct:redisLibevEvents	access:public
+redisLibevEvents::wev	adapters/libev.h	/^    ev_io rev, wev;$/;"	m	struct:redisLibevEvents	access:public
+redisLibevEvents::writing	adapters/libev.h	/^    int reading, writing;$/;"	m	struct:redisLibevEvents	access:public
+redisLibevReadEvent	adapters/libev.h	/^static void redisLibevReadEvent(EV_P_ ev_io *watcher, int revents) {$/;"	f	signature:(EV_P_ ev_io *watcher, int revents)
+redisLibevWriteEvent	adapters/libev.h	/^static void redisLibevWriteEvent(EV_P_ ev_io *watcher, int revents) {$/;"	f	signature:(EV_P_ ev_io *watcher, int revents)
+redisLibeventAddRead	adapters/libevent.h	/^static void redisLibeventAddRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibeventAddWrite	adapters/libevent.h	/^static void redisLibeventAddWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibeventAttach	adapters/libevent.h	/^static int redisLibeventAttach(redisAsyncContext *ac, struct event_base *base) {$/;"	f	signature:(redisAsyncContext *ac, struct event_base *base)
+redisLibeventCleanup	adapters/libevent.h	/^static void redisLibeventCleanup(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibeventDelRead	adapters/libevent.h	/^static void redisLibeventDelRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibeventDelWrite	adapters/libevent.h	/^static void redisLibeventDelWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibeventEvents	adapters/libevent.h	/^typedef struct redisLibeventEvents {$/;"	s
+redisLibeventEvents	adapters/libevent.h	/^} redisLibeventEvents;$/;"	t	typeref:struct:redisLibeventEvents
+redisLibeventEvents::context	adapters/libevent.h	/^    redisAsyncContext *context;$/;"	m	struct:redisLibeventEvents	access:public
+redisLibeventEvents::rev	adapters/libevent.h	/^    struct event *rev, *wev;$/;"	m	struct:redisLibeventEvents	typeref:struct:redisLibeventEvents::event	access:public
+redisLibeventEvents::wev	adapters/libevent.h	/^    struct event *rev, *wev;$/;"	m	struct:redisLibeventEvents	typeref:struct:redisLibeventEvents::	access:public
+redisLibeventReadEvent	adapters/libevent.h	/^static void redisLibeventReadEvent(int fd, short event, void *arg) {$/;"	f	signature:(int fd, short event, void *arg)
+redisLibeventWriteEvent	adapters/libevent.h	/^static void redisLibeventWriteEvent(int fd, short event, void *arg) {$/;"	f	signature:(int fd, short event, void *arg)
+redisLibuvAddRead	adapters/libuv.h	/^static void redisLibuvAddRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibuvAddWrite	adapters/libuv.h	/^static void redisLibuvAddWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibuvAttach	adapters/libuv.h	/^static int redisLibuvAttach(redisAsyncContext* ac, uv_loop_t* loop) {$/;"	f	signature:(redisAsyncContext* ac, uv_loop_t* loop)
+redisLibuvCleanup	adapters/libuv.h	/^static void redisLibuvCleanup(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibuvDelRead	adapters/libuv.h	/^static void redisLibuvDelRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibuvDelWrite	adapters/libuv.h	/^static void redisLibuvDelWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisLibuvEvents	adapters/libuv.h	/^typedef struct redisLibuvEvents {$/;"	s
+redisLibuvEvents	adapters/libuv.h	/^} redisLibuvEvents;$/;"	t	typeref:struct:redisLibuvEvents
+redisLibuvEvents::context	adapters/libuv.h	/^  redisAsyncContext* context;$/;"	m	struct:redisLibuvEvents	access:public
+redisLibuvEvents::events	adapters/libuv.h	/^  int                events;$/;"	m	struct:redisLibuvEvents	access:public
+redisLibuvEvents::handle	adapters/libuv.h	/^  uv_poll_t          handle;$/;"	m	struct:redisLibuvEvents	access:public
+redisLibuvPoll	adapters/libuv.h	/^static void redisLibuvPoll(uv_poll_t* handle, int status, int events) {$/;"	f	signature:(uv_poll_t* handle, int status, int events)
+redisMacOSAddRead	adapters/macosx.h	/^static void redisMacOSAddRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisMacOSAddWrite	adapters/macosx.h	/^static void redisMacOSAddWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisMacOSAsyncCallback	adapters/macosx.h	/^static void redisMacOSAsyncCallback(CFSocketRef __unused s, CFSocketCallBackType callbackType, CFDataRef __unused address, const void __unused *data, void *info) {$/;"	f	signature:(CFSocketRef __unused s, CFSocketCallBackType callbackType, CFDataRef __unused address, const void __unused *data, void *info)
+redisMacOSAttach	adapters/macosx.h	/^static int redisMacOSAttach(redisAsyncContext *redisAsyncCtx, CFRunLoopRef runLoop) {$/;"	f	signature:(redisAsyncContext *redisAsyncCtx, CFRunLoopRef runLoop)
+redisMacOSCleanup	adapters/macosx.h	/^static void redisMacOSCleanup(void *privdata) {$/;"	f	signature:(void *privdata)
+redisMacOSDelRead	adapters/macosx.h	/^static void redisMacOSDelRead(void *privdata) {$/;"	f	signature:(void *privdata)
+redisMacOSDelWrite	adapters/macosx.h	/^static void redisMacOSDelWrite(void *privdata) {$/;"	f	signature:(void *privdata)
+redisProcessCallbacks	async.c	/^void redisProcessCallbacks(redisAsyncContext *ac) {$/;"	f	signature:(redisAsyncContext *ac)
+redisReadTask	read.h	/^typedef struct redisReadTask {$/;"	s
+redisReadTask	read.h	/^} redisReadTask;$/;"	t	typeref:struct:redisReadTask
+redisReadTask::elements	read.h	/^    int elements; \/* number of elements in multibulk container *\/$/;"	m	struct:redisReadTask	access:public
+redisReadTask::idx	read.h	/^    int idx; \/* index in parent (array) object *\/$/;"	m	struct:redisReadTask	access:public
+redisReadTask::obj	read.h	/^    void *obj; \/* holds user-generated value for a read task *\/$/;"	m	struct:redisReadTask	access:public
+redisReadTask::parent	read.h	/^    struct redisReadTask *parent; \/* parent task *\/$/;"	m	struct:redisReadTask	typeref:struct:redisReadTask::redisReadTask	access:public
+redisReadTask::privdata	read.h	/^    void *privdata; \/* user-settable arbitrary field *\/$/;"	m	struct:redisReadTask	access:public
+redisReadTask::type	read.h	/^    int type;$/;"	m	struct:redisReadTask	access:public
+redisReader	read.h	/^typedef struct redisReader {$/;"	s
+redisReader	read.h	/^} redisReader;$/;"	t	typeref:struct:redisReader
+redisReader::buf	read.h	/^    char *buf; \/* Read buffer *\/$/;"	m	struct:redisReader	access:public
+redisReader::err	read.h	/^    int err; \/* Error flags, 0 when there is no error *\/$/;"	m	struct:redisReader	access:public
+redisReader::errstr	read.h	/^    char errstr[128]; \/* String representation of error when applicable *\/$/;"	m	struct:redisReader	access:public
+redisReader::fn	read.h	/^    redisReplyObjectFunctions *fn;$/;"	m	struct:redisReader	access:public
+redisReader::len	read.h	/^    size_t len; \/* Buffer length *\/$/;"	m	struct:redisReader	access:public
+redisReader::maxbuf	read.h	/^    size_t maxbuf; \/* Max length of unused buffer *\/$/;"	m	struct:redisReader	access:public
+redisReader::pos	read.h	/^    size_t pos; \/* Buffer cursor *\/$/;"	m	struct:redisReader	access:public
+redisReader::privdata	read.h	/^    void *privdata;$/;"	m	struct:redisReader	access:public
+redisReader::reply	read.h	/^    void *reply; \/* Temporary reply pointer *\/$/;"	m	struct:redisReader	access:public
+redisReader::ridx	read.h	/^    int ridx; \/* Index of current read task *\/$/;"	m	struct:redisReader	access:public
+redisReader::rstack	read.h	/^    redisReadTask rstack[9];$/;"	m	struct:redisReader	access:public
+redisReaderCreate	hiredis.c	/^redisReader *redisReaderCreate(void) {$/;"	f	signature:(void)
+redisReaderCreate	hiredis.h	/^redisReader *redisReaderCreate(void);$/;"	p	signature:(void)
+redisReaderCreateWithFunctions	read.c	/^redisReader *redisReaderCreateWithFunctions(redisReplyObjectFunctions *fn) {$/;"	f	signature:(redisReplyObjectFunctions *fn)
+redisReaderCreateWithFunctions	read.h	/^redisReader *redisReaderCreateWithFunctions(redisReplyObjectFunctions *fn);$/;"	p	signature:(redisReplyObjectFunctions *fn)
+redisReaderFeed	read.c	/^int redisReaderFeed(redisReader *r, const char *buf, size_t len) {$/;"	f	signature:(redisReader *r, const char *buf, size_t len)
+redisReaderFeed	read.h	/^int redisReaderFeed(redisReader *r, const char *buf, size_t len);$/;"	p	signature:(redisReader *r, const char *buf, size_t len)
+redisReaderFree	read.c	/^void redisReaderFree(redisReader *r) {$/;"	f	signature:(redisReader *r)
+redisReaderFree	read.h	/^void redisReaderFree(redisReader *r);$/;"	p	signature:(redisReader *r)
+redisReaderGetError	read.h	105;"	d
+redisReaderGetObject	read.h	104;"	d
+redisReaderGetReply	read.c	/^int redisReaderGetReply(redisReader *r, void **reply) {$/;"	f	signature:(redisReader *r, void **reply)
+redisReaderGetReply	read.h	/^int redisReaderGetReply(redisReader *r, void **reply);$/;"	p	signature:(redisReader *r, void **reply)
+redisReaderSetPrivdata	read.h	103;"	d
+redisReconnect	hiredis.c	/^int redisReconnect(redisContext *c) {$/;"	f	signature:(redisContext *c)
+redisReconnect	hiredis.h	/^int redisReconnect(redisContext *c);$/;"	p	signature:(redisContext *c)
+redisReply	hiredis.h	/^typedef struct redisReply {$/;"	s
+redisReply	hiredis.h	/^} redisReply;$/;"	t	typeref:struct:redisReply
+redisReply::element	hiredis.h	/^    struct redisReply **element; \/* elements vector for REDIS_REPLY_ARRAY *\/$/;"	m	struct:redisReply	typeref:struct:redisReply::redisReply	access:public
+redisReply::elements	hiredis.h	/^    size_t elements; \/* number of elements, for REDIS_REPLY_ARRAY *\/$/;"	m	struct:redisReply	access:public
+redisReply::integer	hiredis.h	/^    long long integer; \/* The integer when type is REDIS_REPLY_INTEGER *\/$/;"	m	struct:redisReply	access:public
+redisReply::len	hiredis.h	/^    size_t len; \/* Length of string *\/$/;"	m	struct:redisReply	access:public
+redisReply::str	hiredis.h	/^    char *str; \/* Used for both REDIS_REPLY_ERROR and REDIS_REPLY_STRING *\/$/;"	m	struct:redisReply	access:public
+redisReply::type	hiredis.h	/^    int type; \/* REDIS_REPLY_* *\/$/;"	m	struct:redisReply	access:public
+redisReplyObjectFunctions	read.h	/^typedef struct redisReplyObjectFunctions {$/;"	s
+redisReplyObjectFunctions	read.h	/^} redisReplyObjectFunctions;$/;"	t	typeref:struct:redisReplyObjectFunctions
+redisReplyObjectFunctions::createArray	read.h	/^    void *(*createArray)(const redisReadTask*, int);$/;"	m	struct:redisReplyObjectFunctions	access:public
+redisReplyObjectFunctions::createInteger	read.h	/^    void *(*createInteger)(const redisReadTask*, long long);$/;"	m	struct:redisReplyObjectFunctions	access:public
+redisReplyObjectFunctions::createNil	read.h	/^    void *(*createNil)(const redisReadTask*);$/;"	m	struct:redisReplyObjectFunctions	access:public
+redisReplyObjectFunctions::createString	read.h	/^    void *(*createString)(const redisReadTask*, char*, size_t);$/;"	m	struct:redisReplyObjectFunctions	access:public
+redisReplyObjectFunctions::freeObject	read.h	/^    void (*freeObject)(void*);$/;"	m	struct:redisReplyObjectFunctions	access:public
+redisSetBlocking	net.c	/^static int redisSetBlocking(redisContext *c, int blocking) {$/;"	f	file:	signature:(redisContext *c, int blocking)
+redisSetReuseAddr	net.c	/^static int redisSetReuseAddr(redisContext *c) {$/;"	f	file:	signature:(redisContext *c)
+redisSetTcpNoDelay	net.c	/^static int redisSetTcpNoDelay(redisContext *c) {$/;"	f	file:	signature:(redisContext *c)
+redisSetTimeout	hiredis.c	/^int redisSetTimeout(redisContext *c, const struct timeval tv) {$/;"	f	signature:(redisContext *c, const struct timeval tv)
+redisSetTimeout	hiredis.h	/^int redisSetTimeout(redisContext *c, const struct timeval tv);$/;"	p	signature:(redisContext *c, const struct timeval tv)
+redis_source_add_read	adapters/glib.h	/^redis_source_add_read (gpointer data)$/;"	f	signature:(gpointer data)
+redis_source_add_write	adapters/glib.h	/^redis_source_add_write (gpointer data)$/;"	f	signature:(gpointer data)
+redis_source_check	adapters/glib.h	/^redis_source_check (GSource *source)$/;"	f	signature:(GSource *source)
+redis_source_cleanup	adapters/glib.h	/^redis_source_cleanup (gpointer data)$/;"	f	signature:(gpointer data)
+redis_source_del_read	adapters/glib.h	/^redis_source_del_read (gpointer data)$/;"	f	signature:(gpointer data)
+redis_source_del_write	adapters/glib.h	/^redis_source_del_write (gpointer data)$/;"	f	signature:(gpointer data)
+redis_source_dispatch	adapters/glib.h	/^redis_source_dispatch (GSource      *source,$/;"	f	signature:(GSource *source, GSourceFunc callback, gpointer user_data)
+redis_source_finalize	adapters/glib.h	/^redis_source_finalize (GSource *source)$/;"	f	signature:(GSource *source)
+redis_source_new	adapters/glib.h	/^redis_source_new (redisAsyncContext *ac)$/;"	f	signature:(redisAsyncContext *ac)
+redis_source_prepare	adapters/glib.h	/^redis_source_prepare (GSource *source,$/;"	f	signature:(GSource *source, gint *timeout_)
+redisvAppendCommand	hiredis.c	/^int redisvAppendCommand(redisContext *c, const char *format, va_list ap) {$/;"	f	signature:(redisContext *c, const char *format, va_list ap)
+redisvAppendCommand	hiredis.h	/^int redisvAppendCommand(redisContext *c, const char *format, va_list ap);$/;"	p	signature:(redisContext *c, const char *format, va_list ap)
+redisvAsyncCommand	async.c	/^int redisvAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, va_list ap) {$/;"	f	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, va_list ap)
+redisvAsyncCommand	async.h	/^int redisvAsyncCommand(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, va_list ap);$/;"	p	signature:(redisAsyncContext *ac, redisCallbackFn *fn, void *privdata, const char *format, va_list ap)
+redisvCommand	hiredis.c	/^void *redisvCommand(redisContext *c, const char *format, va_list ap) {$/;"	f	signature:(redisContext *c, const char *format, va_list ap)
+redisvCommand	hiredis.h	/^void *redisvCommand(redisContext *c, const char *format, va_list ap);$/;"	p	signature:(redisContext *c, const char *format, va_list ap)
+redisvFormatCommand	hiredis.c	/^int redisvFormatCommand(char **target, const char *format, va_list ap) {$/;"	f	signature:(char **target, const char *format, va_list ap)
+redisvFormatCommand	hiredis.h	/^int redisvFormatCommand(char **target, const char *format, va_list ap);$/;"	p	signature:(char **target, const char *format, va_list ap)
+removed	CHANGELOG.md	/^If it was used to compare to other values, casting might be necessary or can be removed, if casting was applied before.$/;"	v
+replies	async.h	/^    redisCallbackList replies;$/;"	m	struct:redisAsyncContext	access:public
+reply	read.h	/^    void *reply; \/* Temporary reply pointer *\/$/;"	m	struct:redisReader	access:public
+rev	adapters/libev.h	/^    ev_io rev, wev;$/;"	m	struct:redisLibevEvents	access:public
+rev	adapters/libevent.h	/^    struct event *rev, *wev;$/;"	m	struct:redisLibeventEvents	typeref:struct:redisLibeventEvents::event	access:public
+ridx	read.h	/^    int ridx; \/* Index of current read task *\/$/;"	m	struct:redisReader	access:public
+rstack	read.h	/^    redisReadTask rstack[9];$/;"	m	struct:redisReader	access:public
+run	examples/example-qt.cpp	/^void ExampleQt::run() {$/;"	f	class:ExampleQt	signature:()
+run	examples/example-qt.h	/^        void run();$/;"	p	class:ExampleQt	access:public	signature:()
+s_free	sdsalloc.h	42;"	d
+s_malloc	sdsalloc.h	40;"	d
+s_realloc	sdsalloc.h	41;"	d
+sds	sds.h	/^typedef char *sds;$/;"	t
+sdsAllocPtr	sds.c	/^void *sdsAllocPtr(sds s) {$/;"	f	signature:(sds s)
+sdsAllocPtr	sds.h	/^void *sdsAllocPtr(sds s);$/;"	p	signature:(sds s)
+sdsAllocSize	sds.c	/^size_t sdsAllocSize(sds s) {$/;"	f	signature:(sds s)
+sdsAllocSize	sds.h	/^size_t sdsAllocSize(sds s);$/;"	p	signature:(sds s)
+sdsHdrSize	sds.c	/^static inline int sdsHdrSize(char type) {$/;"	f	file:	signature:(char type)
+sdsIncrLen	sds.c	/^void sdsIncrLen(sds s, int incr) {$/;"	f	signature:(sds s, int incr)
+sdsIncrLen	sds.h	/^void sdsIncrLen(sds s, int incr);$/;"	p	signature:(sds s, int incr)
+sdsMakeRoomFor	sds.c	/^sds sdsMakeRoomFor(sds s, size_t addlen) {$/;"	f	signature:(sds s, size_t addlen)
+sdsMakeRoomFor	sds.h	/^sds sdsMakeRoomFor(sds s, size_t addlen);$/;"	p	signature:(sds s, size_t addlen)
+sdsRemoveFreeSpace	sds.c	/^sds sdsRemoveFreeSpace(sds s) {$/;"	f	signature:(sds s)
+sdsRemoveFreeSpace	sds.h	/^sds sdsRemoveFreeSpace(sds s);$/;"	p	signature:(sds s)
+sdsReqType	sds.c	/^static inline char sdsReqType(size_t string_size) {$/;"	f	file:	signature:(size_t string_size)
+sdsTest	sds.c	/^int sdsTest(void) {$/;"	f	signature:(void)
+sdsTest	sds.h	/^int sdsTest(int argc, char *argv[]);$/;"	p	signature:(int argc, char *argv[])
+sds_free	sds.c	/^void sds_free(void *ptr) { s_free(ptr); }$/;"	f	signature:(void *ptr)
+sds_free	sds.h	/^void sds_free(void *ptr);$/;"	p	signature:(void *ptr)
+sds_malloc	sds.c	/^void *sds_malloc(size_t size) { return s_malloc(size); }$/;"	f	signature:(size_t size)
+sds_malloc	sds.h	/^void *sds_malloc(size_t size);$/;"	p	signature:(size_t size)
+sds_realloc	sds.c	/^void *sds_realloc(void *ptr, size_t size) { return s_realloc(ptr,size); }$/;"	f	signature:(void *ptr, size_t size)
+sds_realloc	sds.h	/^void *sds_realloc(void *ptr, size_t size);$/;"	p	signature:(void *ptr, size_t size)
+sdsalloc	sds.h	/^static inline size_t sdsalloc(const sds s) {$/;"	f	signature:(const sds s)
+sdsavail	sds.h	/^static inline size_t sdsavail(const sds s) {$/;"	f	signature:(const sds s)
+sdscat	sds.c	/^sds sdscat(sds s, const char *t) {$/;"	f	signature:(sds s, const char *t)
+sdscat	sds.h	/^sds sdscat(sds s, const char *t);$/;"	p	signature:(sds s, const char *t)
+sdscatfmt	sds.c	/^sds sdscatfmt(sds s, char const *fmt, ...) {$/;"	f	signature:(sds s, char const *fmt, ...)
+sdscatfmt	sds.h	/^sds sdscatfmt(sds s, char const *fmt, ...);$/;"	p	signature:(sds s, char const *fmt, ...)
+sdscatlen	sds.c	/^sds sdscatlen(sds s, const void *t, size_t len) {$/;"	f	signature:(sds s, const void *t, size_t len)
+sdscatlen	sds.h	/^sds sdscatlen(sds s, const void *t, size_t len);$/;"	p	signature:(sds s, const void *t, size_t len)
+sdscatprintf	sds.c	/^sds sdscatprintf(sds s, const char *fmt, ...) {$/;"	f	signature:(sds s, const char *fmt, ...)
+sdscatprintf	sds.h	/^sds sdscatprintf(sds s, const char *fmt, ...)$/;"	p	signature:(sds s, const char *fmt, ...)
+sdscatprintf	sds.h	/^sds sdscatprintf(sds s, const char *fmt, ...);$/;"	p	signature:(sds s, const char *fmt, ...)
+sdscatrepr	sds.c	/^sds sdscatrepr(sds s, const char *p, size_t len) {$/;"	f	signature:(sds s, const char *p, size_t len)
+sdscatrepr	sds.h	/^sds sdscatrepr(sds s, const char *p, size_t len);$/;"	p	signature:(sds s, const char *p, size_t len)
+sdscatsds	sds.c	/^sds sdscatsds(sds s, const sds t) {$/;"	f	signature:(sds s, const sds t)
+sdscatsds	sds.h	/^sds sdscatsds(sds s, const sds t);$/;"	p	signature:(sds s, const sds t)
+sdscatvprintf	sds.c	/^sds sdscatvprintf(sds s, const char *fmt, va_list ap) {$/;"	f	signature:(sds s, const char *fmt, va_list ap)
+sdscatvprintf	sds.h	/^sds sdscatvprintf(sds s, const char *fmt, va_list ap);$/;"	p	signature:(sds s, const char *fmt, va_list ap)
+sdsclear	sds.c	/^void sdsclear(sds s) {$/;"	f	signature:(sds s)
+sdsclear	sds.h	/^void sdsclear(sds s);$/;"	p	signature:(sds s)
+sdscmp	sds.c	/^int sdscmp(const sds s1, const sds s2) {$/;"	f	signature:(const sds s1, const sds s2)
+sdscmp	sds.h	/^int sdscmp(const sds s1, const sds s2);$/;"	p	signature:(const sds s1, const sds s2)
+sdscpy	sds.c	/^sds sdscpy(sds s, const char *t) {$/;"	f	signature:(sds s, const char *t)
+sdscpy	sds.h	/^sds sdscpy(sds s, const char *t);$/;"	p	signature:(sds s, const char *t)
+sdscpylen	sds.c	/^sds sdscpylen(sds s, const char *t, size_t len) {$/;"	f	signature:(sds s, const char *t, size_t len)
+sdscpylen	sds.h	/^sds sdscpylen(sds s, const char *t, size_t len);$/;"	p	signature:(sds s, const char *t, size_t len)
+sdsdup	sds.c	/^sds sdsdup(const sds s) {$/;"	f	signature:(const sds s)
+sdsdup	sds.h	/^sds sdsdup(const sds s);$/;"	p	signature:(const sds s)
+sdsempty	sds.c	/^sds sdsempty(void) {$/;"	f	signature:(void)
+sdsempty	sds.h	/^sds sdsempty(void);$/;"	p	signature:(void)
+sdsfree	sds.c	/^void sdsfree(sds s) {$/;"	f	signature:(sds s)
+sdsfree	sds.h	/^void sdsfree(sds s);$/;"	p	signature:(sds s)
+sdsfreesplitres	sds.c	/^void sdsfreesplitres(sds *tokens, int count) {$/;"	f	signature:(sds *tokens, int count)
+sdsfreesplitres	sds.h	/^void sdsfreesplitres(sds *tokens, int count);$/;"	p	signature:(sds *tokens, int count)
+sdsfromlonglong	sds.c	/^sds sdsfromlonglong(long long value) {$/;"	f	signature:(long long value)
+sdsfromlonglong	sds.h	/^sds sdsfromlonglong(long long value);$/;"	p	signature:(long long value)
+sdsgrowzero	sds.c	/^sds sdsgrowzero(sds s, size_t len) {$/;"	f	signature:(sds s, size_t len)
+sdsgrowzero	sds.h	/^sds sdsgrowzero(sds s, size_t len);$/;"	p	signature:(sds s, size_t len)
+sdsinclen	sds.h	/^static inline void sdsinclen(sds s, size_t inc) {$/;"	f	signature:(sds s, size_t inc)
+sdsjoin	sds.c	/^sds sdsjoin(char **argv, int argc, char *sep) {$/;"	f	signature:(char **argv, int argc, char *sep)
+sdsjoin	sds.h	/^sds sdsjoin(char **argv, int argc, char *sep);$/;"	p	signature:(char **argv, int argc, char *sep)
+sdsjoinsds	sds.c	/^sds sdsjoinsds(sds *argv, int argc, const char *sep, size_t seplen) {$/;"	f	signature:(sds *argv, int argc, const char *sep, size_t seplen)
+sdsjoinsds	sds.h	/^sds sdsjoinsds(sds *argv, int argc, const char *sep, size_t seplen);$/;"	p	signature:(sds *argv, int argc, const char *sep, size_t seplen)
+sdslen	sds.h	/^static inline size_t sdslen(const sds s) {$/;"	f	signature:(const sds s)
+sdsll2str	sds.c	/^int sdsll2str(char *s, long long value) {$/;"	f	signature:(char *s, long long value)
+sdsmapchars	sds.c	/^sds sdsmapchars(sds s, const char *from, const char *to, size_t setlen) {$/;"	f	signature:(sds s, const char *from, const char *to, size_t setlen)
+sdsmapchars	sds.h	/^sds sdsmapchars(sds s, const char *from, const char *to, size_t setlen);$/;"	p	signature:(sds s, const char *from, const char *to, size_t setlen)
+sdsnew	sds.c	/^sds sdsnew(const char *init) {$/;"	f	signature:(const char *init)
+sdsnew	sds.h	/^sds sdsnew(const char *init);$/;"	p	signature:(const char *init)
+sdsnewlen	sds.c	/^sds sdsnewlen(const void *init, size_t initlen) {$/;"	f	signature:(const void *init, size_t initlen)
+sdsnewlen	sds.h	/^sds sdsnewlen(const void *init, size_t initlen);$/;"	p	signature:(const void *init, size_t initlen)
+sdsrange	sds.c	/^void sdsrange(sds s, int start, int end) {$/;"	f	signature:(sds s, int start, int end)
+sdsrange	sds.h	/^void sdsrange(sds s, int start, int end);$/;"	p	signature:(sds s, int start, int end)
+sdssetalloc	sds.h	/^static inline void sdssetalloc(sds s, size_t newlen) {$/;"	f	signature:(sds s, size_t newlen)
+sdssetlen	sds.h	/^static inline void sdssetlen(sds s, size_t newlen) {$/;"	f	signature:(sds s, size_t newlen)
+sdssplitargs	sds.c	/^sds *sdssplitargs(const char *line, int *argc) {$/;"	f	signature:(const char *line, int *argc)
+sdssplitargs	sds.h	/^sds *sdssplitargs(const char *line, int *argc);$/;"	p	signature:(const char *line, int *argc)
+sdssplitlen	sds.c	/^sds *sdssplitlen(const char *s, int len, const char *sep, int seplen, int *count) {$/;"	f	signature:(const char *s, int len, const char *sep, int seplen, int *count)
+sdssplitlen	sds.h	/^sds *sdssplitlen(const char *s, int len, const char *sep, int seplen, int *count);$/;"	p	signature:(const char *s, int len, const char *sep, int seplen, int *count)
+sdstolower	sds.c	/^void sdstolower(sds s) {$/;"	f	signature:(sds s)
+sdstolower	sds.h	/^void sdstolower(sds s);$/;"	p	signature:(sds s)
+sdstoupper	sds.c	/^void sdstoupper(sds s) {$/;"	f	signature:(sds s)
+sdstoupper	sds.h	/^void sdstoupper(sds s);$/;"	p	signature:(sds s)
+sdstrim	sds.c	/^sds sdstrim(sds s, const char *cset) {$/;"	f	signature:(sds s, const char *cset)
+sdstrim	sds.h	/^sds sdstrim(sds s, const char *cset);$/;"	p	signature:(sds s, const char *cset)
+sdsull2str	sds.c	/^int sdsull2str(char *s, unsigned long long v) {$/;"	f	signature:(char *s, unsigned long long v)
+sdsupdatelen	sds.c	/^void sdsupdatelen(sds s) {$/;"	f	signature:(sds s)
+sdsupdatelen	sds.h	/^void sdsupdatelen(sds s);$/;"	p	signature:(sds s)
+seekNewline	read.c	/^static char *seekNewline(char *s, size_t len) {$/;"	f	file:	signature:(char *s, size_t len)
+select_database	test.c	/^static redisContext *select_database(redisContext *c) {$/;"	f	file:	signature:(redisContext *c)
+setContext	adapters/qt.h	/^        int setContext(redisAsyncContext * ac) {$/;"	f	class:RedisQtAdapter	access:public	signature:(redisAsyncContext * ac)
+size	dict.h	/^    unsigned long size;$/;"	m	struct:dict	access:public
+sizemask	dict.h	/^    unsigned long sizemask;$/;"	m	struct:dict	access:public
+snprintf	win32.h	14;"	d
+socketRef	adapters/macosx.h	/^    CFSocketRef socketRef;$/;"	m	struct:__anon1	access:public
+source	adapters/glib.h	/^    GSource source;$/;"	m	struct:__anon2	access:public
+sourceRef	adapters/macosx.h	/^    CFRunLoopSourceRef sourceRef;$/;"	m	struct:__anon1	access:public
+source_addr	hiredis.h	/^        char *source_addr;$/;"	m	struct:redisContext::__anon3	access:public
+str	hiredis.h	/^    char *str; \/* Used for both REDIS_REPLY_ERROR and REDIS_REPLY_STRING *\/$/;"	m	struct:redisReply	access:public
+sub	async.h	/^    } sub;$/;"	m	struct:redisAsyncContext	typeref:struct:redisAsyncContext::__anon6	access:public
+support	CHANGELOG.md	/^* Fix `make install`: DESTDIR support, install all required files, install PKGCONF in proper location$/;"	v
+table	dict.h	/^    dictEntry **table;$/;"	m	struct:dict	access:public
+tail	async.h	/^    redisCallback *head, *tail;$/;"	m	struct:redisCallbackList	access:public
+tcp	hiredis.h	/^    } tcp;$/;"	m	struct:redisContext	typeref:struct:redisContext::__anon3	access:public
+tcp	test.c	/^    } tcp;$/;"	m	struct:config	typeref:struct:config::__anon7	file:	access:public
+test	test.c	38;"	d	file:
+test_append_formatted_commands	test.c	/^static void test_append_formatted_commands(struct config config) {$/;"	f	file:	signature:(struct config config)
+test_blocking_connection	test.c	/^static void test_blocking_connection(struct config config) {$/;"	f	file:	signature:(struct config config)
+test_blocking_connection_errors	test.c	/^static void test_blocking_connection_errors(void) {$/;"	f	file:	signature:(void)
+test_blocking_connection_timeouts	test.c	/^static void test_blocking_connection_timeouts(struct config config) {$/;"	f	file:	signature:(struct config config)
+test_blocking_io_errors	test.c	/^static void test_blocking_io_errors(struct config config) {$/;"	f	file:	signature:(struct config config)
+test_cond	test.c	39;"	d	file:
+test_format_commands	test.c	/^static void test_format_commands(void) {$/;"	f	file:	signature:(void)
+test_free_null	test.c	/^static void test_free_null(void) {$/;"	f	file:	signature:(void)
+test_invalid_timeout_errors	test.c	/^static void test_invalid_timeout_errors(struct config config) {$/;"	f	file:	signature:(struct config config)
+test_reply_reader	test.c	/^static void test_reply_reader(void) {$/;"	f	file:	signature:(void)
+test_throughput	test.c	/^static void test_throughput(struct config config) {$/;"	f	file:	signature:(struct config config)
+tests	test.c	/^static int tests = 0, fails = 0;$/;"	v	file:
+timeout	hiredis.h	/^    struct timeval *timeout;$/;"	m	struct:redisContext	typeref:struct:redisContext::timeval	access:public
+timeout	test.c	/^        struct timeval timeout;$/;"	m	struct:config::__anon7	typeref:struct:config::__anon7::timeval	file:	access:public
+type	dict.h	/^    dictType *type;$/;"	m	struct:dict	access:public
+type	hiredis.h	/^    int type; \/* REDIS_REPLY_* *\/$/;"	m	struct:redisReply	access:public
+type	read.h	/^    int type;$/;"	m	struct:redisReadTask	access:public
+type	test.c	/^    enum connection_type type;$/;"	m	struct:config	typeref:enum:config::connection_type	file:	access:public
+unix_sock	hiredis.h	/^    } unix_sock;$/;"	m	struct:redisContext	typeref:struct:redisContext::__anon4	access:public
+unix_sock	test.c	/^    } unix_sock;$/;"	m	struct:config	typeref:struct:config::__anon8	file:	access:public
+update	.travis.yml	/^    - if [ "$TRAVIS_OS_NAME" == "osx" ] ; then brew update; brew install redis; fi$/;"	v
+usec	test.c	/^static long long usec(void) {$/;"	f	file:	signature:(void)
+used	dict.h	/^    unsigned long used;$/;"	m	struct:dict	access:public
+va_copy	win32.h	10;"	d
+val	dict.h	/^    void *val;$/;"	m	struct:dictEntry	access:public
+valDestructor	dict.h	/^    void (*valDestructor)(void *privdata, void *obj);$/;"	m	struct:dictType	access:public
+valDup	dict.h	/^    void *(*valDup)(void *privdata, const void *obj);$/;"	m	struct:dictType	access:public
+wev	adapters/libev.h	/^    ev_io rev, wev;$/;"	m	struct:redisLibevEvents	access:public
+wev	adapters/libevent.h	/^    struct event *rev, *wev;$/;"	m	struct:redisLibeventEvents	typeref:struct:redisLibeventEvents::	access:public
+write	adapters/qt.h	/^        void write() { redisAsyncHandleWrite(m_ctx); }$/;"	f	class:RedisQtAdapter	access:private	signature:()
+writing	adapters/ae.h	/^    int reading, writing;$/;"	m	struct:redisAeEvents	access:public
+writing	adapters/libev.h	/^    int reading, writing;$/;"	m	struct:redisLibevEvents	access:public
+~RedisQtAdapter	adapters/qt.h	/^        ~RedisQtAdapter() {$/;"	f	class:RedisQtAdapter	access:public	signature:()
