@@ -102,20 +102,30 @@ typedef struct sqlbus_handle {
 
 typedef struct sqlbus_cycle
 {
+	char *config_file;
 	config_t *config;
 	sqlbus_log_t *logger;
 	sqlbus_handle_t *sqlbus;
 
-	char *db_type;
-	char *db_host;
-	char *db_user;
-	char *db_auth;
-	char *database;
-	char *mem_host;
-	char *mem_user;
-	char *mem_auth;
-	char *mem_database;
-	char *config_file;
+	struct {
+		int port;
+		int timeo;
+		char *host;
+		char *user;
+		char *auth;
+		char *database;
+	} memcache;
+	struct {
+		HDBC hdbc;
+		HENV henv;
+		HSTMT hstmt;
+
+		char *type;
+		char *host;
+		char *user;
+		char *auth;
+		char *database;
+	}db;
 } sqlbus_cycle, sqlbus_cycle_t;
 
 __BEGIN_DECLS
@@ -124,7 +134,7 @@ int sqlbus_main(sqlbus_cycle_t *cycle);
 int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[]);
 int sqlbus_env_exit(sqlbus_cycle_t *cycle);
 int sqlbus_parse_request(sqlbus_cycle_t *cycle);
-int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt);
+int sqlbus_generate_response(sqlbus_cycle_t *cycle, HSTMT hstmt);
 
 __END_DECLS
 

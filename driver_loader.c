@@ -23,21 +23,22 @@
  * driver_func_template - 默认模板接口
  */
 static driver_func driver_func_template[] = {
-	[DB_CONNECT_INITIALIZE       ] = {"DBConnectInitialize", NULL},
-	[DB_CONNECT_FINALIZE         ] = {"DBConnectFinalize"  , NULL},
-	[DB_CONNECT                  ] = {"DBConnect"          , NULL},
-	[DB_DISCONNECT               ] = {"DBDisconnect"       , NULL},
-	[DB_STMT_INITIALIZE          ] = {"DBStmtInitialize"   , NULL},
-	[DB_STMT_FINALIZE            ] = {"DBStmtFinalize"     , NULL},
-	[DB_STMT_EXECUTE             ] = {"DBExecute"          , NULL},
-	[DB_STMT_GET_ROW_COUNT       ] = {"DBGetRowCount"      , NULL},
-	[DB_STMT_GET_FIELD_COUNT     ] = {"DBGetFieldCount"    , NULL},
-	[DB_STMT_GET_FIELD_NAME      ] = {"DBGetFieldNameIdx"  , NULL},
-	[DB_STMT_GET_FIELD_LENGTH    ] = {"DBGetFieldLengthIdx", NULL},
-	[DB_STMT_GET_NEXT_ROW        ] = {"DBGetNextRow"       , NULL},
-	[DB_STMT_GET_FIELD_VALUE     ] = {"DBGetFieldValue"    , NULL},
-	[DB_STMT_GET_FIELD_VALUE_IDX ] = {"DBGetFieldValueIdx" , NULL},
-	[DB_STMT_GET_ERROR_MESSAGE   ] = {"DBGetErrorMessage"  , NULL},
+	[DB_CONNECT_INITIALIZE       ] = {"DBConnectInitialize"  , NULL},
+	[DB_CONNECT_FINALIZE         ] = {"DBConnectFinalize"    , NULL},
+	[DB_CONNECT                  ] = {"DBConnect"            , NULL},
+	[DB_DISCONNECT               ] = {"DBDisconnect"         , NULL},
+	[DB_STMT_INITIALIZE          ] = {"DBStmtInitialize"     , NULL},
+	[DB_STMT_FINALIZE            ] = {"DBStmtFinalize"       , NULL},
+	[DB_STMT_EXECUTE             ] = {"DBExecute"            , NULL},
+	[DB_STMT_GET_ROW_COUNT       ] = {"DBGetRowCount"        , NULL},
+	[DB_STMT_GET_FIELD_COUNT     ] = {"DBGetFieldCount"      , NULL},
+	[DB_STMT_GET_FIELD_NAME      ] = {"DBGetFieldNameIdx"    , NULL},
+	[DB_STMT_GET_FIELD_LENGTH    ] = {"DBGetFieldLengthIdx"  , NULL},
+	[DB_STMT_GET_NEXT_ROW        ] = {"DBGetNextRow"         , NULL},
+	[DB_STMT_GET_FIELD_VALUE     ] = {"DBGetFieldValue"      , NULL},
+	[DB_STMT_GET_FIELD_VALUE_IDX ] = {"DBGetFieldValueIdx"   , NULL},
+	[DB_STMT_GET_ERROR_MESSAGE   ] = {"DBGetErrorMessage"    , NULL},
+	[DB_DBC_GET_CONNECTION_STATUS] = {"DBGetConnectionStatus", NULL},
 };
 
 /**

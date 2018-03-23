@@ -30,15 +30,21 @@ int main(int argc, const char ** const argv)
 		.config = NULL,
 		.logger = NULL,
 		.sqlbus = NULL,
-		.db_type = NULL,
-		.db_user = NULL,
-		.db_auth = NULL,
-		.database = NULL,
-		.mem_host = NULL,
-		.mem_user = NULL,
-		.mem_auth = NULL,
-		.mem_database = NULL,
 		.config_file = NULL,
+
+		.db = {
+			.type = NULL,
+			.user = NULL,
+			.auth = NULL,
+			.database = NULL,
+		},
+		.memcache = {
+			.port = 6379,
+			.host = NULL,
+			.user = NULL,
+			.auth = NULL,
+			.database = NULL,
+		},
 	};
 
 	sqlbus_env_init(&cycle, argc, argv);

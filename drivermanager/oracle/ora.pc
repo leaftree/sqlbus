@@ -191,6 +191,9 @@ static int runNonQueryStatment(HSTMT hstmt, char *statement)
 		else
 			hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
 
+		if(SQLCODE == -3135 || SQLCODE == -3114)
+			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
+
 		dbSetORAError(hstmt->error);
 		EXEC SQL ROLLBACK WORK;
 		return(IAPFAIL);
@@ -200,6 +203,8 @@ static int runNonQueryStatment(HSTMT hstmt, char *statement)
 		EXEC SQL COMMIT WORK;
 		if(SQLCODE != IAPSUCC)
 		{
+			if(SQLCODE == -3135 || SQLCODE == -3114)
+				hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
 			dbSetORAError(hstmt->error);
 			return(IAPFAIL);
 		}
@@ -242,10 +247,12 @@ static int Proc_db_connect(HDBC hdbc)
 	if( SQLCODE != IAPSUCC )
 	{
 		dbSetORAError(hdbc->error);
+		hdbc->connection = ORA_CONNECTION_STATUS_NOT;
 		DBUG_PRINT(__func__, ("LINE:%d CONNECT TO DB ERROR & DBOPENDATABASE END!!!",__LINE__));
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
+	hdbc->connection = ORA_CONNECTION_STATUS_YES;
 	DBUG_PRINT(__func__, ("LINE:%d DB_LOGIN SUCCESSFULLY END!!!",__LINE__));
 
 	DBUG_RETURN(RETURN_SUCCESS);
@@ -278,6 +285,8 @@ int DBConnectInitialize(HDBC *hdbc)
 		mFree(hdbc);
 		DBUG_RETURN(RETURN_FAILURE);
 	}
+
+	(*hdbc)->connection = ORA_CONNECTION_STATUS_NOT;
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }
@@ -364,6 +373,7 @@ int DBDisconnect(HDBC hdbc)
 
 		DBUG_RETURN(RETURN_FAILURE);
 	}
+	hdbc->connection = ORA_CONNECTION_STATUS_NOT;
 
 	DBUG_PRINT(__func__, ("LINE:%d DBCLOSEDATABASE SUCCESSFULLY END!!!",__LINE__));
 
@@ -506,11 +516,17 @@ int DBExecute(HSTMT hstmt, char *statement)
 	{
 		dbSetORAError(hstmt->error);
 		releaseDescriptors(ORA_SQL_MAX_ITEM_NUM);
+
+		if(SQLCODE == -3135 || SQLCODE == -3114)
+			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
+
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
 	if(IAPSUCC != fetchQueryStatmentResult(hstmt))
 	{
+		if(SQLCODE == -3135 || SQLCODE == -3114)
+			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
 		DBUG_PRINT("fetchQueryStatmentResult", ("%s", hstmt->error->errstr));
 	}
 
@@ -1148,6 +1164,25 @@ int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)
 
 	offset += (row_pos*hstmt->table_size);
 	memcpy(value, (char*)hstmt->result+offset, hstmt->table->field[field_pos].capacity);
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetConnectionStatus - 获取数据库连接状态
+ *
+ * @hdbc: 数据库连接句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ */
+int DBGetConnectionStatus(HDBC hdbc, int *status)
+{
+	if(hdbc == NULL)
+		return(RETURN_FAILURE);
+
+	*status = hdbc->connection;
 
 	return(RETURN_SUCCESS);
 }

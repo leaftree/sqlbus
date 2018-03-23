@@ -11,6 +11,11 @@
 #include "sqlbus.h"
 #include "redisop.h"
 
+static int sqlbus_connect_to_database(sqlbus_cycle_t *cycle);
+static int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle);
+static int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle);
+static int sqlbus_disconnect_to_memcache(sqlbus_cycle_t *cycle);
+
 int sqlbus_main(sqlbus_cycle_t *cycle)
 {
 	DBUG_ENTER(__func__);
@@ -19,110 +24,115 @@ int sqlbus_main(sqlbus_cycle_t *cycle)
 		DBUG_RETURN(RETURN_FAILURE);
 	}
 
-	HDBC hdbc = NULL;
-	HENV henv = NULL;
-	HSTMT hstmt = NULL;
-	if(DBEnvInitialize(&henv, cycle->config_file) != RETURN_SUCCESS)
-	{
-		LOG_ERROR(cycle->logger, "[SQLBUS] Initialize db environment failure.");
-		DBUG_RETURN(RETURN_FAILURE);
-	}
-
-	if(DBConnectInitialize(henv, &hdbc) != RETURN_SUCCESS)
-	{
-		LOG_ERROR(cycle->logger, "[SQLBUS] Initialize db connection resource failure.");
-		DBUG_RETURN(RETURN_FAILURE);
-	}
-
-	if(DBConnect(hdbc, cycle->db_type, cycle->db_user, cycle->db_auth, cycle->database) != RETURN_SUCCESS)
-	{
-		LOG_ERROR(cycle->logger, "[SQLBUS] Connect to database failure.");
-		DBUG_RETURN(RETURN_FAILURE);
-	}
-
-reconnect_redis:
-	cycle->sqlbus->redis = redis_connection(NULL, 6379, 2);
-	if(cycle->sqlbus->redis == NULL) {
-		static int reconnect_redis_times = 0;
-		reconnect_redis_times ++;
-		if(reconnect_redis_times>2)
-			goto sqlbus_exit;
-		goto reconnect_redis;
-	}
-
-	/**
-	 * Authenticate
-	 */
-	if(cycle->mem_auth)
-	{
-		if(redis_auth(cycle->sqlbus->redis, cycle->mem_auth) != RETURN_SUCCESS)
-		{
-			LOG_ERROR(cycle->logger, "[SQLBUS] Authentication failure.");
-		}
-	}
-
+	// 连接到redis
 	while(1)
 	{
+		if(sqlbus_connect_to_memcache(cycle) != RETURN_SUCCESS) {
+			LOG_ERROR(cycle->logger, "[SQLBUS] Connect to redis failure.");
+		}
+		else {
+			break;
+		}
+		sleep(1);
+	}
+
+	// 连接到数据库
+	while(1)
+	{
+		if(sqlbus_connect_to_database(cycle) != RETURN_SUCCESS) {
+			LOG_ERROR(cycle->logger, "[SQLBUS] Connect to database failure.");
+		}
+		else {
+			break;
+		}
+		sleep(1);
+	}
+
+	// 循环读取请求，执行请求，回应请求
+	while(1)
+	{
+		// 从Redis中读取一条请求
 		if(sqlbus_recv_from_redis(cycle->sqlbus) != RETURN_SUCCESS)
 		{
 			LOG_ERROR(cycle->logger, "[SQLBUS] Waiting redis receive request failure.%s", cycle->sqlbus->errstr);
+
+			while(1)
+			{
+				if(sqlbus_check_redis_connection(cycle->sqlbus) != RETURN_SUCCESS) {
+					sqlbus_disconnect_to_memcache(cycle);
+					sqlbus_connect_to_memcache(cycle);
+				}
+				else {
+					break;
+				}
+				sleep(1);
+			}
 			continue;
 		}
-		LOG_DEBUG(cycle->logger, "[SQLBUS] json string:%s", cycle->sqlbus->json_string);
+		LOG_INFO(cycle->logger, "[SQLBUS] Receive request:%s", cycle->sqlbus->json_string);
 
+		// 解析请求串，获取SQL语句，解析失败则丢弃
 		if(sqlbus_parse_request(cycle) != RETURN_SUCCESS)
 		{
 			mFree(cycle->sqlbus->json_string);
 			LOG_ERROR(cycle->logger, "[SQLBUS] Parse request failure.");
 			continue;
 		}
-		mFree(cycle->sqlbus->json_string);
 
-		if(DBStmtInitialize(hdbc, &hstmt) != RETURN_SUCCESS)
+		if(DBStmtInitialize(cycle->db.hdbc, &cycle->db.hstmt) != RETURN_SUCCESS)
 		{
 			LOG_ERROR(cycle->logger, "[SQLBUS] Initialize sql statement execute info failure.");
-			DBUG_RETURN(RETURN_FAILURE);
+			continue;
 		}
 
-		if(DBExecute(hstmt, cycle->sqlbus->sql_statement) != RETURN_SUCCESS)
+		if(DBExecute(cycle->db.hstmt, cycle->sqlbus->sql_statement) != RETURN_SUCCESS)
 		{
 			LOG_ERROR(cycle->logger, "[SQLBUS] Execute a sql statement failure.");
+			LOG_ERROR(cycle->logger, "[SQLBUS] %s.", cycle->db.hstmt->error->errstr);
+
+			// 数据库未连接
+			if(!SQLBUS_CHECK_DB_CONNECTION(cycle->db.hstmt->connection))
+			{
+				if(DBStmtFinalize(cycle->db.hstmt) != RETURN_SUCCESS) {
+					LOG_ERROR(cycle->logger, "[SQLBUS] Release sql statement info failure.");
+				}
+
+				if(sqlbus_write_back_to_redis(cycle->sqlbus) != RETURN_SUCCESS)
+				{
+					LOG_ERROR(cycle->logger, "[SQLBUS] Write back request failure.");
+					LOG_ERROR(cycle->logger, "[SQLBUS] %s.", cycle->sqlbus->errstr);
+				}
+
+				sqlbus_disconnect_to_database(cycle);
+
+				while(1)
+				{
+					if(!SQLBUS_CHECK_DB_CONNECTION(cycle->db.hstmt->connection)) {
+						sqlbus_connect_to_database(cycle);
+					}
+					else {
+						break;
+					}
+				}
+			}
 		}
+		mFree(cycle->sqlbus->json_string);
 
 		// generate response
-		if(cycle->sqlbus->sync == JSON_OP_TRUE)
-		{
+		if(cycle->sqlbus->sync == JSON_OP_TRUE) {
 			//sqlbus_check_can_response(cycle->sqlbus);
-			sqlbus_generate_response(cycle->sqlbus, hstmt);
+			sqlbus_generate_response(cycle, cycle->db.hstmt);
 			sqlbus_write_to_redis(cycle->sqlbus);
 		}
 
-		if(DBStmtFinalize(hstmt) != RETURN_SUCCESS)
-		{
+		if(DBStmtFinalize(cycle->db.hstmt) != RETURN_SUCCESS) {
 			LOG_ERROR(cycle->logger, "[SQLBUS] Release sql statement info failure.");
 			DBUG_RETURN(RETURN_FAILURE);
 		}
 	}
 
-sqlbus_exit:
-
-	if(DBDisconnect(hdbc) != RETURN_SUCCESS)
-	{
-		LOG_ERROR(cycle->logger, "[SQLBUS] Logout database failure.");
-		DBUG_RETURN(RETURN_FAILURE);
-	}
-
-	if(DBConnectFinalize(hdbc) != RETURN_SUCCESS)
-	{
-		LOG_ERROR(cycle->logger, "[SQLBUS] Release database connection resource failure.");
-		DBUG_RETURN(RETURN_FAILURE);
-	}
-
-	if(DBEnvFinalize(henv) != RETURN_SUCCESS)
-	{
-		LOG_ERROR(cycle->logger, "[SQLBUS] Release database environment resource failure.");
-		DBUG_RETURN(RETURN_FAILURE);
-	}
+	sqlbus_disconnect_to_database(cycle);
+	sqlbus_disconnect_to_memcache(cycle);
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }
@@ -142,10 +152,10 @@ int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
 	//
 	//test
 	// 
-	cycle->db_type = strdup("Oracle");
-	cycle->db_user = strdup("fzlc50db@afc");
-	cycle->db_auth = strdup("fzlc50db");
-	cycle->mem_auth = strdup("123kbc,./");
+	cycle->db.type = strdup("Oracle");
+	cycle->db.user = strdup("fzlc50db@afc");
+	cycle->db.auth = strdup("fzlc50db");
+	cycle->memcache.auth = strdup("123kbc,./");
 
 	cycle->config_file = strdup(config_file);
 	cycle->config = malloc(sizeof(sqlbus_config_t));
@@ -199,6 +209,110 @@ int sqlbus_env_exit(sqlbus_cycle_t *cycle)
 
 	unload_config(cycle->config);
 	log_close(cycle->logger);
+
+	return(RETURN_SUCCESS);
+}
+
+int sqlbus_connect_to_database(sqlbus_cycle_t *cycle)
+{
+	if(!cycle) {
+		return(RETURN_FAILURE);
+	}
+
+	if(DBEnvInitialize(&cycle->db.henv, cycle->config_file) != RETURN_SUCCESS)
+	{
+		LOG_ERROR(cycle->logger, "[SQLBUS] Initialize db environment failure.");
+		return(RETURN_FAILURE);
+	}
+
+	if(DBConnectInitialize(cycle->db.henv, &cycle->db.hdbc) != RETURN_SUCCESS)
+	{
+		LOG_ERROR(cycle->logger, "[SQLBUS] Initialize db connection resource failure.");
+		return(RETURN_FAILURE);
+	}
+
+	LOG_INFO(cycle->logger, "[SQLBUS] Database connection: Type[%s] user[%s] auth[%s] database[%s]",
+			cycle->db.type, cycle->db.user, cycle->db.auth, cycle->db.database);
+
+	if(DBConnect(cycle->db.hdbc, cycle->db.type, cycle->db.user, cycle->db.auth, cycle->db.database) != RETURN_SUCCESS)
+	{
+		LOG_ERROR(cycle->logger, "[SQLBUS] Connect to database failure.");
+		if(DBGetErrorMessage(cycle->db.hdbc, SQLBUS_HANDLE_DBC) == RETURN_SUCCESS)
+			LOG_ERROR(cycle->logger, "[SQLBUS] %s.", cycle->db.hdbc->error->errstr);
+		return(RETURN_FAILURE);
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+static int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle)
+{
+	if(!cycle || !cycle->db.hdbc) {
+		return(RETURN_FAILURE);
+	}
+
+	if(DBDisconnect(cycle->db.hdbc) != RETURN_SUCCESS)
+	{
+		LOG_ERROR(cycle->logger, "[SQLBUS] Logout database failure.");
+		if(DBGetErrorMessage(cycle->db.hdbc, SQLBUS_HANDLE_DBC) == RETURN_SUCCESS)
+			LOG_ERROR(cycle->logger, "[SQLBUS] %s.", cycle->db.hdbc->error->errstr);
+		return(RETURN_FAILURE);
+	}
+
+	if(DBConnectFinalize(cycle->db.hdbc) != RETURN_SUCCESS)
+	{
+		LOG_ERROR(cycle->logger, "[SQLBUS] Release database connection resource failure.");
+		return(RETURN_FAILURE);
+	}
+
+	if(DBEnvFinalize(cycle->db.henv) != RETURN_SUCCESS)
+	{
+		LOG_ERROR(cycle->logger, "[SQLBUS] Release database environment resource failure.");
+		return(RETURN_FAILURE);
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle)
+{
+	if(!cycle) {
+		return(RETURN_FAILURE);
+	}
+
+	/**
+	 * Connection
+	 */
+	LOG_INFO(cycle->logger,
+			"[SQLBUS] Memcache connection: host[%s] port[%d] timeout[%d]",
+			cycle->memcache.host, cycle->memcache.port, cycle->memcache.timeo);
+
+	cycle->sqlbus->redis = redis_connection(cycle->memcache.host, cycle->memcache.port, cycle->memcache.timeo);
+	if(cycle->sqlbus->redis == NULL) {
+		LOG_ERROR(cycle->logger, "[SQLBUS] Connect to redis failure.");
+		return(RETURN_FAILURE);
+	}
+
+	/**
+	 * Authenticate
+	 */
+	if(cycle->memcache.auth) {
+		if(redis_auth(cycle->sqlbus->redis, cycle->memcache.auth) != RETURN_SUCCESS) {
+			LOG_ERROR(cycle->logger, "[SQLBUS] Authentication failure.");
+		}
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+int sqlbus_disconnect_to_memcache(sqlbus_cycle_t *cycle)
+{
+	if(!cycle || !cycle->sqlbus->redis) {
+		return(RETURN_FAILURE);
+	}
+
+	redis_logout(cycle->sqlbus->redis);
+	cycle->sqlbus->redis = NULL;
 
 	return(RETURN_SUCCESS);
 }
@@ -328,12 +442,16 @@ int sqlbus_check_can_response(HSQLBUS handle)
 	return(RETURN_SUCCESS);
 }
 
-int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
+int sqlbus_generate_response(sqlbus_cycle_t *cycle, HSTMT hstmt)
 {
 	int i, j;
 
-	if(!handle || !hstmt)
+	HSQLBUS handle = NULL;
+
+	if(!cycle || !cycle->sqlbus || !hstmt)
 		return(RETURN_FAILURE);
+
+	handle = cycle->sqlbus;
 
 	if(handle->json_string)
 		mFree(handle->json_string);
@@ -367,6 +485,12 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	cJSON_AddItemToObject(root, "type", leaf);
 
 	/**
+	 * database type
+	 */
+	leaf = cJSON_CreateString(cycle->db.type);
+	cJSON_AddItemToObject(root, "dbtype", leaf);
+
+	/**
 	 * timestamp
 	 */
 	leaf = cJSON_CreateNumber(time(NULL));
@@ -375,7 +499,10 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	/**
 	 * message
 	 */
-	leaf = cJSON_CreateString("");
+	if(hstmt->result_code == SQLBUS_DB_EXEC_RESULT_FAIL)
+		leaf = cJSON_CreateString(hstmt->error->errstr);
+	else
+		leaf = cJSON_CreateString("");
 	cJSON_AddItemToObject(root, "message", leaf);
 
 	/**
@@ -390,8 +517,10 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	int fields = 0;
 	if(DBGetFieldCount(hstmt, &fields) != RETURN_SUCCESS)
 	{
+		/*
 		cJSON_free(root);
 		return(RETURN_FAILURE);
+		*/
 	}
 	leaf = cJSON_CreateNumber(fields);
 	cJSON_AddItemToObject(root, "fields", leaf);
@@ -413,8 +542,10 @@ int sqlbus_generate_response(HSQLBUS handle, HSTMT hstmt)
 	int rows = 0;
 	if(DBGetRowCount(hstmt, &rows) != RETURN_SUCCESS)
 	{
+		/*
 		cJSON_free(root);
 		return(RETURN_FAILURE);
+		*/
 	}
 	leaf = cJSON_CreateNumber(rows);
 	cJSON_AddItemToObject(root, "rows", leaf);

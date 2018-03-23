@@ -25,7 +25,11 @@
 #define SQLBUS_HANDLE_DBC  (1)
 #define SQLBUS_HANDLE_STMT (2)
 
-#define SQLBUS_DATA_NOT_FOUND (100)
+#define SQLBUS_DB_DATA_NOT_FOUND   (100) /* 找不到数据   */
+#define SQLBUS_DB_CONNECTION_NOT   ( 99) /* 数据库未连接 */
+#define SQLBUS_DB_CONNECTION_YES   ( 98) /* 数据库已连接 */
+#define SQLBUS_DB_EXEC_RESULT_FAIL ( 97) /* SQL执行失败 */
+#define SQLBUS_DB_EXEC_RESULT_SUCC ( 96) /* SQL执行成功 */
 
 /**
  * 3种驱动句柄类型
@@ -64,7 +68,8 @@ typedef struct connection
 	char password[64];
 	char database[64];
 	char catalog[512];
-	HDM driver;
+	int conn_status; // 连接状态
+	HDM driver;      // 驱动接口
 	HENV environment;
 	HDMENV driver_env;
 	HDMDBC driver_dbc;
@@ -76,10 +81,20 @@ typedef struct connection
  */
 typedef struct statement
 {
+	int exec_status; // 执行状态
+	int result_code; // 执行结果
 	HDBC connection;
 	HDMSTMT driver_stmt;
 	error_info_t *error;
 }statement, statement_t, *HSTMT;
+
+/**
+ * SQLBUS_CHECK_DB_CONNECTION - 数据库连接状态检查
+ *
+ * @hstmt: 数据库操纵句柄
+ */
+#define SQLBUS_CHECK_DB_CONNECTION(hdbc) \
+	(hdbc->conn_status == SQLBUS_DB_CONNECTION_YES)
 
 /**
  * SQLBUS_CONNECT_INIT - 数据库连接初始化
@@ -224,6 +239,14 @@ typedef struct statement
  */
 #define SQLBUS_GET_STMT_ERROR_MESSAGE(hstmt, buffer, capacity, buffer_length) \
 	((hstmt)->connection->driver->functions[DB_STMT_GET_ERROR_MESSAGE].func)((hstmt)->driver_stmt, SQLBUS_HANDLE_STMT, buffer, capacity, buffer_length)
+
+/**
+ * SQLBUS_GET_CONNECTION_STATUS - 获取数据库连接状态
+ *
+ * @hdbc: 数据库连接句柄
+ */
+#define SQLBUS_GET_CONNECTION_STATUS(hdbc) \
+	((hdbc)->driver->functions[DB_DBC_GET_CONNECTION_STATUS].func)((hdbc)->driver_dbc, &(hdbc)->conn_status)
 
 
 __BEGIN_DECLS
@@ -393,7 +416,7 @@ int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length);
  * return value:
  *  RETURN_FAILURE: 获取失败
  *  RETURN_SUCCESS: 获取成功
- *  SQLBUS_DATA_NOT_FOUND: 找不到数据
+ *  SQLBUS_DB_DATA_NOT_FOUND: 找不到数据
  */
 int DBGetNextRow(HSTMT hstmt);
 
@@ -406,7 +429,7 @@ int DBGetNextRow(HSTMT hstmt);
  * return value:
  *  RETURN_FAILURE: 获取失败
  *  RETURN_SUCCESS: 获取成功
- *  SQLBUS_DATA_NOT_FOUND: 找不到数据
+ *  SQLBUS_DB_DATA_NOT_FOUND: 找不到数据
  */
 int DBGetFieldValue(HSTMT hstmt, char *value);
 
@@ -424,7 +447,7 @@ int DBGetFieldValue(HSTMT hstmt, char *value);
  * return value:
  *  RETURN_FAILURE: 获取失败
  *  RETURN_SUCCESS: 获取成功
- *  SQLBUS_DATA_NOT_FOUND: 找不到数据
+ *  SQLBUS_DB_DATA_NOT_FOUND: 找不到数据
  */
 int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value);
 
@@ -439,6 +462,17 @@ int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value);
  *  RETURN_SUCCESS: 成功获取到错误信息
  */
 int DBGetErrorMessage(HDMHANDLE handle, int type);
+
+/**
+ * DBGetConnectionStatus - 获取数据库连接状态
+ *
+ * @hdbc: 数据库连接句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ */
+int DBGetConnectionStatus(HDBC hdbc);
 
 __END_DECLS
 

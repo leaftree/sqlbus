@@ -45,7 +45,14 @@
 #define ORA_INDICATE_NAME_LEN SQL_MAX_ITEM_NUM
 
 #define ORA_MAX_ROW_COUNT 1000
+
 #define ORA_RESULT_NOT_FOUND (100)
+
+/**
+ * 数据库连接状态
+ */
+#define ORA_CONNECTION_STATUS_NOT (99)
+#define ORA_CONNECTION_STATUS_YES (98)
 
 #define ORA_SQL_EXEC_RESULT_CODE_FAILURE   (-1)
 #define ORA_SQL_EXEC_RESULT_CODE_SUCCESS   (+0)
@@ -126,6 +133,7 @@ typedef struct connection
 	char username[64];
 	char password[64];
 	char database[64];
+	int connection;
 	error_info *error;
 }connection, *HDBC;
 
@@ -346,6 +354,17 @@ int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value);
  *  RETURN_SUCCESS: 成功获取到错误信息
  */
 int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int *buffer_length);
+
+/**
+ * DBGetConnectionStatus - 获取数据库连接状态
+ *
+ * @hdbc: 数据库连接句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ */
+int DBGetConnectionStatus(HDBC hdbc, int *status);
 
 __END_DECLS
 

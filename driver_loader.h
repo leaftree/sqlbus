@@ -27,6 +27,7 @@ enum sqlbus_dm_type{
 	DB_STMT_GET_FIELD_VALUE,
 	DB_STMT_GET_FIELD_VALUE_IDX,
 	DB_STMT_GET_ERROR_MESSAGE,
+	DB_DBC_GET_CONNECTION_STATUS,
 };
 
 typedef struct driver_func

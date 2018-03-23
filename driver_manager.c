@@ -111,6 +111,7 @@ int DBConnectInitialize(HENV henv, HDBC *hdbc)
 	(*hdbc)->error = error;
 	(*hdbc)->driver = driver;
 	(*hdbc)->environment = henv;
+	(*hdbc)->conn_status = SQLBUS_DB_CONNECTION_NOT;
 
 	return(RETURN_SUCCESS);
 }
@@ -203,9 +204,6 @@ static int get_connection_info(HDBC hdbc, char *dsn, char *username, char *passw
 int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *database)
 {
 	DBUG_ENTER(__func__);
-	//connection *dbc = (connection*)hdbc;
-	//environment *env = (environment*)dbc->environment;
-	//config_t *config = (config_t*)env->config;
 
 	if(hdbc == NULL || hdbc->environment == NULL || hdbc->environment->config == NULL || dsn == NULL)
 	{
@@ -235,8 +233,10 @@ int DBConnect(HDBC hdbc, char *dsn, char *username, char *password, char *databa
 	if(RETURN_SUCCESS != SQLBUS_CONNECT(hdbc, username, password, database))
 	{
 		DBUG_PRINT(__func__, ("SQLBUS_CONNECT fail"));
+		hdbc->conn_status = SQLBUS_DB_CONNECTION_NOT;
 		DBUG_RETURN(RETURN_FAILURE);
 	}
+	hdbc->conn_status = SQLBUS_DB_CONNECTION_YES;
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }
@@ -261,6 +261,7 @@ int DBDisconnect(HDBC hdbc)
 	{
 		DBUG_RETURN(RETURN_FAILURE);
 	}
+	hdbc->conn_status = SQLBUS_DB_CONNECTION_NOT;
 
 	unload_driver(hdbc->driver);
 
@@ -298,6 +299,7 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 	}
 
 	(*hstmt)->connection = hdbc;
+	(*hstmt)->result_code = SQLBUS_DB_EXEC_RESULT_FAIL;
 
 	if(RETURN_SUCCESS != SQLBUS_STMT_INIT(hdbc, *hstmt))
 	{
@@ -345,13 +347,18 @@ int DBExecute(HSTMT hstmt, char *statement)
 {
 	DBUG_ENTER(__func__);
 
-	if(hstmt == NULL || statement == NULL)
+	if(hstmt == NULL || statement == NULL) {
 		DBUG_RETURN(RETURN_FAILURE);
+	}
 
 	if(RETURN_SUCCESS != SQLBUS_EXECUTE(hstmt, statement))
 	{
+		DBGetErrorMessage(hstmt, SQLBUS_HANDLE_STMT);
+		DBGetConnectionStatus(hstmt->connection);
+		hstmt->result_code = SQLBUS_DB_EXEC_RESULT_FAIL;
 		DBUG_RETURN(RETURN_FAILURE);
 	}
+	hstmt->result_code = SQLBUS_DB_EXEC_RESULT_SUCC;
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }
@@ -470,7 +477,7 @@ int DBGetFieldLengthIdx(HSTMT hstmt, int index, int *length)
  * return value:
  *  RETURN_FAILURE: 获取失败
  *  RETURN_SUCCESS: 获取成功
- *  SQLBUS_DATA_NOT_FOUND: 找不到数据
+ *  SQLBUS_DB_DATA_NOT_FOUND: 找不到数据
  */
 int DBGetNextRow(HSTMT hstmt)
 {
@@ -488,8 +495,8 @@ int DBGetNextRow(HSTMT hstmt)
 	else if(retval == RETURN_SUCCESS) {
 		DBUG_RETURN(RETURN_SUCCESS);
 	}
-	else if(retval == SQLBUS_DATA_NOT_FOUND) {
-		DBUG_RETURN(SQLBUS_DATA_NOT_FOUND);
+	else if(retval == SQLBUS_DB_DATA_NOT_FOUND) {
+		DBUG_RETURN(SQLBUS_DB_DATA_NOT_FOUND);
 	}
 
 	DBUG_RETURN(RETURN_FAILURE);
@@ -504,7 +511,7 @@ int DBGetNextRow(HSTMT hstmt)
  * return value:
  *  RETURN_FAILURE: 获取失败
  *  RETURN_SUCCESS: 获取成功
- *  SQLBUS_DATA_NOT_FOUND: 找不到数据
+ *  SQLBUS_DB_DATA_NOT_FOUND: 找不到数据
  */
 int DBGetFieldValue(HSTMT hstmt, char *value)
 {
@@ -524,9 +531,9 @@ int DBGetFieldValue(HSTMT hstmt, char *value)
 	{
 		DBUG_RETURN(RETURN_SUCCESS);
 	}
-	else if(retval == SQLBUS_DATA_NOT_FOUND)
+	else if(retval == SQLBUS_DB_DATA_NOT_FOUND)
 	{
-		DBUG_RETURN(SQLBUS_DATA_NOT_FOUND);
+		DBUG_RETURN(SQLBUS_DB_DATA_NOT_FOUND);
 	}
 
 	DBUG_RETURN(RETURN_SUCCESS);
@@ -546,7 +553,7 @@ int DBGetFieldValue(HSTMT hstmt, char *value)
  * return value:
  *  RETURN_FAILURE: 获取失败
  *  RETURN_SUCCESS: 获取成功
- *  SQLBUS_DATA_NOT_FOUND: 找不到数据
+ *  SQLBUS_DB_DATA_NOT_FOUND: 找不到数据
  */
 int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)
 {
@@ -566,9 +573,9 @@ int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)
 	{
 		DBUG_RETURN(RETURN_SUCCESS);
 	}
-	else if(retval == SQLBUS_DATA_NOT_FOUND)
+	else if(retval == SQLBUS_DB_DATA_NOT_FOUND)
 	{
-		DBUG_RETURN(SQLBUS_DATA_NOT_FOUND);
+		DBUG_RETURN(SQLBUS_DB_DATA_NOT_FOUND);
 	}
 
 	DBUG_RETURN(RETURN_SUCCESS);
@@ -637,4 +644,24 @@ int DBGetErrorMessage(HDMHANDLE handle, int type)
 	DBUG_PRINT("SQLBUS_GET_ERROR_MESSAGE", ("%s", buffer));
 
 	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetConnectionStatus - 获取数据库连接状态
+ *
+ * @hdbc: 数据库连接句柄
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ */
+int DBGetConnectionStatus(HDBC hdbc)
+{
+	if(hdbc == NULL)
+		return(RETURN_FAILURE);
+
+	if(SQLBUS_GET_CONNECTION_STATUS(hdbc) != RETURN_SUCCESS)
+		return(RETURN_FAILURE);
+
+	return(RETURN_SUCCESS);
 }

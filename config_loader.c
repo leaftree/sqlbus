@@ -326,7 +326,7 @@ static int separate_key_value_pair(char *string, conf_pair_t **pair)
 }
 
 /**
- * parase_conf_file - 逐行读取配置文件内容，并解析
+ * parse_conf_file - 逐行读取配置文件内容，并解析
  *
  * @conf: 配置文件内容
  *
@@ -334,7 +334,7 @@ static int separate_key_value_pair(char *string, conf_pair_t **pair)
  *  RETURN_FAILURE: 入参无效或者读取文件内容失败
  *  RETURN_SUCCESS: 解析配置文件成功
  */
-static int parase_conf_file(config_t *conf)
+static int parse_conf_file(config_t *conf)
 {
 	int retval = 0;
 	int has_section = 0;
@@ -406,7 +406,7 @@ int load_config(char *file, config_t *conf)
 		return(RETURN_FAILURE);
 	}
 
-	retval = parase_conf_file(conf);
+	retval = parse_conf_file(conf);
 
 	close_conf_file(conf->fp);
 
