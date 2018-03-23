@@ -31,15 +31,16 @@ QUIET_LINK=$(QUIET_LNK)gcc
 CC = gcc
 CFLAG = -g -O3 -Wall
 
-THIRD_INC = -I./third/cJSON -I./third/dbug
+THIRD_INC = -I./third/cJSON -I./third/dbug -I./third/hiredis
 
 OBJECT = main.o log.o util.o driver_loader.o config_loader.o driver_manager.o sqlbus.o redisop.o
 
-LNKLIBS = -L/usr/lib -lhiredis -L./library -lcjson -ldl
+LNKLIBS = -ldl
+LNKLIBS += -L./library -lhiredis -lcjson
 
 ifeq ($(ver), debug)
 CFLAGS += $(CFLAG) -g3 -DDBUG_ON
-LNKLIBS += -ldbug
+LNKLIBS += -L./library -ldbug
 else
 CFLAGS += $(CFLAG)
 endif
@@ -50,7 +51,7 @@ sqlbus:$(OBJECT)
 	$(QUIET_LINK) $(OBJECT) $(CFLAGS) $(LNKLIBS) -o $@ $(THIRD_INC)
 
 .c.o:
-	$(QUIET_PROC) $(CFLAGS) -I. -c $< $(THIRD_INC)
+	$(QUIET_PROC) $(CFLAGS) -c $< $(THIRD_INC)
 
 .PHONY:clean
 clean:

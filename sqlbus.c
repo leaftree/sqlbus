@@ -8,6 +8,8 @@
  * Last Modified : 2018-03-21 15:19:22
  */
 
+#include <getopt.h>
+#include <unistd.h>
 #include "sqlbus.h"
 #include "redisop.h"
 
@@ -15,8 +17,18 @@ static int sqlbus_connect_to_database(sqlbus_cycle_t *cycle);
 static int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle);
 static int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle);
 static int sqlbus_disconnect_to_memcache(sqlbus_cycle_t *cycle);
+static int sqlbus_parse_env_cmd_args(sqlbus_cycle_t *cycle, int argc, const char *const argv[]);
 
-int sqlbus_main(sqlbus_cycle_t *cycle)
+/**
+ * sqlbus_main_entry - SQLBUS处理入口
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS:
+ */
+int sqlbus_main_entry(sqlbus_cycle_t *cycle)
 {
 	DBUG_ENTER(__func__);
 
@@ -120,14 +132,12 @@ int sqlbus_main(sqlbus_cycle_t *cycle)
 
 		// generate response
 		if(cycle->sqlbus->sync == JSON_OP_TRUE) {
-			//sqlbus_check_can_response(cycle->sqlbus);
-			sqlbus_generate_response(cycle, cycle->db.hstmt);
+			sqlbus_generate_response(cycle);
 			sqlbus_write_to_redis(cycle->sqlbus);
 		}
 
 		if(DBStmtFinalize(cycle->db.hstmt) != RETURN_SUCCESS) {
 			LOG_ERROR(cycle->logger, "[SQLBUS] Release sql statement info failure.");
-			DBUG_RETURN(RETURN_FAILURE);
 		}
 	}
 
@@ -137,49 +147,53 @@ int sqlbus_main(sqlbus_cycle_t *cycle)
 	DBUG_RETURN(RETURN_SUCCESS);
 }
 
+/**
+ * sqlbus_env_init - 初始化sqlbus运行环境
+ *
+ * @cycle: sqlbus主体循环接口
+ * @argc: 命令行参数数量
+ * @argv: 命令行参数
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者初始化资源错误
+ *  RETURN_SUCCESS: 初始化成功
+ */
 int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
 {
 	enum log_level level = LOG_DEBUG;
 
-	char catalog[64] = ".";
-	char log_file[64] = "app.log";
-	char level_value[64] = "DEBUG";
-	char config_file[128] = "test.ini";
+	char catalog[128] = "/tmp";
+	char log_file[128] = "app.log";
+	char level_value[64] = "INFO";
+	char config_file[128] = "/etc/sqlbus.ini";
 
 	if(!cycle)
 		return(RETURN_FAILURE);
 
-	//
-	//test
-	// 
-	cycle->db.type = strdup("Oracle");
-	cycle->db.user = strdup("fzlc50db@afc");
-	cycle->db.auth = strdup("fzlc50db");
-	cycle->memcache.auth = strdup("123kbc,./");
-
-	cycle->config_file = strdup(config_file);
 	cycle->config = malloc(sizeof(sqlbus_config_t));
 	cycle->logger = malloc(sizeof(sqlbus_log_t));
 	cycle->sqlbus = malloc(sizeof(sqlbus_handle_t));
-	cycle->sqlbus->recv_channel = strdup(defaultQueue);
-	cycle->sqlbus->oper_timeout = defaultOperTimeOut;
 
-	if(cycle->config_file == NULL || cycle->config == NULL || cycle->logger == NULL || cycle->sqlbus == NULL) {
-		printf("[SQLBUS] Allocate memory error.\n");
-		mFree(cycle->config_file);
+	if(cycle->config == NULL || cycle->logger == NULL || cycle->sqlbus == NULL) {
+		// can not go to error_exit flag
 		mFree(cycle->config);
 		mFree(cycle->logger);
 		mFree(cycle->sqlbus);
+		console_printf("%s", "Allocate memory failure.");
 		return(RETURN_FAILURE);
 	}
 
-	if(load_config(config_file, cycle->config) != RETURN_SUCCESS) {
-		printf("[SQLBUS] Load configuration file failure.\n");
-		mFree(cycle->config_file);
-		mFree(cycle->config);
-		mFree(cycle->logger);
-		mFree(cycle->sqlbus);
-		return(RETURN_FAILURE);
+	if(sqlbus_parse_env_cmd_args(cycle, argc, argv) != RETURN_SUCCESS) {
+		console_printf("%s", "Parse environment command arguments failure.");
+		goto error_exit;
+	}
+
+	if(cycle->config_file == NULL)
+		cycle->config_file = strdup(config_file);
+
+	if(load_config(cycle->config_file, cycle->config) != RETURN_SUCCESS) {
+		console_printf("Load configuration file[%s] failure.[%s]", cycle->config_file, strerror(errno));
+		goto error_exit;
 	}
 
 	get_config_value(cycle->config, "LOG", "CATALOG", catalog);
@@ -189,18 +203,50 @@ int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
 	level = log_level_string_to_type(level_value);
 
 	if(log_open(catalog, log_file, level, cycle->logger) != RETURN_SUCCESS) {
-		printf("[SQLBUS] Open log file[%s/%s] failure.\n", catalog, log_file);
-		unload_config(cycle->config);
-		mFree(cycle->config_file);
-		mFree(cycle->config);
-		mFree(cycle->logger);
-		mFree(cycle->sqlbus);
-		return(RETURN_FAILURE);
+		console_printf("Open log file[%s/%s] failure.", catalog, log_file);
+		goto error_exit;
 	}
 
+	cycle->sqlbus->recv_channel = strdup(defaultQueue);
+	cycle->sqlbus->oper_timeout = defaultOperTimeOut;
+
+	char mem_host[64] = "";
+	char mem_auth[64] = "";
+	get_config_value(cycle->config, "redis", "host", mem_host);
+	get_config_value(cycle->config, "redis", "Permission", mem_auth);
+	cycle->memcache.host = strdup(mem_host);
+	cycle->memcache.auth = strdup(mem_auth);
+
+	char db_user[64] = "";
+	char db_auth[64] = "";
+	get_config_value(cycle->config, "oracle", "username", db_user);
+	get_config_value(cycle->config, "oracle", "password", db_auth);
+	cycle->db.type = strdup("oracle");
+	cycle->db.user = strdup(db_user);
+	cycle->db.auth = strdup(db_auth);
+
 	return(RETURN_SUCCESS);
+
+error_exit:
+	unload_config(cycle->config);
+	mFree(cycle->config_file);
+	mFree(cycle->sqlbus->recv_channel);
+
+	mFree(cycle->config);
+	mFree(cycle->logger);
+	mFree(cycle->sqlbus);
+	return(RETURN_FAILURE);
 }
 
+/**
+ * sqlbus_env_exit - 退出SQLBUS服务
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 成功
+ */
 int sqlbus_env_exit(sqlbus_cycle_t *cycle)
 {
 	if(!cycle) {
@@ -213,6 +259,15 @@ int sqlbus_env_exit(sqlbus_cycle_t *cycle)
 	return(RETURN_SUCCESS);
 }
 
+/**
+ * sqlbus_connect_to_database - 连接到数据库
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者连接失败
+ *  RETURN_SUCCESS: 连接成功
+ */
 int sqlbus_connect_to_database(sqlbus_cycle_t *cycle)
 {
 	if(!cycle) {
@@ -245,7 +300,18 @@ int sqlbus_connect_to_database(sqlbus_cycle_t *cycle)
 	return(RETURN_SUCCESS);
 }
 
-static int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle)
+/**
+ * sqlbus_disconnect_to_database - 断开与数据库的连接
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * @sqlbus_disconnect_to_database会释放所有与数据库通讯有关的资源
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 释放成功
+ */
+int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle)
 {
 	if(!cycle || !cycle->db.hdbc) {
 		return(RETURN_FAILURE);
@@ -256,13 +322,13 @@ static int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle)
 		LOG_ERROR(cycle->logger, "[SQLBUS] Logout database failure.");
 		if(DBGetErrorMessage(cycle->db.hdbc, SQLBUS_HANDLE_DBC) == RETURN_SUCCESS)
 			LOG_ERROR(cycle->logger, "[SQLBUS] %s.", cycle->db.hdbc->error->errstr);
-		return(RETURN_FAILURE);
+		//return(RETURN_FAILURE);
 	}
 
 	if(DBConnectFinalize(cycle->db.hdbc) != RETURN_SUCCESS)
 	{
 		LOG_ERROR(cycle->logger, "[SQLBUS] Release database connection resource failure.");
-		return(RETURN_FAILURE);
+		//return(RETURN_FAILURE);
 	}
 
 	if(DBEnvFinalize(cycle->db.henv) != RETURN_SUCCESS)
@@ -274,6 +340,15 @@ static int sqlbus_disconnect_to_database(sqlbus_cycle_t *cycle)
 	return(RETURN_SUCCESS);
 }
 
+/**
+ * sqlbus_connect_to_memcache - 连接到缓存
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者连接、认证失败
+ *  RETURN_SUCCESS: 连接成功
+ */
 int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle)
 {
 	if(!cycle) {
@@ -284,8 +359,8 @@ int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle)
 	 * Connection
 	 */
 	LOG_INFO(cycle->logger,
-			"[SQLBUS] Memcache connection: host[%s] port[%d] timeout[%d]",
-			cycle->memcache.host, cycle->memcache.port, cycle->memcache.timeo);
+			"[SQLBUS] Memcache connection: host[%s] auth[%s] port[%d] timeout[%d]",
+			cycle->memcache.host, cycle->memcache.auth, cycle->memcache.port, cycle->memcache.timeo);
 
 	cycle->sqlbus->redis = redis_connection(cycle->memcache.host, cycle->memcache.port, cycle->memcache.timeo);
 	if(cycle->sqlbus->redis == NULL) {
@@ -305,6 +380,15 @@ int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle)
 	return(RETURN_SUCCESS);
 }
 
+/**
+ * sqlbus_disconnect_to_memcache - 断开缓存的连接
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 成功
+ */
 int sqlbus_disconnect_to_memcache(sqlbus_cycle_t *cycle)
 {
 	if(!cycle || !cycle->sqlbus->redis) {
@@ -317,6 +401,59 @@ int sqlbus_disconnect_to_memcache(sqlbus_cycle_t *cycle)
 	return(RETURN_SUCCESS);
 }
 
+/**
+ * sqlbus_parse_env_cmd_args - 解析命令行参数
+ *
+ * @cycle: sqlbus主体循环接口
+ * @argc: 命令行参数数量
+ * @argv: 命令行参数
+ *
+ * return value:
+ *  RETURN_FAILURE: 解析失败
+ *  RETURN_SUCCESS: 解析成功
+ */
+int sqlbus_parse_env_cmd_args(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
+{
+	if(!cycle || (argc && !argv)) {
+		return(RETURN_FAILURE);
+	}
+	if(!argc) {
+		return(RETURN_SUCCESS);
+	}
+
+	int opt;
+	static char shortoptions[] = "c";
+	static struct option longoptions[] = {
+		{"config", 1, NULL, 'c'},
+		{NULL, 0, NULL, 0},
+	};
+
+	while((opt=getopt_long(argc, (char*const*)argv, shortoptions, longoptions, NULL)) != -1)
+	{
+		switch(opt)
+		{
+			case 'c':
+				mFree(cycle->config_file);
+				cycle->config_file = strdup(optarg);
+				break;
+
+			default:
+				return(RETURN_FAILURE);
+		}
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * sqlbus_parse_request - 解析请求数据
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者解析请求失败，或者缺失关键信息
+ *  RETURN_SUCCESS: 解析请求成功
+ */
 int sqlbus_parse_request(sqlbus_cycle_t *cycle)
 {
 	cJSON *root = NULL;
@@ -325,8 +462,7 @@ int sqlbus_parse_request(sqlbus_cycle_t *cycle)
 	if(!cycle || !cycle->sqlbus || !cycle->sqlbus->json_string) {
 		return(RETURN_FAILURE);
 	}
-
-	LOG_INFO(cycle->logger, "%s:%s", "[SQLBUS] request json string-", cycle->sqlbus->json_string);
+	//LOG_INFO(cycle->logger, "%s:%s", "[SQLBUS] request json string-", cycle->sqlbus->json_string);
 
 	root = cJSON_Parse(cycle->sqlbus->json_string);
 	if(root == NULL)
@@ -434,24 +570,29 @@ int sqlbus_parse_request(sqlbus_cycle_t *cycle)
 	return(RETURN_SUCCESS);
 }
 
-int sqlbus_check_can_response(HSQLBUS handle)
-{
-	if(!handle)
-		return(RETURN_FAILURE);
-
-	return(RETURN_SUCCESS);
-}
-
-int sqlbus_generate_response(sqlbus_cycle_t *cycle, HSTMT hstmt)
+/**
+ * sqlbus_generate_response - 创建sqlbus请求回应数据
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * @sqlbus_generate_response会根据数据库操纵结果失败回应消息
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效
+ *  RETURN_SUCCESS: 回应数据创建成功
+ */
+int sqlbus_generate_response(sqlbus_cycle_t *cycle)
 {
 	int i, j;
 
+	HSTMT hstmt = NULL;
 	HSQLBUS handle = NULL;
 
-	if(!cycle || !cycle->sqlbus || !hstmt)
+	if(!cycle || !cycle->sqlbus || !cycle->db.hstmt)
 		return(RETURN_FAILURE);
 
 	handle = cycle->sqlbus;
+	hstmt = cycle->db.hstmt;
 
 	if(handle->json_string)
 		mFree(handle->json_string);
@@ -518,9 +659,9 @@ int sqlbus_generate_response(sqlbus_cycle_t *cycle, HSTMT hstmt)
 	if(DBGetFieldCount(hstmt, &fields) != RETURN_SUCCESS)
 	{
 		/*
-		cJSON_free(root);
-		return(RETURN_FAILURE);
-		*/
+			 cJSON_free(root);
+			 return(RETURN_FAILURE);
+			 */
 	}
 	leaf = cJSON_CreateNumber(fields);
 	cJSON_AddItemToObject(root, "fields", leaf);
@@ -543,9 +684,9 @@ int sqlbus_generate_response(sqlbus_cycle_t *cycle, HSTMT hstmt)
 	if(DBGetRowCount(hstmt, &rows) != RETURN_SUCCESS)
 	{
 		/*
-		cJSON_free(root);
-		return(RETURN_FAILURE);
-		*/
+			 cJSON_free(root);
+			 return(RETURN_FAILURE);
+			 */
 	}
 	leaf = cJSON_CreateNumber(rows);
 	cJSON_AddItemToObject(root, "rows", leaf);

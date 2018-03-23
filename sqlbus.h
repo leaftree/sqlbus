@@ -31,10 +31,14 @@
 #include "driver_loader.h"
 #include "driver_manager.h"
 
+#ifndef PACKAGE_NAME
+# define PACKAGE_NAME "SQLBUS"
+#endif
+
 //
 // 默认Redis连接
 //
-extern redisContext *defaultRedisHandle;
+//extern redisContext *defaultRedisHandle;
 
 //
 //
@@ -82,10 +86,10 @@ typedef struct sqlbus_handle {
 	cJSON *root;
 	cJSON *rset;
 	redisContext *redis;
-	int ora;
-	int idx;
+	//int ora;
+	//int idx;
 	int sync;
-	int more;
+	//int more;
 	int crc16;
 	int priority;
 	int timestamp;
@@ -130,11 +134,11 @@ typedef struct sqlbus_cycle
 
 __BEGIN_DECLS
 
-int sqlbus_main(sqlbus_cycle_t *cycle);
+int sqlbus_main_entry(sqlbus_cycle_t *cycle);
 int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[]);
 int sqlbus_env_exit(sqlbus_cycle_t *cycle);
 int sqlbus_parse_request(sqlbus_cycle_t *cycle);
-int sqlbus_generate_response(sqlbus_cycle_t *cycle, HSTMT hstmt);
+int sqlbus_generate_response(sqlbus_cycle_t *cycle);
 
 __END_DECLS
 

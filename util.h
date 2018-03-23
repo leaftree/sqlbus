@@ -48,6 +48,11 @@ void rtrim(char *str, int len);
  */
 void ltrim(char *str, int len);
 
+/**
+ * console_printf - 打印消息到终端下
+ */
+void console_printf(const char *fmt, ...);
+
 __END_DECLS
 
 #endif /* __UTIL_H__ */

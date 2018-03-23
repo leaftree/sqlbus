@@ -11,9 +11,16 @@
 #define __USE_BSD
 #define __USE_MISC
 #include <time.h>
+#include <stdarg.h>
+#include <unistd.h>
 #include <sys/time.h>
 #include "util.h"
 
+/**
+ * make_iso8601_timestamp - 获取当前系统时间，并以iso8601格式输出
+ *
+ * @buffer: 保存iso8601格式的输出时间字符串
+ */
 int make_iso8061_timestamp(char *buffer)
 {
 	if(buffer == NULL)
@@ -38,6 +45,11 @@ int make_iso8061_timestamp(char *buffer)
 			timev.tv_usec);
 }
 
+/**
+ * rtrim - 删除@str右边的空白符
+ * @str: 需要删除空白符的字符串
+ * @len: @str的长度
+ */
 void rtrim(char *str, int len)
 {
 	char *end = str+len;
@@ -46,6 +58,11 @@ void rtrim(char *str, int len)
 		*end-- = 0;
 }
 
+/**
+ * ltrim - 删除@str左边的空白符
+ * @str: 需要删除空白符的字符串
+ * @len: @str的长度
+ */
 void ltrim(char *str, int len)
 {
 	int size = len;
@@ -60,4 +77,26 @@ void ltrim(char *str, int len)
 	while(size-- && *start) *str++ = *start++;
 
 	while(*str) *str++ = 0;
+}
+
+/**
+ * console_printf - 打印消息到终端下
+ */
+void console_printf(const char *fmt, ...)
+{
+	int len=0;
+	char msg[2048] = "";
+
+	va_list ap;
+	va_start(ap, fmt);
+	len = vsnprintf(msg, 2048, fmt, ap);
+	va_end(ap);
+
+	if(len == 0)
+		return;
+
+	if(isatty(fileno(stdout)))
+		fprintf(stdout, "[\e[1;31mSQLBUS\e[0m] %s\n", msg);
+	else
+		fprintf(stdout, "[SQLBUS] %s\n", msg);
 }

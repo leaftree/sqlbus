@@ -403,7 +403,7 @@ int load_config(char *file, config_t *conf)
 	conf->fp = open_conf_file(file);
 	if(conf->fp == NULL)
 	{
-		return(RETURN_FAILURE);
+		DBUG_RETURN(RETURN_FAILURE);
 	}
 
 	retval = parse_conf_file(conf);

@@ -47,13 +47,14 @@ int main(int argc, const char ** const argv)
 		},
 	};
 
-	sqlbus_env_init(&cycle, argc, argv);
+	if(sqlbus_env_init(&cycle, argc, argv) == RETURN_SUCCESS)
+	{
+		daemon(1, 1);
 
-	daemon(1, 1);
+		sqlbus_main_entry(&cycle);
 
-	sqlbus_main(&cycle);
-
-	sqlbus_env_exit(&cycle);
+		sqlbus_env_exit(&cycle);
+	}
 
 	DBUG_RETURN(RETURN_SUCCESS);
 }

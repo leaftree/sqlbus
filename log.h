@@ -28,8 +28,8 @@
 
 enum log_level {
 	LOG_ERR     = 0,
-	LOG_INFO    = 1,
-	LOG_WARNING = 2,
+	LOG_WARNING = 1,
+	LOG_INFO    = 2,
 	LOG_DEBUG   = 3,
 };
 
