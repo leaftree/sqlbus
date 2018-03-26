@@ -19,8 +19,9 @@ QUIET_REMOVE=$(QUIET_RM)rm -f
 QUIET_LINK=$(QUIET_LNK)gcc
 
 PROC     = proc
-PROCINC  = INCLUDE=$(ORAINC)
 ORAINC   = $(ORACLE_HOME)/precomp/public
+EXTINC   = $(ORACLE_HOME)/rdbms/public
+PROCINC  = INCLUDE=$(ORAINC) INCLUDE=$(EXTINC)
 PROCFLAG = sqlcheck=full def_sqlcode=yes code=ansi_c lines=yes
 
 ORALIBS = -L$(ORACLE_HOME)/lib -lclntsh -lsqlplus
@@ -50,7 +51,7 @@ ora.c: ora.pc
 	$(PROC) $(PROCINC) $(PROCFLAG) INAME=ora.pc ONAME=ora.c
 
 .c.o:
-	$(QUIET_PROC) $(CFLAGS) $(INC) -I$(ORAINC) -c $*.c -shared -fPIC
+	$(QUIET_PROC) $(CFLAGS) $(INC) -I$(ORAINC) -I$(EXTINC) -c $*.c -shared -fPIC
 
 tags:$(src)
 	ctags *.c *.h

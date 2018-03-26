@@ -36,11 +36,6 @@
 #endif
 
 //
-// 默认Redis连接
-//
-//extern redisContext *defaultRedisHandle;
-
-//
 //
 //
 #define JSON_OP_FALSE (false)
@@ -86,10 +81,7 @@ typedef struct sqlbus_handle {
 	cJSON *root;
 	cJSON *rset;
 	redisContext *redis;
-	//int ora;
-	//int idx;
 	int sync;
-	//int more;
 	int crc16;
 	int priority;
 	int timestamp;
@@ -113,12 +105,14 @@ typedef struct sqlbus_cycle
 
 	struct {
 		int port;
-		int timeo;
+		int ctimeo;
+		//int otimeo;
 		char *host;
 		char *user;
 		char *auth;
 		char *database;
 	} memcache;
+
 	struct {
 		HDBC hdbc;
 		HENV henv;

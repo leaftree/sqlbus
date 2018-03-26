@@ -129,9 +129,9 @@ static FILE *open_conf_file(char *file)
 	FILE *fp = NULL;
 
 	if(file)
-		fp = fopen(file, "r+");
+		fp = fopen(file, "r");
 	else
-		fp = fopen("/etc/sqlbus.ini", "r+");
+		fp = fopen("/etc/sqlbus.ini", "r");
 
 	return fp;
 }
@@ -543,4 +543,22 @@ int get_config_value(const config_t *conf, char *section, char *key, char *value
 
 	sprintf(value, "%s", pair->value);
 	DBUG_RETURN(RETURN_SUCCESS);
+}
+
+/**
+ * check_config_is_section_exist - 检查section是否存在
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者section不存在
+ *  RETURN_SUCCESS: section存在
+ */
+int check_config_is_section_exist(const config_t *conf, char *section)
+{
+	if(conf == NULL || section == NULL)
+		return(RETURN_FAILURE);
+
+	if(get_config_section(conf, section) == NULL)
+		return(RETURN_FAILURE);
+
+	return(RETURN_SUCCESS);
 }

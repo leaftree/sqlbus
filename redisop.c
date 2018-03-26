@@ -280,7 +280,7 @@ int redis_select(redisContext *redis, int database)
 
 	if(redis)
 	{
-		reply = redisCommand(redis, "SELECT %s", database);
+		reply = redisCommand(redis, "SELECT %d", database);
 		if(reply)
 		{
 			if(reply->type == REDIS_REPLY_STATUS) {

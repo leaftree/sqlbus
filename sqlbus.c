@@ -148,6 +148,148 @@ int sqlbus_main_entry(sqlbus_cycle_t *cycle)
 }
 
 /**
+ * sqlbus_env_log_init - 初始化日志功能
+ *
+ * @cycle: sqlbus主体循环接口
+ *
+ * return value:
+ *  RETURN_FAILURE: 日志打开失败
+ *  RETURN_SUCCESS: 日志打开成功
+ */
+static int sqlbus_env_log_init(sqlbus_cycle_t *cycle)
+{
+	static enum log_level level = defaultLogWriteLevel;
+	static char catalog[128] = "";
+	static char log_file[128] = "";
+	static char level_value[64] = "INFO";
+	static char trace_source[64] = "NO";
+
+	sprintf(catalog, "%s", defaultLogPathName);
+	sprintf(log_file, "%s", defaultLogFileName);
+
+	get_config_value(cycle->config, "LOG", "CATALOG", catalog);
+	get_config_value(cycle->config, "LOG", "FILENAME", log_file);
+	get_config_value(cycle->config, "LOG", "LEVEL", level_value);
+	get_config_value(cycle->config, "LOG", "TRACE", trace_source);
+
+	if(!strcasecmp(trace_source, "YES") || !strcasecmp(trace_source, "ON")) {
+		cycle->logger->trace = TRACE_ON;
+	}
+	else {
+		cycle->logger->trace = TRACE_OFF;
+	}
+
+	level = log_level_string_to_type(level_value);
+
+	if(log_open(catalog, log_file, level, cycle->logger) != RETURN_SUCCESS) {
+		console_printf("Open log file[%s/%s] failure.%s", catalog, log_file, strerror(errno));
+		return(RETURN_FAILURE);
+	}
+
+	return(RETURN_SUCCESS);
+}
+
+static int sqlbus_env_database_init(sqlbus_cycle_t *cycle)
+{
+	if(!cycle || !cycle->config) {
+		return(RETURN_FAILURE);
+	}
+
+	char db[64] = "";
+	char user[64] = "";
+	char auth[64] = "";
+
+	get_config_value(cycle->config, "default", "database", db);
+
+	if(!*db) {
+		LOG_ERROR(cycle->logger, "Not found key[Database] in section \"Default\"");
+		return(RETURN_FAILURE);
+	}
+
+	if(check_config_is_section_exist(cycle->config, db) != RETURN_SUCCESS) {
+		LOG_ERROR(cycle->logger, "Not found section[%s] in config file.", db);
+		return(RETURN_FAILURE);
+	}
+
+	get_config_value(cycle->config, db, "username", user);
+	get_config_value(cycle->config, db, "password", auth);
+
+	cycle->db.type = strdup(db);
+	cycle->db.user = strdup(user);
+	cycle->db.auth = strdup(auth);
+
+	return(RETURN_SUCCESS);
+}
+
+static void sqlbus_env_database_free(sqlbus_cycle_t *cycle)
+{
+	if(!cycle) {
+		return;
+	}
+
+	mFree(cycle->db.type);
+	mFree(cycle->db.host);
+	mFree(cycle->db.user);
+	mFree(cycle->db.auth);
+	mFree(cycle->db.database);
+	return;
+}
+
+static int sqlbus_env_memcache_init(sqlbus_cycle_t *cycle)
+{
+	char auth[64] = "";
+	char port[64] = "6379";
+	char host[64] = "127.0.0.1";
+	char database[64] = "0";
+	char memcache[64] = "redis";
+	//char oper_timeout[64] = "5";
+	char conn_timeout[64] = "5";
+
+	if(!cycle || !cycle->config) {
+		return(RETURN_FAILURE);
+	}
+
+	get_config_value(cycle->config, "default", "memcache", memcache);
+
+	if(check_config_is_section_exist(cycle->config, memcache) != RETURN_SUCCESS) {
+		LOG_ERROR(cycle->logger, "Not found section[%s] in config file.", memcache);
+		return(RETURN_FAILURE);
+	}
+
+	get_config_value(cycle->config, memcache, "host", host);
+	get_config_value(cycle->config, memcache, "port", port);
+	get_config_value(cycle->config, memcache, "password", auth);
+	get_config_value(cycle->config, memcache, "database", database);
+	//get_config_value(cycle->config, memcache, "OperateTimeout", oper_timeout);
+	get_config_value(cycle->config, memcache, "ConnectTimeout", conn_timeout);
+
+	cycle->memcache.host = strdup(host);
+	cycle->memcache.auth = strdup(auth);
+	cycle->memcache.database = strdup(database);
+	cycle->memcache.port = atoi(port);
+	cycle->memcache.ctimeo = atoi(conn_timeout);
+	//cycle->memcache.otimeo = atoi(oper_timeout);
+
+	return(RETURN_SUCCESS);
+}
+
+static void sqlbus_env_memcache_free(sqlbus_cycle_t *cycle)
+{
+	if(!cycle) {
+		return;
+	}
+
+	cycle->memcache.port = 0;
+	cycle->memcache.ctimeo = 0;
+	mFree(cycle->memcache.auth);
+	mFree(cycle->memcache.host);
+	mFree(cycle->memcache.user);
+	mFree(cycle->memcache.database);
+
+	return;
+}
+
+/**
  * sqlbus_env_init - 初始化sqlbus运行环境
  *
  * @cycle: sqlbus主体循环接口
@@ -160,12 +302,7 @@ int sqlbus_main_entry(sqlbus_cycle_t *cycle)
  */
 int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
 {
-	enum log_level level = LOG_DEBUG;
-
-	char catalog[128] = "/tmp";
-	char log_file[128] = "app.log";
-	char level_value[64] = "INFO";
-	char config_file[128] = "/etc/sqlbus.ini";
+	static char config_file[128] = "/etc/sqlbus.ini";
 
 	if(!cycle)
 		return(RETURN_FAILURE);
@@ -196,39 +333,29 @@ int sqlbus_env_init(sqlbus_cycle_t *cycle, int argc, const char *const argv[])
 		goto error_exit;
 	}
 
-	get_config_value(cycle->config, "LOG", "CATALOG", catalog);
-	get_config_value(cycle->config, "LOG", "FILENAME", log_file);
-	get_config_value(cycle->config, "LOG", "LEVEL", level_value);
+	if(sqlbus_env_log_init(cycle) != RETURN_SUCCESS) {
+		goto error_exit;
+	}
 
-	level = log_level_string_to_type(level_value);
+	if(sqlbus_env_database_init(cycle) != RETURN_SUCCESS) {
+		goto error_exit;
+	}
 
-	if(log_open(catalog, log_file, level, cycle->logger) != RETURN_SUCCESS) {
-		console_printf("Open log file[%s/%s] failure.", catalog, log_file);
+	if(sqlbus_env_memcache_init(cycle) != RETURN_SUCCESS) {
 		goto error_exit;
 	}
 
 	cycle->sqlbus->recv_channel = strdup(defaultQueue);
 	cycle->sqlbus->oper_timeout = defaultOperTimeOut;
 
-	char mem_host[64] = "";
-	char mem_auth[64] = "";
-	get_config_value(cycle->config, "redis", "host", mem_host);
-	get_config_value(cycle->config, "redis", "Permission", mem_auth);
-	cycle->memcache.host = strdup(mem_host);
-	cycle->memcache.auth = strdup(mem_auth);
-
-	char db_user[64] = "";
-	char db_auth[64] = "";
-	get_config_value(cycle->config, "oracle", "username", db_user);
-	get_config_value(cycle->config, "oracle", "password", db_auth);
-	cycle->db.type = strdup("oracle");
-	cycle->db.user = strdup(db_user);
-	cycle->db.auth = strdup(db_auth);
-
 	return(RETURN_SUCCESS);
 
 error_exit:
 	unload_config(cycle->config);
+	log_close(cycle->logger);
+	sqlbus_env_database_free(cycle);
+	sqlbus_env_memcache_free(cycle);
+
 	mFree(cycle->config_file);
 	mFree(cycle->sqlbus->recv_channel);
 
@@ -254,7 +381,16 @@ int sqlbus_env_exit(sqlbus_cycle_t *cycle)
 	}
 
 	unload_config(cycle->config);
+	sqlbus_env_database_free(cycle);
+	sqlbus_env_memcache_free(cycle);
 	log_close(cycle->logger);
+
+	mFree(cycle->config_file);
+	mFree(cycle->sqlbus->recv_channel);
+
+	mFree(cycle->config);
+	mFree(cycle->logger);
+	mFree(cycle->sqlbus);
 
 	return(RETURN_SUCCESS);
 }
@@ -359,10 +495,10 @@ int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle)
 	 * Connection
 	 */
 	LOG_INFO(cycle->logger,
-			"[SQLBUS] Memcache connection: host[%s] auth[%s] port[%d] timeout[%d]",
-			cycle->memcache.host, cycle->memcache.auth, cycle->memcache.port, cycle->memcache.timeo);
+			"[SQLBUS] Memcache connection: host[%s] auth[%s] port[%d] database[%s] timeout[%d]",
+			cycle->memcache.host, cycle->memcache.auth, cycle->memcache.port, cycle->memcache.database, cycle->memcache.ctimeo);
 
-	cycle->sqlbus->redis = redis_connection(cycle->memcache.host, cycle->memcache.port, cycle->memcache.timeo);
+	cycle->sqlbus->redis = redis_connection(cycle->memcache.host, cycle->memcache.port, cycle->memcache.ctimeo);
 	if(cycle->sqlbus->redis == NULL) {
 		LOG_ERROR(cycle->logger, "[SQLBUS] Connect to redis failure.");
 		return(RETURN_FAILURE);
@@ -373,7 +509,18 @@ int sqlbus_connect_to_memcache(sqlbus_cycle_t *cycle)
 	 */
 	if(cycle->memcache.auth) {
 		if(redis_auth(cycle->sqlbus->redis, cycle->memcache.auth) != RETURN_SUCCESS) {
-			LOG_ERROR(cycle->logger, "[SQLBUS] Authentication failure.");
+			LOG_ERROR(cycle->logger, "[SQLBUS] Memcache authentication failure.");
+			return(RETURN_FAILURE);
+		}
+	}
+
+	/**
+	 * Select database
+	 */
+	if(cycle->memcache.database) {
+		if(redis_select(cycle->sqlbus->redis, atoi(cycle->memcache.database)) != RETURN_SUCCESS) {
+			LOG_ERROR(cycle->logger, "[SQLBUS] Memcahce select database failure.");
+			return(RETURN_FAILURE);
 		}
 	}
 

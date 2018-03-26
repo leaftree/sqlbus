@@ -22,6 +22,9 @@
 #include <sys/fcntl.h>
 #include <sys/param.h>
 
+#define TRACE_OFF 0
+#define TRACE_ON  1
+
 #define defaultLogFileName "sqlbus.log"
 #define defaultLogPathName "/tmp/sqlbus"
 #define defaultLogWriteLevel LOG_WARNING
@@ -39,9 +42,10 @@ typedef struct sqlbus_log
 	char *file;    /* log name                   */
 	int fd;        /* file decriptor of log file */
 	int level;     /* log base level             */
+	int trace;     /* write source code position to log file */
 } sqlbus_log_t;
 
-extern sqlbus_log_t logger;
+//extern sqlbus_log_t logger;
 
 int log_open(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta);
 int log_close(sqlbus_log_t *meta);

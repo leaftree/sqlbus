@@ -43,6 +43,17 @@
 #define DEFAULT_ANNOTATOR ";#"
 
 /**
+ * switching variable
+ *
+ * YES/ON     = CFG_YES
+ * NO/NOT/OFF/!(CFG_YES string) = CFG_NOT
+ */
+#define CFG_NOT 0
+#define CFG_YES 1
+#define CFG_OFF (CFG_NOT)
+#define CFG_ON  (CFG_YES)
+
+/**
  * conf_pair - 配置文中件的键值对
  * @name: 键名
  * @value: 值 
@@ -147,6 +158,15 @@ conf_pair_t *get_config_pair(const conf_section_t *section, char *name);
  *  RETURN_SUCCESS: 发现匹配的键值，输出结果保存在@value中
  */
 int get_config_value(const config_t *conf, char *section, char *key, char *value);
+
+/**
+ * check_config_is_section_exist - 检查section是否存在
+ *
+ * return value:
+ *  RETURN_FAILURE: 参数无效或者section不存在
+ *  RETURN_SUCCESS: section存在
+ */
+int check_config_is_section_exist(const config_t *conf, char *section);
 
 /**
  * 测试使用

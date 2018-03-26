@@ -28,10 +28,17 @@ int log_open(char *catalog, char *file, enum log_level level, sqlbus_log_t *meta
 	meta->file = strdup(file);
 	sprintf(file_name, "%s/%s", catalog, file);
 
+again:
 	errno = 0;
 	int fd = open(file_name, O_CREAT|O_WRONLY|O_APPEND, 0640);
 	if(fd < 0) {
+		int _again = 1;
 		int _errno = errno;
+		if(_errno == ENOENT) {
+			mkdir(meta->catalog, 0755);
+			if(_again--)
+				goto again;
+		}
 		DBUG_RETURN(_errno);
 	}
 
@@ -82,7 +89,7 @@ int log_write(sqlbus_log_t *meta, enum log_level level,
 	size += make_iso8061_timestamp(buffer);
 	size += snprintf(buffer+size, 16*1024, " %s ", (char*)errmsg[level]);
 
-	if(meta->level == LOG_DEBUG)
+	if(meta->trace == TRACE_ON)
 		size += snprintf(buffer+size, 16*1024, "[%s(%d)-%s] ", file, line, func);
 
 	va_start(ap, fmt);
@@ -100,6 +107,7 @@ int log_write(sqlbus_log_t *meta, enum log_level level,
 		int _errno = errno;
 		DBUG_RETURN(_errno);
 	}
+	fsync(meta->fd);
 
 	DBUG_RETURN(0);
 }
@@ -107,7 +115,7 @@ int log_write(sqlbus_log_t *meta, enum log_level level,
 enum log_level log_level_string_to_type(char *level_string)
 {
 	if(!level_string)
-		return(LOG_WARNING);
+		return(defaultLogWriteLevel);
 
 	if(strcasecmp(level_string, "DEBUG") == 0)
 		return(LOG_DEBUG);
@@ -120,5 +128,5 @@ enum log_level log_level_string_to_type(char *level_string)
 	else if(strcasecmp(level_string, "INFO") == 0)
 		return(LOG_INFO);
 
-	return(LOG_WARNING);
+	return(defaultLogWriteLevel);
 }
