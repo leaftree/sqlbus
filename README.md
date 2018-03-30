@@ -58,6 +58,7 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
 无论是请求数据还是响应数据，都采用JSON格式进来传输。
 
 |Key|Name|values|Notes|
+|---|---|---|---|
 |UUID|唯一标识||取自/proc/sys/kernel/random/uuid|
 |APP|TP或者SB的进程名称|TP:,SB:SQLBUS-SERVER||
 
