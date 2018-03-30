@@ -116,8 +116,30 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
 ```
 
 #### 非查询语句响应格式
+```c
+{
+  "UUID": "f8a6fb8c-31a7-4183-a4e3-fc1d931d860b",
+  "APP": "SQLBUS-SERVER",
+  "PID": 31003,
+  "TYPE": "RESPONSE",
+  "DBTYPE": "ORACLe",
+  "TIMESTAMP": 1522315216,
+  "MESSAGE": "",
+}
+```
+
 #### 执行语句出错响应格式
 ```c
+{
+  "UUID": "f8a6fb8c-31a7-4183-a4e3-fc1d931d860b",
+  "APP": "SQLBUS-SERVER",
+  "PID": 31003,
+  "TYPE": "RESPONSE",
+  "DBTYPE": "ORACLe",
+  "TIMESTAMP": 1522315216,
+  "MESSAGE": "",
+  "ERRORID": 0,
+}
 ```
 
 ### test
