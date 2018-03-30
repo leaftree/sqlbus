@@ -1,6 +1,7 @@
 # SQLBUS
 SQL-BUS(SqlBus), forwarding SQL via Memory-Cache as a bus.
 ===
+---
 
 ## SQLBUS 原理图
 ```c
@@ -54,7 +55,7 @@ SQL-BUS(SqlBus), forwarding SQL via Memory-Cache as a bus.
 TP发送的请求数据在MC中会以队列的形式存在，默认的队列名称是：SqlBusDefaultQueue。
 当TP以同步的形式等待SQLBUS响应数据，则使用另一个队列，名字由TP来自动生成。不同请求最好生成不同的响应队列名称。
 
-## 数据格式
+## SQLBUS数据格式
 无论是请求数据还是响应数据，都采用JSON格式进来传输。
 
 |Key|Name|Values|Notes|
@@ -137,7 +138,7 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
   "TYPE": "RESPONSE",
   "DBTYPE": "ORACLe",
   "TIMESTAMP": 1522315216,
-	"STATEMENT": "SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MM:SS') AS Cur_Date_Time FROM DUAL_Wrong_Table_Name",
+  "STATEMENT": "SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MM:SS') AS Cur_Date_Time FROM DUAL_Wrong_Table_Name",
   "MESSAGE": "ORA-00942: table or view does not exist",
   "ERRORID": 0,
 }
@@ -158,6 +159,15 @@ SQLBUS的配置文件使用INI格式的配置方法，例子：
 [Default]
 ; 数据库类型
 database=oracle
+
+[oracle]
+; oracle数据库驱动配置
+descriptor = Oracle Driver of Afc
+driver     = /home/fylos/sqlbus/library/libora.so
+server     = 
+port       =
+username   = fzlc50db@afc
+password   = fzlc50db
 ```
 
 Default为节Section，database为键，oracle为值，键值使用"="分隔，每个键值对都属于某个Section。
@@ -170,6 +180,14 @@ Default节必须要配置上，并且必须指定键database的值，它指定�
 
 键是固定的，值是可变的。上例子中，指定database的类型为oracle，
 
+
+## SQLBUS的缺点
+- 增加了需要即时响应的数据的等待时间
+- 响应数据体积大大增加
+
+## SQLBUS的优点
+- 理想中的SQLBUS应该会有不少的好处。
+
 ## TODO LIST
 - BUG，尝试连接时存在内存泄露问题
 - 接收SIGHUP信号时重新读取配置文件
@@ -180,5 +198,3 @@ Default节必须要配置上，并且必须指定键database的值，它指定�
 - 封装业务层接口
 - 编写说明及驱动接口编写规则
 
-
-SQLBUS的缺点
