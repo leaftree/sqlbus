@@ -60,9 +60,19 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
 |Key|Name|Values|Notes|
 |---|---|---|---|
 |UUID|唯一标识||取自/proc/sys/kernel/random/uuid|
-|APP|TP或者SB的进程名称|TP:各业务进程名<br>SB:SQLBUS-SERVER[|n]||
+|APP|进程名称|各业务进程名<br>SQLBUS-SERVER|TP端由进程名表示<br>SB:SQLBUS-SERVER|
 |PID|进程ID标识|||
 |TYPE|请求响应标识|REQUEST<br>RESPONSE|TP发起的为REQUEST<br>SB发起的为RESPONSE|
+|SYNC|同步标志|true<br>false|TP等待SB响应的为true，否则为false|
+|RCHANNEL|响应频道||由TP设定，SB向该频道响应请求数据|
+|TIMESTAMP|时间戳||用于标识请求或者响应的时间|
+|STATEMENT|请求SQL语句|||
+|MESSAGE|消息||只有当SQL语句执行出现错误时使用|
+|ERRORID|错误代码|||
+|FIELDS|选择列数|||
+|FILED|列名称列表|||
+|ROWS|查询结果集记录数|||
+|RESULT|查询结果集|||
 
 ### SQLBUS请求格式
 ```c
