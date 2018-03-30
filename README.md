@@ -45,11 +45,60 @@ SQL-BUS(SqlBus), forwarding SQL via Memory-Cache as a bus.
 
   合法的请求，是指符合既定SQLBUS格式的请求数据，请查看[SQLBUS请求格式](#sqlbus请求格式)
 
+### 请求数据与响应数据的流转
+1、TP需要执行SQL语句时，只需构建一个请求，发送至MC，如果需要等待响应，TP则会阻塞，否则TP的请求结束；
+2、SQLBUS从MC中读取该请求数据，截取请求中的SQL语句，发送至DB；
+3、DB执行完成后，将结果返回给SQLBUS，如果TP的请求是同步的，即需要等待响应，SQLBUS则构建响应数据，发送至MC；
+4、当MC接收到SQLBUS的响应数据后，TP会从当中取走。至此，TP的请求结束。
+
+TP发送的请求数据在MC中会以队列的形式存在，默认的队列名称是：SqlBusDefaultQueue。
+当TP以同步的形式等待SQLBUS响应数据，则使用另一个队列，名字由TP来自动生成。不同请求最好生成不同的响应队列名称。
+
+## 数据格式
+无论是请求数据还是响应数据，都采用JSON格式进来传输。
+
+|Key|Name|values|Notes|
+|UUID|唯一标识||取自/proc/sys/kernel/random/uuid|
+|APP|TP或者SB的进程名称|TP:,SB:SQLBUS-SERVER||
+
 ### SQLBUS请求格式
 ```c
+{
+  "UUID": "f8a6fb8c-31a7-4183-a4e3-fc1d931d860b",
+  "APP": "Client",
+  "PID":  29322,
+  "TYPE": "REQUEST",
+  "SYNC":  true,
+  "RCHANNEL": "Client",
+  "TIMESTAMP": 1521620927,
+  "STATEMENT": "SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MM:SS') AS Cur_Date_Time FROM DUAL"
+}
 ```
 
 ### SQLBUS响应格式
+```c
+{
+  "UUID": "f8a6fb8c-31a7-4183-a4e3-fc1d931d860b",
+  "APP": "SQLBUS-SERVER",
+  "PID": 31003,
+  "TYPE": "RESPONSE",
+  "DBTYPE": "ORACLe",
+  "TIMESTAMP": 1522315216,
+  "MESSAGE": "",
+  "ERRORID": 0,
+  "FIELDS": 1,
+  "FIELD": [
+    "CUR_DATE_TIME"
+  ],
+  "ROWS": 1,
+  "RESULT": [
+    [
+      "2018/03/29 17:03:54"
+    ]
+  ]
+}
+```
+
 #### 查询语句响应格式
 #### 非查询语句响应格式
 #### 执行语句出错响应格式
@@ -69,3 +118,5 @@ SQL-BUS(SqlBus), forwarding SQL via Memory-Cache as a bus.
 - 封装业务层接口
 - 编写说明及驱动接口编写规则
 
+
+SQLBUS的缺点
