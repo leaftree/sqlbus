@@ -60,7 +60,7 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
 |Key|Name|Values|Notes|
 |---|---|---|---|
 |UUID|唯一标识||取自/proc/sys/kernel/random/uuid|
-|APP|进程名称|各业务进程名<br>SQLBUS-SERVER|TP端由进程名表示<br>SB:SQLBUS-SERVER|
+|APP|进程名称|各业务进程名，<br>SQLBUS-SERVER|TP端由进程名表示<br>SQLBUS端为SQLBUS-SERVER|
 |PID|进程ID标识|||
 |TYPE|请求响应标识|REQUEST<br>RESPONSE|TP发起的为REQUEST<br>SB发起的为RESPONSE|
 |SYNC|同步标志|true<br>false|TP等待SB响应的为true，否则为false|
@@ -89,6 +89,9 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
 ```
 
 ### SQLBUS响应格式
+
+#### 查询语句响应格式
+
 ```c
 {
   "UUID": "f8a6fb8c-31a7-4183-a4e3-fc1d931d860b",
@@ -112,7 +115,6 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
 }
 ```
 
-#### 查询语句响应格式
 #### 非查询语句响应格式
 #### 执行语句出错响应格式
 ```c
