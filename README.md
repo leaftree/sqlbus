@@ -137,13 +137,38 @@ TP发送的请求数据在MC中会以队列的形式存在，默认的队列名�
   "TYPE": "RESPONSE",
   "DBTYPE": "ORACLe",
   "TIMESTAMP": 1522315216,
-  "MESSAGE": "",
+	"STATEMENT": "SELECT TO_CHAR(SYSDATE, 'YYYY/MM/DD HH24:MM:SS') AS Cur_Date_Time FROM DUAL_Wrong_Table_Name",
+  "MESSAGE": "ORA-00942: table or view does not exist",
   "ERRORID": 0,
 }
 ```
 
-### test
-- [A test config](document/test.ini.md)
+## SQLBUS配置
+SQLBUS可以在服务启动的时候通过命令"--config"或者"--file"指定配置文件，如果不通过命令参数指定配置文件的路径，则会使用默认的配置文件/etc/sqlbus.ini。
+如果不指令配置文件路径，或者默认配置文件不存在时SQLBUS无法启动。
+
+SQLBUS的配置文件使用INI格式的配置方法，例子：
+```ini
+#
+# Key 不区分大小写
+# 注释符号是#或者;
+# 目前只支持单行注释
+#
+
+[Default]
+; 数据库类型
+database=oracle
+```
+
+Default为节Section，database为键，oracle为值，键值使用"="分隔，每个键值对都属于某个Section。
+SQLBUS的键不区分大小写，但值区分大小写。
+SQLBUS的INI使用英文的"#"或者";"作为注释符，当前仅支持单行注释。
+
+SQLBUS的配置内容可以查看：[Example](document/sqlbus.ini)
+
+Default节必须要配置上，并且必须指定键database的值，它指定了要连接数据库的类型；也可以通过键memcache指定缓存数据库，默认是redis。它们是指定后续Section中数据库或者内存缓存的配置的项。
+
+键是固定的，值是可变的。上例子中，指定database的类型为oracle，
 
 ## TODO LIST
 - BUG，尝试连接时存在内存泄露问题
