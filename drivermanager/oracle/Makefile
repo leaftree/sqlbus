@@ -27,11 +27,6 @@ PROCFLAG = sqlcheck=full def_sqlcode=yes code=ansi_c lines=yes
 ORALIBS = -L$(ORACLE_HOME)/lib -lclntsh -lsqlplus
 LNKLIBS = -lm $(ORALIBS)
 
-ifeq ($(ver), debug)
-CFLAGS += -g3 -DDBUG_ON
-LNKLIBS += -ldbug
-endif
-
 src = ora.c util.c server.c
 serverObj = util.o server.o
 

@@ -9,7 +9,6 @@
 #include <sys/errno.h>
 
 #include "util.h"
-#include "dbug.h"
 #include "dbdriver.h"
 
 EXEC SQL INCLUDE sqlda;
@@ -34,7 +33,8 @@ static void dbSetErrorWithErrno(error_info *error, int errorno)
 	if(!error) return;
 
 	error->ecode = errorno;
-	snprintf(error->errstr, sizeof(error->errstr), "%s", strerror(error->ecode));
+	int len = sprintf(error->errstr, "%s", "[ORA-DRIVER] ");
+	snprintf(error->errstr+len, sizeof(error->errstr), "%s", strerror(error->ecode));
 }
 
 /**
@@ -51,9 +51,11 @@ static void dbSetError(error_info *error, const char *fmt, ...)
 	if(!error) return;
 
 	error->ecode = errno;
+	int len;
 	va_list vp;
 	va_start(vp, fmt);
-	vsnprintf(error->errstr, sizeof(error->errstr), fmt, vp);
+	len = sprintf(error->errstr, "%s", "[ORA-DRIVER] ");
+	vsnprintf(error->errstr+len, sizeof(error->errstr), fmt, vp);
 	va_end(vp);
 }
 
@@ -81,7 +83,8 @@ static void dbSetORAError(error_info *error)
 		message[strlen((char*)message)-1] = 0x0;
 
 	error->ecode = SQLCODE;
-	snprintf(error->errstr, sizeof(error->errstr), "%s", message);
+	int len = sprintf(error->errstr, "%s", "[ORA-DRIVER] ");
+	snprintf(error->errstr+len, sizeof(error->errstr), "%s", message);
 }
 
 /**
@@ -135,20 +138,18 @@ static int isSelectStatment(char *stmt)
  */
 static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int max_iname_len)
 {
-	DBUG_ENTER(__func__);
-
 	if ((bind_dp = SQLSQLDAAlloc(SQL_SINGLE_RCTX, max_col_cnt,
 					max_vname_len, max_iname_len)) == (SQLDA *) 0)
 	{
 		dbSetError(hstmt->error, "Cannot allocate memory for bind descriptor.");
-		DBUG_RETURN(RETURN_FAILURE); 
+		return(RETURN_FAILURE); 
 	}
 
 	if ((select_dp = SQLSQLDAAlloc (SQL_SINGLE_RCTX, max_col_cnt,
 					max_vname_len, max_iname_len)) == (SQLDA *) 0)
 	{
 		dbSetError(hstmt->error, "Cannot allocate memory for select descriptor.");
-		DBUG_RETURN(RETURN_FAILURE); 
+		return(RETURN_FAILURE); 
 	}
 
 	int i;
@@ -161,7 +162,7 @@ static int allocDescriptors(HSTMT hstmt, int max_col_cnt, int max_vname_len, int
 		select_dp->V[i] = (char *) malloc(sizeof(char));
 	}
 
-	DBUG_RETURN(RETURN_SUCCESS); 
+	return(RETURN_SUCCESS); 
 }
 
 /**
@@ -180,19 +181,24 @@ static int runNonQueryStatment(HSTMT hstmt, char *statement)
 	varchar caSqlStmt[ORA_MAX_SQL_LEN];
 	EXEC SQL END DECLARE SECTION;
 
-	hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_SUCCESS;
+	hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
 
 	caSqlStmt.len = sprintf((char*)caSqlStmt.arr, "%s", statement);
 	EXEC SQL EXECUTE IMMEDIATE :caSqlStmt;
+
 	if(SQLCODE != IAPSUCC)
 	{
-		if(SQLCODE == 1403)
+		if(SQLCODE == 1403) {
 			hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND;
-		else
+		} else if(SQLCODE == -1) {
+			hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_UNIQUE;
+		} else {
 			hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
+		}
 
-		if(SQLCODE == -3135 || SQLCODE == -3114)
+		if(SQLCODE == -3135 || SQLCODE == -3114) {
 			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
+		}
 
 		dbSetORAError(hstmt->error);
 		EXEC SQL ROLLBACK WORK;
@@ -203,13 +209,16 @@ static int runNonQueryStatment(HSTMT hstmt, char *statement)
 		EXEC SQL COMMIT WORK;
 		if(SQLCODE != IAPSUCC)
 		{
-			if(SQLCODE == -3135 || SQLCODE == -3114)
+			if(SQLCODE == -3135 || SQLCODE == -3114) {
 				hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
+			}
+
 			dbSetORAError(hstmt->error);
 			return(IAPFAIL);
 		}
 	}
 
+	hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_SUCCESS;
 	dbSetErrorWithErrno(hstmt->error, 0);
 	return(IAPSUCC);
 }
@@ -226,36 +235,34 @@ static int runNonQueryStatment(HSTMT hstmt, char *statement)
  */
 static int Proc_db_connect(HDBC hdbc)
 {
-	DBUG_ENTER(__func__);
-
 	EXEC SQL BEGIN DECLARE SECTION;
-	varchar     dbpwd[21];
-	varchar     dbuserid[21];
+	varchar dbpwd[64];
+	varchar dbuserid[64];
+	varchar dbtns[256];
 	EXEC SQL END DECLARE SECTION;
 
-	if(hdbc == NULL)
-		DBUG_RETURN(RETURN_INVALID);
-
-	DBUG_PRINT(__func__, ("LINE:%d DBOPENDATABASE BEGIN!!!",__LINE__));
+	if(hdbc == NULL) {
+		return(RETURN_INVALID);
+	}
 
 	strcpy((char*)dbuserid.arr, hdbc->username);
 	dbuserid.len = strlen(hdbc->username);
 	strcpy((char*)dbpwd.arr, hdbc->password);
 	dbpwd.len = strlen(hdbc->password);
+	sprintf((char*)dbtns.arr, "%s:%d/%s", hdbc->hostname, hdbc->port?hdbc->port:1521, hdbc->database);
+	dbtns.len = strlen((char*)dbtns.arr);
 
-	EXEC SQL CONNECT :dbuserid IDENTIFIED BY :dbpwd;
+	EXEC SQL CONNECT :dbuserid IDENTIFIED BY :dbpwd USING :dbtns;
 	if( SQLCODE != IAPSUCC )
 	{
 		dbSetORAError(hdbc->error);
 		hdbc->connection = ORA_CONNECTION_STATUS_NOT;
-		DBUG_PRINT(__func__, ("LINE:%d CONNECT TO DB ERROR & DBOPENDATABASE END!!!",__LINE__));
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	hdbc->connection = ORA_CONNECTION_STATUS_YES;
-	DBUG_PRINT(__func__, ("LINE:%d DB_LOGIN SUCCESSFULLY END!!!",__LINE__));
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -270,47 +277,23 @@ static int Proc_db_connect(HDBC hdbc)
  */
 int DBConnectInitialize(HDBC *hdbc)
 {
-	DBUG_ENTER(__func__);
-
 	if(hdbc == NULL)
-		DBUG_RETURN(RETURN_INVALID);
+		return(RETURN_INVALID);
 
 	*hdbc = malloc(sizeof(connection));
 	if(*hdbc == NULL) {
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	(*hdbc)->error = malloc(sizeof(error_info));
 	if((*hdbc)->error == NULL) {
 		mFree(hdbc);
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	(*hdbc)->connection = ORA_CONNECTION_STATUS_NOT;
 
-	DBUG_RETURN(RETURN_SUCCESS);
-}
-
-/**
- * DBConnectFinalize - 数据库连接句柄使用结束，翻译资源
- *
- * @hdbc: 句柄
- *
- * return value:
- *  RETURN_INVALID: 参数无效
- *  RETURN_SUCCESS: 释放资源成功
- */
-int DBConnectFinalize(HDBC hdbc)
-{
-	DBUG_ENTER(__func__);
-
-	if(hdbc == NULL)
-		DBUG_RETURN(RETURN_INVALID);
-
-	mFree(hdbc->error);
-	mFree(hdbc);
-
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -326,24 +309,23 @@ int DBConnectFinalize(HDBC hdbc)
  *  RETURN_FAILURE: 连接登录失败
  *  RETURN_SUCCESS: 登录数据库成功
  */
-int DBConnect(HDBC hdbc, char *username, char *password, char *database)
+int DBConnect(HDBC hdbc, char *username, char *password, char *hostname, char *database, int port)
 {
-	DBUG_ENTER(__func__);
+	if(hdbc == NULL || username == NULL || password == NULL || hostname == NULL || database == NULL)
+		return(RETURN_INVALID);
 
-	if(hdbc == NULL || username == NULL || password == NULL)
-		DBUG_RETURN(RETURN_INVALID);
-
+	hdbc->port = port;
 	sprintf(hdbc->username, "%s", username);
 	sprintf(hdbc->password, "%s", password);
-	sprintf(hdbc->database, "%s", database?database:"");
+	sprintf(hdbc->hostname, "%s", hostname);
+	sprintf(hdbc->database, "%s", database);
 
 	if(Proc_db_connect(hdbc) != RETURN_SUCCESS)
 	{
-		DBUG_PRINT(__func__, ("%s", hdbc->error->errstr));
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -358,26 +340,22 @@ int DBConnect(HDBC hdbc, char *username, char *password, char *database)
  */
 int DBDisconnect(HDBC hdbc)
 {
-	DBUG_ENTER(__func__);
-
 	if(hdbc == NULL)
-		DBUG_RETURN(RETURN_INVALID);
+		return(RETURN_INVALID);
 
 	EXEC SQL COMMIT WORK RELEASE;
 	if( SQLCODE != IAPSUCC )
 	{
 		dbSetORAError(hdbc->error);
 
-		DBUG_PRINT(__func__, ("LINE:%d DBCLOSEDATABASE END UNSUCCESSFULLY!!!The uncommitted transaction hasn't committed!!!",__LINE__));
-		DBUG_PRINT(__func__, ("%s", hdbc->error->errstr));
-
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 	hdbc->connection = ORA_CONNECTION_STATUS_NOT;
 
-	DBUG_PRINT(__func__, ("LINE:%d DBCLOSEDATABASE SUCCESSFULLY END!!!",__LINE__));
+	mFree(hdbc->error);
+	mFree(hdbc);
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -393,27 +371,26 @@ int DBDisconnect(HDBC hdbc)
  */
 int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 {
-	DBUG_ENTER(__func__);
-
 	if(hdbc == NULL || hstmt == NULL)
-		DBUG_RETURN(RETURN_INVALID);
+		return(RETURN_INVALID);
 
 	*hstmt = malloc(sizeof(statement));
 	if(*hstmt == NULL)
 	{
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	error_info *err = malloc(sizeof(error_info));
 	if(err == NULL)
 	{
 		mFree(*hstmt);
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	(*hstmt)->hdbc = hdbc;
 	(*hstmt)->error = err;
 	(*hstmt)->table = NULL;
+	(*hstmt)->result = NULL;
 	(*hstmt)->statement = NULL;
 	(*hstmt)->status = 0;
 	(*hstmt)->map_size = 0;
@@ -424,8 +401,10 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
 	(*hstmt)->max_row_count = ORA_MAX_ROW_COUNT;
 	(*hstmt)->result_code = ORA_SQL_EXEC_RESULT_CODE_FAILURE;
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
+
+static void freeTableInfo(table_info *table);
 
 /**
  * DBStmtFinalize - 数据库操纵句柄使用结束，释放资源
@@ -438,17 +417,18 @@ int DBStmtInitialize(HDBC hdbc, HSTMT *hstmt)
  */
 int DBStmtFinalize(HSTMT hstmt)
 {
-	DBUG_ENTER(__func__);
-
 	if(hstmt == NULL)
-		DBUG_RETURN(RETURN_INVALID);
+		return(RETURN_INVALID);
+
+	freeTableInfo(hstmt->table);
 
 	hstmt->hdbc = NULL;
 	mFree(hstmt->error);
-	mFree(hstmt->table);
+	mFree(hstmt->statement);
+	mFree(hstmt->result);
 	mFree(hstmt);
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 static int releaseDescriptors(int max_item);
@@ -467,15 +447,13 @@ static int fetchQueryStatmentResult(HSTMT hstmt);
  */
 int DBExecute(HSTMT hstmt, char *statement)
 {
-	DBUG_ENTER(__func__);
-
 	EXEC SQL BEGIN DECLARE SECTION;
 	char caSqlStmt[ORA_MAX_SQL_LEN];
 	EXEC SQL VAR caSqlStmt IS STRING(ORA_MAX_SQL_LEN);
 	EXEC SQL END DECLARE SECTION;
 
 	if(hstmt == NULL || statement == NULL)
-		DBUG_RETURN(RETURN_INVALID);
+		return(RETURN_INVALID);
 
 	sprintf(caSqlStmt, "%s", statement);
 
@@ -489,9 +467,10 @@ int DBExecute(HSTMT hstmt, char *statement)
 		hstmt->statement_type = SQL_TYPE_NONE_QUERY;
 		if(IAPSUCC != runNonQueryStatment(hstmt, statement))
 		{
-			DBUG_RETURN(RETURN_FAILURE);
+			return(RETURN_FAILURE);
 		}
-		DBUG_RETURN(RETURN_SUCCESS);
+
+		return(RETURN_SUCCESS);
 	}
 
 	//******************************************************************
@@ -504,8 +483,7 @@ int DBExecute(HSTMT hstmt, char *statement)
 
 	if(allocDescriptors(hstmt, ORA_SQL_MAX_ITEM_NUM, ORA_COLUMN_NAME_LEN, ORA_INDICATE_NAME_LEN) != 0)
 	{
-		DBUG_PRINT("allocDescriptors", ("%s", hstmt->error->errstr));
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	EXEC SQL PREPARE S FROM :caSqlStmt;
@@ -514,25 +492,24 @@ int DBExecute(HSTMT hstmt, char *statement)
 
 	if(SQLCODE != IAPSUCC)
 	{
-		dbSetORAError(hstmt->error);
-		releaseDescriptors(ORA_SQL_MAX_ITEM_NUM);
-
 		if(SQLCODE == -3135 || SQLCODE == -3114)
 			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
 
-		DBUG_RETURN(RETURN_FAILURE);
+		dbSetORAError(hstmt->error);
+		releaseDescriptors(ORA_SQL_MAX_ITEM_NUM);
+
+		return(RETURN_FAILURE);
 	}
 
 	if(IAPSUCC != fetchQueryStatmentResult(hstmt))
 	{
 		if(SQLCODE == -3135 || SQLCODE == -3114)
 			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
-		DBUG_PRINT("fetchQueryStatmentResult", ("%s", hstmt->error->errstr));
 	}
 
 	releaseDescriptors(ORA_SQL_MAX_ITEM_NUM);
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -545,7 +522,6 @@ int DBExecute(HSTMT hstmt, char *statement)
  */
 /*STATIC*/ int releaseDescriptors(int max_item)
 {
-	DBUG_ENTER(__func__);
 	int i;
 	for (i = 0; i < max_item; i++)
 	{
@@ -563,7 +539,7 @@ int DBExecute(HSTMT hstmt, char *statement)
 
 	bind_dp = NULL;
 	select_dp = NULL;
-	DBUG_RETURN(IAPSUCC);
+	return(IAPSUCC);
 }
 
 /**
@@ -576,8 +552,6 @@ int DBExecute(HSTMT hstmt, char *statement)
  */
 static int allocEnoughSpaceForField(HSTMT hstmt)
 {
-	DBUG_ENTER(__func__);
-
 	int i, null, precision, scale;
 	field_attr *field = hstmt->table->field;
 
@@ -639,7 +613,7 @@ static int allocEnoughSpaceForField(HSTMT hstmt)
 		select_dp->V[i] = realloc(select_dp->V[i], select_dp->L[i] + 1);
 	}
 
-	DBUG_RETURN(IAPSUCC);
+	return(IAPSUCC);
 }
 
 /**
@@ -668,6 +642,25 @@ static table_info *newTableInfo(int fields)
 	table->fields = fields;
 
 	return(table);
+}
+
+/**
+ * freeTableInfo - 释放表属性空间
+ *
+ * @table: 表属性
+ *
+ * return value:
+ *  no return value
+ */
+static void freeTableInfo(table_info *table)
+{
+	if(table == NULL)
+		return;
+
+	mFree(table->field);
+	mFree(table);
+
+	return;
 }
 
 /**
@@ -710,23 +703,25 @@ static int allocFixedSpaceForResultSet(HSTMT hstmt)
  */
 /*STATIC*/ int fetchQueryStatmentResult(HSTMT hstmt)
 {
-	DBUG_ENTER(__func__);
-
 	int i;
 	int offset = 0;
 	char value[4000];
 
 	if(hstmt == NULL)
-		DBUG_RETURN(IAPFAIL);
+		return(IAPFAIL);
 
 	select_dp->N = ORA_SQL_MAX_ITEM_NUM;
 
 	EXEC SQL DESCRIBE SELECT LIST FOR S INTO select_dp;
 	if (select_dp->F < 0)
 	{
+		if(SQLCODE == -3135 || SQLCODE == -3114) {
+			hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
+		}
+
 		dbSetError(hstmt->error, "Too many select-list items(%d), maximum is %d\n",
 				-(select_dp->F), ORA_SQL_MAX_ITEM_NUM);
-		DBUG_RETURN(IAPFAIL);
+		return(IAPFAIL);
 	}
 
 	select_dp->N = select_dp->F;
@@ -735,7 +730,7 @@ static int allocFixedSpaceForResultSet(HSTMT hstmt)
 	if(hstmt->table == NULL)
 	{
 		dbSetErrorWithErrno(hstmt->error, ENOMEM);
-		DBUG_RETURN(IAPFAIL);
+		return(IAPFAIL);
 	}
 
 	//******************************************************************
@@ -747,12 +742,12 @@ static int allocFixedSpaceForResultSet(HSTMT hstmt)
 	//******************************************************************
 	if(IAPSUCC != allocEnoughSpaceForField(hstmt))
 	{
-		DBUG_RETURN(IAPFAIL);
+		return(IAPFAIL);
 	}
 
 	if(RETURN_SUCCESS != allocFixedSpaceForResultSet(hstmt))
 	{
-		DBUG_RETURN(IAPFAIL);
+		return(IAPFAIL);
 	}
 
 	for (;sqlca.sqlerrd[2]<ORA_MAX_ROW_COUNT;)
@@ -764,8 +759,12 @@ static int allocFixedSpaceForResultSet(HSTMT hstmt)
 		}
 		else if(SQLCODE<0)
 		{
+			if(SQLCODE == -3135 || SQLCODE == -3114) {
+				hstmt->hdbc->connection = ORA_CONNECTION_STATUS_NOT;
+			}
+
 			dbSetORAError(hstmt->error);
-			DBUG_RETURN(IAPFAIL);
+			return(IAPFAIL);
 		}
 
 		for (i = 0; i < select_dp->F; i++)
@@ -794,16 +793,13 @@ static int allocFixedSpaceForResultSet(HSTMT hstmt)
 	}
 	hstmt->row_count = sqlca.sqlerrd[2];
 
-	if(hstmt->row_count == 0)
-	{
+	if(hstmt->row_count == 0) {
 		hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND;
-	}
-	else
-	{
+	} else {
 		hstmt->result_code = ORA_SQL_EXEC_RESULT_CODE_SUCCESS;
 	}
 
-	DBUG_RETURN(IAPSUCC);
+	return(IAPSUCC);
 }
 
 /**
@@ -888,17 +884,15 @@ int DBGetRowCount(HSTMT hstmt, int *counter)
  */
 int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value)
 {
-	DBUG_ENTER(__func__);
-
 	if(hstmt == NULL || value == NULL)
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 
 	dbClearError(hstmt->error);
 
 	if(hstmt->table == NULL || hstmt->table->field == NULL)
 	{
 		dbSetError(hstmt->error, "%s", "Maybe sql statement not be executed, or not query statement.");
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	if(index < 0 || index >= hstmt->table->fields)
@@ -906,12 +900,12 @@ int DBGetFieldNameIdx(HSTMT hstmt, int index, char *value)
 		dbSetError(hstmt->error,
 				"Wrong index(%d), it should larger than 0 and less than field counter(%d).",
 				index, hstmt->table->fields);
-		DBUG_RETURN(RETURN_FAILURE);
+		return(RETURN_FAILURE);
 	}
 
 	sprintf(value, "%s", hstmt->table->field[index].name);
 
-	DBUG_RETURN(RETURN_SUCCESS);
+	return(RETURN_SUCCESS);
 }
 
 /**
@@ -1013,7 +1007,7 @@ int DBGetNextRow(HSTMT hstmt)
 	if(hstmt == NULL) {
 		return(RETURN_FAILURE);
 	}
-	
+
 	dbClearError(hstmt->error);
 
 	if(hstmt->row_count == 0 || hstmt->result == NULL)
@@ -1088,6 +1082,7 @@ int DBGetFieldValue(HSTMT hstmt, char *value)
 
 	offset += hstmt->row_cur_pos*hstmt->table_size;
 	memcpy(value, (char*)hstmt->result+offset, hstmt->table->field[hstmt->field_cur_pos].capacity);
+	value[hstmt->table->field[hstmt->field_cur_pos].capacity] = 0;
 	hstmt->field_cur_pos ++;
 
 	return(RETURN_SUCCESS);
@@ -1116,7 +1111,7 @@ int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)
 
 	int row_pos = 0;
 	int field_pos = 0;
-	
+
 	dbClearError(hstmt->error);
 
 	if(value == NULL) {
@@ -1164,6 +1159,7 @@ int DBGetFieldValueIdx(HSTMT hstmt, int row, int field, char *value)
 
 	offset += (row_pos*hstmt->table_size);
 	memcpy(value, (char*)hstmt->result+offset, hstmt->table->field[field_pos].capacity);
+	value[hstmt->table->field[field_pos].capacity] = 0;
 
 	return(RETURN_SUCCESS);
 }
@@ -1183,6 +1179,33 @@ int DBGetConnectionStatus(HDBC hdbc, int *status)
 		return(RETURN_FAILURE);
 
 	*status = hdbc->connection;
+
+	return(RETURN_SUCCESS);
+}
+
+/**
+ * DBGetExecuteResultCode - 获取SQL语句执行结果
+ *
+ * @hstmt: 数据库操纵句枘
+ * @rcode: 结果代码
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ */
+int DBGetExecuteResultCode(HSTMT hstmt, int *rcode)
+{
+	if(hstmt == NULL || rcode == NULL) {
+		return(RETURN_FAILURE);
+	}
+
+	if(hstmt->hdbc->connection == ORA_CONNECTION_STATUS_NOT)
+	{
+		dbSetError(hstmt->error, "Not connected to database now.");
+		return(RETURN_FAILURE);
+	}
+
+	*rcode = hstmt->result_code;
 
 	return(RETURN_SUCCESS);
 }

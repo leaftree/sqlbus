@@ -54,8 +54,9 @@
 #define ORA_CONNECTION_STATUS_NOT (99)
 #define ORA_CONNECTION_STATUS_YES (98)
 
-#define ORA_SQL_EXEC_RESULT_CODE_FAILURE   (-1)
-#define ORA_SQL_EXEC_RESULT_CODE_SUCCESS   (+0)
+#define ORA_SQL_EXEC_RESULT_CODE_FAILURE   (97)
+#define ORA_SQL_EXEC_RESULT_CODE_SUCCESS   (96)
+#define ORA_SQL_EXEC_RESULT_CODE_UNIQUE    (95)
 #define ORA_SQL_EXEC_RESULT_CODE_NOT_FOUND (ORA_RESULT_NOT_FOUND)
 
 #define RETURN_SUCCESS (+0)
@@ -130,8 +131,10 @@ typedef struct environment
  */
 typedef struct connection
 {
+	int port;
 	char username[64];
 	char password[64];
+	char hostname[64];
 	char database[64];
 	int connection;
 	error_info *error;
@@ -173,30 +176,21 @@ __BEGIN_DECLS
 int DBConnectInitialize(HDBC *hdbc);
 
 /**
- * DBConnectFinalize - 数据库连接句柄使用结束，翻译资源
- *
- * @hdbc: 句柄
- *
- * return value:
- *  RETURN_INVALID: 参数无效
- *  RETURN_SUCCESS: 释放资源成功
- */
-int DBConnectFinalize(HDBC hdbc);
-
-/**
  * DBConnect - 数据库连接
  *
  * @hdbc: 连接句柄
  * @username: 数据库用户
  * @password: 数据库用户密码
+ * @hostname: 数据库通讯地址
  * @database: 数据库实例
+ * @port    : 数据库监听端口
  *
  * return value:
  *  RETURN_INVALID: 参数无效
  *  RETURN_FAILURE: 连接登录失败
  *  RETURN_SUCCESS: 登录数据库成功
  */
-int DBConnect(HDBC hdbc, char *username, char *password, char *database);
+int DBConnect(HDBC hdbc, char *username, char *password, char *hostname, char *database, int port);
 
 /**
  * DBDisconnect - 断开数据库连接
@@ -365,6 +359,18 @@ int DBGetErrorMessage(DBHANDLE handle, int type, char *buffer, int capacity, int
  *  RETURN_SUCCESS: 获取成功
  */
 int DBGetConnectionStatus(HDBC hdbc, int *status);
+
+/**
+ * DBGetExecuteResultCode - 获取SQL语句执行结果
+ *
+ * @hstmt: 数据库操纵句柄
+ * @rcode: 结果代码
+ *
+ * return value:
+ *  RETURN_FAILURE: 获取失败
+ *  RETURN_SUCCESS: 获取成功
+ */
+int DBGetExecuteResultCode(HSTMT hstmt, int *rcode);
 
 __END_DECLS
 

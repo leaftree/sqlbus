@@ -16,48 +16,36 @@
 #include <limits.h>
 #include <signal.h>
 
-#include "dbug.h"
 #include "dbdriver.h"
-
-const static int rport = 6379;
 
 int main()
 {
 	int field;
 	int row;
 	int retval;
-				char value[64] = "";
-	DBUG_PUSH ("d:t:O");
-	DBUG_ENTER(__func__);
-	DBUG_PROCESS ("测试程序");
+	char value[64] = "";
 	prctl(PR_SET_NAME, "测试程序");
 
 	HDBC hdbc = NULL;
 	if(DBConnectInitialize(&hdbc) != RETURN_SUCCESS)
 	{
-		DBUG_PRINT("DBConnectInitialize", ("Create database operate handle env fail"));
-		DBUG_RETURN(-1);
+		return(-1);
 	}
-	if(RETURN_SUCCESS != DBConnect(hdbc, "fzlc50db@afc", "fzlc50db", NULL))
+	if(RETURN_SUCCESS != DBConnect(hdbc, "fzlc50db", "fzlc50db", "fylos.cn", "afc", 1521))
 	{
-		DBUG_PRINT("Connect to database fail", ("%s", hdbc->error->errstr));
-		DBUG_RETURN(-1);
+		return(-1);
 	}
 
 	HSTMT hstmt = NULL;
 	DBStmtInitialize(hdbc, &hstmt);
 	if(RETURN_SUCCESS != DBExecute(hstmt, "select * from basi_station_info"))
-		//if(RETURN_SUCCESS != DBExecute(hstmt, "update basi_station_info set location_number='0' where station_id = '0200'"))
 	{
-		DBUG_PRINT("execute fail", ("%s", hstmt->error->errstr));
-		DBUG_PRINT("ORA_SQL_EXEC_RESULT_CODE_FAILURE", ("%d", hstmt->result_code));
-		DBUG_RETURN(-1);
+		return(-1);
 	}
 
 	if(RETURN_SUCCESS != DBGetFieldCount(hstmt, &field))
 	{
-		DBUG_PRINT("DBGetFieldCount fail", ("%s", hstmt->error->errstr));
-		DBUG_RETURN(-1);
+		return(-1);
 	}
 	printf("field num=%d\n", field);
 
@@ -70,27 +58,23 @@ int main()
 		int size=0;
 		if(RETURN_SUCCESS != DBGetFieldNameIdx(hstmt, i, value))
 		{
-			DBUG_PRINT("DBGetFieldNameIdx fail", ("info:%s", hstmt->error->errstr));
-			DBUG_RETURN(-1);
+			return(-1);
 		}
 		if(RETURN_SUCCESS != DBGetFieldLengthIdx(hstmt, i, &size))
 		{
 			if(RETURN_SUCCESS == DBGetErrorMessage(hstmt, ORA_SQL_HANDLE_STMT, buffer, 512, &buffer_length))
 			{
-				DBUG_PRINT("DBGetFieldLengthIdx fail", ("info:%s", buffer));
 			}
-			DBUG_RETURN(-1);
+			return(-1);
 		}
-		DBUG_PRINT("DBGetFieldNameIdx ", ("%s-%d", value, size));
 	}
 
 	if(RETURN_SUCCESS != DBGetRowCount(hstmt, &row))
 	{
 		if(RETURN_SUCCESS == DBGetErrorMessage(hstmt, ORA_SQL_HANDLE_STMT, buffer, 512, &buffer_length))
 		{
-			DBUG_PRINT("DBGetRowCount fail", ("info:%s", buffer));
 		}
-		DBUG_RETURN(-1);
+		return(-1);
 	}
 	printf("row row=%d\n", row);
 
@@ -156,7 +140,6 @@ int main()
 	}
 
 	DBDisconnect(hdbc);
-	DBConnectFinalize(hdbc);
 
-	DBUG_RETURN(0);
+	return(0);
 }

@@ -1,0 +1,14 @@
+
+#!/bin/bash
+
+pidfile=$(grep "^pidfile*=" sqlbus.ini | awk -F= '{print $2}')
+
+if [ -f "$pidfile" ];then
+	pid=`cat $pidfile`
+else
+	pid=$(ps aux|grep [s]qlbus|awk '{print $2}')
+fi
+
+if [ -n "$pid" ]; then
+	kill -15 $pid
+fi
